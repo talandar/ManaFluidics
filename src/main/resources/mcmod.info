@@ -1,0 +1,16 @@
+[
+{
+  "modid": "manafluidics",
+  "name": "Mana Fluidics",
+  "description": "A magi-tech storage and logistics mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Derpatiel"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
