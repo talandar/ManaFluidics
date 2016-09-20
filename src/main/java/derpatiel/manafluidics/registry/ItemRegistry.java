@@ -2,11 +2,8 @@ package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.item.MFItem;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemRegistry {

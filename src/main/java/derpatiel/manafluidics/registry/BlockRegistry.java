@@ -1,13 +1,11 @@
 package derpatiel.manafluidics.registry;
 
-import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.MFBlock;
+import derpatiel.manafluidics.block.MFCustomDropsBlock;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockRegistry {
@@ -16,7 +14,7 @@ public class BlockRegistry {
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
-        crystalOre = register(new MFBlock("crystalOre",Material.ROCK,1.0f,1.0f).setCreativeTab(ItemRegistry.tabFluidics));
+        crystalOre = register(new MFCustomDropsBlock("crystalOre",Material.ROCK,1.0f,1.0f,ItemRegistry.manaCrystal,0,2,true).setCreativeTab(ItemRegistry.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {
