@@ -1,0 +1,42 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "manafluidics:blocks/floatTable_side",
+        "1": "manafluidics:blocks/floatTable_top",
+        "particle": "manafluidics:blocks/floatTable_side"
+    },
+    "elements": [
+        {
+            "name": "W_Wall",
+            "from": [ 0.0, 0.0, 0.0 ], 
+            "to": [ 2.0, 16.0, 16.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 2.0, 0.0, 0.0, 16.0 ] },
+                "east": { "texture": "#0", "uv": [ 16.0, 0.0, 0, 16.0 ] },
+                "west": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+                "up": { "texture": "#1", "uv": [ 0.0, 0.0, 2.0, 16.0 ] },
+                "down": { "texture": "#1", "uv": [ 0.0, 16.0, 2.0, 0.0 ] }
+            }
+        },
+        {
+            "name": "N_Wall",
+            "from": [ 2.0, 0.0, 0.0 ], 
+            "to": [ 16.0, 16.0, 2.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 16.0, 0.0, 2.0, 16.0 ] },
+                "south": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 16.0 ] },
+                "up": { "texture": "#1", "uv": [ 2.0, 0.0, 16.0, 2.0 ] },
+                "down": { "texture": "#1", "uv": [ 2.0, 2.0, 16.0, 0.0 ] }
+            }
+        },
+        {
+            "name": "Floor",
+            "from": [ 2.0, 0.0, 2.0 ], 
+            "to": [ 16.0, 2.0, 16.0 ], 
+            "faces": {
+                "up": { "texture": "#1", "uv": [ 2.0, 2.0, 16.0, 16.0 ] },
+                "down": { "texture": "#1", "uv": [ 2.0, 2.0, 16.0, 16.0 ] }
+            }
+        }
+    ]
+}

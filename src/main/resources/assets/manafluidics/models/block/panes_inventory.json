@@ -1,0 +1,20 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+    },
+    "elements": [
+        {
+            "name": "Inventory",
+            "from": [ 0.0, 0.0, 6.0 ], 
+            "to": [ 16.0, 16.0, 10.0 ], 
+            "faces": {
+                "north": { "texture": "#all", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+                "east": {  "texture": "#all", "uv": [ 6.0, 0.0, 10.0, 16.0 ] },
+                "south": { "texture": "#all", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+                "west": {  "texture": "#all", "uv": [ 6.0, 0.0, 10.0, 16.0 ] },
+                "up": {    "texture": "#all", "uv": [ 10.0, 6.0, 16.0, 10.0 ] },
+                "down": {  "texture": "#all", "uv": [ 10.0, 6.0, 16.0, 10.0 ] }
+            }
+		}
+   ]
+}

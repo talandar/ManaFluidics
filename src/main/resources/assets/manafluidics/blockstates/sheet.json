@@ -1,0 +1,70 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "all": "blocks/obsidian"
+        },
+        "model": "manafluidics:panes_none",
+        "uvlock": true
+    },
+    "variants": {
+        "north": {
+            "true": {
+            	"submodel": "manafluidics:panes_north"
+              //connect to north
+            },
+            "false": {
+                // change nothing. The entry has to be here to be generated for internal usage by minecraft
+            }
+        },
+        "south": {
+            "true": {
+            	"submodel": "manafluidics:panes_south"
+                //connect to south
+            },
+            "false": {
+                // change nothing. The entry has to be here to be generated for internal usage by minecraft
+            }
+        },
+        "east": {
+            "true": {
+            	"submodel": "manafluidics:panes_east"
+                //connect to east
+            },
+            "false": {
+                // change nothing. The entry has to be here to be generated for internal usage by minecraft
+            }
+        },
+        "west": {
+            "true": {
+            	"submodel": "manafluidics:panes_west"
+                //connect to west
+            },
+            "false": {
+                // change nothing. The entry has to be here to be generated for internal usage by minecraft
+            }
+        },
+        "type": {
+            "crystal": {
+            	"textures": {
+            		"all": "manafluidics:blocks/sheet_crystal"
+            	}
+            },
+            "obsidian": {
+                "textures": {
+            		"all": "blocks/obsidian" 
+            	}
+            },
+            "iron": {
+             	"textures": {
+            		"all": "blocks/iron_block"
+            	}
+            },
+            "gold": {
+            	"textures": {
+            		"all": "blocks/gold_block"
+            	}
+            }
+        }
+    }
+}

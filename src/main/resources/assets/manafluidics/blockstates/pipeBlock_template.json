@@ -1,0 +1,93 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"all": "manafluidics:blocks/pipe"
+		},
+		"model": "manafluidics:$$TYPE$$/main",
+		"uvlock": true
+	},
+	"variants": {
+		"south": {
+			"none": {
+				"submodel": "manafluidics:$TYPE$/connect_none",
+				"y": 180
+			},
+			"pipe": {
+				"submodel": "manafluidics:$TYPE$/connect_pipe",
+				"y": 180
+			},
+			"force_disconnected": {
+				"submmodel": "manafluidics:$TYPE$/connect_none",
+				"y": 180
+			}
+		},
+		"east": {
+			"none": {
+				"submodel": "manafluidics:$TYPE$/connect_none",
+				"y": 90
+			},
+			"pipe": {
+				"submodel": "manafluidics:$TYPE$/connect_pipe",
+				"y": 90
+			},
+			"force_disconnected": {
+				"submmodel": "manafluidics:$TYPE$/connect_none",
+				"y": 90
+			}
+		},
+		"west": {
+			"none": {
+				"submodel": "manafluidics:$TYPE$/connect_none",
+				"y": -90
+			},
+			"pipe": {
+				"submodel": "manafluidics:$TYPE$/connect_pipe",
+				"y": -90
+			},
+			"force_disconnected": {
+				"submmodel": "manafluidics:$TYPE$/connect_none",
+				"y": -90
+			}
+		},
+		"north": {
+			"none": {
+				"submodel": "manafluidics:$TYPE$/connect_none"
+			},
+			"pipe": {
+				"submodel": "manafluidics:$TYPE$/connect_pipe"
+			},
+			"force_disconnected": {
+				"submmodel": "manafluidics:$TYPE$/connect_none"
+			}
+		},
+		"up": {
+			"none": {
+				"submodel": "manafluidics:$TYPE$/connect_none",
+				"x": -90
+			},
+			"pipe": {
+				"submodel": "manafluidics:$TYPE$/connect_pipe",
+				"x": -90
+			},
+			"force_disconnected": {
+				"submmodel": "manafluidics:$TYPE$/connect_none",
+				"x": -90
+			}
+		},
+		"down": {
+			"none": {
+				"submodel": "manafluidics:$TYPE$/connect_none",
+				"x": 90
+			},
+			"pipe": {
+				"submodel": "manafluidics:$TYPE$/connect_pipe",
+				"x": 90
+			},
+			"force_disconnected": {
+				"submmodel": "manafluidics:$TYPE$/connect_none",
+				"x": 90
+			}
+		}
+	}
+}

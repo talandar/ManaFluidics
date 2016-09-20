@@ -1,0 +1,35 @@
+< en_US.lang - English localization file for Mana Fluidics >
+
+itemGroup.manafluidics=Mana Fluidics
+
+item.manaCrystal.name=Mana Infused Crystal
+item.bucket_crystals.name=Bucket of Mana Infused Crystals
+item.bucket_iron.name=Bucket of Iron Ingots
+item.bucket_gold.name=Bucket of Gold Ingots
+item.crystalHammer.name=Crystal Hammer
+
+item.wire.crystal.name=Crystalline Fiber
+item.wire.obsidian.name=Obsidian Wire
+item.wire.gold.name=Gold Wire
+item.wire.iron.name=Iron Wire
+
+
+fluid.reactiveMana=Reactive Mana
+fluid.moltenCrystal=Molten Crystal
+fluid.moltenIron=Molten Iron
+fluid.moltenGold=Molten Gold
+fluid.energizedMana=Energized Mana
+
+
+tile.crystalOre.name=Mana Infused Crystal Ore
+tile.sheet.crystal.name=Crystal Sheet
+tile.sheet.obsidian.name=Obsidian Sheet
+tile.sheet.iron.name=Iron Sheet
+tile.sheet.gold.name=Gold Sheet
+tile.tankBottom.name=Tank Base
+tile.portableTank.name=Portable Tank
+tile.drawNozzle.name=Drawing Nozzle
+tile.tank_basic_valve.name=Basic Tank Valve
+tile.fluid_tank_controller.name=Fluid Tank Controller
+tile.pipeBlock_BASIC.name=Basic Pipe
+tile.pipeBlock_LARGE.name=Large Pipe

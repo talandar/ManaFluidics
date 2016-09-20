@@ -1,0 +1,31 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "uvlock": false,
+		"model": "manafluidics:controller",
+		"textures": {
+			"0": "manafluidics:blocks/controller_fluid_front"
+		}
+    },
+    "variants": {
+        "direction": {
+            "unformed": {
+            	"model": "cube_all", 
+            	"textures": {
+            		"all": "manafluidics:blocks/controller_fluid_front"
+            	}
+            },
+            "north": {
+				"y": 180
+            },
+            "south": {
+            },
+			"east": {
+            	"y": -90
+			},
+            "west": { 
+            	"y": 90
+            }
+        }
+    }
+}

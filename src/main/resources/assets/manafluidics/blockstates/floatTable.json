@@ -1,0 +1,31 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "uvlock": false
+    },
+    "variants": {
+        "direction": {
+            "northeast": {
+            	"model": "manafluidics:floatTable", 
+            	"y": 90
+            },
+            "northwest": {
+            	"model": "manafluidics:floatTable"
+            },
+            "southeast": {
+            	"model": "manafluidics:floatTable", 
+            	"y": 180
+            },
+            "southwest": {
+            	"model": "manafluidics:floatTable", 
+            	"y": -90
+            }
+        },
+        "main":{
+        	"true": {
+        	},
+        	"false": {
+        	}
+        }
+    }
+}

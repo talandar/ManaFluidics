@@ -1,0 +1,22 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "top": "blocks/iron_block",
+            "side": "manafluidics:blocks/tank_export_false"
+        },
+        "model": "manafluidics:portableTank",
+        "uvlock": true
+    },
+    "variants": {
+        "export": {
+            "true": {
+            	"textures":{
+            		"side": "manafluidics:blocks/tank_export_true"
+            	}
+            },
+            "false": {
+            }
+        }
+    }
+}
