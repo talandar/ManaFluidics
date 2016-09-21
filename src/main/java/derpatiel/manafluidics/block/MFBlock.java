@@ -1,8 +1,7 @@
 package derpatiel.manafluidics.block;
 
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.item.MFItem;
-import derpatiel.manafluidics.registry.ItemRegistry;
+import derpatiel.manafluidics.registry.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,7 +16,7 @@ public class MFBlock extends Block{
         this.bareUnlocalizedName = unlocalizedName;
         this.setUnlocalizedName(unlocalizedName);
         this.setRegistryName(unlocalizedName);
-        this.setCreativeTab(ItemRegistry.tabFluidics);
+        this.setCreativeTab(ModItems.tabFluidics);
         this.setHardness(hardness);
         this.setResistance(resistance);
     }

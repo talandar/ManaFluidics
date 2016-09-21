@@ -6,14 +6,21 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemRegistry {
+public class ModItems {
 
     public static MFItem manaCrystal;
+    public static MFItem bucket_crystals;
+    public static MFItem bucket_iron;
+    public static MFItem bucket_gold;
+    public static MFItem crystal_hammer;
 
     public static void registerItems() {
 
         manaCrystal = register(new MFItem("manaCrystal").setCreativeTab(tabFluidics));
-
+        bucket_crystals = register(new MFItem("bucket_crystals").setCreativeTab(tabFluidics));
+        bucket_iron = register(new MFItem("bucket_iron").setCreativeTab(tabFluidics));
+        bucket_gold = register(new MFItem("bucket_gold").setCreativeTab(tabFluidics));
+        crystal_hammer = register(new MFItem("crystalHammer").setCreativeTab(tabFluidics));
     }
 
     private static MFItem register(MFItem item){

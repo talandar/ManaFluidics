@@ -8,13 +8,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockRegistry {
+public class ModBlocks {
 
     public static MFBlock crystalOre;
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
-        crystalOre = register(new MFCustomDropsBlock("crystalOre",Material.ROCK,1.0f,1.0f,ItemRegistry.manaCrystal,0,2,true).setCreativeTab(ItemRegistry.tabFluidics));
+        crystalOre = register(new MFCustomDropsBlock("crystalOre",Material.ROCK,1.0f,1.0f, ModItems.manaCrystal,0,2,true).setCreativeTab(ModItems.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

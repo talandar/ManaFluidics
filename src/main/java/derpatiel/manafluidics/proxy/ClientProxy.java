@@ -1,9 +1,6 @@
 package derpatiel.manafluidics.proxy;
 
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.item.MFItem;
-import derpatiel.manafluidics.registry.BlockRegistry;
-import derpatiel.manafluidics.registry.ItemRegistry;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

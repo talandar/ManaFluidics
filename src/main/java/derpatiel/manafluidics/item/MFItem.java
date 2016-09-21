@@ -1,7 +1,6 @@
 package derpatiel.manafluidics.item;
 
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.registry.ItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 

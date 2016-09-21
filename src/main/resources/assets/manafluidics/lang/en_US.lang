@@ -20,6 +20,12 @@ fluid.moltenIron=Molten Iron
 fluid.moltenGold=Molten Gold
 fluid.energizedMana=Energized Mana
 
+tile.reactiveMana.name=Reactive Mana
+tile.moltenCrystal.name=Molten Crystal
+tile.moltenIron.name=Molten Iron
+tile.moltenGold.name=Molten Gold
+tile.energizedMana.name=Energized Mana
+
 
 tile.crystalOre.name=Mana Infused Crystal Ore
 tile.sheet.crystal.name=Crystal Sheet
