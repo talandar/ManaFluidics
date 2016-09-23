@@ -18,6 +18,14 @@ public enum MaterialType implements IStringSerializable {
         this.name = name;
     }
 
+    public static String[] getNames() {
+        String[] names = new String[values().length];
+        for(MaterialType type : values()){
+            names[type.getID()]=type.getName();
+        }
+        return names;
+    }
+
     @Override
     public String getName() {
         return name;

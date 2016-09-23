@@ -1,6 +1,9 @@
 package derpatiel.manafluidics.block;
 
+import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.enums.MaterialType;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -10,6 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -30,7 +34,31 @@ public class SheetBlock extends MFBlock implements ITankPart, IMetaBlockName{
 
     public SheetBlock(String unlocalizedName, Material material, float hardness, float resistance) {
         super(unlocalizedName,material,hardness,resistance);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE,MaterialType.CRYSTAL));
+        this.setDefaultState(this.blockState.getBaseState()
+                .withProperty(TYPE,MaterialType.CRYSTAL)
+                .withProperty(NORTH,false)
+                .withProperty(SOUTH,false)
+                .withProperty(EAST,false)
+                .withProperty(WEST,false));
+    }
+
+    @Override
+    public void registerItemModel(ItemBlock itemBlock){
+        for(MaterialType type : MaterialType.values()) {
+            ManaFluidics.proxy.registerItemRenderer(itemBlock, type.getID(), bareUnlocalizedName+"_"+type.getName());
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
     }
 
     @Override
@@ -43,6 +71,7 @@ public class SheetBlock extends MFBlock implements ITankPart, IMetaBlockName{
         return BlockRenderLayer.TRANSLUCENT;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         MaterialType state=MaterialType.getById(meta);
@@ -72,6 +101,7 @@ public class SheetBlock extends MFBlock implements ITankPart, IMetaBlockName{
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos){
         boolean north = worldIn.getBlockState(pos.north()).getBlock() instanceof ITankPart;
@@ -84,7 +114,7 @@ public class SheetBlock extends MFBlock implements ITankPart, IMetaBlockName{
 
     @Override
     public String getSpecialName(ItemStack stack) {
-        return ((MaterialType)getStateFromMeta(stack.getMetadata()).getValue(TYPE)).getName();
+        return (getStateFromMeta(stack.getMetadata()).getValue(TYPE)).getName();
     }
 
     @Override
@@ -93,9 +123,16 @@ public class SheetBlock extends MFBlock implements ITankPart, IMetaBlockName{
     }
 
     public String getResourceLocation(int id){
-        MaterialType state=MaterialType.getById(id);
-        return super.getResourceLocation()+"_"+state.getName();
+        MaterialType type=MaterialType.getById(id);
+        return super.getResourceLocation()+"_"+type.getName();
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        BlockPos other = pos.offset(side);
+        Block otherBlock = blockAccess.getBlockState(other).getBlock();
+        return !(otherBlock instanceof ITankPart);
+    }
 
 }

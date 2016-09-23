@@ -9,7 +9,7 @@ import net.minecraft.item.ItemBlock;
 
 public class MFBlock extends Block{
 
-    private String bareUnlocalizedName;
+    protected String bareUnlocalizedName;
 
     public MFBlock(String unlocalizedName, Material material, float hardness, float resistance){
         super(material);
