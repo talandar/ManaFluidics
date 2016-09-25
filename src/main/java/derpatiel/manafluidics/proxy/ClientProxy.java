@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.proxy;
 
 import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.registry.ModTileEntities;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -21,8 +22,7 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event){
         super.init(event);
         LOG.info("init CLIENT");
-
-        //register tile special renderers
+        ModTileEntities.registerRenderers();
     }
 
     @Override
