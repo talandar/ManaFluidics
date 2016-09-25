@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class SheetBlock extends MFBlock implements ITankPart, IMetaBlockName{
+public class SheetBlock extends MFBlock implements ITankPart{
 
     public static final PropertyEnum<MaterialType> TYPE = PropertyEnum.create("type", MaterialType.class);
     public static final PropertyBool NORTH = PropertyBool.create("north");
@@ -110,11 +110,6 @@ public class SheetBlock extends MFBlock implements ITankPart, IMetaBlockName{
         boolean west = worldIn.getBlockState(pos.west()).getBlock() instanceof ITankPart;
 
         return state.withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(EAST, east).withProperty(WEST, west);
-    }
-
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return (getStateFromMeta(stack.getMetadata()).getValue(TYPE)).getName();
     }
 
     @Override

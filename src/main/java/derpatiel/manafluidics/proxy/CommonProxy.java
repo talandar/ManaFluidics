@@ -1,9 +1,6 @@
 package derpatiel.manafluidics.proxy;
 
-import derpatiel.manafluidics.registry.ModBlocks;
-import derpatiel.manafluidics.registry.ModCrafting;
-import derpatiel.manafluidics.registry.ModItems;
-import derpatiel.manafluidics.registry.ModFluids;
+import derpatiel.manafluidics.registry.*;
 import jline.internal.Log;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -17,7 +14,7 @@ public class CommonProxy {
         ModBlocks.registerBlocks();
         ModFluids.registerFluids();
         ModFluids.registerBuckets();
-        //Register Tile Entitys
+        ModTileEntities.registerTileEntities();
     }
 
     public void init(FMLInitializationEvent event) {
