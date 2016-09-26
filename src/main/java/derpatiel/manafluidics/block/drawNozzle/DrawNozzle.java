@@ -1,6 +1,8 @@
 package derpatiel.manafluidics.block.drawNozzle;
 
+import derpatiel.manafluidics.block.IDismantleable;
 import derpatiel.manafluidics.block.MFTileBlock;
+import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.registry.ModItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -23,7 +25,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
 
-public class DrawNozzle extends MFTileBlock<DrawNozzleTileEntity> {
+public class DrawNozzle extends MFTileBlock<DrawNozzleTileEntity> implements IDismantleable {
 
     public DrawNozzle(String unlocalizedName, Material material, float hardness, float resistance) {
         super(unlocalizedName,material,hardness,resistance);
@@ -69,5 +71,10 @@ public class DrawNozzle extends MFTileBlock<DrawNozzleTileEntity> {
         }
 
         return false;
+    }
+
+    @Override
+    public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state) {
+        return new ItemStack(ModBlocks.drawNozzle);
     }
 }

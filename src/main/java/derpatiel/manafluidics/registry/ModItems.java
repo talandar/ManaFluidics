@@ -2,6 +2,7 @@ package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.enums.MaterialType;
+import derpatiel.manafluidics.item.MFHammer;
 import derpatiel.manafluidics.item.MFItem;
 import derpatiel.manafluidics.item.MFMaterialItem;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -24,7 +25,7 @@ public class ModItems {
         bucket_crystals = register(new MFItem("bucket_crystals").setCreativeTab(tabFluidics));
         bucket_iron = register(new MFItem("bucket_iron").setCreativeTab(tabFluidics));
         bucket_gold = register(new MFItem("bucket_gold").setCreativeTab(tabFluidics));
-        crystal_hammer = register(new MFItem("crystalHammer").setCreativeTab(tabFluidics));
+        crystal_hammer = register(new MFHammer("crystalHammer").setCreativeTab(tabFluidics));
         material_wire = register(new MFMaterialItem("wire").setCreativeTab(tabFluidics));
 
         //no longer needed?

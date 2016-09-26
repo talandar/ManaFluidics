@@ -36,18 +36,25 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
         fluidTank = new FluidTank(TANK_SIZE);
     }
 
-    public void readFromNBT(NBTTagCompound compound)
-    {
+    public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        fluidTank.readFromNBT(compound);
+        readPortableData(compound);
         exporting = compound.getBoolean("exporting");
     }
+    public NBTTagCompound readPortableData(NBTTagCompound compound){
+        fluidTank.readFromNBT(compound);
+        return compound;
+    }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
-    {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        fluidTank.writeToNBT(compound);
+        writePortableData(compound);
         compound.setBoolean("exporting",exporting);
+        return compound;
+    }
+
+    public NBTTagCompound writePortableData(NBTTagCompound compound){
+        fluidTank.writeToNBT(compound);
         return compound;
     }
 

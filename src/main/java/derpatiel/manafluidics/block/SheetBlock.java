@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class SheetBlock extends MFBlock implements ITankPart{
+public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
 
     public static final PropertyEnum<MaterialType> TYPE = PropertyEnum.create("type", MaterialType.class);
     public static final PropertyBool NORTH = PropertyBool.create("north");
@@ -130,4 +130,8 @@ public class SheetBlock extends MFBlock implements ITankPart{
         return !(otherBlock instanceof ITankPart);
     }
 
+    @Override
+    public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state) {
+        return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(world.getBlockState(pos)));
+    }
 }

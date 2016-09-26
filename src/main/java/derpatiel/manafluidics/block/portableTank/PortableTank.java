@@ -1,16 +1,20 @@
 package derpatiel.manafluidics.block.portableTank;
 
+import derpatiel.manafluidics.block.IDismantleable;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
 import derpatiel.manafluidics.enums.MaterialType;
+import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.registry.ModItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -24,7 +28,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
 
-public class PortableTank extends MFTileBlock<PortableTankTileEntity> {
+public class PortableTank extends MFTileBlock<PortableTankTileEntity> implements IDismantleable{
 
     public static final PropertyBool EXPORT = PropertyBool.create("export");
 
@@ -117,5 +121,30 @@ public class PortableTank extends MFTileBlock<PortableTankTileEntity> {
         }
 
         return false;
+    }
+
+    @Override
+    public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state) {
+        ItemStack stack = new ItemStack(ModBlocks.portableTank,1,0);
+        NBTTagCompound tags = new NBTTagCompound();
+        PortableTankTileEntity te = (PortableTankTileEntity) world.getTileEntity(pos);
+        if(te.fluidTank.getFluidAmount()>0){
+            te.writePortableData(tags);
+            stack.setTagCompound(tags);
+        }
+
+        return stack;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+                                ItemStack stack) {
+
+        PortableTankTileEntity te = (PortableTankTileEntity)worldIn.getTileEntity(pos);
+        NBTTagCompound compound = stack.getTagCompound();
+        if(compound!=null){
+            te.readPortableData(compound);
+        }
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 }
