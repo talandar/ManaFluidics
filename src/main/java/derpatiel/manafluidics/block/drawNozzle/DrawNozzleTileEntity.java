@@ -41,7 +41,7 @@ public class DrawNozzleTileEntity extends TileEntity implements ITickable{
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        extrudedQuantity = compound.getInteger("extruded");
+        //extrudedQuantity = compound.getInteger("extruded");
         fluidTank.readFromNBT(compound);
     }
 
@@ -49,7 +49,7 @@ public class DrawNozzleTileEntity extends TileEntity implements ITickable{
     {
         super.writeToNBT(compound);
         fluidTank.writeToNBT(compound);
-        compound.setInteger("extruded",extrudedQuantity);
+        //compound.setInteger("extruded",extrudedQuantity);
         return compound;
     }
 

@@ -3,6 +3,7 @@ package derpatiel.manafluidics.registry;
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleRenderer;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
+import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.block.portableTank.PortableTankRenderer;
 import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -16,6 +17,7 @@ public class ModTileEntities {
     public static void registerTileEntities() {
         registerTileEntity(DrawNozzleTileEntity.class);
         registerTileEntity(PortableTankTileEntity.class);
+        registerTileEntity(FloatTableTileEntity.class);
     }
 
     public static void registerRenderers()
