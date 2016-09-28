@@ -6,6 +6,7 @@ import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
@@ -32,7 +33,6 @@ public class EventHandler {
                     IBlockState otherBlockState = event.getWorld().getBlockState(other);
                     if(otherBlockState.getBlock()== ModBlocks.floatTable){
                         event.getWorld().setBlockState(other, Blocks.CAULDRON.getDefaultState());
-                        //TODO: event.getWorld().markBlockForUpdate(other);
                     }
                 }
             }

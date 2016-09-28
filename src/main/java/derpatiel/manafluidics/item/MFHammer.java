@@ -56,10 +56,9 @@ public class MFHammer extends MFItem {
             //normally this handler fires only on the server, but in this case, we can call it
             //on the client to make sure things sync correctly
 
-            if(!worldIn.isRemote){
-                BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(worldIn, pos, worldIn.getBlockState(pos), playerIn);
-                EventHandler.eventHandler.onBlockBreak(event);
-            }
+            BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(worldIn, pos, worldIn.getBlockState(pos), playerIn);
+            EventHandler.eventHandler.onBlockBreak(event);
+
             worldIn.destroyBlock(pos, false);
         }
 
@@ -97,8 +96,6 @@ public class MFHammer extends MFItem {
                 for (BlockPos c : cauldrons) {
                     ((FloatTableTileEntity) worldIn.getTileEntity(c)).setOthers(cauldrons);
                     ((FloatTableTileEntity) worldIn.getTileEntity(c)).setMainBlock(pos);
-                    //worldIn.markBlockForUpdate(c);
-
                 }
             }
         }

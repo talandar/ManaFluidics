@@ -3,6 +3,8 @@ package derpatiel.manafluidics.block.floatTable;
 import derpatiel.manafluidics.block.IDismantleable;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.enums.TableFormationState;
+import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
@@ -11,13 +13,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidUtil;
+
+import javax.annotation.Nullable;
 
 public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDismantleable {
 
@@ -78,5 +86,32 @@ public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDi
     @Override
     public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state) {
         return new ItemStack(Items.CAULDRON);
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+
+        LOG.info("right click event");
+        FloatTableTileEntity tile = (FloatTableTileEntity)world.getTileEntity(pos);
+        tile = tile.getParent();
+        ItemStack sheets = tile.itemHandler.getStackInSlot(0);
+        if(sheets!=null){
+            entityplayer.inventory.addItemStackToInventory(sheets);
+            if(sheets.stackSize==0){
+                tile.itemHandler.sheets=null;
+            }
+        }
+
+
+        if (super.onBlockActivated(world, pos, state, entityplayer, hand, heldItem, side, hitX, hitY, hitZ)){
+            return true;
+        }
+
+        if (heldItem != null) {
+            return FluidUtil.interactWithFluidHandler(heldItem,tile.fluidHandler,entityplayer);
+        }
+
+
+        return false;
     }
 }
