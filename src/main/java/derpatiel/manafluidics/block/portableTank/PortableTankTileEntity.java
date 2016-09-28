@@ -28,7 +28,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
     public static final int TANK_SIZE=8 * Fluid.BUCKET_VOLUME;
     public static final int MAX_DRAIN_PER_TICK = 100;//mb/tick
 
-    FluidTank fluidTank;
+    final FluidTank fluidTank;
     public boolean exporting=false;
 
     public PortableTankTileEntity(){
@@ -41,6 +41,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
         readPortableData(compound);
         exporting = compound.getBoolean("exporting");
     }
+
     public NBTTagCompound readPortableData(NBTTagCompound compound){
         fluidTank.readFromNBT(compound);
         return compound;
@@ -105,15 +106,17 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
             if(below!=null && below.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,EnumFacing.UP)){
                 IFluidHandler belowTank = below.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,EnumFacing.UP);
                 int drained = belowTank.fill(fluidTank.getFluid(),false);
-                if(drained>MAX_DRAIN_PER_TICK){
-                    FluidStack fluidStack = new FluidStack(fluidTank.getFluid().getFluid(),MAX_DRAIN_PER_TICK);
-                    drained = belowTank.fill(fluidStack,true);
-                    fluidTank.drain(drained,true);
-                }else{
-                    drained = belowTank.fill(fluidTank.getFluid(),true);
-                    fluidTank.drain(drained,true);
+                if(drained>0) {
+                    if (drained > MAX_DRAIN_PER_TICK) {
+                        FluidStack fluidStack = new FluidStack(fluidTank.getFluid().getFluid(), MAX_DRAIN_PER_TICK);
+                        drained = belowTank.fill(fluidStack, false);
+                        fluidTank.drain(drained, true);
+                    } else {
+                        drained = belowTank.fill(fluidTank.getFluid(), true);
+                        fluidTank.drain(drained, true);
+                    }
+                    markDirty();
                 }
-                markDirty();
             }
         }
     }

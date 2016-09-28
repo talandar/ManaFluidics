@@ -35,7 +35,7 @@ public class ModBlocks {
         tankBottom = register(new MFDismantleableBlock("tankBottom",Material.ROCK,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         drawNozzle = register(new DrawNozzle("drawNozzle",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         portableTank = register((PortableTank)new PortableTank("portableTank",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
-        floatTable = register(new FloatTable("floatTable",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        floatTable = register(new FloatTable("floatTable",Material.IRON,1.0f,1.0f));//not in tab, not obtainable by itself
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

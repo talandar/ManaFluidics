@@ -23,9 +23,9 @@ import org.lwjgl.opengl.GL11;
 public final class RenderUtil {
     private RenderUtil() {}
 
-    public static float FLUID_OFFSET = 2.0f/16.0f;
+    public static final float FLUID_OFFSET = 2.0f/16.0f;
 
-    protected static Minecraft mc = Minecraft.getMinecraft();
+    protected static final Minecraft mc = Minecraft.getMinecraft();
 
     /** Renders the given texture tiled into a GUI */
     public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
@@ -235,7 +235,7 @@ public final class RenderUtil {
     }
 
     // x and x+w has to be within [0,1], same for y/h and z/d
-    public static void putTexturedQuad(VertexBuffer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+    public static void putTexturedQuad(VertexBuffer renderer, TextureAtlasSprite sprite, double x1, double y1, double z1, double w, double h, double d, EnumFacing face,
                                        int r, int g, int b, int a, int light1, int light2, boolean flowing) {
         // safety
         if(sprite == null) {
@@ -249,12 +249,9 @@ public final class RenderUtil {
         double size = 16f;
         if(flowing) size = 8f;
 
-        double x1 = x;
-        double x2 = x + w;
-        double y1 = y;
-        double y2 = y + h;
-        double z1 = z;
-        double z2 = z + d;
+        double x2 = x1 + w;
+        double y2 = y1 + h;
+        double z2 = z1 + d;
 
         double xt1 = x1%1d;
         double xt2 = xt1 + w;

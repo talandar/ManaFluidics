@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 
 public class MFBlockFluid extends BlockFluidClassic {
 
-    private String bareUnlocalizedName;
+    private final String bareUnlocalizedName;
 
     public MFBlockFluid(Fluid fluid, Material material, String name, int quantaPerBlock) {
         super(fluid, material);

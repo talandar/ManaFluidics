@@ -10,10 +10,10 @@ public enum MaterialType implements IStringSerializable {
     IRON(2,"iron"),
     GOLD(3,"gold");
 
-    private int ID;
-    private String name;
+    private final int ID;
+    private final String name;
 
-    private MaterialType(int ID, String name) {
+    MaterialType(int ID, String name) {
         this.ID = ID;
         this.name = name;
     }

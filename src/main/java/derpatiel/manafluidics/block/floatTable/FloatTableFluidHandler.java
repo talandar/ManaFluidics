@@ -33,7 +33,7 @@ public class FloatTableFluidHandler implements IFluidHandler, INBTSerializable<N
 
     @Override
     public NBTTagCompound serializeNBT() {
-        return null;
+        return new NBTTagCompound();
     }
 
     @Override

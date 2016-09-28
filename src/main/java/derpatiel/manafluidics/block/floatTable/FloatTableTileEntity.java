@@ -9,17 +9,20 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FloatTableTileEntity extends TileEntity {
+public class FloatTableTileEntity extends TileEntity implements ITickable {
 
-    FloatTableFluidHandler fluidHandler;
+    final FloatTableFluidHandler fluidHandler;
+    final FloatTableItemHandler itemHandler;
 
     TableFormationState facing;
 
@@ -37,7 +40,8 @@ public class FloatTableTileEntity extends TileEntity {
 
     public FloatTableTileEntity(){
         fluidHandler = new FloatTableFluidHandler();
-        facing = TableFormationState.UNFORMED;
+        itemHandler = new FloatTableItemHandler();
+        facing = TableFormationState.NORTH_WEST;
     }
 
     @Override
@@ -74,9 +78,11 @@ public class FloatTableTileEntity extends TileEntity {
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing)
     {
-        //extra logic here, not all tanks are available everywhere...
-        //also items are extract only
-        //TODO
+        if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return (T)fluidHandler;
+        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+            return (T)itemHandler;
+        }
         return super.getCapability(capability, facing);
     }
 
@@ -99,14 +105,14 @@ public class FloatTableTileEntity extends TileEntity {
     public void setOthers(List<BlockPos> others){
         BlockPos myPos = this.getPos();
         if(others.contains(myPos.north())){
-            if(others.contains(myPos.east())){//have north and east, so SW
-                facing = TableFormationState.SW;
+            if(others.contains(myPos.east())){//have north and east, so SOUTH_WEST
+                facing = TableFormationState.SOUTH_WEST;
                 SW=myPos;
                 NW=myPos.north();
                 SE=myPos.east();
                 NE=myPos.east().north();
             }else{//must have west (and north), so SE
-                facing = TableFormationState.SE;
+                facing = TableFormationState.SOUTH_EAST;
                 SE=myPos;
                 SW=myPos.west();
                 NE=myPos.north();
@@ -114,19 +120,26 @@ public class FloatTableTileEntity extends TileEntity {
             }
         }else{//must have south
             if(others.contains(myPos.east())){//have south and east, so NW
-                facing = TableFormationState.NW;
+                facing = TableFormationState.NORTH_WEST;
                 NW=myPos;
                 SW=myPos.south();
                 NE=myPos.east();
                 SE=myPos.east().south();
             }else{//must have west (and south), so NE
-                facing = TableFormationState.NE;
+                facing = TableFormationState.NORTH_EAST;
                 NE=myPos;
                 NW=myPos.west();
                 SE=myPos.south();
                 SW=myPos.west().south();
             }
         }
+    }
+
+    public TableFormationState getDirectionForThisBlock() {
+        if(facing!=null){
+            return facing;
+        }
+        return TableFormationState.NORTH_EAST;
     }
 
     @Override
@@ -159,6 +172,35 @@ public class FloatTableTileEntity extends TileEntity {
         this.parent=NBTHelper.IntArrayToBlockPos(compound.getIntArray("parent"));
         this.fluidHandler.deserializeNBT(compound.getCompoundTag("tank"));
         this.sheets=ItemStack.loadItemStackFromNBT(compound.getCompoundTag("sheets"));
+    }
+
+    @Override
+    public void update() {
+
+        if(main){
+            /*
+            if(manaTank.getCapacity()==manaTank.getFluidAmount() && reactantTank.getCapacity()==reactantTank.getFluidAmount()){
+                timeSpentHardening++;
+                if(timeSpentHardening>=HARDENING_TIME){
+                    timeSpentHardening=0;
+                    EnumMaterialType sheetType = MetaItemHelper.fluidProductMap.get(reactantTank.getFluid().getFluid());
+                    reactantTank.drain(reactantTank.getCapacity(), true);//empty tank
+
+                    sheets = new ItemStack(ModBlocks.sheet, 4, sheetType.getID());
+                }
+            }
+            */
+        }
+    }
+
+    public List<BlockPos> getOthers() {
+        List<BlockPos> others = new ArrayList<BlockPos>();
+        others.add(NE);
+        others.add(NW);
+        others.add(SE);
+        others.add(SW);
+        others.remove(this.getPos());
+        return others;
     }
 
 

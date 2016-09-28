@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public interface IDismantleable {
 
-    public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state);
+    ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state);
 
 
 }

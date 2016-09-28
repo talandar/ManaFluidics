@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 
 public class MFItem extends Item {
 
-    public String bareUnlocalizedName;
+    public final String bareUnlocalizedName;
 
     public MFItem(String name) {
         this.bareUnlocalizedName = name;

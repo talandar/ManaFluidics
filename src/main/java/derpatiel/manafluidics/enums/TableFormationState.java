@@ -3,16 +3,15 @@ package derpatiel.manafluidics.enums;
 import net.minecraft.util.IStringSerializable;
 
 public enum TableFormationState implements IStringSerializable {
-    UNFORMED(0,"unformed"),
-    NW(1,"NW"),
-    SW(2,"SW"),
-    NE(3,"NE"),
-    SE(4,"SE");
+    NORTH_WEST(0,"northwest"),
+    SOUTH_WEST(1,"southwest"),
+    NORTH_EAST(2,"northeast"),
+    SOUTH_EAST(3,"southeast");
 
-    private int ID;
-    private String name;
+    private final int ID;
+    private final String name;
 
-    private TableFormationState(int id, String name){
+    TableFormationState(int id, String name){
         this.ID = id;
         this.name = name;
     }
@@ -36,6 +35,6 @@ public enum TableFormationState implements IStringSerializable {
             if(s.ID==metadata)
                 return s;
         }
-        return null;
+        return TableFormationState.NORTH_WEST;
     }
 }

@@ -28,7 +28,7 @@ public class DrawNozzleTileEntity extends TileEntity implements ITickable{
     public static final int EXTRUSION_SIZE = Fluid.BUCKET_VOLUME / 4;
     public static final int EXTRUDE_PER_TICK = 10;
 
-    FluidTank fluidTank;
+    final FluidTank fluidTank;
 
     public int extrudedQuantity;
     private String lastFluidName;

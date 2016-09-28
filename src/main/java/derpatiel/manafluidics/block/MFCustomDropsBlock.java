@@ -12,10 +12,10 @@ import java.util.Random;
 
 public class MFCustomDropsBlock extends MFBlock {
 
-    private Item itemDropped;
-    private int itemDroppedMeta;
-    private int numItemsDropped;
-    private boolean doFortune;
+    private final Item itemDropped;
+    private final int itemDroppedMeta;
+    private final int numItemsDropped;
+    private final boolean doFortune;
 
     public MFCustomDropsBlock(String unlocalizedName, Material material, float hardness, float resistance, Item itemDropped, int meta, int numItemsDropped, boolean doesFortune) {
         super(unlocalizedName, material, hardness, resistance);
@@ -30,7 +30,7 @@ public class MFCustomDropsBlock extends MFBlock {
      */
     public int quantityDroppedWithBonus(int fortune, Random random)
     {
-        return this.quantityDropped(random) + random.nextInt(fortune + 1);
+        return this.quantityDropped(random) + (doFortune ? random.nextInt(fortune + 1) : 0);
     }
 
     /**

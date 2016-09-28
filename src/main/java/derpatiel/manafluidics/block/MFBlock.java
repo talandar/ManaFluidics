@@ -9,14 +9,13 @@ import net.minecraft.item.ItemBlock;
 
 public class MFBlock extends Block{
 
-    protected String bareUnlocalizedName;
+    protected final String bareUnlocalizedName;
 
     public MFBlock(String unlocalizedName, Material material, float hardness, float resistance){
         super(material);
         this.bareUnlocalizedName = unlocalizedName;
         this.setUnlocalizedName(unlocalizedName);
         this.setRegistryName(unlocalizedName);
-        this.setCreativeTab(ModItems.tabFluidics);
         this.setHardness(hardness);
         this.setResistance(resistance);
     }
