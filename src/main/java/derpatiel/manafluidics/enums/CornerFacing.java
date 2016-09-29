@@ -2,7 +2,7 @@ package derpatiel.manafluidics.enums;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum TableFormationState implements IStringSerializable {
+public enum CornerFacing implements IStringSerializable {
     NORTH_WEST(0,"northwest"),
     SOUTH_WEST(1,"southwest"),
     NORTH_EAST(2,"northeast"),
@@ -11,7 +11,7 @@ public enum TableFormationState implements IStringSerializable {
     private final int ID;
     private final String name;
 
-    TableFormationState(int id, String name){
+    CornerFacing(int id, String name){
         this.ID = id;
         this.name = name;
     }
@@ -30,11 +30,11 @@ public enum TableFormationState implements IStringSerializable {
         return getName();
     }
 
-    public static TableFormationState getById(int metadata) {
-        for(TableFormationState s : values()){
+    public static CornerFacing getById(int metadata) {
+        for(CornerFacing s : values()){
             if(s.ID==metadata)
                 return s;
         }
-        return TableFormationState.NORTH_WEST;
+        return CornerFacing.NORTH_WEST;
     }
 }

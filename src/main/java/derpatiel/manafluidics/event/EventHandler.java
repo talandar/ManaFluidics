@@ -2,6 +2,7 @@ package derpatiel.manafluidics.event;
 
 import derpatiel.manafluidics.block.ITankPart;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
+import derpatiel.manafluidics.multiblock.MultiblockHandler;
 import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.Block;
@@ -10,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class EventHandler {
         Block broken = event.getState().getBlock();
         if(broken instanceof ITankPart){// || broken instanceof PipeBlock){//this might break a tank
             LOG.info("broke a tank part");
-            //MultiblockHandler.blockDestroyed(event.world, event.pos);
+            MultiblockHandler.blockDestroyed(event.getWorld(), event.getPos());
         }else if(broken==ModBlocks.floatTable){//this definitely breaks a float table
             FloatTableTileEntity tile = (FloatTableTileEntity) event.getWorld().getTileEntity(event.getPos());
             if(tile!=null){
@@ -36,6 +38,13 @@ public class EventHandler {
                     }
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onWorldLoad(WorldEvent.Load loadEvent){
+        if(!loadEvent.getWorld().isRemote){//run on server only
+            MultiblockHandler.initWorld(loadEvent.getWorld());
         }
     }
 }

@@ -2,8 +2,7 @@ package derpatiel.manafluidics.block.floatTable;
 
 import derpatiel.manafluidics.block.IDismantleable;
 import derpatiel.manafluidics.block.MFTileBlock;
-import derpatiel.manafluidics.enums.TableFormationState;
-import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.enums.CornerFacing;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -11,9 +10,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -30,7 +27,7 @@ import javax.annotation.Nullable;
 
 public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDismantleable {
 
-    public static final PropertyEnum<TableFormationState> DIRECTION = PropertyEnum.create("direction", TableFormationState.class);
+    public static final PropertyEnum<CornerFacing> DIRECTION = PropertyEnum.create("direction", CornerFacing.class);
     public static final PropertyBool MAIN = PropertyBool.create("main");
 
     public FloatTable(String unlocalizedName, Material material, float hardness, float resistance) {
@@ -62,7 +59,7 @@ public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDi
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos){
         FloatTableTileEntity tile = ((FloatTableTileEntity)worldIn.getTileEntity(pos));
-        TableFormationState facing=TableFormationState.NORTH_EAST;
+        CornerFacing facing= CornerFacing.NORTH_EAST;
         if(tile!=null){
             facing = ((FloatTableTileEntity)worldIn.getTileEntity(pos)).getDirectionForThisBlock();
         }

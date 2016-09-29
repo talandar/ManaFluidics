@@ -1,8 +1,7 @@
 package derpatiel.manafluidics.block.floatTable;
 
 import derpatiel.manafluidics.enums.MaterialType;
-import derpatiel.manafluidics.enums.TableFormationState;
-import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.enums.CornerFacing;
 import derpatiel.manafluidics.util.FluidRenderBounds;
 import derpatiel.manafluidics.util.MetaItemHelper;
 import derpatiel.manafluidics.util.NBTHelper;
@@ -36,7 +35,7 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
     final FluidTank manaTank;
     protected final FluidTank reactantTank;
 
-    TableFormationState facing;
+    CornerFacing facing;
 
     private boolean main;
     BlockPos parent;
@@ -52,7 +51,7 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         fluidHandler = new FloatTableFluidHandler(this);
         beneathFluidHandler = new FloatTableBelowFluidHandler(this);
         itemHandler = new FloatTableItemHandler(this);
-        facing = TableFormationState.NORTH_WEST;
+        facing = CornerFacing.NORTH_WEST;
         reactantTank = new FluidTank(Fluid.BUCKET_VOLUME);
         manaTank = new FluidTank(Fluid.BUCKET_VOLUME * 3);
     }
@@ -115,13 +114,13 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         bounds.d=1.0f-wallWidth;
         bounds.h=0.001f;
 
-        if(this.facing==TableFormationState.NORTH_WEST){
+        if(this.facing== CornerFacing.NORTH_WEST){
             bounds.x=wallWidth;
             bounds.z=wallWidth;
-        }else if(this.facing==TableFormationState.NORTH_EAST){
+        }else if(this.facing== CornerFacing.NORTH_EAST){
             bounds.x=0f;//wallWidth;
             bounds.z=wallWidth;//0f;
-        }else if(this.facing==TableFormationState.SOUTH_WEST){
+        }else if(this.facing== CornerFacing.SOUTH_WEST){
             bounds.x=wallWidth;//0f;
             bounds.z=0f;//wallWidth;
         }else{//SOUTHEAST
@@ -164,13 +163,13 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         BlockPos myPos = this.getPos();
         if(others.contains(myPos.north())){
             if(others.contains(myPos.east())){//have north and east, so SOUTH_WEST
-                facing = TableFormationState.SOUTH_WEST;
+                facing = CornerFacing.SOUTH_WEST;
                 SW=myPos;
                 NW=myPos.north();
                 SE=myPos.east();
                 NE=myPos.east().north();
             }else{//must have west (and north), so SE
-                facing = TableFormationState.SOUTH_EAST;
+                facing = CornerFacing.SOUTH_EAST;
                 SE=myPos;
                 SW=myPos.west();
                 NE=myPos.north();
@@ -178,13 +177,13 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
             }
         }else{//must have south
             if(others.contains(myPos.east())){//have south and east, so NW
-                facing = TableFormationState.NORTH_WEST;
+                facing = CornerFacing.NORTH_WEST;
                 NW=myPos;
                 SW=myPos.south();
                 NE=myPos.east();
                 SE=myPos.east().south();
             }else{//must have west (and south), so NE
-                facing = TableFormationState.NORTH_EAST;
+                facing = CornerFacing.NORTH_EAST;
                 NE=myPos;
                 NW=myPos.west();
                 SE=myPos.south();
@@ -193,11 +192,11 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         }
     }
 
-    public TableFormationState getDirectionForThisBlock() {
+    public CornerFacing getDirectionForThisBlock() {
         if(facing!=null){
             return facing;
         }
-        return TableFormationState.NORTH_EAST;
+        return CornerFacing.NORTH_EAST;
     }
 
     @Override
@@ -223,7 +222,7 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         this.main=compound.getBoolean("main");
-        this.facing=TableFormationState.getById(compound.getInteger("facing"));
+        this.facing= CornerFacing.getById(compound.getInteger("facing"));
         this.NE=NBTHelper.IntArrayToBlockPos(compound.getIntArray("NEPos"));
         this.NW= NBTHelper.IntArrayToBlockPos(compound.getIntArray("NWPos"));
         this.SE=NBTHelper.IntArrayToBlockPos(compound.getIntArray("SEPos"));
