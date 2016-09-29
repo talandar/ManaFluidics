@@ -1,6 +1,10 @@
 package derpatiel.manafluidics.block.floatTable;
 
+import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.enums.TableFormationState;
+import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.util.FluidRenderBounds;
+import derpatiel.manafluidics.util.MetaItemHelper;
 import derpatiel.manafluidics.util.NBTHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -13,6 +17,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
@@ -21,8 +27,14 @@ import java.util.List;
 
 public class FloatTableTileEntity extends TileEntity implements ITickable {
 
+    private static final int HARDENING_TIME = 5*20;//5 seconds
+
     final FloatTableFluidHandler fluidHandler;
+    final FloatTableBelowFluidHandler beneathFluidHandler;
     final FloatTableItemHandler itemHandler;
+
+    final FluidTank manaTank;
+    protected final FluidTank reactantTank;
 
     TableFormationState facing;
 
@@ -36,12 +48,13 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
 
     int timeSpentHardening=0;
 
-    ItemStack sheets;
-
     public FloatTableTileEntity(){
-        fluidHandler = new FloatTableFluidHandler();
-        itemHandler = new FloatTableItemHandler();
+        fluidHandler = new FloatTableFluidHandler(this);
+        beneathFluidHandler = new FloatTableBelowFluidHandler(this);
+        itemHandler = new FloatTableItemHandler(this);
         facing = TableFormationState.NORTH_WEST;
+        reactantTank = new FluidTank(Fluid.BUCKET_VOLUME);
+        manaTank = new FluidTank(Fluid.BUCKET_VOLUME * 3);
     }
 
     @Override
@@ -78,12 +91,57 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing)
     {
-        if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return (T)fluidHandler;
-        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+        if(!main){
+            return worldObj.getTileEntity(parent).getCapability(capability,facing);
+        }
+        if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            if(facing == EnumFacing.DOWN){
+                return (T) beneathFluidHandler;
+            }else {
+                return (T) fluidHandler;
+            }
+        }else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
             return (T)itemHandler;
         }
         return super.getCapability(capability, facing);
+    }
+
+    public FluidRenderBounds getFluidRenderBounds(boolean mana) {
+        FluidRenderBounds bounds=new FluidRenderBounds();
+
+        float wallWidth = 2.0f/16.0f;
+
+        bounds.w=1.0f-wallWidth;
+        bounds.d=1.0f-wallWidth;
+        bounds.h=0.001f;
+
+        if(this.facing==TableFormationState.NORTH_WEST){
+            bounds.x=wallWidth;
+            bounds.z=wallWidth;
+        }else if(this.facing==TableFormationState.NORTH_EAST){
+            bounds.x=0f;//wallWidth;
+            bounds.z=wallWidth;//0f;
+        }else if(this.facing==TableFormationState.SOUTH_WEST){
+            bounds.x=wallWidth;//0f;
+            bounds.z=0f;//wallWidth;
+        }else{//SOUTHEAST
+            bounds.x=0f;
+            bounds.z=0f;
+        }
+
+        if(!mana && getParent().hasReactant()){
+            float reactantFraction = ((float)getParent().reactantTank.getFluidAmount())/((float)getParent().reactantTank.getCapacity());
+            bounds.y = (12.0f/16.0f)+(reactantFraction*(4.0f/16.0f));
+        }
+        if(mana && getParent().hasMana()){
+            //render mana
+            //LOG.info("mana present");
+            float manaFraction = ((float)getParent().manaTank.getFluidAmount())/((float)getParent().manaTank.getCapacity());
+            bounds.y = (2.0f/16.0f)+(manaFraction*(10.0f/16.0f));
+        }
+
+        return bounds;
+
     }
 
 
@@ -152,9 +210,10 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         compound.setIntArray("SEPos", NBTHelper.BlockPosToIntArray(SE));
         compound.setIntArray("SWPos", NBTHelper.BlockPosToIntArray(SW));
         compound.setIntArray("parent",NBTHelper.BlockPosToIntArray(parent));
-        compound.setTag("tank", fluidHandler.serializeNBT());
-        if(sheets!=null){
-            compound.setTag("sheets", sheets.writeToNBT(new NBTTagCompound()));
+        compound.setTag("manaTank", manaTank.writeToNBT(new NBTTagCompound()));
+        compound.setTag("reactantTank", reactantTank.writeToNBT(new NBTTagCompound()));
+        if(itemHandler.sheets!=null){
+            compound.setTag("sheets", itemHandler.sheets.writeToNBT(new NBTTagCompound()));
         }
         return compound;
     }
@@ -170,26 +229,24 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         this.SE=NBTHelper.IntArrayToBlockPos(compound.getIntArray("SEPos"));
         this.SW=NBTHelper.IntArrayToBlockPos(compound.getIntArray("SWPos"));
         this.parent=NBTHelper.IntArrayToBlockPos(compound.getIntArray("parent"));
-        this.fluidHandler.deserializeNBT(compound.getCompoundTag("tank"));
-        this.sheets=ItemStack.loadItemStackFromNBT(compound.getCompoundTag("sheets"));
+        this.manaTank.readFromNBT(compound.getCompoundTag("manaTank"));
+        this.reactantTank.readFromNBT(compound.getCompoundTag("reactantTank"));
+        this.itemHandler.sheets=ItemStack.loadItemStackFromNBT(compound.getCompoundTag("sheets"));
     }
 
     @Override
     public void update() {
 
         if(main){
-            /*
             if(manaTank.getCapacity()==manaTank.getFluidAmount() && reactantTank.getCapacity()==reactantTank.getFluidAmount()){
                 timeSpentHardening++;
                 if(timeSpentHardening>=HARDENING_TIME){
                     timeSpentHardening=0;
-                    EnumMaterialType sheetType = MetaItemHelper.fluidProductMap.get(reactantTank.getFluid().getFluid());
+                    MaterialType sheetType = MetaItemHelper.fluidProductMap.get(reactantTank.getFluid().getFluid());
                     reactantTank.drain(reactantTank.getCapacity(), true);//empty tank
-
-                    sheets = new ItemStack(ModBlocks.sheet, 4, sheetType.getID());
+                    itemHandler.floatTableHarden(sheetType);
                 }
             }
-            */
         }
     }
 
@@ -202,6 +259,16 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         others.remove(this.getPos());
         return others;
     }
+    public boolean hasReactant() {
+        return reactantTank.getFluidAmount()>0;
+    }
 
+    public boolean hasMana(){
+        return manaTank.getFluidAmount()>0;
+    }
+
+    public float getHardeningFraction(){
+        return ((float)this.timeSpentHardening)/((float)HARDENING_TIME);
+    }
 
 }

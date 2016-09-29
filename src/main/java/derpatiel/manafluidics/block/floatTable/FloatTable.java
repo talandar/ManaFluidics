@@ -24,6 +24,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
 
@@ -94,7 +95,7 @@ public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDi
         LOG.info("right click event");
         FloatTableTileEntity tile = (FloatTableTileEntity)world.getTileEntity(pos);
         tile = tile.getParent();
-        ItemStack sheets = tile.itemHandler.getStackInSlot(0);
+        ItemStack sheets = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,side).getStackInSlot(0);
         if(sheets!=null){
             entityplayer.inventory.addItemStackToInventory(sheets);
             if(sheets.stackSize==0){
@@ -102,13 +103,12 @@ public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDi
             }
         }
 
+        if (heldItem != null) {
+            return FluidUtil.interactWithFluidHandler(heldItem,(side==EnumFacing.DOWN ? tile.beneathFluidHandler : tile.fluidHandler),entityplayer);
+        }
 
         if (super.onBlockActivated(world, pos, state, entityplayer, hand, heldItem, side, hitX, hitY, hitZ)){
             return true;
-        }
-
-        if (heldItem != null) {
-            return FluidUtil.interactWithFluidHandler(heldItem,tile.fluidHandler,entityplayer);
         }
 
 

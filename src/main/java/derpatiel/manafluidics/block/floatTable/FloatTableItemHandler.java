@@ -4,11 +4,17 @@ import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.util.MetaItemHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.IItemHandler;
 
 public class FloatTableItemHandler implements IItemHandler {
 
     ItemStack sheets;
+    TileEntity tile;
+
+    public FloatTableItemHandler(TileEntity tile){
+        this.tile=tile;
+    }
 
     @Override
     public int getSlots() {
@@ -38,6 +44,10 @@ public class FloatTableItemHandler implements IItemHandler {
             stack = ItemStack.copyItemStack(sheets);
         }
         ItemStack extracted = stack.splitStack(amount);
+        if(!simulate && stack.stackSize==0){
+            sheets=null;
+        }
+        tile.markDirty();
         return extracted;
     }
 

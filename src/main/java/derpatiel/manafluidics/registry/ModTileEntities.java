@@ -3,6 +3,7 @@ package derpatiel.manafluidics.registry;
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleRenderer;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
+import derpatiel.manafluidics.block.floatTable.FloatTableRenderer;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.block.portableTank.PortableTankRenderer;
 import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
@@ -24,6 +25,7 @@ public class ModTileEntities {
     {
         ClientRegistry.bindTileEntitySpecialRenderer(DrawNozzleTileEntity.class, new DrawNozzleRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(PortableTankTileEntity.class, new PortableTankRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(FloatTableTileEntity.class, new FloatTableRenderer());
     }
 
 
