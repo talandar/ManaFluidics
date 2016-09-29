@@ -66,7 +66,7 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
 
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
+        return new SPacketUpdateTileEntity(getPos(), isMain()? 0 : 1, getUpdateTag());
     }
 
     @Override
@@ -231,7 +231,11 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         this.parent=NBTHelper.IntArrayToBlockPos(compound.getIntArray("parent"));
         this.manaTank.readFromNBT(compound.getCompoundTag("manaTank"));
         this.reactantTank.readFromNBT(compound.getCompoundTag("reactantTank"));
-        this.itemHandler.sheets=ItemStack.loadItemStackFromNBT(compound.getCompoundTag("sheets"));
+        if(compound.hasKey("sheets")) {
+            this.itemHandler.sheets = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("sheets"));
+        }else{
+            this.itemHandler.sheets=null;
+        }
     }
 
     @Override

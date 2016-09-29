@@ -2,6 +2,7 @@ package derpatiel.manafluidics.block.floatTable;
 
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.util.MetaItemHelper;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -48,6 +49,8 @@ public class FloatTableItemHandler implements IItemHandler {
             sheets=null;
         }
         tile.markDirty();
+        IBlockState state = tile.getWorld().getBlockState(tile.getPos());
+        tile.getWorld().notifyBlockUpdate(tile.getPos(), state, state, 3);
         return extracted;
     }
 

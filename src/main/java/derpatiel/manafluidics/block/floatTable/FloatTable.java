@@ -69,6 +69,24 @@ public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDi
         return state.withProperty(DIRECTION, facing);
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isVisuallyOpaque() {
+        return false;
+    }
+
+
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         return new ItemStack(Items.CAULDRON);
