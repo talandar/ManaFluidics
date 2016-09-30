@@ -14,7 +14,7 @@ public class FluidTankTileEntity extends TankFormingTileEntity {
 
     public static final int TANK_CAPACITY_PER_BLOCK=8* Fluid.BUCKET_VOLUME;
 
-    FluidTank tank = new FluidTank(0);
+    public final FluidTank tank = new FluidTank(0);
 
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
@@ -62,7 +62,7 @@ public class FluidTankTileEntity extends TankFormingTileEntity {
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        tank.readFromNBT(compound.getCompoundTag("tank"));
         setCapacityBySize();
+        tank.readFromNBT(compound.getCompoundTag("tank"));
     }
 }
