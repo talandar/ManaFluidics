@@ -23,7 +23,9 @@ public class FluidTankData extends MultiblockData {
     public boolean blockBroken(World world, BlockPos pos) {
         //we know that the broken block is part of the tank
         FluidTankTileEntity tile = (FluidTankTileEntity) world.getTileEntity(masterPos);
-        tile.unform();
+        if(tile!=null) {
+            tile.unform();
+        }
         return true;
     }
 

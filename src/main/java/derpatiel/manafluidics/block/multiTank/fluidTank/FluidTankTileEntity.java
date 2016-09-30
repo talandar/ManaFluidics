@@ -5,10 +5,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class FluidTankTileEntity extends TankFormingTileEntity {
 
@@ -39,6 +42,21 @@ public class FluidTankTileEntity extends TankFormingTileEntity {
     }
 
     @Override
+    public boolean needsHeatInterface() {
+        return false;
+    }
+
+    @Override
+    public boolean needsIEMInterface() {
+        return false;
+    }
+
+    @Override
+    public boolean needsItemInterface() {
+        return false;
+    }
+
+    @Override
     public void notifyFormed() {
         setCapacityBySize();
     }
@@ -64,5 +82,19 @@ public class FluidTankTileEntity extends TankFormingTileEntity {
         super.readFromNBT(compound);
         setCapacityBySize();
         tank.readFromNBT(compound.getCompoundTag("tank"));
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        if((isValidConnectionDirection(facing) || facing==null) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return true;
+        return super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if((isValidConnectionDirection(facing) || facing==null) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return (T)tank;
+        return super.getCapability(capability, facing);
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +128,22 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
      * called to notify the implementation that the tank has become invalid
      */
     public abstract void notifyUnformed();
+
+    /**
+     * returns true if we need/allow heat interfaces
+     */
+    public abstract boolean needsHeatInterface();
+
+    /**
+     * returns true if we need/allow InfusedEnergizedMana interfaces (item storage tank)
+     */
+    public abstract boolean needsIEMInterface();
+
+    /**
+     * returns true if we need to accept items (melting/refinery tank)
+     * @return
+     */
+    public abstract boolean needsItemInterface();
 
     /**
      * called to alert the tank that the height has changed.
@@ -248,7 +265,15 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
                                 controllerIncluded=true;
                             }
                         }else if(tankBlock.getBlock() instanceof MFTankEntityBlock){
-                            //TODO: check if its an allowed type
+                            TileEntity tankPartTile = worldObj.getTileEntity(testPos);
+                            if(tankPartTile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,null)){
+                                if(!needsItemInterface()){
+                                    valid=false;
+                                    unformedReason = "tank does not allow item handler";
+                                }
+                            }
+                            //TODO: check IEM capability
+                            //TODO: check heat capability
                             tiles.add(testPos);
                         }
                     }else{
@@ -346,6 +371,7 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
         TankPartTileEntity te = (TankPartTileEntity)worldObj.getTileEntity(pos);
         te.setParent(this.getPos());
         te.setDirection(findDirectionFromLocation(pos, minX, maxX, minZ, maxZ));
+        te.markForUpdate();
     }
 
     private List<BlockPos> getTankBlocks(){
@@ -364,7 +390,9 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
         displayParticles(EnumParticleTypes.FLAME);
         for(BlockPos pos : tankTiles){
             TankPartTileEntity tile = (TankPartTileEntity) worldObj.getTileEntity(pos);
-            tile.clearParent();
+            if(tile!=null) {
+                tile.clearParent();
+            }
         }
         worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(MFTankControllerBlock.STATE,TankPartState.UNFORMED));
         notifyUnformed();

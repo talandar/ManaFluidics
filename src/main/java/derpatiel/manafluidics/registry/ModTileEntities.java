@@ -7,6 +7,7 @@ import derpatiel.manafluidics.block.floatTable.FloatTableRenderer;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankRenderer;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
+import derpatiel.manafluidics.block.multiTank.general.FluidConnectionTileEntity;
 import derpatiel.manafluidics.block.portableTank.PortableTankRenderer;
 import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -22,6 +23,7 @@ public class ModTileEntities {
         registerTileEntity(PortableTankTileEntity.class);
         registerTileEntity(FloatTableTileEntity.class);
         registerTileEntity(FluidTankTileEntity.class);
+        registerTileEntity(FluidConnectionTileEntity.class);
     }
 
     public static void registerRenderers()

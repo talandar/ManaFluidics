@@ -1,7 +1,8 @@
-package derpatiel.manafluidics.block.multiTank.fluidTank;
+package derpatiel.manafluidics.block.multiTank.general;
 
-import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
-import derpatiel.manafluidics.block.multiTank.MFTankControllerBlock;
+import derpatiel.manafluidics.block.TankPartBlock;
+import derpatiel.manafluidics.block.multiTank.MFTankEntityBlock;
+import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
@@ -19,23 +20,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
 
-public class FluidTankController extends MFTankControllerBlock {
-
-    public FluidTankController(String unlocalizedName, Material material, float hardness, float resistance) {
+public class TankFluidConnection extends MFTankEntityBlock {
+    public TankFluidConnection(String unlocalizedName, Material material, float hardness, float resistance) {
         super(unlocalizedName, material, hardness, resistance);
-    }
-
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (heldItem != null) {
-            FluidTankTileEntity tile = ((FluidTankTileEntity)worldIn.getTileEntity(pos));
-            LOG.info("fluid amount: "+tile.tank.getFluidAmount());
-            if(heldItem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
-                tile.markForUpdate();
-                return FluidUtil.interactWithFluidHandler(heldItem, tile.tank, playerIn);
-            }
-        }
-        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
     }
 
     @Override
@@ -45,7 +32,24 @@ public class FluidTankController extends MFTankControllerBlock {
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new FluidTankTileEntity();
+        return new FluidConnectionTileEntity();
+    }
+
+    @Override
+    public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state) {
+        return new ItemStack(ModBlocks.fluidTankConnector);
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (heldItem != null) {
+            FluidConnectionTileEntity tile = ((FluidConnectionTileEntity)worldIn.getTileEntity(pos));
+            if(heldItem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
+                tile.markForUpdate();
+                return FluidUtil.interactWithFluidHandler(heldItem, tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,side), playerIn);
+            }
+        }
+        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
     }
 
     @SuppressWarnings("deprecation")
@@ -63,10 +67,5 @@ public class FluidTankController extends MFTankControllerBlock {
     @Override
     public boolean isVisuallyOpaque() {
         return false;
-    }
-
-    @Override
-    public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state) {
-        return new ItemStack(ModBlocks.fluidTankController);
     }
 }

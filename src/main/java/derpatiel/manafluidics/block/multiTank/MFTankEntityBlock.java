@@ -1,5 +1,7 @@
 package derpatiel.manafluidics.block.multiTank;
 
+import derpatiel.manafluidics.block.IDismantleable;
+import derpatiel.manafluidics.block.ITankPart;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.enums.TankPartState;
 import net.minecraft.block.material.Material;
@@ -9,7 +11,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 
-public abstract class MFTankEntityBlock<T extends TankPartTileEntity> extends MFTileBlock {
+public abstract class MFTankEntityBlock<T extends TankPartTileEntity> extends MFTileBlock implements IDismantleable, ITankPart {
 
     public static final PropertyEnum<TankPartState> STATE = PropertyEnum.create("direction", TankPartState.class);
 

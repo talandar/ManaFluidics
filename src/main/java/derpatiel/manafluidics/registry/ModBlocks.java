@@ -6,6 +6,7 @@ import derpatiel.manafluidics.block.drawNozzle.DrawNozzle;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
 import derpatiel.manafluidics.block.floatTable.FloatTable;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankController;
+import derpatiel.manafluidics.block.multiTank.general.TankFluidConnection;
 import derpatiel.manafluidics.block.portableTank.PortableTank;
 import derpatiel.manafluidics.block.portableTank.PortableTankItemBlock;
 import derpatiel.manafluidics.enums.MaterialType;
@@ -29,6 +30,7 @@ public class ModBlocks {
     public static MFBlock portableTank;
     public static MFBlock floatTable;
     public static MFBlock fluidTankController;
+    public static MFBlock fluidTankConnector;
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
@@ -39,6 +41,7 @@ public class ModBlocks {
         portableTank = register((PortableTank)new PortableTank("portableTank",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         floatTable = register(new FloatTable("floatTable",Material.IRON,1.0f,1.0f));//not in tab, not obtainable by itself
         fluidTankController = register(new FluidTankController("fluid_tank_controller",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        fluidTankConnector = register(new TankFluidConnection("tank_basic_valve",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
 
     }
 

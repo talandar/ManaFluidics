@@ -25,22 +25,6 @@ public abstract class MFTankControllerBlock<T extends TankFormingTileEntity> ext
         super(unlocalizedName, material, hardness, resistance);
     }
 
-    /**
-     * returns true if we need/allow heat interfaces
-     */
-    public abstract boolean needsHeatInterface();
-
-    /**
-     * returns true if we need/allow InfusedEnergizedMana interfaces (item storage tank)
-     */
-    public abstract boolean needsIEMInterface();
-
-    /**
-     * returns true if we need to accept items (melting/refinery tank)
-     * @return
-     */
-    public abstract boolean needsItemInterface();
-
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityPlayer, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
         LOG.info("click on side "+side.getName());
