@@ -1,6 +1,5 @@
 package derpatiel.manafluidics.block.multiTank.fluidTank;
 
-import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.block.multiTank.MFTankControllerBlock;
 import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.util.LOG;

@@ -2,6 +2,7 @@ package derpatiel.manafluidics.item;
 
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.IDismantleable;
+import derpatiel.manafluidics.block.IRotateable;
 import derpatiel.manafluidics.block.floatTable.FloatTable;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.event.EventHandler;
@@ -60,6 +61,10 @@ public class MFHammer extends MFItem {
             EventHandler.eventHandler.onBlockBreak(event);
 
             worldIn.destroyBlock(pos, false);
+        }
+
+        if(!playerIn.isSneaking() && block instanceof IRotateable){
+            ((IRotateable) block).rotate(worldIn,worldIn.getBlockState(pos),pos);
         }
 
         if(!playerIn.isSneaking() && block == Blocks.CAULDRON) {

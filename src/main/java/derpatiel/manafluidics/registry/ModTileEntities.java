@@ -5,6 +5,9 @@ import derpatiel.manafluidics.block.drawNozzle.DrawNozzleRenderer;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
 import derpatiel.manafluidics.block.floatTable.FloatTableRenderer;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
+import derpatiel.manafluidics.block.fluidSpout.FluidSpout;
+import derpatiel.manafluidics.block.fluidSpout.FluidSpoutRenderer;
+import derpatiel.manafluidics.block.fluidSpout.FluidSpoutTileEntity;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankRenderer;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import derpatiel.manafluidics.block.multiTank.general.FluidConnectionTileEntity;
@@ -24,6 +27,7 @@ public class ModTileEntities {
         registerTileEntity(FloatTableTileEntity.class);
         registerTileEntity(FluidTankTileEntity.class);
         registerTileEntity(FluidConnectionTileEntity.class);
+        registerTileEntity(FluidSpoutTileEntity.class);
     }
 
     public static void registerRenderers()
@@ -32,6 +36,7 @@ public class ModTileEntities {
         ClientRegistry.bindTileEntitySpecialRenderer(PortableTankTileEntity.class, new PortableTankRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(FloatTableTileEntity.class, new FloatTableRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(FluidTankTileEntity.class, new FluidTankRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(FluidSpoutTileEntity.class, new FluidSpoutRenderer());
     }
 
 
