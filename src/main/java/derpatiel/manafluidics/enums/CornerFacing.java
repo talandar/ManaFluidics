@@ -10,10 +10,19 @@ public enum CornerFacing implements IStringSerializable {
 
     private final int ID;
     private final String name;
+    public static final CornerFacing[] VALUES;
 
     CornerFacing(int id, String name){
         this.ID = id;
         this.name = name;
+    }
+
+    static{
+        CornerFacing[] vals = values();
+        VALUES = new CornerFacing[vals.length];
+        for(CornerFacing cf : vals){
+            VALUES[cf.getID()]=cf;
+        }
     }
 
     @Override
@@ -31,10 +40,6 @@ public enum CornerFacing implements IStringSerializable {
     }
 
     public static CornerFacing getById(int metadata) {
-        for(CornerFacing s : values()){
-            if(s.ID==metadata)
-                return s;
-        }
-        return CornerFacing.NORTH_WEST;
+        return VALUES[metadata%VALUES.length];
     }
 }

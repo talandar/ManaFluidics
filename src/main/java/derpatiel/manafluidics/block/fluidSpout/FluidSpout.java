@@ -1,11 +1,10 @@
 package derpatiel.manafluidics.block.fluidSpout;
 
 import com.google.common.collect.Sets;
-import derpatiel.manafluidics.block.IDismantleable;
-import derpatiel.manafluidics.block.IRotateable;
-import derpatiel.manafluidics.block.MFTileBlock;
+import derpatiel.manafluidics.block.*;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.enums.CornerFacing;
+import derpatiel.manafluidics.enums.RedstoneActivation;
 import derpatiel.manafluidics.registry.ModBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -25,10 +24,11 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateable {
+public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateable, IRedstonePulsed {
 
     public static final Set<EnumFacing> validFacings = Sets.newHashSet(EnumFacing.WEST,EnumFacing.EAST,EnumFacing.NORTH,EnumFacing.SOUTH);
     public static final PropertyDirection DIRECTION = PropertyDirection.create("direction", validFacings);
@@ -108,12 +108,13 @@ public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateab
 
     @Override
     public void rotate(World worldIn, IBlockState currentState, BlockPos pos) {
-        int curFacingIndex = currentState.getValue(DIRECTION).getIndex();
-        EnumFacing nextFacing = EnumFacing.getFront(++curFacingIndex);
-        while(!validFacings.contains(nextFacing)){
-            nextFacing = EnumFacing.getFront(++curFacingIndex);
-        }
+        EnumFacing nextFacing = getNextFacing(currentState.getValue(DIRECTION));
         worldIn.setBlockState(pos,currentState.withProperty(DIRECTION,nextFacing));
+    }
+
+    @Override
+    public Collection<EnumFacing> getValidFacings() {
+        return validFacings;
     }
 
     @Override

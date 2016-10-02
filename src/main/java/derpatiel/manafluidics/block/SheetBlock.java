@@ -44,7 +44,7 @@ public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
 
     @Override
     public void registerItemModel(ItemBlock itemBlock){
-        for(MaterialType type : MaterialType.values()) {
+        for(MaterialType type : MaterialType.VALUES) {
             ManaFluidics.proxy.registerItemRenderer(itemBlock, type.getID(), bareUnlocalizedName+"_"+type.getName());
         }
     }
@@ -96,7 +96,7 @@ public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
 
     @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-        for(MaterialType sheetType : MaterialType.values()){
+        for(MaterialType sheetType : MaterialType.VALUES){
             list.add(new ItemStack(itemIn, 1, sheetType.getID()));
         }
     }

@@ -1,8 +1,6 @@
 package derpatiel.manafluidics.enums;
 
-import derpatiel.manafluidics.ManaFluidics;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
 
 public enum MaterialType implements IStringSerializable {
     CRYSTAL(0, "crystal"),
@@ -12,15 +10,24 @@ public enum MaterialType implements IStringSerializable {
 
     private final int ID;
     private final String name;
+    public static final MaterialType[] VALUES;
 
     MaterialType(int ID, String name) {
         this.ID = ID;
         this.name = name;
     }
 
+    static{
+        MaterialType[] vals = values();
+        VALUES = new MaterialType[vals.length];
+        for(MaterialType m : vals){
+            VALUES[m.getID()]=m;
+        }
+    }
+
     public static String[] getNames() {
-        String[] names = new String[values().length];
-        for(MaterialType type : values()){
+        String[] names = new String[VALUES.length];
+        for(MaterialType type : VALUES){
             names[type.getID()]=type.getName();
         }
         return names;
@@ -41,18 +48,6 @@ public enum MaterialType implements IStringSerializable {
     }
 
     public static MaterialType getById(int metadata) {
-        for(MaterialType t : values()){
-            if(t.ID==metadata)
-                return t;
-        }
-        return null;
-    }
-
-    public static ResourceLocation[] buildVariantList(String baseName) {
-        ResourceLocation[] variants = new ResourceLocation[values().length];
-        for(MaterialType t : values()){
-            variants[t.getID()]=new ResourceLocation(ManaFluidics.MODID, baseName+"_"+t.getName());
-        }
-        return variants;
+        return VALUES[metadata%VALUES.length];
     }
 }

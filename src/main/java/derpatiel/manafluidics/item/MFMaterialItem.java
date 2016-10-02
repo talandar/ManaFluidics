@@ -21,13 +21,13 @@ public class MFMaterialItem extends MFMetaItem {
 
     @Override
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        for(MaterialType type : MaterialType.values())
+        for(MaterialType type : MaterialType.VALUES)
             subItems.add(new ItemStack(itemIn, 1, type.getID()));
     }
 
     @Override
     public void registerItemModel() {
-        for(MaterialType type : MaterialType.values()) {
+        for(MaterialType type : MaterialType.VALUES) {
             ManaFluidics.proxy.registerItemRenderer(this, type.getID(), bareUnlocalizedName+"_"+type.getName());
         }
     }

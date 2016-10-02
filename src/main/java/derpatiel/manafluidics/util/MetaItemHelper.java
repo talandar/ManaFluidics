@@ -6,9 +6,11 @@ import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.registry.ModFluids;
 import derpatiel.manafluidics.registry.ModItems;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
