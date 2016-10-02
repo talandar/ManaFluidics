@@ -6,12 +6,14 @@ import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.enums.CornerFacing;
 import derpatiel.manafluidics.enums.RedstoneActivation;
 import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -20,6 +22,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
@@ -119,7 +122,32 @@ public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateab
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        //TODO
-        return super.onBlockActivated(world, pos, state, entityplayer, hand, heldItem, side, hitX, hitY, hitZ);
+        if(entityplayer.isSneaking()){
+            return super.onBlockActivated(world, pos, state, entityplayer, hand, heldItem, side, hitX, hitY, hitZ);
+        }else {
+            if (hand == EnumHand.MAIN_HAND) {
+                //only trigger once!
+                if (heldItem.getItem() == Items.REDSTONE) {
+                    FluidSpoutTileEntity tile = (FluidSpoutTileEntity) world.getTileEntity(pos);
+                    tile.setActivationType(getNextActivationType(tile.getActivationType()));
+                    LOG.info("change activation:" + tile.getActivationType().getName());
+                    return true;
+                    //next activation
+                } else {
+                    FluidSpoutTileEntity tile = (FluidSpoutTileEntity) world.getTileEntity(pos);
+                    tile.triggerActivated();
+                    return true;
+                }
+            }else{
+                return true;
+            }
+        }
     }
+
+    @Override
+    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+        return false;
+    }
+
+
 }

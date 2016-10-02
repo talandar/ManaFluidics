@@ -13,6 +13,10 @@ item.wire.obsidian.name=Obsidian Wire
 item.wire.gold.name=Gold Wire
 item.wire.iron.name=Iron Wire
 
+tile.sheet.crystal.name=Crystal Sheet
+tile.sheet.obsidian.name=Obsidian Sheet
+tile.sheet.iron.name=Iron Sheet
+tile.sheet.gold.name=Gold Sheet
 
 fluid.reactivemana=Reactive Mana
 fluid.moltencrystal=Molten Crystal
@@ -28,14 +32,11 @@ tile.energizedmana.name=Energized Mana
 
 
 tile.crystalore.name=Mana Infused Crystal Ore
-tile.sheet.crystal.name=Crystal Sheet
-tile.sheet.obsidian.name=Obsidian Sheet
-tile.sheet.iron.name=Iron Sheet
-tile.sheet.gold.name=Gold Sheet
 tile.tankbottom.name=Tank Base
 tile.portabletank.name=Portable Tank
 tile.drawnozzle.name=Drawing Nozzle
 tile.tank_basic_valve.name=Basic Tank Valve
 tile.fluid_tank_controller.name=Fluid Tank Controller
+tile.fluidspout.name=Fluid Spout
 tile.pipeBlock_BASIC.name=Basic Pipe
 tile.pipeBlock_LARGE.name=Large Pipe

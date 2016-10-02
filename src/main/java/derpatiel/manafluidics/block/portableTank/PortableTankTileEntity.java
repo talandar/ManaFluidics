@@ -109,7 +109,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
                 if(drained>0) {
                     if (drained > MAX_DRAIN_PER_TICK) {
                         FluidStack fluidStack = new FluidStack(fluidTank.getFluid().getFluid(), MAX_DRAIN_PER_TICK);
-                        drained = belowTank.fill(fluidStack, false);
+                        drained = belowTank.fill(fluidStack, true);
                         fluidTank.drain(drained, true);
                     } else {
                         drained = belowTank.fill(fluidTank.getFluid(), true);
