@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.proxy;
 
 import derpatiel.manafluidics.event.EventHandler;
+import derpatiel.manafluidics.network.MFPacketHandler;
 import derpatiel.manafluidics.registry.*;
 import jline.internal.Log;
 import net.minecraft.item.Item;
@@ -22,7 +23,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         Log.info("init COMMON");
-        //Meta item helper
+        MFPacketHandler.init();
         MinecraftForge.EVENT_BUS.register(EventHandler.eventHandler);
         ModCrafting.registerCrafting();
         //register world gen

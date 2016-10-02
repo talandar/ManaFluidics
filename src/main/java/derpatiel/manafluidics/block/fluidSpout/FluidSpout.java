@@ -1,11 +1,12 @@
 package derpatiel.manafluidics.block.fluidSpout;
 
 import com.google.common.collect.Sets;
-import derpatiel.manafluidics.block.*;
-import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
-import derpatiel.manafluidics.enums.CornerFacing;
-import derpatiel.manafluidics.enums.RedstoneActivation;
+import derpatiel.manafluidics.block.IDismantleable;
+import derpatiel.manafluidics.block.IRedstonePulsed;
+import derpatiel.manafluidics.block.IRotateable;
+import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -22,7 +23,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
@@ -130,7 +130,7 @@ public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateab
                 if (heldItem.getItem() == Items.REDSTONE) {
                     FluidSpoutTileEntity tile = (FluidSpoutTileEntity) world.getTileEntity(pos);
                     tile.setActivationType(getNextActivationType(tile.getActivationType()));
-                    LOG.info("change activation:" + tile.getActivationType().getName());
+                    ChatUtil.sendNoSpam(entityplayer,"REDSTONE MODE: "+tile.getActivationType().getChatDescription());
                     return true;
                     //next activation
                 } else {
