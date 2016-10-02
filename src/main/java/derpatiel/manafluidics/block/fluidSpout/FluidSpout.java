@@ -6,6 +6,7 @@ import derpatiel.manafluidics.block.IRedstonePulsed;
 import derpatiel.manafluidics.block.IRotateable;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.registry.ModItems;
 import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
@@ -132,11 +133,12 @@ public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateab
                     tile.setActivationType(getNextActivationType(tile.getActivationType()));
                     ChatUtil.sendNoSpam(entityplayer,"REDSTONE MODE: "+tile.getActivationType().getChatDescription());
                     return true;
-                    //next activation
-                } else {
+                } else if(heldItem.getItem()!= ModItems.crystal_hammer){
                     FluidSpoutTileEntity tile = (FluidSpoutTileEntity) world.getTileEntity(pos);
                     tile.triggerActivated();
                     return true;
+                } else{
+                    return false;
                 }
             }else{
                 return true;

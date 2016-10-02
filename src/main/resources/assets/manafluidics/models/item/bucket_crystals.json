@@ -1,5 +1,5 @@
 {
-    "parent":"manafluidics:item/standard_item",
+    "parent": "item/handheld",
     "textures": {
         "layer0":"manafluidics:items/bucket_crystals"
     }
