@@ -21,11 +21,11 @@ public class ModItems {
 
     public static void registerItems() {
 
-        manaCrystal = register(new MFItem("manaCrystal").setCreativeTab(tabFluidics));
+        manaCrystal = register(new MFItem("manacrystal").setCreativeTab(tabFluidics));
         bucket_crystals = register(new MFItem("bucket_crystals").setCreativeTab(tabFluidics));
         bucket_iron = register(new MFItem("bucket_iron").setCreativeTab(tabFluidics));
         bucket_gold = register(new MFItem("bucket_gold").setCreativeTab(tabFluidics));
-        crystal_hammer = register(new MFHammer("crystalHammer").setCreativeTab(tabFluidics));
+        crystal_hammer = register(new MFHammer("crystalhammer").setCreativeTab(tabFluidics));
         material_wire = register(new MFMaterialItem("wire").setCreativeTab(tabFluidics));
 
         //no longer needed?

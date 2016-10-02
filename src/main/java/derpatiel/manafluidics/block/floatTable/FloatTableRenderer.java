@@ -73,7 +73,6 @@ public class FloatTableRenderer  extends TileEntitySpecialRenderer<FloatTableTil
                 if(sheets!=null)
                     numSheets = sheets.stackSize;
                 if(numSheets>tile.facing.getID()){
-                    //Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ManaFluidics.MODID+":textures/blocks/crystalOre.png"));
                     VertexBuffer wr = Tessellator.getInstance().getBuffer();
                     MaterialType sheetType;
                     if(reactant!=null && MetaItemHelper.fluidProductMap.containsKey(reactant.getFluid())){

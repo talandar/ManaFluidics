@@ -30,27 +30,27 @@ public class ModFluids {
 
     public static void registerFluids() {
 
-        reactiveMana = new Fluid("reactiveMana", new ResourceLocation(ManaFluidics.MODID, "blocks/reactiveMana_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/reactiveMana_flow"));
+        reactiveMana = new Fluid("reactivemana", new ResourceLocation(ManaFluidics.MODID, "blocks/reactivemana_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/reactivemana_flow"));
         reactiveMana.setLuminosity(15);
         reactiveMana.setDensity(1000000);
         reactiveMana.setViscosity(60000);
 
-        moltenCrystal = new Fluid("moltenCrystal", new ResourceLocation(ManaFluidics.MODID, "blocks/moltenCrystal_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/moltenCrystal_flow"));
+        moltenCrystal = new Fluid("moltencrystal", new ResourceLocation(ManaFluidics.MODID, "blocks/moltencrystal_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/moltencrystal_flow"));
         moltenCrystal.setLuminosity(15);
         moltenCrystal.setDensity(1000);
         moltenCrystal.setViscosity(4000);
 
-        moltenIron = new Fluid("moltenIron", new ResourceLocation(ManaFluidics.MODID, "blocks/moltenIron_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/moltenIron_flow"));
+        moltenIron = new Fluid("molteniron", new ResourceLocation(ManaFluidics.MODID, "blocks/molteniron_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/molteniron_flow"));
         moltenIron.setLuminosity(15);
         moltenIron.setDensity(1000);
         moltenIron.setViscosity(4000);
 
-        moltenGold = new Fluid("moltenGold", new ResourceLocation(ManaFluidics.MODID, "blocks/moltenGold_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/moltenGold_flow"));
+        moltenGold = new Fluid("moltengold", new ResourceLocation(ManaFluidics.MODID, "blocks/moltengold_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/moltengold_flow"));
         moltenGold.setLuminosity(15);
         moltenGold.setDensity(1000);
         moltenGold.setViscosity(4000);
 
-        energizedMana = new Fluid("energizedMana", new ResourceLocation(ManaFluidics.MODID, "blocks/energizedMana_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/energizedMana_flow"));
+        energizedMana = new Fluid("energizedmana", new ResourceLocation(ManaFluidics.MODID, "blocks/energizedmana_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/energizedmana_flow"));
         energizedMana.setLuminosity(15);
         energizedMana.setDensity(1000);
         energizedMana.setViscosity(4000);
@@ -62,15 +62,15 @@ public class ModFluids {
         FluidRegistry.registerFluid(moltenGold);
         FluidRegistry.registerFluid(energizedMana);
 
-        reactiveManaBlockFluid = new MFBlockFluid(reactiveMana, new MaterialLiquid(MapColor.LAPIS), "reactiveMana", 2);
+        reactiveManaBlockFluid = new MFBlockFluid(reactiveMana, new MaterialLiquid(MapColor.LAPIS), "reactivemana", 2);
 
-        moltenCrystalBlockFluid = new MFBlockFluid(moltenCrystal, new MaterialLiquid(MapColor.DIAMOND), "moltenCrystal", 2);
+        moltenCrystalBlockFluid = new MFBlockFluid(moltenCrystal, new MaterialLiquid(MapColor.DIAMOND), "moltencrystal", 2);
 
-        moltenIronBlockFluid = new MFBlockFluid(moltenIron, new MaterialLiquid(MapColor.IRON), "moltenIron", 4);
+        moltenIronBlockFluid = new MFBlockFluid(moltenIron, new MaterialLiquid(MapColor.IRON), "molteniron", 4);
 
-        moltenGoldBlockFluid = new MFBlockFluid(moltenGold, new MaterialLiquid(MapColor.GOLD), "moltenGold", 2);
+        moltenGoldBlockFluid = new MFBlockFluid(moltenGold, new MaterialLiquid(MapColor.GOLD), "moltengold", 2);
 
-        energizedManaBlockFluid = new MFBlockFluid(energizedMana, new MaterialLiquid(MapColor.CYAN), "energizedMana", 7);
+        energizedManaBlockFluid = new MFBlockFluid(energizedMana, new MaterialLiquid(MapColor.CYAN), "energizedmana", 7);
 
         GameRegistry.register(reactiveManaBlockFluid);
         GameRegistry.register(moltenCrystalBlockFluid);

@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"manafluidics:blocks/energizedMana_still"
+        "layer0":"manafluidics:blocks/moltengold_still"
     },
     "display": {
         "thirdperson": {

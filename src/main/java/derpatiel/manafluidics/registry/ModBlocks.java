@@ -36,15 +36,15 @@ public class ModBlocks {
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
-        crystalOre = register(new MFCustomDropsBlock("crystalOre",Material.ROCK,1.0f,1.0f, ModItems.manaCrystal,0,2,true).setCreativeTab(ModItems.tabFluidics));
+        crystalOre = register(new MFCustomDropsBlock("crystalore",Material.ROCK,1.0f,1.0f, ModItems.manaCrystal,0,2,true).setCreativeTab(ModItems.tabFluidics));
         sheet = register(new SheetBlock("sheet",Material.GLASS, 0.25f, 0.25f)).setCreativeTab(ModItems.tabFluidics);
-        tankBottom = register(new MFDismantleableBlock("tankBottom",Material.ROCK,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
-        drawNozzle = register(new DrawNozzle("drawNozzle",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
-        portableTank = register((PortableTank)new PortableTank("portableTank",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
-        floatTable = register(new FloatTable("floatTable",Material.IRON,1.0f,1.0f));//not in tab, not obtainable by itself
+        tankBottom = register(new MFDismantleableBlock("tankbottom",Material.ROCK,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        drawNozzle = register(new DrawNozzle("drawnozzle",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        portableTank = register((PortableTank)new PortableTank("portabletank",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        floatTable = register(new FloatTable("floattable",Material.IRON,1.0f,1.0f));//not in tab, not obtainable by itself
         fluidTankController = register(new FluidTankController("fluid_tank_controller",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidTankConnector = register(new TankFluidConnection("tank_basic_valve",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
-        fluidSpout = register(new FluidSpout("fluidSpout",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        fluidSpout = register(new FluidSpout("fluidspout",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

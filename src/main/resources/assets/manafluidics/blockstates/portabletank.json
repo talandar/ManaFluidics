@@ -5,7 +5,7 @@
             "top": "blocks/iron_block",
             "side": "manafluidics:blocks/tank_export_false"
         },
-        "model": "manafluidics:portableTank",
+        "model": "manafluidics:portabletank",
         "uvlock": true
     },
     "variants": {

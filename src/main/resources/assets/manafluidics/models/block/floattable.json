@@ -1,9 +1,9 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "manafluidics:blocks/floatTable_side",
-        "1": "manafluidics:blocks/floatTable_top",
-        "particle": "manafluidics:blocks/floatTable_side"
+        "0": "manafluidics:blocks/floattable_side",
+        "1": "manafluidics:blocks/floattable_top",
+        "particle": "manafluidics:blocks/floattable_side"
     },
     "elements": [
         {

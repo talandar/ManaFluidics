@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"manafluidics:blocks/reactiveMana_still"
+        "layer0":"manafluidics:blocks/reactivemana_still"
     },
     "display": {
         "thirdperson": {

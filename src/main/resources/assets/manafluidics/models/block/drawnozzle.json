@@ -1,9 +1,9 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "manafluidics:blocks/drawNozzle_side",
-        "1": "manafluidics:blocks/drawNozzle_top",
-        "particle": "manafluidics:blocks/drawNozzle_side"
+        "0": "manafluidics:blocks/drawnozzle_side",
+        "1": "manafluidics:blocks/drawnozzle_top",
+        "particle": "manafluidics:blocks/drawnozzle_side"
     },
     "elements": [
         {

@@ -1,6 +1,0 @@
-{
-    "parent":"manafluidics:item/standard_item",
-    "textures": {
-        "layer0":"manafluidics:items/manaCrystal"
-    }
-}

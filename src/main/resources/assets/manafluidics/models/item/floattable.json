@@ -1,9 +1,6 @@
 {
-    "parent":"manafluidics:block/portableTank",
-    "textures": {
-        "top": "blocks/iron_block",
-    	"side": "manafluidics:blocks/tank_export_false"
-    },
+	"__comment": "only here to shut up forge warnings.  float table should never be in inventory",
+    "parent":"manafluidics:block/crystalore",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

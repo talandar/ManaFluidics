@@ -1,5 +1,5 @@
 {
-    "parent":"manafluidics:block/crystalOre",
+    "parent":"manafluidics:block/tankbottom",
     "display": {
         "thirdperson": {
             "rotation": [ 10, -45, 170 ],

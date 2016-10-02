@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "manafluidics:blocks/crystalOre"
+        "all": "manafluidics:blocks/crystalore"
     }
 }

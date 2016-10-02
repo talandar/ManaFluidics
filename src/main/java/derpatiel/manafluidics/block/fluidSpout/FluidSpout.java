@@ -21,8 +21,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateable {
@@ -84,9 +87,23 @@ public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateab
         return false;
     }
 
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facingHit, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getStateFromMeta(EnumFacing.EAST.getIndex());
+        EnumFacing faceToUse = EnumFacing.EAST;
+        if(validFacings.contains(facingHit.getOpposite())){
+            faceToUse=facingHit.getOpposite();
+        }
+        List<EnumFacing> facingsWithFluidHandlers = new ArrayList<>();
+        for(EnumFacing testFacing : validFacings){
+            TileEntity maybeFluidHandler = worldIn.getTileEntity(pos.offset(testFacing));
+            if(maybeFluidHandler!=null && maybeFluidHandler.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,testFacing.getOpposite())){
+                facingsWithFluidHandlers.add(testFacing);
+            }
+        }
+        if(facingsWithFluidHandlers.size()==1 || (facingsWithFluidHandlers.size()>1 && !facingsWithFluidHandlers.contains(facingHit.getOpposite()))){
+            faceToUse=facingsWithFluidHandlers.get(0);
+        }
+        return this.getStateFromMeta(faceToUse.getIndex());
     }
 
     @Override
