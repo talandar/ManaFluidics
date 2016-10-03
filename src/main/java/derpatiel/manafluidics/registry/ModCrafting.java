@@ -49,12 +49,13 @@ public class ModCrafting {
             );
         }
 
+        //
         GameRegistry.addRecipe(new ItemStack(ModBlocks.fluidTankController),
                 " O ",
                 "OCO",
                 " O ",
                 'O',MetaItemHelper.getSheet(MaterialType.OBSIDIAN,1),
-                'C',MetaItemHelper.getCircuit(MaterialType.GOLD,1));
+                'C',MetaItemHelper.getCircuit(MaterialType.IRON,1));
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.bucket_crystals),
                 new ItemStack(ModItems.manaCrystal),
