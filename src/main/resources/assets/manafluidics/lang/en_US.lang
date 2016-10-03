@@ -13,6 +13,11 @@ item.wire.obsidian.name=Obsidian Wire
 item.wire.gold.name=Gold Wire
 item.wire.iron.name=Iron Wire
 
+item.controlcircuit.crystal.name=Crystalline Control Circuit
+item.controlcircuit.obsidian.name=Obsidian Control Circuit
+item.controlcircuit.gold.name=Gold Control Circuit
+item.controlcircuit.iron.name=Iron Control Circuit
+
 tile.sheet.crystal.name=Crystal Sheet
 tile.sheet.obsidian.name=Obsidian Sheet
 tile.sheet.iron.name=Iron Sheet

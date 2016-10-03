@@ -18,6 +18,7 @@ public class ModItems {
     public static MFItem bucket_gold;
     public static MFItem crystal_hammer;
     public static MFItem material_wire;
+    public static MFItem control_circuit;
 
     public static void registerItems() {
 
@@ -27,9 +28,8 @@ public class ModItems {
         bucket_gold = register(new MFItem("bucket_gold").setCreativeTab(tabFluidics));
         crystal_hammer = register(new MFHammer("crystalhammer").setCreativeTab(tabFluidics));
         material_wire = register(new MFMaterialItem("wire").setCreativeTab(tabFluidics));
+        control_circuit = register(new MFMaterialItem("controlcircuit").setCreativeTab(tabFluidics));
 
-        //no longer needed?
-        //ModelBakery.registerItemVariants(material_wire, MaterialType.buildVariantList("wire"));
     }
 
     private static MFItem register(MFItem item){

@@ -5,6 +5,7 @@ import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.registry.ModFluids;
 import derpatiel.manafluidics.registry.ModItems;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
@@ -44,6 +45,11 @@ public class MetaItemHelper {
 
     public static ItemStack getWire(MaterialType type, int quantity){
         return new ItemStack(ModItems.material_wire,quantity,type.getID());
+    }
+
+    public static ItemStack getCircuit(MaterialType type){ return getCircuit(type,1);}
+    public static ItemStack getCircuit(MaterialType type, int quantity){
+        return new ItemStack(ModItems.control_circuit,quantity,type.getID());
     }
 
     public static ItemStack getSheet(MaterialType type) {
