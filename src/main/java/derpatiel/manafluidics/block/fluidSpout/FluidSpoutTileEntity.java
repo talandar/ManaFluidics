@@ -26,10 +26,13 @@ public class FluidSpoutTileEntity extends TileEntity implements ITickable {
     private RedstoneActivation activationType;
     private boolean lastPowerState;
 
+    private FluidStack movingFluid;
+
     public FluidSpoutTileEntity(){
         super();
         activationType=RedstoneActivation.RAISING;
         lastPowerState=false;
+        movingFluid=null;
     }
 
     public void readFromNBT(NBTTagCompound compound)
@@ -102,17 +105,23 @@ public class FluidSpoutTileEntity extends TileEntity implements ITickable {
                     belowHandler.fill(drained,true);
                     adjHandler.drain(actuallyDrained,true);
                     if(actuallyDrained==FLUID_MOVED_PER_TICK){
+                        movingFluid=adjHandler.getTankProperties()[0].getContents();
                         fluidLeftToMove-=FLUID_MOVED_PER_TICK;
                     }else{
                         fluidLeftToMove=0;
+                        movingFluid=null;
                     }
                 }else{//could not move any
                     fluidLeftToMove=0;
+                    movingFluid=null;
                 }
             }else{
                 //no movement possible.
                 fluidLeftToMove=0;
+                movingFluid=null;
             }
+        }else{
+            movingFluid=null;
         }
 
         if(activationType!=RedstoneActivation.IGNORED){
@@ -124,6 +133,10 @@ public class FluidSpoutTileEntity extends TileEntity implements ITickable {
 
 
         lastPowerState=worldObj.isBlockPowered(getPos());
+    }
+
+    public FluidStack getMovingFluid(){
+        return movingFluid;
     }
 
     public void triggerActivated(){

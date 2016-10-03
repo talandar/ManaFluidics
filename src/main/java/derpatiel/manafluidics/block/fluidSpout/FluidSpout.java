@@ -128,12 +128,12 @@ public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateab
         }else {
             if (hand == EnumHand.MAIN_HAND) {
                 //only trigger once!
-                if (heldItem.getItem() == Items.REDSTONE) {
+                if (heldItem!=null && heldItem.getItem() == Items.REDSTONE) {
                     FluidSpoutTileEntity tile = (FluidSpoutTileEntity) world.getTileEntity(pos);
                     tile.setActivationType(getNextActivationType(tile.getActivationType()));
                     ChatUtil.sendNoSpam(entityplayer,"REDSTONE MODE: "+tile.getActivationType().getChatDescription());
                     return true;
-                } else if(heldItem.getItem()!= ModItems.crystal_hammer){
+                } else if(heldItem==null || (heldItem!=null && heldItem.getItem()!= ModItems.crystal_hammer)){
                     FluidSpoutTileEntity tile = (FluidSpoutTileEntity) world.getTileEntity(pos);
                     tile.triggerActivated();
                     return true;
