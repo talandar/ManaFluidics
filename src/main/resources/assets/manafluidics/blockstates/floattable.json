@@ -6,18 +6,18 @@
     "variants": {
         "direction": {
             "northeast": {
-            	"model": "manafluidics:floatTable", 
+            	"model": "manafluidics:floattable",
             	"y": 90
             },
             "northwest": {
-            	"model": "manafluidics:floatTable"
+            	"model": "manafluidics:floattable"
             },
             "southeast": {
-            	"model": "manafluidics:floatTable", 
+            	"model": "manafluidics:floattable",
             	"y": 180
             },
             "southwest": {
-            	"model": "manafluidics:floatTable", 
+            	"model": "manafluidics:floattable",
             	"y": -90
             }
         },

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ManaFluidics
 {
     public static final String MODID = "manafluidics";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.0.0";
     public static final String NAME = "Mana Fluidics";
 
     static{
