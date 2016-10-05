@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.block.multiTank;
 
 import derpatiel.manafluidics.block.ITankPart;
+import derpatiel.manafluidics.capability.heat.CapabilityHeat;
 import derpatiel.manafluidics.enums.TankPartState;
 import derpatiel.manafluidics.multiblock.FluidTankData;
 import derpatiel.manafluidics.multiblock.MultiblockHandler;
@@ -11,9 +12,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.ArrayList;
@@ -35,6 +39,8 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
 
     protected final List<BlockPos> tankBlocks = new ArrayList<BlockPos>();
     protected final List<BlockPos> tankTiles = new ArrayList<BlockPos>();
+
+    public static final int TANK_CAPACITY_PER_BLOCK=8* Fluid.BUCKET_VOLUME;
 
     @Override
     public final void update() {
@@ -272,6 +278,12 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
                                     unformedReason = "tank does not allow item handler";
                                 }
                             }
+                            if(tankPartTile.hasCapability(CapabilityHeat.HEAT,null)){
+                                if(!needsHeatInterface()){
+                                    valid=false;
+                                    unformedReason = "tank does not allow heat handler";
+                                }
+                            }
                             //TODO: check IEM capability
                             //TODO: check heat capability
                             tiles.add(testPos);
@@ -438,6 +450,18 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
             dir=null;
         }
         return dir;
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        if(this.isFormed()){
+            AxisAlignedBB bb;
+            bb = new AxisAlignedBB(this.getMinX(),this.getTankBaseY(),this.getMinZ(), this.getMaxX()+1,this.getMaxY(),this.getMaxZ()+1);
+            return bb;
+        }else{
+            return super.getRenderBoundingBox();
+        }
+
     }
 
     public void displayParticles(EnumParticleTypes particle) {

@@ -8,6 +8,7 @@ import derpatiel.manafluidics.block.floatTable.FloatTable;
 import derpatiel.manafluidics.block.fluidSpout.FluidSpout;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankController;
 import derpatiel.manafluidics.block.multiTank.general.TankFluidConnection;
+import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankController;
 import derpatiel.manafluidics.block.portableTank.PortableTank;
 import derpatiel.manafluidics.block.portableTank.PortableTankItemBlock;
 import derpatiel.manafluidics.enums.MaterialType;
@@ -30,9 +31,11 @@ public class ModBlocks {
     public static MFBlock drawNozzle;
     public static MFBlock portableTank;
     public static MFBlock floatTable;
-    public static MFBlock fluidTankController;
     public static MFBlock fluidTankConnector;
     public static MFBlock fluidSpout;
+
+    public static MFBlock fluidTankController;
+    public static MFBlock smeltingTankController;
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
@@ -45,6 +48,7 @@ public class ModBlocks {
         fluidTankController = register(new FluidTankController("fluid_tank_controller",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidTankConnector = register(new TankFluidConnection("tank_basic_valve",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidSpout = register(new FluidSpout("fluidspout",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        smeltingTankController = register(new SmeltingTankController("smeltingtank",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

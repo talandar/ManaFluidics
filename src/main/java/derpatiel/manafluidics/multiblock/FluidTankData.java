@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.multiblock;
 
+import derpatiel.manafluidics.block.multiTank.TankFormingTileEntity;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,7 +23,7 @@ public class FluidTankData extends MultiblockData {
     @Override
     public boolean blockBroken(World world, BlockPos pos) {
         //we know that the broken block is part of the tank
-        FluidTankTileEntity tile = (FluidTankTileEntity) world.getTileEntity(masterPos);
+        TankFormingTileEntity tile = (TankFormingTileEntity) world.getTileEntity(masterPos);
         if(tile!=null) {
             tile.unform();
         }

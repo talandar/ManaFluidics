@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.proxy;
 
+import derpatiel.manafluidics.capability.heat.CapabilityHeat;
 import derpatiel.manafluidics.event.EventHandler;
 import derpatiel.manafluidics.network.MFPacketHandler;
 import derpatiel.manafluidics.registry.*;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         Log.info("preInit COMMON");
+        CapabilityHeat.register();
         ModItems.registerItems();
         ModBlocks.registerBlocks();
         ModFluids.registerFluids();

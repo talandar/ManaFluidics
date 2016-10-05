@@ -11,21 +11,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class FluidTankTileEntity extends TankFormingTileEntity {
 
-    public static final int TANK_CAPACITY_PER_BLOCK=8* Fluid.BUCKET_VOLUME;
-
     public final FluidTank tank = new FluidTank(0);
-
-    @Override
-    public AxisAlignedBB getRenderBoundingBox() {
-        if(this.isFormed()){
-            AxisAlignedBB bb;
-            bb = new AxisAlignedBB(this.getMinX(),this.getTankBaseY(),this.getMinZ(), this.getMaxX()+1,this.getMaxY(),this.getMaxZ()+1);
-            return bb;
-        }else{
-            return super.getRenderBoundingBox();
-        }
-
-    }
 
     @Override
     public void newHeight() {

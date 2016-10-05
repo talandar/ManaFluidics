@@ -3,6 +3,7 @@ package derpatiel.manafluidics.block.multiTank;
 import derpatiel.manafluidics.block.ITankPart;
 import derpatiel.manafluidics.enums.TankPartState;
 import derpatiel.manafluidics.registry.ModItems;
+import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +36,7 @@ public abstract class MFTankControllerBlock<T extends TankFormingTileEntity> ext
                     TankFormingTileEntity te = (TankFormingTileEntity) world.getTileEntity(pos);
                     te.tryFormTank();
                     if(!te.isFormed()){
-                        LOG.info("did not form: "+te.getUnformedReason());
+                        ChatUtil.sendNoSpam(entityPlayer,"did not form tank: "+te.getUnformedReason());
                     }else{
                         te.displayParticles(EnumParticleTypes.REDSTONE);
                     }
@@ -47,14 +48,6 @@ public abstract class MFTankControllerBlock<T extends TankFormingTileEntity> ext
                     te.checkNewBounds();
                 }
                 te.displayParticles(EnumParticleTypes.REDSTONE);
-                /*
-                FluidTankInfo info = te.getTankInfo(side)[0];
-                if(info.fluid!=null){
-                    LOG.info(info.fluid.amount+"mB of "+info.fluid.getLocalizedName());
-                }else{
-                    LOG.info("empty");
-                }
-                */
             }
 
         }

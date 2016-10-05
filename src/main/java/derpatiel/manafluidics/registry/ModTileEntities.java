@@ -11,6 +11,7 @@ import derpatiel.manafluidics.block.fluidSpout.FluidSpoutTileEntity;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankRenderer;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import derpatiel.manafluidics.block.multiTank.general.FluidConnectionTileEntity;
+import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
 import derpatiel.manafluidics.block.portableTank.PortableTankRenderer;
 import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -28,6 +29,7 @@ public class ModTileEntities {
         registerTileEntity(FluidTankTileEntity.class);
         registerTileEntity(FluidConnectionTileEntity.class);
         registerTileEntity(FluidSpoutTileEntity.class);
+        registerTileEntity(SmeltingTankTileEntity.class);
     }
 
     public static void registerRenderers()
