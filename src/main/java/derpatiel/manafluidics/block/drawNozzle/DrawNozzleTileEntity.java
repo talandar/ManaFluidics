@@ -25,8 +25,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 public class DrawNozzleTileEntity extends TileEntity implements ITickable{
 
     public static final int TANK_SIZE=1 * Fluid.BUCKET_VOLUME;
-    public static final int EXTRUSION_SIZE = Fluid.BUCKET_VOLUME / 4;
-    public static final int EXTRUDE_PER_TICK = 10;
+    public static final int EXTRUSION_SIZE = Fluid.BUCKET_VOLUME / 8;
+    public static final int EXTRUDE_PER_TICK = 5;
 
     final FluidTank fluidTank;
 

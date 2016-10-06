@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.capability.heat;
 
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -22,15 +23,15 @@ public class CapabilityHeat {
                     @Override
                     public NBTBase writeNBT(Capability<IHeatHandler> capability, IHeatHandler instance, EnumFacing side)
                     {
-                        return new NBTTagInt(0);//instance.getEnergyStored());
+                        return new NBTTagInt(instance.getHeatProvided());
                     }
 
                     @Override
                     public void readNBT(Capability<IHeatHandler> capability, IHeatHandler instance, EnumFacing side, NBTBase nbt)
                     {
-                        if (!(instance instanceof EnergyStorage))
+                        if (!(instance instanceof HeatProvider))
                             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        //((IHeatHandler)instance).energy = ((NBTTagInt)nbt).getInt();
+                        instance.setHeatProvided(((NBTTagInt)nbt).getInt());
                     }
                 },
                 new Callable<IHeatHandler>()
@@ -38,7 +39,7 @@ public class CapabilityHeat {
                     @Override
                     public IHeatHandler call() throws Exception
                     {
-                        return null;// new HeatHandler();
+                        return new HeatProvider();
                     }
                 });
     }

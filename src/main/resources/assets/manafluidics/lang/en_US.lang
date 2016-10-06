@@ -43,5 +43,7 @@ tile.drawnozzle.name=Drawing Nozzle
 tile.tank_basic_valve.name=Basic Tank Valve
 tile.fluid_tank_controller.name=Fluid Tank Controller
 tile.fluidspout.name=Fluid Spout
+tile.furnaceheater.name=Combustible Heater
+tile.smeltingtank.name=Smelting Tank Controller
 tile.pipeBlock_BASIC.name=Basic Pipe
 tile.pipeBlock_LARGE.name=Large Pipe

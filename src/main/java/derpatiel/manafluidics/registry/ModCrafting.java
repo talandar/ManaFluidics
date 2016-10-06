@@ -85,14 +85,14 @@ public class ModCrafting {
         */
         ItemStack filledCrystalBucket = new ItemStack(ForgeModContainer.getInstance().universalBucket);
         ((UniversalBucket) filledCrystalBucket.getItem()).fill(filledCrystalBucket, FluidRegistry.getFluidStack(ModFluids.moltenCrystal.getName().toLowerCase(), Fluid.BUCKET_VOLUME), true);
-        GameRegistry.addSmelting(ModItems.bucket_crystals, filledCrystalBucket, 1.0F);
+        GameRegistry.addSmelting(ModItems.bucket_crystals, filledCrystalBucket, 0.5F);
 
         ItemStack filledIronBucket = new ItemStack(ForgeModContainer.getInstance().universalBucket);
         ((UniversalBucket) filledIronBucket.getItem()).fill(filledIronBucket, FluidRegistry.getFluidStack(ModFluids.moltenIron.getName().toLowerCase(), Fluid.BUCKET_VOLUME), true);
-        GameRegistry.addSmelting(ModItems.bucket_iron, filledIronBucket, 1.0F);
+        GameRegistry.addSmelting(ModItems.bucket_iron, filledIronBucket, 0.5F);
 
         ItemStack filledGoldBucket = new ItemStack(ForgeModContainer.getInstance().universalBucket);
         ((UniversalBucket) filledGoldBucket.getItem()).fill(filledGoldBucket, FluidRegistry.getFluidStack(ModFluids.moltenGold.getName().toLowerCase(), Fluid.BUCKET_VOLUME), true);
-        GameRegistry.addSmelting(ModItems.bucket_gold, filledGoldBucket, 1.0F);
+        GameRegistry.addSmelting(ModItems.bucket_gold, filledGoldBucket, 0.5F);
     }
 }

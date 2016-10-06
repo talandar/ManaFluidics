@@ -53,6 +53,8 @@ public abstract class TankPartTileEntity extends TileEntity {
             return false;
         }
         switch(facing){
+            case UP:
+                return state!=TankPartState.UNFORMED;
             case EAST:
                 return state==TankPartState.EAST;
             case NORTH:

@@ -1,0 +1,7 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "manafluidics:blocks/furnaceheater_top",
+        "side": "manafluidics:blocks/furnaceheater_side"
+    }
+}

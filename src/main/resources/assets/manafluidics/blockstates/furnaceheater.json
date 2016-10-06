@@ -1,0 +1,37 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "uvlock": false
+    },
+    "variants": {
+        "facing": {
+            "north": {
+            	"model": "manafluidics:furnaceheater"
+            },
+            "south": {
+            	"model": "manafluidics:furnaceheater",
+                "y": 180
+            },
+            "east": {
+            	"model": "manafluidics:furnaceheater",
+            	"y": 90
+            },
+            "west": {
+            	"model": "manafluidics:furnaceheater",
+            	"y": 270
+            }
+        },
+        "generating":{
+        	"true": {
+        	    "textures":{
+                    "front": "manafluidics:blocks/furnaceheater_generating"
+                }
+        	},
+        	"false": {
+        	    "textures":{
+                    "front": "manafluidics:blocks/furnaceheater_idle"
+                }
+        	}
+        }
+    }
+}
