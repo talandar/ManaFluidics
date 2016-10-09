@@ -271,21 +271,9 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
                                 controllerIncluded=true;
                             }
                         }else if(tankBlock.getBlock() instanceof MFTankEntityBlock){
-                            TileEntity tankPartTile = worldObj.getTileEntity(testPos);
-                            if(tankPartTile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,null)){
-                                if(!needsItemInterface()){
-                                    valid=false;
-                                    unformedReason = "tank does not allow item handler";
-                                }
-                            }
-                            if(tankPartTile.hasCapability(CapabilityHeat.HEAT,null)){
-                                if(!needsHeatInterface()){
-                                    valid=false;
-                                    unformedReason = "tank does not allow heat handler";
-                                }
-                            }
-                            //TODO: check IEM capability
-                            //TODO: check heat capability
+                            TankPartTileEntity tankPartTile = (TankPartTileEntity)worldObj.getTileEntity(testPos);
+
+                            valid = checkTankPartValidity(tankPartTile);
                             tiles.add(testPos);
                         }
                     }else{
@@ -352,7 +340,11 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
                         return;
                     }
                     if(worldObj.getBlockState(pos).getBlock() instanceof MFTankEntityBlock){
-                        //TODO: check if this is an allowed type
+                        TankPartTileEntity tankPartTile = (TankPartTileEntity)worldObj.getTileEntity(pos);
+
+                        if(!checkTankPartValidity(tankPartTile)) {
+                            return;
+                        }
                         newLevelTiles.add(pos);
                     }
                 }else{//not at base level, not a wall, must be air
@@ -477,5 +469,23 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
                 worldserver.spawnParticle(particle, false, tankPos.getX()+0.7, tankPos.getY()+0.5, tankPos.getZ()+0.7, 1, 0.0D, 0.0D, 0.0D, 0.0D, new int[0]);
             }
         }
+    }
+
+    private boolean checkTankPartValidity(TankPartTileEntity tankPartTile) {
+        boolean valid = true;
+        if (tankPartTile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
+            if (!needsItemInterface()) {
+                valid = false;
+                unformedReason = "tank does not allow item handler";
+            }
+        }
+        if (tankPartTile.hasCapability(CapabilityHeat.HEAT, null)) {
+            if (!needsHeatInterface()) {
+                valid = false;
+                unformedReason = "tank does not allow heat handler";
+            }
+        }
+        //TODO: check IEM capability
+        return valid;
     }
 }

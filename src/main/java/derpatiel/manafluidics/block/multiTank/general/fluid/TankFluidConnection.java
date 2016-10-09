@@ -1,10 +1,7 @@
-package derpatiel.manafluidics.block.multiTank.general;
+package derpatiel.manafluidics.block.multiTank.general.fluid;
 
-import derpatiel.manafluidics.block.TankPartBlock;
 import derpatiel.manafluidics.block.multiTank.MFTankEntityBlock;
-import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import derpatiel.manafluidics.registry.ModBlocks;
-import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

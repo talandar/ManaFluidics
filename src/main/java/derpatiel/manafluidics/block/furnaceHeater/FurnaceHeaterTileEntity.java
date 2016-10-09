@@ -23,6 +23,9 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
 
+    //100 ticks/smelt in a furnace
+    //100 HU/t from burning in this inventory
+    //therefore, 10000 HU/smelt
     private final HeatProvider heatProvider = new HeatProvider(100);
     private final ItemStackHandler itemHandler = new ItemStackHandler(1);
 

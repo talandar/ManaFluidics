@@ -1,4 +1,4 @@
-package derpatiel.manafluidics.block.multiTank.general;
+package derpatiel.manafluidics.block.multiTank.general.fluid;
 
 import derpatiel.manafluidics.block.multiTank.TankPartTileEntity;
 import net.minecraft.util.EnumFacing;

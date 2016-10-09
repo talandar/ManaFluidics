@@ -1,0 +1,6 @@
+{
+    "parent":"manafluidics:block/furnaceheater",
+    "textures":{
+        "front": "manafluidics:blocks/furnaceheater_idle"
+    }
+}

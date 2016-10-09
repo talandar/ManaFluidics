@@ -1,14 +1,12 @@
 package derpatiel.manafluidics.registry;
 
-import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.*;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzle;
-import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
 import derpatiel.manafluidics.block.floatTable.FloatTable;
 import derpatiel.manafluidics.block.fluidSpout.FluidSpout;
 import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeater;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankController;
-import derpatiel.manafluidics.block.multiTank.general.TankFluidConnection;
+import derpatiel.manafluidics.block.multiTank.general.fluid.TankFluidConnection;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankController;
 import derpatiel.manafluidics.block.portableTank.PortableTank;
 import derpatiel.manafluidics.block.portableTank.PortableTankItemBlock;
@@ -18,11 +16,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemMultiTexture;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import javax.sound.sampled.Port;
 
 public class ModBlocks {
 
@@ -49,7 +43,7 @@ public class ModBlocks {
         fluidTankController = register(new FluidTankController("fluid_tank_controller",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidTankConnector = register(new TankFluidConnection("tank_basic_valve",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidSpout = register(new FluidSpout("fluidspout",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
-        smeltingTankController = register(new SmeltingTankController("smeltingtank",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        smeltingTankController = register(new SmeltingTankController("smelting_tank_controller",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         furnaceHeater = register(new FurnaceHeater("furnaceheater",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
     }
 
