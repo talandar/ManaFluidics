@@ -23,6 +23,8 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
 
+    public static final int SIZE = 1;
+
     //100 ticks/smelt in a furnace
     //100 HU/t from burning in this inventory
     //therefore, 10000 HU/smelt
@@ -46,11 +48,7 @@ public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
                 if(burningStack.stackSize == 0) {
                     burningStack = burningStack.getItem().getContainerItem(burningStack);
                 }
-                if(burningStack!=null){
-                    itemHandler.setStackInSlot(0,burningStack);
-                }else{
-                    itemHandler.setStackInSlot(0,null);
-                }
+                itemHandler.setStackInSlot(0,burningStack);
                 ticksLeft=fuelValue;
                 markDirty();
             }
@@ -58,6 +56,7 @@ public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
         boolean isGenerating = ticksLeft>0;
         if(isGenerating!=wasGenerating){
             worldObj.setBlockState(getPos(),worldObj.getBlockState(getPos()).withProperty(FurnaceHeater.GENERATING,isGenerating),3);
+            markDirty();
         }
     }
 
@@ -69,14 +68,14 @@ public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
     {
         super.readFromNBT(compound);
         ticksLeft = compound.getInteger("ticksLeft");
-        compound.setTag("inventory",itemHandler.serializeNBT());
+        itemHandler.deserializeNBT(compound.getCompoundTag("inventory"));
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
         compound.setInteger("ticksLeft",ticksLeft);
-        itemHandler.deserializeNBT(compound.getCompoundTag("inventory"));
+        compound.setTag("inventory",itemHandler.serializeNBT());
         return compound;
     }
 

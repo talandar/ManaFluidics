@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.proxy;
 
+import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.capability.heat.CapabilityHeat;
 import derpatiel.manafluidics.event.EventHandler;
 import derpatiel.manafluidics.network.MFPacketHandler;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
@@ -28,6 +30,7 @@ public class CommonProxy {
         MFPacketHandler.init();
         MinecraftForge.EVENT_BUS.register(EventHandler.eventHandler);
         ModCrafting.registerCrafting();
+        NetworkRegistry.INSTANCE.registerGuiHandler(ManaFluidics.instance, new ModGUIs());
         //register world gen
     }
 

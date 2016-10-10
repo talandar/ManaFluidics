@@ -1,10 +1,10 @@
 package derpatiel.manafluidics.block.furnaceHeater;
 
+import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.IDismantleable;
 import derpatiel.manafluidics.block.MFTileBlock;
-import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
-import derpatiel.manafluidics.enums.CornerFacing;
 import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.registry.ModGUIs;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -20,8 +20,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -50,8 +48,23 @@ public class FurnaceHeater extends MFTileBlock implements IDismantleable{
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    {
+        if (worldIn.isRemote)
+        {
+            return true;
+        }
+        else
+        {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+
+            if (tileentity instanceof FurnaceHeaterTileEntity)
+            {
+                playerIn.openGui(ManaFluidics.instance, ModGUIs.FURNACE_HEATER_ID,worldIn,pos.getX(),pos.getY(), pos.getZ());
+            }
+
+            return true;
+        }
     }
 
     @Override
