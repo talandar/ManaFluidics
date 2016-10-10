@@ -11,6 +11,7 @@ import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeaterTileEntity;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankRenderer;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import derpatiel.manafluidics.block.multiTank.general.fluid.FluidConnectionTileEntity;
+import derpatiel.manafluidics.block.multiTank.general.heat.HeatConnectionTileEntity;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
 import derpatiel.manafluidics.block.portableTank.PortableTankRenderer;
 import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
@@ -31,6 +32,7 @@ public class ModTileEntities {
         registerTileEntity(FluidSpoutTileEntity.class);
         registerTileEntity(SmeltingTankTileEntity.class);
         registerTileEntity(FurnaceHeaterTileEntity.class);
+        registerTileEntity(HeatConnectionTileEntity.class);
     }
 
     public static void registerRenderers()

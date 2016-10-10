@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.block.multiTank;
 
 import derpatiel.manafluidics.block.ITankPart;
+import derpatiel.manafluidics.block.multiTank.general.heat.HeatConnectionTileEntity;
 import derpatiel.manafluidics.capability.heat.CapabilityHeat;
 import derpatiel.manafluidics.enums.TankPartState;
 import derpatiel.manafluidics.multiblock.FluidTankData;
@@ -479,7 +480,7 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
                 unformedReason = "tank does not allow item handler";
             }
         }
-        if (tankPartTile.hasCapability(CapabilityHeat.HEAT, null)) {
+        if (tankPartTile instanceof HeatConnectionTileEntity) {
             if (!needsHeatInterface()) {
                 valid = false;
                 unformedReason = "tank does not allow heat handler";

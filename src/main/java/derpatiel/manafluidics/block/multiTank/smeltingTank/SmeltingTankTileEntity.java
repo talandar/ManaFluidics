@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.block.multiTank.smeltingTank;
 
 import derpatiel.manafluidics.block.multiTank.TankFormingTileEntity;
+import derpatiel.manafluidics.util.LOG;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -86,5 +87,9 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
             return null;
         }
         return super.getCapability(capability, facing);
+    }
+
+    public void addHeat(int heat){
+        //TODO
     }
 }
