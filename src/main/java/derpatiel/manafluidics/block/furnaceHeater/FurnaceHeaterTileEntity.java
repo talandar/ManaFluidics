@@ -32,6 +32,7 @@ public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
     private final ItemStackHandler itemHandler = new ItemStackHandler(1);
 
     private int ticksLeft=0;
+    private int itemProvidedTicks=0;
 
 
     @Override
@@ -50,6 +51,7 @@ public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
                 }
                 itemHandler.setStackInSlot(0,burningStack);
                 ticksLeft=fuelValue;
+                itemProvidedTicks=fuelValue;
                 markDirty();
             }
         }
@@ -64,10 +66,19 @@ public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
         return ticksLeft>0;
     }
 
+    public float getBurnFraction(){
+        if (ticksLeft==0 || itemProvidedTicks==0) {
+            return 0f;
+        }else{
+            return ((float)ticksLeft)/((float)itemProvidedTicks);
+        }
+    }
+
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
         ticksLeft = compound.getInteger("ticksLeft");
+        itemProvidedTicks=compound.getInteger("providedTicks");
         itemHandler.deserializeNBT(compound.getCompoundTag("inventory"));
     }
 
@@ -75,6 +86,7 @@ public class FurnaceHeaterTileEntity extends TileEntity implements ITickable {
     {
         super.writeToNBT(compound);
         compound.setInteger("ticksLeft",ticksLeft);
+        compound.setInteger("providedTicks",itemProvidedTicks);
         compound.setTag("inventory",itemHandler.serializeNBT());
         return compound;
     }
