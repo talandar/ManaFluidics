@@ -119,6 +119,10 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
         return (maxX-minX) * (maxZ-minZ) * tankHeight;
     }
 
+    public BlockPos getCenterPos(){
+        return new BlockPos((maxX+minX)/2,baseY+1,(maxZ+minZ)/2);
+    }
+
 
     /**
      * called on the tank when it it known to be valid and formed correctly.

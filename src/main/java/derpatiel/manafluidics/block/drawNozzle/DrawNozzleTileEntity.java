@@ -1,8 +1,7 @@
 package derpatiel.manafluidics.block.drawNozzle;
 
 import derpatiel.manafluidics.registry.ModItems;
-import derpatiel.manafluidics.util.LOG;
-import derpatiel.manafluidics.util.MetaItemHelper;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -99,7 +98,7 @@ public class DrawNozzleTileEntity extends TileEntity implements ITickable{
     public void update() {
         if(fluidTank.getFluid()!=null){
             Fluid fluid = fluidTank.getFluid().getFluid();
-            if(MetaItemHelper.fluidProductMap.containsKey(fluid)
+            if(MaterialItemHelper.fluidProductMap.containsKey(fluid)
                     && getWorld().getBlockState(getPos().down()).getMaterial()== Material.AIR){//only extrude if we have liquid, and the block below is air-like
                 if(lastFluidName==null || !lastFluidName.equals(FluidRegistry.getFluidName(fluid))){
                     lastFluidName=FluidRegistry.getFluidName(fluid);
@@ -116,7 +115,7 @@ public class DrawNozzleTileEntity extends TileEntity implements ITickable{
                 if(extrudedQuantity==EXTRUSION_SIZE){
                     extrudedQuantity=0;
                     if(!getWorld().isRemote){
-                        ItemStack spawned = new ItemStack(ModItems.material_wire,1,MetaItemHelper.fluidProductMap.get(fluid).getID());
+                        ItemStack spawned = new ItemStack(ModItems.material_wire,1, MaterialItemHelper.fluidProductMap.get(fluid).getID());
                         BlockPos spawnLoc = getPos().down();
                         EntityItem entityitem = new EntityItem(getWorld(), spawnLoc.getX()+0.5f, spawnLoc.getY()+0.5f, spawnLoc.getZ()+0.5f, spawned);
                         entityitem.motionX=0;

@@ -4,15 +4,15 @@ public class HeatProvider implements IHeatHandler {
 
     private int heatProvided;
 
-    private boolean heatProvidedThisTick=false;
+    private boolean heatProvidedThisTick=true;
 
     public HeatProvider(int heatProvided){
         this.heatProvided=heatProvided;
-        heatProvidedThisTick=false;
+        heatProvidedThisTick=true;
     }
     public HeatProvider(){
         this.heatProvided=0;
-        heatProvidedThisTick=false;
+        heatProvidedThisTick=true;
     }
 
     @Override

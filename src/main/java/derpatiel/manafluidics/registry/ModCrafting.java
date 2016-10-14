@@ -1,8 +1,7 @@
 package derpatiel.manafluidics.registry;
 
-import derpatiel.manafluidics.block.MFBlock;
 import derpatiel.manafluidics.enums.MaterialType;
-import derpatiel.manafluidics.util.MetaItemHelper;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
@@ -10,7 +9,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import scala.tools.cmd.Meta;
 
 public class ModCrafting {
 
@@ -28,23 +26,23 @@ public class ModCrafting {
                 "S S",
                 "SBS",
                 " S ",
-                'S', MetaItemHelper.getSheet(MaterialType.IRON),
+                'S', MaterialItemHelper.getSheet(MaterialType.IRON),
                 'B', Items.BUCKET);
 
         GameRegistry.addRecipe(new ItemStack(ModBlocks.portableTank),
                 " I ",
                 "C C",
                 " I ",
-                'I', MetaItemHelper.getSheet(MaterialType.IRON),
-                'C', MetaItemHelper.getSheet(MaterialType.CRYSTAL));
+                'I', MaterialItemHelper.getSheet(MaterialType.IRON),
+                'C', MaterialItemHelper.getSheet(MaterialType.CRYSTAL));
 
         for(MaterialType type : MaterialType.VALUES) {
-            GameRegistry.addRecipe(MetaItemHelper.getCircuit(type,1),
+            GameRegistry.addRecipe(MaterialItemHelper.getCircuit(type,1),
                     "RWR",
                     "WDW",
                     "RWR",
                     'R', Items.REDSTONE,
-                    'W', MetaItemHelper.getWire(type),
+                    'W', MaterialItemHelper.getWire(type),
                     'D', Items.DIAMOND
             );
         }
@@ -54,8 +52,8 @@ public class ModCrafting {
                 " O ",
                 "OCO",
                 " O ",
-                'O',MetaItemHelper.getSheet(MaterialType.OBSIDIAN,1),
-                'C',MetaItemHelper.getCircuit(MaterialType.IRON,1));
+                'O', MaterialItemHelper.getSheet(MaterialType.OBSIDIAN,1),
+                'C', MaterialItemHelper.getCircuit(MaterialType.IRON,1));
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.bucket_crystals),
                 new ItemStack(ModItems.manaCrystal),
@@ -76,8 +74,8 @@ public class ModCrafting {
                 new ItemStack(Items.BUCKET));
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.tankBottom),
-                MetaItemHelper.getSheet(MaterialType.OBSIDIAN),
-                MetaItemHelper.getSheet(MaterialType.OBSIDIAN));
+                MaterialItemHelper.getSheet(MaterialType.OBSIDIAN),
+                MaterialItemHelper.getSheet(MaterialType.OBSIDIAN));
 
         /*
         public static MFBlock fluidTankConnector;

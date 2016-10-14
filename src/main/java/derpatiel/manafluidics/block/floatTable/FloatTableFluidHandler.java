@@ -1,12 +1,8 @@
 package derpatiel.manafluidics.block.floatTable;
 
 import derpatiel.manafluidics.registry.ModFluids;
-import derpatiel.manafluidics.util.MetaItemHelper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.fluids.Fluid;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
@@ -41,7 +37,7 @@ public class FloatTableFluidHandler implements IFluidHandler{
     public int fill(FluidStack resource, boolean doFill){
         if(tileEntity.itemHandler.sheets==null || tileEntity.itemHandler.sheets.stackSize==0){
             if(tileEntity.manaTank.getFluidAmount()==tileEntity.manaTank.getCapacity()){
-                if(MetaItemHelper.fluidProductMap.containsKey(resource.getFluid()) && (tileEntity.reactantTank.getFluidAmount()==0 || tileEntity.reactantTank.getFluid().getFluid()==resource.getFluid())){
+                if(MaterialItemHelper.fluidProductMap.containsKey(resource.getFluid()) && (tileEntity.reactantTank.getFluidAmount()==0 || tileEntity.reactantTank.getFluid().getFluid()==resource.getFluid())){
                     return tileEntity.reactantTank.fill(resource, doFill);
                 }else{
                     return 0;

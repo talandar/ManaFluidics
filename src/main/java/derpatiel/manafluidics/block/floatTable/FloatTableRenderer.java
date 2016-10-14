@@ -2,7 +2,7 @@ package derpatiel.manafluidics.block.floatTable;
 
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.util.FluidRenderBounds;
-import derpatiel.manafluidics.util.MetaItemHelper;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import derpatiel.manafluidics.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -75,14 +75,14 @@ public class FloatTableRenderer  extends TileEntitySpecialRenderer<FloatTableTil
                 if(numSheets>tile.facing.getID()){
                     VertexBuffer wr = Tessellator.getInstance().getBuffer();
                     MaterialType sheetType;
-                    if(reactant!=null && MetaItemHelper.fluidProductMap.containsKey(reactant.getFluid())){
-                        sheetType = MetaItemHelper.fluidProductMap.get(reactant.getFluid());
+                    if(reactant!=null && MaterialItemHelper.fluidProductMap.containsKey(reactant.getFluid())){
+                        sheetType = MaterialItemHelper.fluidProductMap.get(reactant.getFluid());
                     }else if(sheets!=null){
                         sheetType = MaterialType.getById(sheets.getMetadata());
                     }else{
                         return;//bomb out - strange case
                     }
-                    ResourceLocation sheetResource = new ResourceLocation(MetaItemHelper.sheetResourceDomain.get(sheetType),MetaItemHelper.sheetResourceLocation.get(sheetType));
+                    ResourceLocation sheetResource = new ResourceLocation(MaterialItemHelper.sheetResourceDomain.get(sheetType), MaterialItemHelper.sheetResourceLocation.get(sheetType));
                     RenderUtil.pre(x, y, z);
                     wr.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
                     Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

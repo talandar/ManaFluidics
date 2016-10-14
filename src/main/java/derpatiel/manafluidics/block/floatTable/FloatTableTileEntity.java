@@ -3,7 +3,7 @@ package derpatiel.manafluidics.block.floatTable;
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.enums.CornerFacing;
 import derpatiel.manafluidics.util.FluidRenderBounds;
-import derpatiel.manafluidics.util.MetaItemHelper;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import derpatiel.manafluidics.util.NBTHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -245,7 +245,7 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
                 timeSpentHardening++;
                 if(timeSpentHardening>=HARDENING_TIME){
                     timeSpentHardening=0;
-                    MaterialType sheetType = MetaItemHelper.fluidProductMap.get(reactantTank.getFluid().getFluid());
+                    MaterialType sheetType = MaterialItemHelper.fluidProductMap.get(reactantTank.getFluid().getFluid());
                     reactantTank.drain(reactantTank.getCapacity(), true);//empty tank
                     itemHandler.floatTableHarden(sheetType);
                 }

@@ -1,9 +1,8 @@
 package derpatiel.manafluidics.block.floatTable;
 
 import derpatiel.manafluidics.enums.MaterialType;
-import derpatiel.manafluidics.util.MetaItemHelper;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.IItemHandler;
@@ -55,6 +54,6 @@ public class FloatTableItemHandler implements IItemHandler {
     }
 
     public void floatTableHarden(MaterialType type){
-        sheets = MetaItemHelper.getSheet(type,4);
+        sheets = MaterialItemHelper.getSheet(type,4);
     }
 }

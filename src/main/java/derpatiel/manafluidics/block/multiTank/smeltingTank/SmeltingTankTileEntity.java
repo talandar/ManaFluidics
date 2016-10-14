@@ -1,23 +1,37 @@
 package derpatiel.manafluidics.block.multiTank.smeltingTank;
 
 import derpatiel.manafluidics.block.multiTank.TankFormingTileEntity;
+import derpatiel.manafluidics.fluid.MultiTank;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class SmeltingTankTileEntity extends TankFormingTileEntity {
 
-    public final FluidTank tank = new FluidTank(0);
+    public final MultiTank tank;
+    public final SmeltingItemHandler itemHandler;
+
+    private int heatThisTick=0;
+    private int heatersThisTick =0;
+
+    public SmeltingTankTileEntity(){
+        tank = new MultiTank(this);
+        itemHandler = new SmeltingItemHandler(this);
+    }
 
     @Override
     public void doUpdate() {
+
+        int heatConsumed = heatThisTick + (int)(0.1f * (heatersThisTick-1) * heatThisTick);
+        heatThisTick=0;
+        heatersThisTick =0;
+
         //check heat, add to melting, melt any needed items
+        //add any items in tank location
     }
 
     @Override
@@ -27,12 +41,13 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
 
     public void setCapacityBySize(){
         tank.setCapacity(getNumInteriorBlocks() * TANK_CAPACITY_PER_BLOCK);
-        //TODO: set inventory size
+        itemHandler.setSize(getNumInteriorBlocks());
     }
 
     @Override
     public void notifyUnformed() {
         tank.setCapacity(0);
+        itemHandler.setSize(0);
     }
 
     @Override
@@ -58,8 +73,8 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setTag("tank",tank.writeToNBT(new NBTTagCompound()));
-        //TODO: write inventory
+        compound.setTag("tank",tank.serializeNBT());
+        compound.setTag("inventory",itemHandler.serializeNBT());
         return compound;
     }
 
@@ -67,8 +82,8 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         setCapacityBySize();
-        tank.readFromNBT(compound.getCompoundTag("tank"));
-        //TODO read inventory
+        tank.deserializeNBT(compound.getCompoundTag("tank"));
+        itemHandler.deserializeNBT(compound.getCompoundTag("inventory"));
     }
 
     @Override
@@ -82,14 +97,21 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if((isValidConnectionDirection(facing) || facing==null) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return (T) tank;
-        }else if((isValidConnectionDirection(facing) || facing==null) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
-            //TODO return item handler
-            return null;
+        }else if((isValidConnectionDirection(facing) || facing==null) && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+            return (T)itemHandler;
         }
         return super.getCapability(capability, facing);
     }
 
     public void addHeat(int heat){
-        //TODO
+        //each additional furnace is more efficient
+        if(heat>0) {
+            heatThisTick += heat;
+            heatersThisTick++;
+        }
+    }
+
+    public void onTankChanged(){
+        //TODO: mark for update, send inventory... ?
     }
 }

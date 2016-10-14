@@ -16,6 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.FluidTankProperties;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 import javax.annotation.Nullable;
 
@@ -29,7 +32,11 @@ public class SmeltingTankController extends MFTankControllerBlock {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (heldItem != null) {
             SmeltingTankTileEntity tile = ((SmeltingTankTileEntity)worldIn.getTileEntity(pos));
-            /* TODO
+            IFluidHandler handler = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,null);
+            for(IFluidTankProperties tankProperties : handler.getTankProperties()){
+                LOG.info(tankProperties.getContents().getFluid().getName()+": "+tankProperties.getContents().amount+"mb");
+            }
+            /* TODO: ui, etc
             if(heldItem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
                 tile.markForUpdate();
                 return FluidUtil.interactWithFluidHandler(heldItem, tile.tank, playerIn);

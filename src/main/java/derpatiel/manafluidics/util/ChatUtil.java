@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 /**
  * Taken and adapted from Blood Magic's ChatUtil class under the Creative Commons Attribution 4.0 International License
  * (CC BY 4.0)
- * This version initially retrieved 10/2/2016 as git hash 3e50dd4, committed April 12, 2016 from https://github.com/WayofTime/BloodMagic
+ * This version initially retrieved 10/2/2016 as git hash 3e50dd4..., committed April 12, 2016 from https://github.com/WayofTime/BloodMagic
  */
 public class ChatUtil {
 
