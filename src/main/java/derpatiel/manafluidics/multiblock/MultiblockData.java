@@ -14,8 +14,6 @@ public abstract class MultiblockData {
     protected BlockPos masterPos;
 
 
-    public boolean valid=true;
-
     public MultiblockData(BlockPos masterPos, List<BlockPos> positions){
         this.masterPos=masterPos;
         this.positions=positions;

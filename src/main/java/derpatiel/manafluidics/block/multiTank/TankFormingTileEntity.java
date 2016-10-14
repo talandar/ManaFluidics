@@ -322,7 +322,7 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
         this.notifyFormed();
 
         if(!worldObj.isRemote){
-            FluidTankData data = new FluidTankData(getPos(), tankBlocks);
+            FluidTankData data = new FluidTankData(getPos(), new ArrayList<BlockPos>(tankBlocks));
             MultiblockHandler.registerMultiblock(worldObj, data);
         }
 

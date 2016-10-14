@@ -49,19 +49,15 @@ public class DimensionMultiblockData extends WorldSavedData {
         boolean broken=false;
         if(tankPositionMap.containsKey(pos)){
             MultiblockData data = tankPositionMap.get(pos);
-            if(data.valid) {
-                broken = data.blockBroken(world, pos);
-                if (broken) {
-                    for (BlockPos remove : data.getBlockPositions()) {
-                        tankPositionMap.remove(remove);
-                    }
-                    tankDataList.remove(data);
-                    markDirty();
+            broken = data.blockBroken(world, pos);
+            if (broken) {
+                for (BlockPos remove : data.getBlockPositions()) {
+                    tankPositionMap.remove(remove);
                 }
-            }else{
-                //we shouldn't have gotten this!
-                tankPositionMap.remove(pos);
+                tankDataList.remove(data);
+                markDirty();
             }
+            tankPositionMap.remove(pos);
         }
         /*
         if(pipeLocations.contains(pos)){
