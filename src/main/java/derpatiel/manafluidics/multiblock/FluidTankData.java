@@ -26,6 +26,7 @@ public class FluidTankData extends MultiblockData {
         TankFormingTileEntity tile = (TankFormingTileEntity) world.getTileEntity(masterPos);
         if(tile!=null) {
             tile.unform();
+            valid=false;
         }
         return true;
     }
