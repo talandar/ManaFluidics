@@ -21,38 +21,42 @@ public class HeatConnectionTileEntity extends TankPartTileEntity implements ITic
 
     @Override
     public void update() {
-
-        IBlockState blockState = worldObj.getBlockState(getPos());
-        TankPartState partState = blockState.getValue(MFTankEntityBlock.STATE);
-        if(partState==TankPartState.UNFORMED) {
-            return;
-        }
-        BlockPos heaterBlock=null;
-        EnumFacing heaterFacing = null;
-        switch (partState){
-            case EAST:
-                heaterBlock = getPos().offset(EnumFacing.EAST);
-                heaterFacing=EnumFacing.WEST;
-                break;
-            case WEST:
-                heaterBlock = getPos().offset(EnumFacing.WEST);
-                heaterFacing=EnumFacing.EAST;
-                break;
-            case NORTH:
-                heaterBlock = getPos().offset(EnumFacing.NORTH);
-                heaterFacing=EnumFacing.SOUTH;
-                break;
-            case SOUTH:
-                heaterBlock = getPos().offset(EnumFacing.SOUTH);
-                heaterFacing=EnumFacing.NORTH;
-                break;
-        }
-        if(heaterBlock!=null){
-            TileEntity heatTile = worldObj.getTileEntity(heaterBlock);
-            if(heatTile!=null && heatTile.hasCapability(CapabilityHeat.HEAT, heaterFacing)){
-                IHeatHandler heatProvider = heatTile.getCapability(CapabilityHeat.HEAT,heaterFacing);
-                int consumedHeat = heatProvider.consumeHeat();
-                ((SmeltingTankTileEntity)this.getParentTile()).addHeat(consumedHeat);
+        if (parentLoc != null) {
+            IBlockState blockState = worldObj.getBlockState(getPos());
+            TankPartState partState = blockState.getValue(MFTankEntityBlock.STATE);
+            if (partState == TankPartState.UNFORMED) {
+                return;
+            }
+            BlockPos heaterBlock = null;
+            EnumFacing heaterFacing = null;
+            switch (partState) {
+                case EAST:
+                    heaterBlock = getPos().offset(EnumFacing.EAST);
+                    heaterFacing = EnumFacing.WEST;
+                    break;
+                case WEST:
+                    heaterBlock = getPos().offset(EnumFacing.WEST);
+                    heaterFacing = EnumFacing.EAST;
+                    break;
+                case NORTH:
+                    heaterBlock = getPos().offset(EnumFacing.NORTH);
+                    heaterFacing = EnumFacing.SOUTH;
+                    break;
+                case SOUTH:
+                    heaterBlock = getPos().offset(EnumFacing.SOUTH);
+                    heaterFacing = EnumFacing.NORTH;
+                    break;
+            }
+            if (heaterBlock != null) {
+                TileEntity heatTile = worldObj.getTileEntity(heaterBlock);
+                if (heatTile != null && heatTile.hasCapability(CapabilityHeat.HEAT, heaterFacing)) {
+                    IHeatHandler heatProvider = heatTile.getCapability(CapabilityHeat.HEAT, heaterFacing);
+                    int consumedHeat = heatProvider.consumeHeat();
+                    SmeltingTankTileEntity parentTile = (SmeltingTankTileEntity)this.getParentTile();
+                    if(parentTile!=null) {
+                        parentTile.addHeat(consumedHeat);
+                    }
+                }
             }
         }
     }

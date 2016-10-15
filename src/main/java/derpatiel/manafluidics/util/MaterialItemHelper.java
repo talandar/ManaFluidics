@@ -47,21 +47,28 @@ public class MaterialItemHelper {
         sheetResourceDomain.put(MaterialType.IRON, "minecraft");
         sheetResourceDomain.put(MaterialType.OBSIDIAN, "minecraft");
 
-        meltableBlocks.put(ModBlocks.sheet, new MetaMeltingInformation(2500,250));
-        meltableBlocks.put(ModBlocks.tankBottom, new MeltingInformation(5000,new FluidStack(FluidRegistry.LAVA,500)));
-        meltableBlocks.put(Blocks.IRON_ORE, new MeltingInformation(10000,new FluidStack(ModFluids.moltenIron,1000)));
-        meltableBlocks.put(Blocks.IRON_BLOCK, new MeltingInformation(45000, new FluidStack(ModFluids.moltenIron,4500)));
-        meltableBlocks.put(Blocks.GOLD_BLOCK, new MeltingInformation(45000, new FluidStack(ModFluids.moltenGold,4500)));
-        meltableBlocks.put(Blocks.GOLD_ORE, new MeltingInformation(10000,new FluidStack(ModFluids.moltenGold,1000)));
-        meltableBlocks.put(Blocks.OBSIDIAN, new MeltingInformation(10000,new FluidStack(FluidRegistry.LAVA,1000)));
+        /*
+        200ticks/smelt for ores.  smelt time proportional to output quantity (100ticks/ingot)
+        100HU/furnace
+        ->20,000 heat/1000mb
+        ->20heat/mb
+         */
 
-        meltableItems.put(ModItems.manaCrystal, new MeltingInformation(5000,new FluidStack(ModFluids.moltenCrystal,500)));
-        meltableItems.put(ModItems.material_wire,new MetaMeltingInformation(1250,125));
-        meltableItems.put(ModItems.control_circuit,new MetaMeltingInformation(5000,500));
+        meltableBlocks.put(ModBlocks.sheet, new MetaMeltingInformation(250));
+        meltableBlocks.put(ModBlocks.tankBottom, new MeltingInformation(new FluidStack(FluidRegistry.LAVA,500)));
+        meltableBlocks.put(Blocks.IRON_ORE, new MeltingInformation(new FluidStack(ModFluids.moltenIron,1000)));
+        meltableBlocks.put(Blocks.IRON_BLOCK, new MeltingInformation(new FluidStack(ModFluids.moltenIron,4500)));
+        meltableBlocks.put(Blocks.GOLD_BLOCK, new MeltingInformation(new FluidStack(ModFluids.moltenGold,4500)));
+        meltableBlocks.put(Blocks.GOLD_ORE, new MeltingInformation(new FluidStack(ModFluids.moltenGold,1000)));
+        meltableBlocks.put(Blocks.OBSIDIAN, new MeltingInformation(new FluidStack(FluidRegistry.LAVA,1000)));
+
+        meltableItems.put(ModItems.manaCrystal, new MeltingInformation(new FluidStack(ModFluids.moltenCrystal,500)));
+        meltableItems.put(ModItems.material_wire,new MetaMeltingInformation(125));
+        meltableItems.put(ModItems.control_circuit,new MetaMeltingInformation(500));
 
         //TODO: lots of vanilla items, blocks where applicable
-        meltableItems.put(Items.IRON_INGOT,new MeltingInformation(5000,new FluidStack(ModFluids.moltenIron,500)));
-        meltableItems.put(Items.GOLD_INGOT,new MeltingInformation(5000,new FluidStack(ModFluids.moltenGold,500)));
+        meltableItems.put(Items.IRON_INGOT,new MeltingInformation(new FluidStack(ModFluids.moltenIron,500)));
+        meltableItems.put(Items.GOLD_INGOT,new MeltingInformation(new FluidStack(ModFluids.moltenGold,500)));
 
 
 
@@ -105,7 +112,7 @@ public class MaterialItemHelper {
         }
     }
 
-    public int getMeltHeat(ItemStack stack){
+    public static int getMeltHeat(ItemStack stack){
         if(stack==null || stack.stackSize==0 || !isMeltable(stack))
             return -1;
         Item item = stack.getItem();
@@ -118,7 +125,7 @@ public class MaterialItemHelper {
         }
     }
 
-    public FluidStack getMeltOutput(ItemStack stack){
+    public static FluidStack getMeltOutput(ItemStack stack){
         if(stack==null || stack.stackSize==0 || !isMeltable(stack))
             return null;
         Item item = stack.getItem();
@@ -151,6 +158,12 @@ public class MaterialItemHelper {
             this.requiredHeat=requiredHeat;
             this.result = result!=null ? result.copy() : null;
         }
+
+        public MeltingInformation(FluidStack result){
+            int resultQty = result.amount;
+            this.requiredHeat = 20*resultQty;
+            this.result=result;
+        }
     }
     public static class MetaMeltingInformation extends MeltingInformation{
         public final int materialFluidResult;
@@ -158,7 +171,11 @@ public class MaterialItemHelper {
         public MetaMeltingInformation(int requiredHeat, int materialFluidResult){
             super(requiredHeat,null);
             this.materialFluidResult = materialFluidResult;
+        }
 
+        public MetaMeltingInformation(int materialFluidResult){
+            super(20*materialFluidResult,null);
+            this.materialFluidResult=materialFluidResult;
         }
     }
 }

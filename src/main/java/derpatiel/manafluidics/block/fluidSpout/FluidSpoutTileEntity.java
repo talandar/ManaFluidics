@@ -105,8 +105,13 @@ public class FluidSpoutTileEntity extends TileEntity implements ITickable {
                     belowHandler.fill(drained,true);
                     adjHandler.drain(actuallyDrained,true);
                     if(actuallyDrained==FLUID_MOVED_PER_TICK){
-                        movingFluid=adjHandler.getTankProperties()[0].getContents();
-                        fluidLeftToMove-=FLUID_MOVED_PER_TICK;
+                        if(adjHandler.getTankProperties().length>0) {
+                            movingFluid = adjHandler.getTankProperties()[0].getContents();
+                            fluidLeftToMove -= FLUID_MOVED_PER_TICK;
+                        }else{
+                            movingFluid=null;
+                            fluidLeftToMove=0;
+                        }
                     }else{
                         fluidLeftToMove=0;
                         movingFluid=null;

@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.block.multiTank.smeltingTank;
 
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,9 +12,12 @@ public class SmeltingItemHandler extends ItemStackHandler {
 
     private SmeltingTankTileEntity tile;
 
+    private MeltProgress[] meltData;
+
     public SmeltingItemHandler(SmeltingTankTileEntity tile)
     {
         super(0);
+        meltData = new MeltProgress[0];
         this.tile=tile;
     }
 
@@ -21,9 +25,12 @@ public class SmeltingItemHandler extends ItemStackHandler {
     public void setSize(int size)
     {
         ItemStack[] oldStacks = stacks;
+        MeltProgress[] oldProgress = meltData;
         stacks = new ItemStack[size];
+        meltData = new MeltProgress[size];
         for(int i=0;i<Math.min(oldStacks.length,stacks.length);i++){
             stacks[i]=oldStacks[i];
+            meltData[i]=oldProgress[i];
         }
         if(oldStacks.length>stacks.length){
             for(int i=stacks.length;i<oldStacks.length;i++){
@@ -38,7 +45,12 @@ public class SmeltingItemHandler extends ItemStackHandler {
     @Override
     protected void onContentsChanged(int slot)
     {
-        //TODO
+        ItemStack slotContents = getStackInSlot(slot);
+        if(slotContents==null || slotContents.stackSize==0){
+            meltData[slot]=null;
+        }else{
+            meltData[slot]=new MeltProgress(MaterialItemHelper.getMeltHeat(slotContents));
+        }
     }
 
     @Override
@@ -59,5 +71,34 @@ public class SmeltingItemHandler extends ItemStackHandler {
     protected int getStackLimit(int slot, ItemStack stack)
     {
         return 1;
+    }
+
+    public MeltProgress getMeltProgressInSlot(int slot) {
+        validateSlotIndex(slot);
+        return this.meltData[slot];
+    }
+
+    public static class MeltProgress{
+        private final int neededHeat;
+        private int currentHeat;
+
+        public MeltProgress(int neededHeat){
+            this.neededHeat=neededHeat;
+            currentHeat=0;
+        }
+
+        public void addHeat(int heat){
+            if(neededHeat>0) {
+                currentHeat += heat;
+            }
+        }
+
+        public float meltPercent(){
+            return Math.min(1.0f,((float)currentHeat)/((float)neededHeat));
+        }
+
+        public boolean isMelted(){
+            return currentHeat>=neededHeat;
+        }
     }
 }

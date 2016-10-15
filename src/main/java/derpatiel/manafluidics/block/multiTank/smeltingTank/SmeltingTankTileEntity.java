@@ -3,14 +3,18 @@ package derpatiel.manafluidics.block.multiTank.smeltingTank;
 import derpatiel.manafluidics.block.multiTank.TankFormingTileEntity;
 import derpatiel.manafluidics.fluid.MultiTank;
 import derpatiel.manafluidics.util.LOG;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class SmeltingTankTileEntity extends TankFormingTileEntity {
+
+    public static final float HEAT_FALLOFF_VALUE = 0.8f;
 
     public final MultiTank tank;
     public final SmeltingItemHandler itemHandler;
@@ -30,8 +34,23 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
         heatThisTick=0;
         heatersThisTick =0;
 
-        //check heat, add to melting, melt any needed items
-        //add any items in tank location
+        //TODO: grab items in tank space
+
+        int slot=0;
+        while(heatConsumed>0 && slot<itemHandler.getSlots()){
+            SmeltingItemHandler.MeltProgress slotProgress = itemHandler.getMeltProgressInSlot(slot);
+            if(slotProgress!=null){
+                slotProgress.addHeat(heatConsumed);
+                heatConsumed = (int)(heatConsumed * HEAT_FALLOFF_VALUE);
+                if(slotProgress.isMelted()){
+                    FluidStack stack = MaterialItemHelper.getMeltOutput(itemHandler.getStackInSlot(slot));
+                    itemHandler.setStackInSlot(slot,null);
+                    //if fluid gets lost, oh well!
+                    tank.fill(stack,true);
+                }
+            }
+            slot++;
+        }
     }
 
     @Override
