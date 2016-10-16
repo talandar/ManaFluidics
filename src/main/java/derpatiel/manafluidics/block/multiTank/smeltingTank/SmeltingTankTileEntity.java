@@ -14,7 +14,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class SmeltingTankTileEntity extends TankFormingTileEntity {
 
-    public static final float HEAT_FALLOFF_VALUE = 0.8f;
+    public static final float HEAT_FALLOFF_VALUE = 0.7f;
 
     public final MultiTank tank;
     public final SmeltingItemHandler itemHandler;
