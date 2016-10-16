@@ -55,7 +55,7 @@ public class SmeltingTankContainer extends Container {
             addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex, x, y));
             slotIndex++;
             x += 18;
-            if(x>243){
+            if(x>170){
                 x=12;
                 y+=18;
             }
