@@ -1,8 +1,12 @@
 package derpatiel.manafluidics.block.multiTank.smeltingTank;
 
+import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeaterTileEntity;
 import derpatiel.manafluidics.block.multiTank.MFTankControllerBlock;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.registry.ModGUIs;
+import derpatiel.manafluidics.registry.ModItems;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -29,21 +33,29 @@ public class SmeltingTankController extends MFTankControllerBlock {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (heldItem != null) {
-            SmeltingTankTileEntity tile = ((SmeltingTankTileEntity)worldIn.getTileEntity(pos));
-            IFluidHandler handler = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,null);
-            for(IFluidTankProperties tankProperties : handler.getTankProperties()){
-                LOG.info(tankProperties.getContents().getFluid().getName()+": "+tankProperties.getContents().amount+"mb");
-            }
-            /* TODO: ui, etc
-            if(heldItem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
-                tile.markForUpdate();
-                return FluidUtil.interactWithFluidHandler(heldItem, tile.tank, playerIn);
-            }
-            */
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    {
+        if(heldItem!=null && heldItem.getItem()== ModItems.crystal_hammer){
+            super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+            return true;
         }
-        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+        if (worldIn.isRemote)
+        {
+            return true;
+        }
+        else
+        {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+
+            if (tileentity instanceof SmeltingTankTileEntity)
+            {
+                if(((SmeltingTankTileEntity)tileentity).isFormed()) {
+                    playerIn.openGui(ManaFluidics.instance, ModGUIs.SMELTING_TANK_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                }
+            }
+
+            return true;
+        }
     }
 
     @Override

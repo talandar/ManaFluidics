@@ -60,7 +60,8 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
 
     public void setCapacityBySize(){
         tank.setCapacity(getNumInteriorBlocks() * TANK_CAPACITY_PER_BLOCK);
-        itemHandler.setSize(getNumInteriorBlocks());
+        //max inventory size=117 slots, due to gui constraints
+        itemHandler.setSize(Math.min(getNumInteriorBlocks(),117));
     }
 
     @Override

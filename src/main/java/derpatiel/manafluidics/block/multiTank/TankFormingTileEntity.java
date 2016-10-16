@@ -334,44 +334,57 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
     }
 
     public void checkNewBounds(){
-        List<BlockPos> newLevelBlocks = new ArrayList<BlockPos>();
-        List<BlockPos> newLevelTiles = new ArrayList<BlockPos>();
-        int nextY = baseY+tankHeight+1;
-        for(int x=minX;x<=maxX;x++){
-            for(int z=minZ;z<=maxZ;z++){
-                BlockPos pos = new BlockPos(x,nextY,z);
-                if(pos.getX()==minX || pos.getX()==maxX || pos.getZ()==minZ || pos.getZ()==maxZ){
-                    if(!(worldObj.getBlockState(pos).getBlock() instanceof ITankPart)){
-                        return;
-                    }
-                    if(worldObj.getBlockState(pos).getBlock() instanceof MFTankEntityBlock){
-                        TankPartTileEntity tankPartTile = (TankPartTileEntity)worldObj.getTileEntity(pos);
-
-                        if(!checkTankPartValidity(tankPartTile)) {
-                            return;
+        List<BlockPos> foundValidBlocks = new ArrayList<>();
+        List<BlockPos> foundValidTiles = new ArrayList<>();
+        List<BlockPos> newLevelBlocks = new ArrayList<>();
+        List<BlockPos> newLevelTiles = new ArrayList<>();
+        boolean wholeLevelValid=true;
+        int additionalHeight=0;
+        while(wholeLevelValid) {
+            newLevelBlocks.clear();
+            newLevelTiles.clear();
+            int nextY = baseY + tankHeight + additionalHeight + 1;
+            for (int x = minX; x <= maxX; x++) {
+                for (int z = minZ; z <= maxZ; z++) {
+                    BlockPos pos = new BlockPos(x, nextY, z);
+                    if (pos.getX() == minX || pos.getX() == maxX || pos.getZ() == minZ || pos.getZ() == maxZ) {
+                        if (!(worldObj.getBlockState(pos).getBlock() instanceof ITankPart)) {
+                            wholeLevelValid=false;
                         }
-                        newLevelTiles.add(pos);
-                    }
-                }else{//not at base level, not a wall, must be air
-                    if(worldObj.getBlockState(pos).getMaterial()!=Material.AIR){
-                        return;
-                    }
-                }
-                newLevelBlocks.add(pos);
-                for(BlockPos tilePos : newLevelTiles){
-                    addNewTile(tilePos);
-                }
+                        if (worldObj.getBlockState(pos).getBlock() instanceof MFTankEntityBlock) {
+                            TankPartTileEntity tankPartTile = (TankPartTileEntity) worldObj.getTileEntity(pos);
 
+                            if (!checkTankPartValidity(tankPartTile)) {
+                                wholeLevelValid=false;
+                            }
+                            newLevelTiles.add(pos);
+                        }
+                    } else {//not at base level, not a wall, must be air
+                        if (worldObj.getBlockState(pos).getMaterial() != Material.AIR) {
+                            wholeLevelValid=false;
+                        }
+                    }
+                    newLevelBlocks.add(pos);
+                }
+            }
+
+            if(wholeLevelValid) {
+                foundValidBlocks.addAll(newLevelBlocks);
+                foundValidTiles.addAll(newLevelTiles);
+                additionalHeight++;
             }
         }
-        //if we get here, a new level is valid
-        tankBlocks.addAll(newLevelBlocks);
-        tankHeight+=1;
-        this.newHeight();
+        if(additionalHeight>0) {
+            foundValidTiles.forEach(this::addNewTile);
+            tankBlocks.addAll(foundValidBlocks);
+            tankHeight += additionalHeight;
+            this.newHeight();
 
-        if(!worldObj.isRemote){
-            FluidTankData data = new FluidTankData(getPos(), tankBlocks);
-            MultiblockHandler.registerMultiblock(worldObj, data);
+            if (!worldObj.isRemote) {
+                FluidTankData data = new FluidTankData(getPos(), tankBlocks);
+                MultiblockHandler.registerMultiblock(worldObj, data);
+            }
+            markForUpdate();
         }
     }
 

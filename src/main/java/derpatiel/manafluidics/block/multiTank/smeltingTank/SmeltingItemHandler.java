@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class SmeltingItemHandler extends ItemStackHandler {
@@ -57,14 +58,35 @@ public class SmeltingItemHandler extends ItemStackHandler {
     public NBTTagCompound serializeNBT()
     {
         NBTTagCompound compound = super.serializeNBT();
-        //TODO
+        NBTTagList nbtTagList = new NBTTagList();
+        for (int i = 0; i < meltData.length; i++)
+        {
+            if (meltData[i] != null)
+            {
+                NBTTagCompound meltTag = new NBTTagCompound();
+                meltTag.setInteger("Slot", i);
+                meltData[i].writeToNBT(meltTag);
+                nbtTagList.appendTag(meltTag);
+            }
+        }
+        compound.setTag("meltData", nbtTagList);
         return compound;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
         super.deserializeNBT(nbt);
-        //TODO
+        NBTTagList tagList = nbt.getTagList("meltData", Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < tagList.tagCount(); i++)
+        {
+            NBTTagCompound heatTags = tagList.getCompoundTagAt(i);
+            int slot = heatTags.getInteger("Slot");
+
+            if (slot >= 0 && slot < stacks.length)
+            {
+                meltData[slot] = MeltProgress.loadMeltProgressFromNBT(heatTags);
+            }
+        }
     }
 
     @Override
@@ -99,6 +121,17 @@ public class SmeltingItemHandler extends ItemStackHandler {
 
         public boolean isMelted(){
             return currentHeat>=neededHeat;
+        }
+
+        public void writeToNBT(NBTTagCompound meltTag) {
+            meltTag.setInteger("neededHeat",neededHeat);
+            meltTag.setInteger("currentHeat",currentHeat);
+        }
+
+        public static MeltProgress loadMeltProgressFromNBT(NBTTagCompound heatTags) {
+            MeltProgress progress = new MeltProgress(heatTags.getInteger("neededHeat"));
+            progress.currentHeat=heatTags.getInteger("currentHeat");
+            return progress;
         }
     }
 }
