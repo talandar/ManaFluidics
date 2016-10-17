@@ -120,7 +120,7 @@ public class SmeltingItemHandler extends ItemStackHandler {
         }
 
         public boolean isMelted(){
-            return currentHeat>=neededHeat;
+            return currentHeat>=neededHeat && neededHeat>0;
         }
 
         public void writeToNBT(NBTTagCompound meltTag) {

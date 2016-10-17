@@ -15,6 +15,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class SmeltingTankTileEntity extends TankFormingTileEntity {
 
     public static final float HEAT_FALLOFF_VALUE = 0.7f;
+    public static final int MAX_SLOTS = 81;
 
     public final MultiTank tank;
     public final SmeltingItemHandler itemHandler;
@@ -61,7 +62,7 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
     public void setCapacityBySize(){
         tank.setCapacity(getNumInteriorBlocks() * TANK_CAPACITY_PER_BLOCK);
         //max inventory size=81 slots, due to gui constraints
-        itemHandler.setSize(Math.min(getNumInteriorBlocks(),81));
+        itemHandler.setSize(Math.min(getNumInteriorBlocks(),MAX_SLOTS));
     }
 
     @Override
