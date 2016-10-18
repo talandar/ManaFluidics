@@ -466,7 +466,7 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
     public AxisAlignedBB getRenderBoundingBox() {
         if(this.isFormed()){
             AxisAlignedBB bb;
-            bb = new AxisAlignedBB(this.getMinX(),this.getTankBaseY(),this.getMinZ(), this.getMaxX()+1,this.getMaxY(),this.getMaxZ()+1);
+            bb = new AxisAlignedBB(this.getMinX(),this.getTankBaseY(),this.getMinZ(), this.getMaxX()+1,this.getMaxY()+1,this.getMaxZ()+1);
             return bb;
         }else{
             return super.getRenderBoundingBox();

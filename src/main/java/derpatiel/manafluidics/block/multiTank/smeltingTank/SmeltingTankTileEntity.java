@@ -5,9 +5,13 @@ import derpatiel.manafluidics.fluid.MultiTank;
 import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
@@ -16,6 +20,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+
+import java.util.List;
 
 public class SmeltingTankTileEntity extends TankFormingTileEntity {
 
@@ -40,7 +47,23 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
         heatThisTick=0;
         heatersThisTick =0;
 
-        //TODO: grab items in tank space
+        if(!worldObj.isRemote) {
+            AxisAlignedBB boundingBox = getRenderBoundingBox();
+            List<EntityItem> itemsInTank = worldObj.getEntitiesWithinAABB(EntityItem.class, boundingBox);
+            for (EntityItem item : itemsInTank) {
+                ItemStack droppedStack = item.getEntityItem();
+                int slot = 0;
+                while (droppedStack != null && droppedStack.stackSize > 0 && slot < itemHandler.getSlots()) {
+                    droppedStack = itemHandler.insertItem(slot, droppedStack, false);
+                    slot++;
+                }
+                if (droppedStack == null || droppedStack.stackSize == 0) {
+                    worldObj.removeEntity(item);
+                } else {
+                    item.setEntityItemStack(droppedStack);
+                }
+            }
+        }
 
         int slot=0;
         while(heatConsumed>0 && slot<itemHandler.getSlots()){
@@ -135,10 +158,6 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
             heatThisTick += heat;
             heatersThisTick++;
         }
-    }
-
-    public void onTankChanged(){
-        //TODO: mark for update, send inventory... ?
     }
 
     public static class PacketFluidClick implements IMessage
