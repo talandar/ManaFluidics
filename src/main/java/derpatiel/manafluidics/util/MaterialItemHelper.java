@@ -150,6 +150,33 @@ public class MaterialItemHelper {
         }
     }
 
+    public static String getIngotsString(FluidStack fluid) {
+        if(fluid.getFluid()==FluidRegistry.LAVA){
+            float blocks = ((float)(fluid.amount))/1000.0f;
+            return blocks+" blocks";
+        }
+        //else not lava
+        int mbFluid = fluid.amount;
+        String ret="";
+        String sep = "";
+        if(mbFluid>4500){
+            int blocks = mbFluid/4500;
+            mbFluid-=(blocks*4500);
+            ret=blocks+" blocks";
+            sep=", ";
+        }
+        if(mbFluid>500){
+            int ingots = mbFluid/500;
+            mbFluid-=(ingots*500);
+            ret+=sep+ingots+" ingots";
+            sep=", ";
+        }
+        if(mbFluid>0){
+            ret+=sep+mbFluid+"mb";
+        }
+        return ret;
+    }
+
     public static class MeltingInformation{
         public final int requiredHeat;
         public final FluidStack result;

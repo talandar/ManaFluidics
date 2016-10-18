@@ -1,19 +1,24 @@
 package derpatiel.manafluidics.block.multiTank.smeltingTank;
 
 import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.network.MFPacketHandler;
 import derpatiel.manafluidics.registry.ModGUIs;
+import derpatiel.manafluidics.util.LOG;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import derpatiel.manafluidics.util.RenderUtil;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SmeltingTankGui  extends GuiContainer {
-
-    //TODO: handle clicks to change bottom fluid
-    //TODO: mouseover to describe fluid
 
 
     public static final int WIDTH = 256;
@@ -31,9 +36,24 @@ public class SmeltingTankGui  extends GuiContainer {
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
+    public void drawScreen(int x, int y, float partialTicks) {
+        super.drawScreen(x, y, partialTicks);
         //drawn above the slots at this point
+        for (int i = 0; i < buttonList.size(); i++) {
+            if (buttonList.get(i) instanceof FluidButton) {
+                FluidButton btn = (FluidButton) buttonList.get(i);
+                if (btn.isMouseOver()) {
+                    FluidStack stack = btn.getFluidData();
+                    List<String> descriptions = new ArrayList<>();
+                    descriptions.add("Fluid: " + stack.getFluid().getLocalizedName(stack));
+                    descriptions.add(stack.amount+"mb.  ("+ MaterialItemHelper.getIngotsString(stack) +")");
+                    if(btn.id!=0) {
+                        descriptions.add("Click to move to output.");
+                    }
+                    drawHoveringText(descriptions, x, y, fontRendererObj);
+                }
+            }
+        }
     }
 
     @Override
@@ -73,20 +93,59 @@ public class SmeltingTankGui  extends GuiContainer {
         }
 
         IFluidTankProperties[] fluids = tile.tank.getTankProperties();
-        int fluidBottom = 167 + guiTop;
+        int fluidTankRenderBottom = 167 + guiTop;
+        float fluidBottom = fluidTankRenderBottom;
         int fluidXStart = guiLeft+174;
         int fluidWidth = 70;
 
-        int totalHeight = 161;
+        int totalHeight = 160;
         int tankCapacity = tile.tank.getCapacity();
+        this.buttonList.clear();
+        int fluidIndex=0;
         for(IFluidTankProperties fluidData : fluids){
             int amount = fluidData.getContents().amount;
-            int drawHeight = (int)(((float)amount)/((float)tankCapacity) * totalHeight);
-            float startY = fluidBottom-drawHeight;
-            RenderUtil.renderTiledFluid(fluidXStart,(int)startY,fluidWidth,drawHeight,1.0f,fluidData.getContents());
+            float drawHeight = (((float)amount)/((float)tankCapacity) * (float)totalHeight);
+
+            int startY = (int)(fluidBottom-drawHeight);
+            RenderUtil.renderTiledFluid(fluidXStart,startY,fluidWidth,(int)Math.ceil(drawHeight),1.0f,fluidData.getContents());
+            FluidButton button = new FluidButton(fluidIndex,fluidXStart,startY,fluidWidth,(int)drawHeight,fluidData.getContents());
+            buttonList.add(button);
             fluidBottom-=drawHeight;
+            fluidIndex++;
         }
         //still behind the slots when drawing here
+    }
 
+    @Override
+    protected void actionPerformed(GuiButton button) throws IOException {
+
+        LOG.info("button clicked with id "+button.id+".  This equates to fluid "+tile.tank.getTankProperties()[button.id].getContents().getFluid().getName());
+        MFPacketHandler.INSTANCE.sendToServer(new SmeltingTankTileEntity.PacketFluidClick(tile.getPos(),button.id));
+
+    }
+
+    private class FluidButton extends GuiButton{
+
+        private FluidStack fluidData;
+
+        @Override
+        public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+            if (this.visible) {
+
+                this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+                int i = this.getHoverState(this.hovered);
+                this.mouseDragged(mc, mouseX, mouseY);
+            }
+        }
+
+        public FluidButton(int buttonId, int x, int y, int widthIn, int heightIn, FluidStack fluidData) {
+            super(buttonId, x, y, widthIn, heightIn, "");
+            this.fluidData=fluidData;
+        }
+
+
+        public FluidStack getFluidData() {
+            return fluidData;
+        }
     }
 }

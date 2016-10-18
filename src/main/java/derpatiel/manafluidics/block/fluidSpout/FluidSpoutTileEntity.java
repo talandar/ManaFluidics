@@ -80,7 +80,6 @@ public class FluidSpoutTileEntity extends TileEntity implements ITickable {
     @Override
     public void update() {
         if(fluidLeftToMove>0){
-            LOG.info(fluidLeftToMove+"mb left to move");
             //need two fluidhandlers, the one on the facing, and below
             IFluidHandler adjHandler=null;
             IFluidHandler belowHandler=null;
@@ -145,7 +144,6 @@ public class FluidSpoutTileEntity extends TileEntity implements ITickable {
     }
 
     public void triggerActivated(){
-        LOG.info("spout triggered!");
         if(fluidLeftToMove==0){
             fluidLeftToMove=MOVE_PER_ACTIVATION;
         }
