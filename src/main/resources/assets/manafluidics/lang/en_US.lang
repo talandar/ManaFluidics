@@ -40,10 +40,13 @@ tile.crystalore.name=Mana Infused Crystal Ore
 tile.tankbottom.name=Tank Base
 tile.portabletank.name=Portable Tank
 tile.drawnozzle.name=Drawing Nozzle
-tile.tank_basic_valve.name=Basic Tank Valve
+tile.tank_basic_valve.name=Tank Fluid Valve
 tile.fluid_tank_controller.name=Fluid Tank Controller
 tile.fluidspout.name=Fluid Spout
 tile.furnaceheater.name=Combustible Heater
 tile.smeltingtank.name=Smelting Tank Controller
+tile.tank_item_valve.name=Item Valve
+tile.tank_heat_valve.name=Heat Connection
+
 tile.pipeBlock_BASIC.name=Basic Pipe
 tile.pipeBlock_LARGE.name=Large Pipe

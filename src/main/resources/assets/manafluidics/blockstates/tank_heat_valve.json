@@ -1,0 +1,33 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "uvlock": false,
+		"model": "manafluidics:heat_valve",
+		"textures": {
+			"out": "manafluidics:blocks/heat_valve",
+            "side": "manafluidics:blocks/basic_valve",
+            "in": "blocks/obsidian"
+		}
+    },
+    "variants": {
+        "direction": {
+            "unformed": {
+            	"model": "cube_all", 
+            	"textures": {
+            		"all": "manafluidics:blocks/heat_valve"
+            	}
+            },
+            "north": {
+				"y": 180
+            },
+            "south": {
+            },
+			"east": {
+            	"y": -90
+			},
+            "west": { 
+            	"y": 90
+            }
+        }
+    }
+}

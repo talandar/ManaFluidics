@@ -47,6 +47,7 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
         heatThisTick=0;
         heatersThisTick =0;
 
+        //future option: items don't despawn in tank?
         if(!worldObj.isRemote) {
             AxisAlignedBB boundingBox = getRenderBoundingBox();
             List<EntityItem> itemsInTank = worldObj.getEntitiesWithinAABB(EntityItem.class, boundingBox);
