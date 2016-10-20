@@ -49,5 +49,6 @@ tile.smelting_tank_controller.name=Smelting Tank Controller
 tile.tank_item_valve.name=Item Valve
 tile.tank_heat_valve.name=Heat Connection
 
-tile.pipeBlock_BASIC.name=Basic Pipe
-tile.pipeBlock_LARGE.name=Large Pipe
+
+
+jei.manafluidics.recipe.drawnozzle=Drawing Nozzle

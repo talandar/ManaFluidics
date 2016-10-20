@@ -1,5 +1,9 @@
 package derpatiel.manafluidics.compat.jei;
 
+import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.compat.jei.drawnozzle.DrawingRecipeCategory;
+import derpatiel.manafluidics.compat.jei.drawnozzle.DrawingRecipeHandler;
+import derpatiel.manafluidics.compat.jei.drawnozzle.DrawingRecipeJEI;
 import derpatiel.manafluidics.registry.ModBlocks;
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IJeiHelpers;
@@ -12,6 +16,9 @@ import javax.annotation.Nonnull;
 @JEIPlugin
 public class ManaFluidicsPlugin extends BlankModPlugin{
 
+    public static final String DRAW_RECIPE_CATEGORY_ID= ManaFluidics.MODID+":drawnozzle";
+
+
     public static IJeiHelpers jeiHelper;
 
     @Override
@@ -19,6 +26,13 @@ public class ManaFluidicsPlugin extends BlankModPlugin{
         jeiHelper = registry.getJeiHelpers();
 
         jeiHelper.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.floatTable));
+
+        registry.addRecipeCategories(new DrawingRecipeCategory());
+
+        registry.addRecipeHandlers(new DrawingRecipeHandler());
+
+        registry.addRecipes(DrawingRecipeCategory.getRecipies());
+
 
     }
 }
