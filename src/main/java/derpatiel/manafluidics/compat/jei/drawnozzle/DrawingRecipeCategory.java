@@ -31,7 +31,7 @@ public class DrawingRecipeCategory implements IRecipeCategory {
     private final String localizedName = TextHelper.localize("jei.manafluidics.recipe.drawnozzle");
 
     @Nonnull
-    private final IDrawable background = ManaFluidicsPlugin.jeiHelper.getGuiHelper().createDrawable(new ResourceLocation(ManaFluidics.MODID+":gui/jei/drawnozzle.png"),0,0,73,37);
+    private final IDrawable background = ManaFluidicsPlugin.jeiHelper.getGuiHelper().createDrawable(new ResourceLocation(ManaFluidics.MODID+":textures/gui/jei/drawnozzle.png"),0,0,84,36);
 
     @Override
     public String getUid() {
@@ -65,8 +65,8 @@ public class DrawingRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        recipeLayout.getFluidStacks().init(INPUT_SLOT, true, 10, 10, 16, 16, 125, true, null);
-        recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 45, 10);
+        recipeLayout.getFluidStacks().init(INPUT_SLOT, true, 9, 10, 16, 16, 125, true, null);
+        recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 58, 9);
 
         if (recipeWrapper instanceof DrawingRecipeJEI)
         {

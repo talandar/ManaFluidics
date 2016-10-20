@@ -17,6 +17,8 @@ import javax.annotation.Nonnull;
 public class ManaFluidicsPlugin extends BlankModPlugin{
 
     public static final String DRAW_RECIPE_CATEGORY_ID= ManaFluidics.MODID+":drawnozzle";
+    public static final String FLOAT_RECIPE_CATEGORY_ID= ManaFluidics.MODID+":floattable";
+    public static final String MELT_RECIPE_CATEGORY_ID= ManaFluidics.MODID+":melting";
 
 
     public static IJeiHelpers jeiHelper;
@@ -32,6 +34,9 @@ public class ManaFluidicsPlugin extends BlankModPlugin{
         registry.addRecipeHandlers(new DrawingRecipeHandler());
 
         registry.addRecipes(DrawingRecipeCategory.getRecipies());
+
+
+        registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.drawNozzle),DRAW_RECIPE_CATEGORY_ID);
 
 
     }
