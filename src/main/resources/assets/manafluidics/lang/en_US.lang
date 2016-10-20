@@ -7,6 +7,7 @@ item.bucket_crystals.name=Bucket of Mana Infused Crystals
 item.bucket_iron.name=Bucket of Iron Ingots
 item.bucket_gold.name=Bucket of Gold Ingots
 item.crystalhammer.name=Crystal Hammer
+item.heat_exchanger.name=Heat Exchanger
 
 item.wire.crystal.name=Crystalline Fiber
 item.wire.obsidian.name=Obsidian Wire
@@ -44,7 +45,7 @@ tile.tank_basic_valve.name=Tank Fluid Valve
 tile.fluid_tank_controller.name=Fluid Tank Controller
 tile.fluidspout.name=Fluid Spout
 tile.furnaceheater.name=Combustible Heater
-tile.smeltingtank.name=Smelting Tank Controller
+tile.smelting_tank_controller.name=Smelting Tank Controller
 tile.tank_item_valve.name=Item Valve
 tile.tank_heat_valve.name=Heat Connection
 

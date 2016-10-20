@@ -2,6 +2,7 @@ package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.util.MaterialItemHelper;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
@@ -47,13 +48,51 @@ public class ModCrafting {
             );
         }
 
-        //
+
         GameRegistry.addRecipe(new ItemStack(ModBlocks.fluidTankController),
                 " O ",
                 "OCO",
                 " O ",
+                'O', MaterialItemHelper.getSheet(MaterialType.IRON,1),
+                'C', MaterialItemHelper.getCircuit(MaterialType.GOLD,1));
+
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.smeltingTankController),
+                " O ",
+                "OCO",
+                " O ",
                 'O', MaterialItemHelper.getSheet(MaterialType.OBSIDIAN,1),
-                'C', MaterialItemHelper.getCircuit(MaterialType.IRON,1));
+                'C', MaterialItemHelper.getCircuit(MaterialType.GOLD,1));
+
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.furnaceHeater),
+                " O ",
+                "HFO",
+                " O ",
+                'O', MaterialItemHelper.getSheet(MaterialType.OBSIDIAN,1),
+                'H', ModItems.heat_exchanger,
+                'F', Blocks.FURNACE);
+
+        GameRegistry.addRecipe(new ItemStack(ModItems.heat_exchanger),
+                "W W",
+                "W W",
+                "W W",
+                'W', MaterialItemHelper.getWire(MaterialType.OBSIDIAN));
+
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.fluidSpout),
+                "S S",
+                "SSS",
+                "   ",
+                'S', Blocks.STONE);
+
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.heatTankConnector),
+                "",
+                "SH",
+                "",
+                'H', ModItems.heat_exchanger,
+                'S', MaterialItemHelper.getSheet(MaterialType.OBSIDIAN)
+                );
+
+
+
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.bucket_crystals),
                 new ItemStack(ModItems.manaCrystal),
@@ -73,14 +112,23 @@ public class ModCrafting {
                 new ItemStack(Items.GOLD_INGOT),
                 new ItemStack(Items.BUCKET));
 
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.heatTankConnector),
+                MaterialItemHelper.getSheet(MaterialType.OBSIDIAN),
+                ModItems.heat_exchanger);
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.fluidTankConnector),
+                MaterialItemHelper.getSheet(MaterialType.IRON),
+                ModBlocks.fluidSpout);
+
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.tankBottom),
                 MaterialItemHelper.getSheet(MaterialType.OBSIDIAN),
                 MaterialItemHelper.getSheet(MaterialType.OBSIDIAN));
 
-        /*
-        public static MFBlock fluidTankConnector;
-        public static MFBlock fluidSpout;
-        */
+        GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.itemTankConnector),
+                MaterialItemHelper.getSheet(MaterialType.IRON),
+                Blocks.CHEST);
+
+
         ItemStack filledCrystalBucket = new ItemStack(ForgeModContainer.getInstance().universalBucket);
         ((UniversalBucket) filledCrystalBucket.getItem()).fill(filledCrystalBucket, FluidRegistry.getFluidStack(ModFluids.moltenCrystal.getName().toLowerCase(), Fluid.BUCKET_VOLUME), true);
         GameRegistry.addSmelting(ModItems.bucket_crystals, filledCrystalBucket, 0.5F);
