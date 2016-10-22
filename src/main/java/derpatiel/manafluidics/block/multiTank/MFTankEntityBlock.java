@@ -9,11 +9,29 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public abstract class MFTankEntityBlock<T extends TankPartTileEntity> extends MFTileBlock implements IDismantleable, ITankPart {
 
     public static final PropertyEnum<TankPartState> STATE = PropertyEnum.create("direction", TankPartState.class);
+
+
+    //UNFORMED,N,S,E,W
+    private static final AxisAlignedBB[] facingBoxes = new AxisAlignedBB[]{
+            new AxisAlignedBB(0.0D,0.0D,0.0D,1.0D,1.0D,1.0D),
+            new AxisAlignedBB(0.0D,0.0D,0.0D,1.0D,1.0D,0.625D),
+            new AxisAlignedBB(0.0D,0.0D,0.375D,1.0D,1.0D,1.0D),
+            new AxisAlignedBB(0.375D,0.0D,0.0D,1.0D,1.0D,1.0D),
+            new AxisAlignedBB(0.0D,0.0D,0.0D,0.625D,1.0D,1.0D),
+    };
 
     public MFTankEntityBlock(String unlocalizedName, Material material, float hardness, float resistance) {
         super(unlocalizedName, material, hardness, resistance);
@@ -35,5 +53,15 @@ public abstract class MFTankEntityBlock<T extends TankPartTileEntity> extends MF
         return state.getValue(STATE).getID();
     }
 
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
+    {
+        addCollisionBoxToList(pos, entityBox, collidingBoxes,getBoundingBox(state,worldIn,pos));
+    }
+
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        TankPartState tankState = state.getValue(STATE);
+        return facingBoxes[tankState.getID()];
+    }
 
 }

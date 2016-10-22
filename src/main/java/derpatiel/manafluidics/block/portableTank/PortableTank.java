@@ -11,6 +11,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -27,10 +29,13 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class PortableTank extends MFTileBlock<PortableTankTileEntity> implements IDismantleable{
 
     public static final PropertyBool EXPORT = PropertyBool.create("export");
+
+    private static final AxisAlignedBB boundingBox = new AxisAlignedBB(0.0625D,0.0D,0.0625D,0.9375D,1.0D,0.9375D);
 
     public PortableTank(String unlocalizedName, Material material, float hardness, float resistance) {
         super(unlocalizedName,material,hardness,resistance);
@@ -146,5 +151,15 @@ public class PortableTank extends MFTileBlock<PortableTankTileEntity> implements
             te.readPortableData(compound);
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    }
+
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
+    {
+        addCollisionBoxToList(pos, entityBox, collidingBoxes,getBoundingBox(state,worldIn,pos));
+    }
+
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        return boundingBox;
     }
 }

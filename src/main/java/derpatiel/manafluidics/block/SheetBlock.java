@@ -11,17 +11,20 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
@@ -31,6 +34,24 @@ public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool EAST = PropertyBool.create("east");
     public static final PropertyBool WEST = PropertyBool.create("west");
+
+    protected static final AxisAlignedBB[] AABB_BY_INDEX = new AxisAlignedBB[] {
+            new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1.0D, 0.625D),
+            new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 1.0D, 1.0D),
+            new AxisAlignedBB(0.0D, 0.0D, 0.375D, 0.625D, 1.0D, 0.625D),
+            new AxisAlignedBB(0.0D, 0.0D, 0.375D, 0.625D, 1.0D, 1.0D),
+            new AxisAlignedBB(0.375D, 0.0D, 0.0D, 0.625D, 1.0D, 0.625D),
+            new AxisAlignedBB(0.375D, 0.0D, 0.0D, 0.625D, 1.0D, 1.0D),
+            new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.625D, 1.0D, 0.625D),
+            new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.625D, 1.0D, 1.0D),
+            new AxisAlignedBB(0.375D, 0.0D, 0.375D, 1.0D, 1.0D, 0.625D),
+            new AxisAlignedBB(0.375D, 0.0D, 0.375D, 1.0D, 1.0D, 1.0D),
+            new AxisAlignedBB(0.0D, 0.0D, 0.375D, 1.0D, 1.0D, 0.625D),
+            new AxisAlignedBB(0.0D, 0.0D, 0.375D, 1.0D, 1.0D, 1.0D),
+            new AxisAlignedBB(0.375D, 0.0D, 0.0D, 1.0D, 1.0D, 0.625D),
+            new AxisAlignedBB(0.375D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D),
+            new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.625D),
+            new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
 
     public SheetBlock(String unlocalizedName, Material material, float hardness, float resistance) {
         super(unlocalizedName,material,hardness,resistance);
@@ -133,5 +154,69 @@ public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
     @Override
     public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state) {
         return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(world.getBlockState(pos)));
+    }
+
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
+    {
+        state = this.getActualState(state, worldIn, pos);
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[0]);
+
+        if (((Boolean)state.getValue(NORTH)).booleanValue())
+        {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.NORTH)]);
+        }
+
+        if (((Boolean)state.getValue(SOUTH)).booleanValue())
+        {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.SOUTH)]);
+        }
+
+        if (((Boolean)state.getValue(EAST)).booleanValue())
+        {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.EAST)]);
+        }
+
+        if (((Boolean)state.getValue(WEST)).booleanValue())
+        {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.WEST)]);
+        }
+    }
+
+    private static int getBoundingBoxIndex(EnumFacing p_185729_0_)
+    {
+        return 1 << p_185729_0_.getHorizontalIndex();
+    }
+
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        state = this.getActualState(state, source, pos);
+        return AABB_BY_INDEX[getBoundingBoxIndex(state)];
+    }
+
+    private static int getBoundingBoxIndex(IBlockState state)
+    {
+        int i = 0;
+
+        if (((Boolean)state.getValue(NORTH)).booleanValue())
+        {
+            i |= getBoundingBoxIndex(EnumFacing.NORTH);
+        }
+
+        if (((Boolean)state.getValue(EAST)).booleanValue())
+        {
+            i |= getBoundingBoxIndex(EnumFacing.EAST);
+        }
+
+        if (((Boolean)state.getValue(SOUTH)).booleanValue())
+        {
+            i |= getBoundingBoxIndex(EnumFacing.SOUTH);
+        }
+
+        if (((Boolean)state.getValue(WEST)).booleanValue())
+        {
+            i |= getBoundingBoxIndex(EnumFacing.WEST);
+        }
+
+        return i;
     }
 }

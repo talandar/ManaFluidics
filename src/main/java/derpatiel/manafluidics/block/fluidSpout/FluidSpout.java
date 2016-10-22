@@ -13,6 +13,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -21,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -36,6 +38,14 @@ public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateab
 
     public static final Set<EnumFacing> validFacings = Sets.newHashSet(EnumFacing.WEST,EnumFacing.EAST,EnumFacing.NORTH,EnumFacing.SOUTH);
     public static final PropertyDirection DIRECTION = PropertyDirection.create("direction", validFacings);
+
+    //N,S,E,W
+    private static final AxisAlignedBB[] facingBoxes = new AxisAlignedBB[]{
+            new AxisAlignedBB(0.3125D, 0.3125D, 0.0D, 0.6875D, 0.6875D, 0.5625),
+            new AxisAlignedBB(0.3125D, 0.3125D, 0.4375D, 0.6875D, 0.6875D, 1.0D),
+            new AxisAlignedBB(0.4375D, 0.3125D, 0.3125D, 1.0D, 0.6875D, 0.6875D),
+            new AxisAlignedBB(0.0D, 0.3125D, 0.3125D, 0.5625, 0.6875D, 0.6875D),
+    };
 
     public FluidSpout(String unlocalizedName, Material material, float hardness, float resistance) {
         super(unlocalizedName, material, hardness, resistance);
@@ -149,6 +159,28 @@ public class FluidSpout extends MFTileBlock implements IDismantleable, IRotateab
     @Override
     public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
+    }
+
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
+    {
+        addCollisionBoxToList(pos, entityBox, collidingBoxes,getBoundingBox(state,worldIn,pos));
+    }
+
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        state = this.getActualState(state, source, pos);
+        EnumFacing facing = state.getValue(DIRECTION);
+        switch(facing){
+            case NORTH:
+                return facingBoxes[0];
+            case SOUTH:
+                return facingBoxes[1];
+            case EAST:
+                return facingBoxes[2];
+            case WEST:
+                return facingBoxes[3];
+        }
+        return null;
     }
 
 
