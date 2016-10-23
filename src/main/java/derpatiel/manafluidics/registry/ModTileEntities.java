@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.block.castingchamber.CastingChamberTileEntity;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleRenderer;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
 import derpatiel.manafluidics.block.floatTable.FloatTableRenderer;
@@ -36,6 +37,7 @@ public class ModTileEntities {
         registerTileEntity(FurnaceHeaterTileEntity.class);
         registerTileEntity(HeatConnectionTileEntity.class);
         registerTileEntity(ItemConnectionTileEntity.class);
+        registerTileEntity(CastingChamberTileEntity.class);
     }
 
     public static void registerRenderers()

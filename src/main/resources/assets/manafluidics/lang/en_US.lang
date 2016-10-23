@@ -45,7 +45,7 @@ tile.tank_basic_valve.name=Tank Fluid Valve
 tile.fluid_tank_controller.name=Fluid Tank Controller
 tile.fluidspout.name=Fluid Spout
 tile.furnaceheater.name=Combustible Heater
-tile.smelting_tank_controller.name=Smelting Tank Controller
+tile.smelting_tank_controller.name=Foundry Tank Controller
 tile.tank_item_valve.name=Item Valve
 tile.tank_heat_valve.name=Heat Connection
 
@@ -53,4 +53,4 @@ tile.tank_heat_valve.name=Heat Connection
 
 jei.manafluidics.recipe.drawnozzle=Drawing Nozzle
 jei.manafluidics.recipe.floattable=Floating Table
-jei.manafluidics.recipe.melting=Melting Tank
+jei.manafluidics.recipe.melting=Foundry Melting

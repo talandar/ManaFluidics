@@ -1,5 +1,7 @@
 package derpatiel.manafluidics.block.portableTank;
 
+import derpatiel.manafluidics.network.MFPacketHandler;
+import derpatiel.manafluidics.network.PortableTankFluidPacket;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -21,12 +23,12 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
     public static final int TANK_SIZE=8 * Fluid.BUCKET_VOLUME;
     public static final int MAX_DRAIN_PER_TICK = 100;//mb/tick
 
-    final FluidTank fluidTank;
+    public final FluidTank fluidTank;
     public boolean exporting=false;
 
     public PortableTankTileEntity(){
         super();
-        fluidTank = new FluidTank(TANK_SIZE);
+        fluidTank = new PortableTankFluidTank(TANK_SIZE);
     }
 
     public void readFromNBT(NBTTagCompound compound) {
@@ -93,7 +95,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
 
     @Override
     public void update() {
-        if(exporting && this.fluidTank.getFluidAmount()>0){
+        if(!worldObj.isRemote && exporting && this.fluidTank.getFluidAmount()>0){
             TileEntity below = worldObj.getTileEntity(getPos().down());
 
             if(below!=null && below.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,EnumFacing.UP)){
@@ -108,6 +110,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
                         drained = belowTank.fill(fluidTank.getFluid(), true);
                         fluidTank.drain(drained, true);
                     }
+                    MFPacketHandler.INSTANCE.sendToAll(new PortableTankFluidPacket(pos,fluidTank.getFluid()));
                     markDirty();
                 }
             }
@@ -120,4 +123,14 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
     }
 
 
+    private class PortableTankFluidTank extends FluidTank {
+        public PortableTankFluidTank(int tankSize) {
+            super(tankSize);
+        }
+
+        @Override
+        public void onContentsChanged(){
+            MFPacketHandler.INSTANCE.sendToAll(new PortableTankFluidPacket(pos,getFluid()));
+        }
+    }
 }

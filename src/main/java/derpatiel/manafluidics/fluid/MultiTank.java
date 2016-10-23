@@ -165,7 +165,7 @@ public class MultiTank implements IFluidTank, IFluidHandler, INBTSerializable<NB
 
       for(FluidStack liquid : liquids) {
           if(FluidRegistry.getFluidName(liquid.getFluid()) == null) {
-              LOG.error("Error trying to save fluids inside smelting tank! Invalid Liquid found! Tank contents:");
+              LOG.error("Error trying to save fluids inside foundry tank! Invalid Liquid found! Tank contents:");
               for(FluidStack liquid2 : liquids) {
                   LOG.error("  " + liquid2.getUnlocalizedName() + "/" + liquid2.amount + "mb");
               }
