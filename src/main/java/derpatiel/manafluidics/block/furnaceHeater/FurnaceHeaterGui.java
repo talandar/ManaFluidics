@@ -1,6 +1,8 @@
 package derpatiel.manafluidics.block.furnaceHeater;
 
+import com.google.common.collect.Lists;
 import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.capability.heat.CapabilityHeat;
 import derpatiel.manafluidics.registry.ModGUIs;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
@@ -27,5 +29,10 @@ public class FurnaceHeaterGui  extends GuiContainer {
         float burnFrac = tile.getBurnFraction();
         int fracHeight = (int)(14.0f * burnFrac);
         drawTexturedModalRect(guiLeft + 81, guiTop + 21 + (14-fracHeight), xSize, 14-fracHeight, 14, 14);
+        if(tile.isGenerating() && mouseX>=(guiLeft+79) && mouseX<=(guiLeft+79+16) && mouseY>=(guiTop+19) && mouseY<=(guiTop+19+16)){
+            int heatProvided = tile.getCapability(CapabilityHeat.HEAT,null).getHeatProvided();
+            drawHoveringText(Lists.newArrayList("Generating "+heatProvided+" Heat/Tick"),mouseX,mouseY);
+
+        }
     }
 }
