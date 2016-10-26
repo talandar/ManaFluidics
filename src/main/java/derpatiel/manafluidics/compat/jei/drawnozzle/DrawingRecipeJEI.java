@@ -25,6 +25,6 @@ public class DrawingRecipeJEI extends BlankRecipeWrapper{
     @Override
     public void getIngredients(IIngredients ingredients) {
         ingredients.setInput(FluidStack.class,input);
-        ingredients.setOutput(ItemStack.class, MaterialItemHelper.getWire(MaterialItemHelper.fluidProductMap.get(input.getFluid())));
+        ingredients.setOutput(ItemStack.class, output);
     }
 }

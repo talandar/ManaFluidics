@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,9 @@ public class SmeltingTankGui  extends GuiContainer {
     public void drawScreen(int x, int y, float partialTicks) {
         super.drawScreen(x, y, partialTicks);
         //drawn above the slots at this point
-        for (int i = 0; i < buttonList.size(); i++) {
-            if (buttonList.get(i) instanceof FluidButton) {
-                FluidButton btn = (FluidButton) buttonList.get(i);
+        for(GuiButton button : buttonList) {
+            if (button instanceof FluidButton) {
+                FluidButton btn = (FluidButton) button;
                 if (btn.isMouseOver()) {
                     FluidStack stack = btn.getFluidData();
                     List<String> descriptions = new ArrayList<>();
@@ -72,7 +73,7 @@ public class SmeltingTankGui  extends GuiContainer {
 
         // Add our own slots
         int slotIndex = 0;
-        for (int i = 0; i < tile.MAX_SLOTS; i++) {
+        for (int i = 0; i < SmeltingTankTileEntity.MAX_SLOTS; i++) {
             if (i < tile.itemHandler.getSlots()) {//draw the progress behind the item
                 SmeltingItemHandler.MeltProgress progress = tile.itemHandler.getMeltProgressInSlot(slotIndex);
                 if(progress!=null) {
@@ -93,8 +94,7 @@ public class SmeltingTankGui  extends GuiContainer {
         }
 
         IFluidTankProperties[] fluids = tile.tank.getTankProperties();
-        int fluidTankRenderBottom = 167 + guiTop;
-        float fluidBottom = fluidTankRenderBottom;
+        int fluidBottom = 167 + guiTop;
         int fluidXStart = guiLeft+174;
         int fluidWidth = 70;
 
@@ -103,25 +103,24 @@ public class SmeltingTankGui  extends GuiContainer {
         this.buttonList.clear();
         int fluidIndex=0;
         for(IFluidTankProperties fluidData : fluids){
-            int amount = fluidData.getContents().amount;
-            float drawHeight = (((float)amount)/((float)tankCapacity) * (float)totalHeight);
+            if(fluidData.getContents()!=null) {
+                int amount = fluidData.getContents().amount;
+                float drawHeight = (((float) amount) / ((float) tankCapacity) * (float) totalHeight);
 
-            int startY = (int)(fluidBottom-drawHeight);
-            RenderUtil.renderTiledFluid(fluidXStart,startY,fluidWidth,(int)Math.ceil(drawHeight),1.0f,fluidData.getContents());
-            FluidButton button = new FluidButton(fluidIndex,fluidXStart,startY,fluidWidth,(int)drawHeight,fluidData.getContents());
-            buttonList.add(button);
-            fluidBottom-=drawHeight;
-            fluidIndex++;
+                int startY = (int) (fluidBottom - drawHeight);
+                RenderUtil.renderTiledFluid(fluidXStart, startY, fluidWidth, (int) Math.ceil(drawHeight), 1.0f, fluidData.getContents());
+                FluidButton button = new FluidButton(fluidIndex, fluidXStart, startY, fluidWidth, (int) drawHeight, fluidData.getContents());
+                buttonList.add(button);
+                fluidBottom -= drawHeight;
+                fluidIndex++;
+            }
         }
         //still behind the slots when drawing here
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-
-        LOG.info("button clicked with id "+button.id+".  This equates to fluid "+tile.tank.getTankProperties()[button.id].getContents().getFluid().getName());
         MFPacketHandler.INSTANCE.sendToServer(new SmeltingTankTileEntity.PacketFluidClick(tile.getPos(),button.id));
-
     }
 
     private class FluidButton extends GuiButton{
@@ -129,22 +128,21 @@ public class SmeltingTankGui  extends GuiContainer {
         private FluidStack fluidData;
 
         @Override
-        public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+        public void drawButton(@Nonnull Minecraft mc, int mouseX, int mouseY) {
             if (this.visible) {
 
                 this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-                int i = this.getHoverState(this.hovered);
                 this.mouseDragged(mc, mouseX, mouseY);
             }
         }
 
-        public FluidButton(int buttonId, int x, int y, int widthIn, int heightIn, FluidStack fluidData) {
+        FluidButton(int buttonId, int x, int y, int widthIn, int heightIn, FluidStack fluidData) {
             super(buttonId, x, y, widthIn, heightIn, "");
             this.fluidData=fluidData;
         }
 
 
-        public FluidStack getFluidData() {
+        FluidStack getFluidData() {
             return fluidData;
         }
     }

@@ -159,11 +159,13 @@ public class PortableTank extends MFTileBlock<PortableTankTileEntity> implements
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
+    @SuppressWarnings("deprecation")
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
     {
         addCollisionBoxToList(pos, entityBox, collidingBoxes,getBoundingBox(state,worldIn,pos));
     }
 
+    @SuppressWarnings("deprecation")
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return boundingBox;

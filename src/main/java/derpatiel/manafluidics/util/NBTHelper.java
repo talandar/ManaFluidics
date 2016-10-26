@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NBTHelper {
+    //TODO: clear these out, use Longs for pos storage
     public static int[] BlockPosToIntArray(BlockPos pos){
         return new int[]{pos.getX(),pos.getY(),pos.getZ()};
     }

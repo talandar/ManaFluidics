@@ -5,6 +5,7 @@ import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.item.MFHammer;
 import derpatiel.manafluidics.item.MFItem;
 import derpatiel.manafluidics.item.MFMaterialItem;
+import derpatiel.manafluidics.item.MFMoldItem;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -20,6 +21,10 @@ public class ModItems {
     public static MFItem material_wire;
     public static MFItem control_circuit;
     public static MFItem heat_exchanger;
+    public static MFItem ingot_mold;
+    public static MFItem unfired_ingot_mold;
+    public static MFItem block_mold;
+    public static MFItem unfired_block_mold;
 
     public static void registerItems() {
 
@@ -31,6 +36,10 @@ public class ModItems {
         material_wire = register(new MFMaterialItem("wire").setCreativeTab(tabFluidics));
         control_circuit = register(new MFMaterialItem("controlcircuit").setCreativeTab(tabFluidics));
         heat_exchanger = register(new MFItem("heat_exchanger").setCreativeTab(tabFluidics));
+        ingot_mold = register(new MFMoldItem("ingot_mold").setCreativeTab(tabFluidics));
+        unfired_ingot_mold = register(new MFItem("unfired_ingot_mold").setCreativeTab(tabFluidics));
+        block_mold = register(new MFMoldItem("block_mold").setCreativeTab(tabFluidics));
+        unfired_block_mold = register(new MFItem("unfired_block_mold").setCreativeTab(tabFluidics));
 
     }
 

@@ -128,6 +128,28 @@ public class ModCrafting {
                 MaterialItemHelper.getSheet(MaterialType.IRON),
                 Blocks.CHEST);
 
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.unfired_block_mold),
+                Blocks.CLAY,
+                Blocks.IRON_BLOCK
+                );
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.unfired_block_mold),
+                Blocks.CLAY,
+                Blocks.GOLD_BLOCK
+        );
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.unfired_ingot_mold),
+                Items.CLAY_BALL,
+                Items.IRON_INGOT
+        );
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.unfired_ingot_mold),
+                Items.CLAY_BALL,
+                Items.GOLD_INGOT
+        );
+
+        GameRegistry.addSmelting(ModItems.unfired_block_mold,new ItemStack(ModItems.block_mold),0.5f);
+        GameRegistry.addSmelting(ModItems.unfired_ingot_mold,new ItemStack(ModItems.ingot_mold),0.5f);
 
         ItemStack filledCrystalBucket = new ItemStack(ForgeModContainer.getInstance().universalBucket);
         ((UniversalBucket) filledCrystalBucket.getItem()).fill(filledCrystalBucket, FluidRegistry.getFluidStack(ModFluids.moltenCrystal.getName().toLowerCase(), Fluid.BUCKET_VOLUME), true);

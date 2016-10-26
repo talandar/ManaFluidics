@@ -21,6 +21,8 @@ import java.util.*;
 
 public class MaterialItemHelper {
 
+    public static final float COOLING_CONSTANT = 0.05f;
+
     public static final  Map<MaterialType,String> sheetResourceDomain = new HashMap<>();
     public static final Map<MaterialType,String> sheetResourceLocation = new HashMap<>();
     public static final Map<Fluid,MaterialType> fluidProductMap = new HashMap<>();
@@ -28,6 +30,8 @@ public class MaterialItemHelper {
 
     public static final Map<Block,MeltingInformation> meltableBlocks = new HashMap<>();
     public static final Map<Item,MeltingInformation> meltableItems = new HashMap<>();
+
+    public static final Map<Item,Map<FluidStack,ItemStack>> castingProducts = new HashMap<>();
 
     static{
 
@@ -71,6 +75,19 @@ public class MaterialItemHelper {
         meltableItems.put(Items.GOLD_INGOT,new MeltingInformation(new FluidStack(ModFluids.moltenGold,500)));
 
 
+        Map<FluidStack,ItemStack> blockMoldItems = new HashMap<>();
+        blockMoldItems.put(new FluidStack(FluidRegistry.LAVA,1000), new ItemStack(Blocks.OBSIDIAN));
+        blockMoldItems.put(new FluidStack(ModFluids.moltenGold,4500), new ItemStack(Blocks.GOLD_BLOCK));
+        blockMoldItems.put(new FluidStack(ModFluids.moltenIron,4500), new ItemStack(Blocks.IRON_BLOCK));
+        //TODO: make crystal block
+        // blockMoldItems.put(new FluidStack(ModFluids.moltenCrystal,4500), new ItemStack(ModBlocks.crystal_block));
+
+        Map<FluidStack,ItemStack> ingotMoldItems = new HashMap<>();
+        ingotMoldItems.put(new FluidStack(ModFluids.moltenGold,500), new ItemStack(Items.GOLD_INGOT));
+        ingotMoldItems.put(new FluidStack(ModFluids.moltenIron,500), new ItemStack(Items.IRON_INGOT));
+
+        castingProducts.put(ModItems.block_mold,blockMoldItems);
+        castingProducts.put(ModItems.ingot_mold,ingotMoldItems);
 
 
     }

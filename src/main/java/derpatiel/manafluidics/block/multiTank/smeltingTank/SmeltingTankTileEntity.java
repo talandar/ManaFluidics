@@ -5,6 +5,7 @@ import derpatiel.manafluidics.fluid.MultiTank;
 import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -43,7 +44,7 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
     @Override
     public void doUpdate() {
 
-        int heatConsumed = heatThisTick + (int)(0.1f * (heatersThisTick-1) * heatThisTick);
+        int heatConsumed = heatThisTick;//+ (int)(0.1f * (heatersThisTick-1) * heatThisTick); disable for now - too much bonus
         heatThisTick=0;
         heatersThisTick =0;
 
@@ -190,8 +191,8 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
         public static class Handler implements IMessageHandler<SmeltingTankTileEntity.PacketFluidClick, IMessage> {
             @Override
             public IMessage onMessage(SmeltingTankTileEntity.PacketFluidClick message, MessageContext ctx) {
-                TileEntity tile = ctx.getServerHandler().playerEntity.getServer().getEntityWorld().getTileEntity(message.tileToUpdate);
-                //TileEntity tile = ctx.getServerHandler().playerEntity.getServerWorld().getTileEntity(message.tileToUpdate);
+
+                TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(message.tileToUpdate);
                 if (tile == null){
                     LOG.warn("null tile :(");
                 }else if(!(tile instanceof SmeltingTankTileEntity)){

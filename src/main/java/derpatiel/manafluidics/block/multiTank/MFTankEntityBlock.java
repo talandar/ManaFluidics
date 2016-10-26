@@ -43,6 +43,7 @@ public abstract class MFTankEntityBlock<T extends TankPartTileEntity> extends MF
         return new BlockStateContainer(this, new IProperty[] { STATE });
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(STATE,TankPartState.getById(meta));
@@ -53,11 +54,15 @@ public abstract class MFTankEntityBlock<T extends TankPartTileEntity> extends MF
         return state.getValue(STATE).getID();
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
     {
         addCollisionBoxToList(pos, entityBox, collidingBoxes,getBoundingBox(state,worldIn,pos));
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         TankPartState tankState = state.getValue(STATE);

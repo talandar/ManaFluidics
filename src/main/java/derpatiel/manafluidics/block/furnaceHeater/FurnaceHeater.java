@@ -109,6 +109,7 @@ public class FurnaceHeater extends MFTileBlock implements IDismantleable{
         return state.withProperty(GENERATING, generating);
     }
 
+    @SuppressWarnings("deprecation")
     public IBlockState getStateFromMeta(int meta)
     {
         EnumFacing enumfacing = EnumFacing.getFront(meta);

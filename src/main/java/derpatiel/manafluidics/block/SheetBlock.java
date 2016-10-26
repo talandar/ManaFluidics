@@ -156,27 +156,29 @@ public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
         return new ItemStack(Item.getItemFromBlock(this), 1, this.getMetaFromState(world.getBlockState(pos)));
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn)
     {
         state = this.getActualState(state, worldIn, pos);
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[0]);
 
-        if (((Boolean)state.getValue(NORTH)).booleanValue())
+        if ((state.getValue(NORTH)))
         {
             addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.NORTH)]);
         }
 
-        if (((Boolean)state.getValue(SOUTH)).booleanValue())
+        if ((state.getValue(SOUTH)))
         {
             addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.SOUTH)]);
         }
 
-        if (((Boolean)state.getValue(EAST)).booleanValue())
+        if ((state.getValue(EAST)))
         {
             addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.EAST)]);
         }
 
-        if (((Boolean)state.getValue(WEST)).booleanValue())
+        if ((state.getValue(WEST)))
         {
             addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BY_INDEX[getBoundingBoxIndex(EnumFacing.WEST)]);
         }
@@ -187,6 +189,8 @@ public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
         return 1 << p_185729_0_.getHorizontalIndex();
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         state = this.getActualState(state, source, pos);
@@ -197,22 +201,22 @@ public class SheetBlock extends MFBlock implements ITankPart, IDismantleable{
     {
         int i = 0;
 
-        if (((Boolean)state.getValue(NORTH)).booleanValue())
+        if ((state.getValue(NORTH)))
         {
             i |= getBoundingBoxIndex(EnumFacing.NORTH);
         }
 
-        if (((Boolean)state.getValue(EAST)).booleanValue())
+        if ((state.getValue(EAST)))
         {
             i |= getBoundingBoxIndex(EnumFacing.EAST);
         }
 
-        if (((Boolean)state.getValue(SOUTH)).booleanValue())
+        if ((state.getValue(SOUTH)))
         {
             i |= getBoundingBoxIndex(EnumFacing.SOUTH);
         }
 
-        if (((Boolean)state.getValue(WEST)).booleanValue())
+        if ((state.getValue(WEST)))
         {
             i |= getBoundingBoxIndex(EnumFacing.WEST);
         }
