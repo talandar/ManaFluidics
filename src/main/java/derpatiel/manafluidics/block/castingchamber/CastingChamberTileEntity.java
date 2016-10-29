@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.block.castingchamber;
 
+import derpatiel.manafluidics.capability.item.SideWrappingItemHandler;
 import derpatiel.manafluidics.item.MFMoldItem;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.block.state.IBlockState;
@@ -26,6 +27,8 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
     private final CastingChamberItemHandler inventory;
     private final FluidTank tank = new FluidTank(8 * Fluid.BUCKET_VOLUME);
 
+    private final SideWrappingItemHandler upWrappedInventory;
+    private final SideWrappingItemHandler sideWrappedInventories;
     private ItemStack coolingItem;
 
     private int coolingTime;
@@ -33,6 +36,8 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
 
     public CastingChamberTileEntity(){
         inventory = new CastingChamberItemHandler(this);
+        upWrappedInventory = new SideWrappingItemHandler(inventory,CastingChamberItemHandler.MOLD_SLOT);
+        sideWrappedInventories = new SideWrappingItemHandler(inventory,CastingChamberItemHandler.OUTPUT_SLOT);
     }
 
     @Override
@@ -111,7 +116,13 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
         if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
             return (T)tank;
         }else if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
-            return (T)inventory;
+            if(facing==null){
+                return (T)inventory;
+            }else if(facing==EnumFacing.UP)
+                return (T)upWrappedInventory;
+            else{
+                return (T)sideWrappedInventories;
+            }
         }
         return super.getCapability(capability, facing);
     }

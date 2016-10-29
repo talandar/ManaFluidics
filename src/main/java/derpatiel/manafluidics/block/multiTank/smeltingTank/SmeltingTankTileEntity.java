@@ -192,16 +192,18 @@ public class SmeltingTankTileEntity extends TankFormingTileEntity {
             @Override
             public IMessage onMessage(SmeltingTankTileEntity.PacketFluidClick message, MessageContext ctx) {
 
-                TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(message.tileToUpdate);
+                TileEntity tile = ctx.getServerHandler().playerEntity.getServerWorld().getTileEntity(message.tileToUpdate);
                 if (tile == null){
                     LOG.warn("null tile :(");
+                    return null;
                 }else if(!(tile instanceof SmeltingTankTileEntity)){
                     LOG.warn("tile not of right type :(");
+                    return null;
                 }
-                LOG.info("moving fluid");
                 SmeltingTankTileEntity smeltingTank = (SmeltingTankTileEntity)tile;
                 smeltingTank.tank.moveFluidToBottom(message.fluidIndexToMove);
                 smeltingTank.markForUpdate();
+
                 return null;
             }
         }
