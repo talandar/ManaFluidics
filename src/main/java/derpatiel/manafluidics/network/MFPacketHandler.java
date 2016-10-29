@@ -13,7 +13,7 @@ public class MFPacketHandler {
     public static void init(){
         INSTANCE.registerMessage(ChatUtil.PacketNoSpamChat.Handler.class, ChatUtil.PacketNoSpamChat.class, 0, Side.CLIENT);
         INSTANCE.registerMessage(SmeltingTankTileEntity.PacketFluidClick.Handler.class,SmeltingTankTileEntity.PacketFluidClick.class,1,Side.SERVER);
-        INSTANCE.registerMessage(PortableTankFluidPacket.PortableTankFluidPacketMessageHandler.class,PortableTankFluidPacket.class,2,Side.CLIENT);
+        INSTANCE.registerMessage(FluidChangedPacket.PortableTankFluidPacketMessageHandler.class,FluidChangedPacket.class,2,Side.CLIENT);
 
     }
 

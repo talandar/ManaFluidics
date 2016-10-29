@@ -19,13 +19,14 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Map;
 
 public class CastingChamberTileEntity extends TileEntity implements ITickable {
 
     private final CastingChamberItemHandler inventory;
-    private final FluidTank tank = new FluidTank(8 * Fluid.BUCKET_VOLUME);
+    public final CastingChamberFluidTank tank;
 
     private final SideWrappingItemHandler upWrappedInventory;
     private final SideWrappingItemHandler sideWrappedInventories;
@@ -36,6 +37,7 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
 
     public CastingChamberTileEntity(){
         inventory = new CastingChamberItemHandler(this);
+        tank = new CastingChamberFluidTank(this,8 * Fluid.BUCKET_VOLUME);
         upWrappedInventory = new SideWrappingItemHandler(inventory,CastingChamberItemHandler.MOLD_SLOT);
         sideWrappedInventories = new SideWrappingItemHandler(inventory,CastingChamberItemHandler.OUTPUT_SLOT);
     }
@@ -47,8 +49,11 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
             coolingDone++;
             if(coolingDone>=coolingTime){
                 if(inventory.insertItem(CastingChamberItemHandler.OUTPUT_SLOT,coolingItem,true)==null){
-                    inventory.insertItem(CastingChamberItemHandler.OUTPUT_SLOT,coolingItem,false);
+                    if(!worldObj.isRemote) {
+                        inventory.insertItem(CastingChamberItemHandler.OUTPUT_SLOT, coolingItem, false);
+                    }
                     coolingItem=null;
+                    coolingDone=0;
                 }
             }
         }
@@ -57,16 +62,18 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
         MFMoldItem mold = inventory.getMold();
         FluidStack fluid = tank.getFluid();
 
-        if(coolingItem==null &&mold!=null && fluid!=null && fluid.amount>0){
+        if(coolingItem==null && mold!=null && fluid!=null && fluid.amount>0){
 
             Map<FluidStack,ItemStack> moldProducts = MaterialItemHelper.castingProducts.get(mold);
             for(FluidStack fluidStack : moldProducts.keySet()){
                 if(fluidStack.getFluid()==fluid.getFluid() && fluidStack.amount<= fluid.amount){
                     //we have a mold and enough of a valid fluid.
-                    coolingTime = (int)(MaterialItemHelper.COOLING_CONSTANT * fluidStack.amount);
-                    coolingDone=0;
-                    coolingItem = moldProducts.get(fluidStack).copy();
-                    tank.drain(fluidStack.amount,true);
+                    if(inventory.getStackInSlot(CastingChamberItemHandler.OUTPUT_SLOT)==null || ItemHandlerHelper.canItemStacksStack(inventory.getStackInSlot(CastingChamberItemHandler.OUTPUT_SLOT),moldProducts.get(fluidStack))) {
+                        coolingTime = (int) (MaterialItemHelper.COOLING_CONSTANT * fluidStack.amount);
+                        coolingDone = 0;
+                        coolingItem = moldProducts.get(fluidStack).copy();
+                        tank.drain(fluidStack.amount, true);
+                    }
                 }
             }
 
@@ -78,12 +85,20 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
         coolingItem=null;
     }
 
+    public float coolingFraction(){
+        if(coolingTime>0 && coolingDone>0){
+            return ((float)coolingDone)/((float)coolingTime);
+        }
+        return 1;
+    }
+
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         inventory.deserializeNBT(compound.getCompoundTag("inventory"));
         tank.readFromNBT(compound.getCompoundTag("tank"));
         moldChanged();
         coolingDone=compound.getInteger("coolingDone");
+        //coolingTime=compound.getInteger("coolingTime");
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -91,6 +106,7 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
         compound.setTag("inventory",inventory.serializeNBT());
         compound.setTag("tank",tank.writeToNBT(new NBTTagCompound()));
         compound.setInteger("coolingDone",coolingDone);
+        //compound.setInteger("coolingTime",coolingTime);
         return compound;
     }
 

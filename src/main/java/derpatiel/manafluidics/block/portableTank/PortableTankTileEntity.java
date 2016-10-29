@@ -1,7 +1,7 @@
 package derpatiel.manafluidics.block.portableTank;
 
 import derpatiel.manafluidics.network.MFPacketHandler;
-import derpatiel.manafluidics.network.PortableTankFluidPacket;
+import derpatiel.manafluidics.network.FluidChangedPacket;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -110,7 +110,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
                         drained = belowTank.fill(fluidTank.getFluid(), true);
                         fluidTank.drain(drained, true);
                     }
-                    MFPacketHandler.INSTANCE.sendToAll(new PortableTankFluidPacket(pos,fluidTank.getFluid()));
+                    MFPacketHandler.INSTANCE.sendToAll(new FluidChangedPacket(pos,fluidTank.getFluid()));
                     markDirty();
                 }
             }
@@ -130,7 +130,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
 
         @Override
         public void onContentsChanged(){
-            MFPacketHandler.INSTANCE.sendToAll(new PortableTankFluidPacket(pos,getFluid()));
+            MFPacketHandler.INSTANCE.sendToAll(new FluidChangedPacket(pos,getFluid()));
         }
     }
 }

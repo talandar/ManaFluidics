@@ -1,19 +1,26 @@
 package derpatiel.manafluidics.block.castingchamber;
 
+import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.IDismantleable;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeaterTileEntity;
 import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.registry.ModGUIs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+
+import javax.annotation.Nullable;
 
 public class CastingChamber extends MFTileBlock implements IDismantleable {
 
@@ -53,5 +60,25 @@ public class CastingChamber extends MFTileBlock implements IDismantleable {
         }
 
         super.breakBlock(worldIn, pos, state);
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    {
+        if (worldIn.isRemote)
+        {
+            return true;
+        }
+        else
+        {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+
+            if (tileentity instanceof CastingChamberTileEntity)
+            {
+                playerIn.openGui(ManaFluidics.instance, ModGUIs.CASTING_CHAMBER_ID,worldIn,pos.getX(),pos.getY(), pos.getZ());
+            }
+
+            return true;
+        }
     }
 }
