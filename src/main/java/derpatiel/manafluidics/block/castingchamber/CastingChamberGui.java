@@ -7,10 +7,14 @@ import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeaterTileEntity;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankGui;
 import derpatiel.manafluidics.capability.heat.CapabilityHeat;
 import derpatiel.manafluidics.registry.ModGUIs;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import derpatiel.manafluidics.util.RenderUtil;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CastingChamberGui  extends GuiContainer {
     public static final int WIDTH = 176;
@@ -44,8 +48,10 @@ public class CastingChamberGui  extends GuiContainer {
             int startY = (int) (78 - drawHeight);
             RenderUtil.renderTiledFluid(guiLeft + 131, guiTop + startY, 16, (int) Math.ceil(drawHeight), 1.0f, contents);
             if (mouseX >= (guiLeft + 131) && mouseX <= (guiLeft + 131 + 16) && mouseY >= (guiTop + 8) && mouseY <= (guiTop + 78)) {
-
-                drawHoveringText(Lists.newArrayList("fluid"), mouseX, mouseY);
+                List<String> descriptions = new ArrayList<>();
+                descriptions.add("Fluid: " + contents.getFluid().getLocalizedName(contents));
+                descriptions.add(contents.amount+"mb.  ("+ MaterialItemHelper.getIngotsString(contents) +")");
+                drawHoveringText(descriptions, mouseX, mouseY);
 
             }
         }

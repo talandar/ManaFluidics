@@ -169,8 +169,14 @@ public class MaterialItemHelper {
 
     public static String getIngotsString(FluidStack fluid) {
         if(fluid.getFluid()==FluidRegistry.LAVA){
-            float blocks = ((float)(fluid.amount))/1000.0f;
-            return blocks+" blocks";
+            int blocks = (fluid.amount)/1000;
+            int mbLeft = fluid.amount-(blocks*1000);
+            String ret = blocks+" block";
+            if(blocks>1)
+                ret+="s";
+            if(mbLeft>0)
+                ret+=", "+mbLeft+" mb.";
+            return ret;
         }
         //else not lava
         int mbFluid = fluid.amount;
@@ -179,13 +185,17 @@ public class MaterialItemHelper {
         if(mbFluid>4500){
             int blocks = mbFluid/4500;
             mbFluid-=(blocks*4500);
-            ret=blocks+" blocks";
+            ret=blocks+" block";
+            if(blocks>1)
+                ret+="s";
             sep=", ";
         }
         if(mbFluid>500){
             int ingots = mbFluid/500;
             mbFluid-=(ingots*500);
-            ret+=sep+ingots+" ingots";
+            ret+=sep+ingots+" ingot";
+            if(ingots>1)
+                ret+="s";
             sep=", ";
         }
         if(mbFluid>0){
