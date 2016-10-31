@@ -11,19 +11,21 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDismantleable {
 
@@ -128,5 +130,29 @@ public class FloatTable extends MFTileBlock<FloatTableTileEntity> implements IDi
 
 
         return false;
+    }
+
+    //taken from BlockFurnace in minecraft's source code directly.
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
+    {
+        FloatTableTileEntity tile = (FloatTableTileEntity)worldIn.getTileEntity(pos);
+        if (tile.isMain() && tile.getHardeningFraction()>0){
+
+            for(BlockPos tilePos : tile.getAllParts())
+            {
+                if (rand.nextDouble() < 0.08D)
+                {
+                    worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                }
+                double x = ((double)tilePos.getX())+(rand.nextGaussian()*0.5f);
+                double y = ((double)tilePos.getY()+1)+(rand.nextGaussian()*0.5f);
+                double z = ((double)tilePos.getZ())+(rand.nextGaussian()*0.5f);
+                if(rand.nextDouble() < 0.1D) {
+                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.05D, 0.0D, new int[0]);
+                }
+
+            }
+        }
     }
 }

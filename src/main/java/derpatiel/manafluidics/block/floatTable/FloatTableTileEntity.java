@@ -254,14 +254,20 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
     }
 
     public List<BlockPos> getOthers() {
-        List<BlockPos> others = new ArrayList<BlockPos>();
-        others.add(NE);
-        others.add(NW);
-        others.add(SE);
-        others.add(SW);
-        others.remove(this.getPos());
-        return others;
+        List<BlockPos> positions = getAllParts();
+        positions.remove(this.getPos());
+        return positions;
     }
+
+    public List<BlockPos> getAllParts(){
+        List<BlockPos> positions = new ArrayList<BlockPos>();
+        positions.add(NE);
+        positions.add(NW);
+        positions.add(SE);
+        positions.add(SW);
+        return positions;
+    }
+
     public boolean hasReactant() {
         return reactantTank.getFluidAmount()>0;
     }
