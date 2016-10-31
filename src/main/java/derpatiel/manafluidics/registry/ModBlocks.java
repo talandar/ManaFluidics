@@ -25,6 +25,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModBlocks {
 
     public static MFBlock crystalOre;
+    public static MFBlock crystalBlock;
     public static MFBlock sheet;
     public static MFBlock tankBottom;
     public static MFBlock drawNozzle;
@@ -42,6 +43,7 @@ public class ModBlocks {
     public static void registerBlocks(){
         LOG.info("registering blocks");
         crystalOre = register(new MFCustomDropsBlock("crystalore",Material.ROCK,1.0f,1.0f, ModItems.manaCrystal,0,2,true).setCreativeTab(ModItems.tabFluidics));
+        crystalBlock = register(new MFTransparentBlock("crystalblock",Material.GLASS,0.5f,0.5f)).setCreativeTab(ModItems.tabFluidics);
         sheet = register(new SheetBlock("sheet",Material.GLASS, 0.25f, 0.25f)).setCreativeTab(ModItems.tabFluidics);
         tankBottom = register(new MFDismantleableBlock("tankbottom",Material.ROCK,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         drawNozzle = register(new DrawNozzle("drawnozzle",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));

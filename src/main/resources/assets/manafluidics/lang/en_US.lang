@@ -8,6 +8,10 @@ item.bucket_iron.name=Bucket of Iron Ingots
 item.bucket_gold.name=Bucket of Gold Ingots
 item.crystalhammer.name=Crystal Hammer
 item.heat_exchanger.name=Heat Exchanger
+item.unfired_ingot_mold.name=Unfired Ingot Mold
+item.unfired_block_mold.name=Unfired Block Mold
+item.ingot_mold.name=Ingot Mold
+item.block_mold.name=Block Mold
 
 item.wire.crystal.name=Crystalline Fiber
 item.wire.obsidian.name=Obsidian Wire
@@ -48,9 +52,12 @@ tile.furnaceheater.name=Combustible Heater
 tile.smelting_tank_controller.name=Foundry Tank Controller
 tile.tank_item_valve.name=Item Valve
 tile.tank_heat_valve.name=Heat Connection
+tile.castingchamber.name=Casting Chamber
+tile.crystalblock.name=Crystal Block
 
 
 
 jei.manafluidics.recipe.drawnozzle=Drawing Nozzle
 jei.manafluidics.recipe.floattable=Floating Table
 jei.manafluidics.recipe.melting=Foundry Melting
+jei.manafluidics.recipe.castingchamber=Casting Chamber

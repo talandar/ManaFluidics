@@ -1,0 +1,17 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "uvlock": false,
+        "textures":{
+          "top": "manafluidics:blocks/casting_chamber_top",
+          "down": "manafluidics:blocks/casting_chamber_bottom",
+          "side": "manafluidics:blocks/furnaceheater_side",
+          "front": "manafluidics:blocks/furnaceheater_side"
+        }
+    },
+    "variants": {
+        "normal":{
+          "model": "orientable"
+        }
+    }
+}

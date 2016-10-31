@@ -1,6 +1,8 @@
 package derpatiel.manafluidics.compat.jei;
 
 import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.compat.jei.castingchamber.CastingRecipeCategory;
+import derpatiel.manafluidics.compat.jei.castingchamber.CastingRecipeHandler;
 import derpatiel.manafluidics.compat.jei.drawnozzle.DrawingRecipeCategory;
 import derpatiel.manafluidics.compat.jei.drawnozzle.DrawingRecipeHandler;
 import derpatiel.manafluidics.compat.jei.floattable.FloatingRecipeCategory;
@@ -22,6 +24,7 @@ public class ManaFluidicsPlugin extends BlankModPlugin{
     public static final String DRAW_RECIPE_CATEGORY_ID= ManaFluidics.MODID+":drawnozzle";
     public static final String FLOAT_RECIPE_CATEGORY_ID= ManaFluidics.MODID+":floattable";
     public static final String MELT_RECIPE_CATEGORY_ID= ManaFluidics.MODID+":melting";
+    public static final String CAST_RECIPE_CATEGORY_ID = ManaFluidics.MODID+":casting";
 
 
     public static IJeiHelpers jeiHelper;
@@ -32,17 +35,19 @@ public class ManaFluidicsPlugin extends BlankModPlugin{
 
         jeiHelper.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.floatTable));
 
-        registry.addRecipeCategories(new DrawingRecipeCategory(),new FloatingRecipeCategory(), new MeltingRecipeCategory());
+        registry.addRecipeCategories(new DrawingRecipeCategory(),new FloatingRecipeCategory(), new MeltingRecipeCategory(), new CastingRecipeCategory());
 
-        registry.addRecipeHandlers(new DrawingRecipeHandler(), new FloatingRecipeHandler(), new MeltingRecipeHandler());
+        registry.addRecipeHandlers(new DrawingRecipeHandler(), new FloatingRecipeHandler(), new MeltingRecipeHandler(), new CastingRecipeHandler());
 
         registry.addRecipes(DrawingRecipeCategory.getRecipies());
         registry.addRecipes(FloatingRecipeCategory.getRecipies());
         registry.addRecipes(MeltingRecipeCategory.getRecipies());
+        registry.addRecipes(CastingRecipeCategory.getRecipies());
 
 
         registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.drawNozzle),DRAW_RECIPE_CATEGORY_ID);
         registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.smeltingTankController),MELT_RECIPE_CATEGORY_ID);
+        registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.castingChamber),CAST_RECIPE_CATEGORY_ID);
 
     }
 }

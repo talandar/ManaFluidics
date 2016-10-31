@@ -83,13 +83,15 @@ public class ModCrafting {
                 "   ",
                 'S', Blocks.STONE);
 
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.heatTankConnector),
-                "",
-                "SH",
-                "",
-                'H', ModItems.heat_exchanger,
-                'S', MaterialItemHelper.getSheet(MaterialType.OBSIDIAN)
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.crystalBlock),
+                "CCC",
+                "CCC",
+                "CCC",
+                'C', ModItems.manaCrystal
                 );
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaCrystal,9),
+                new ItemStack(ModBlocks.crystalBlock));
 
 
 
