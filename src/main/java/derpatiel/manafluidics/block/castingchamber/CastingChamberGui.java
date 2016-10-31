@@ -42,7 +42,12 @@ public class CastingChamberGui  extends GuiContainer {
         if(contents!=null && contents.amount>0) {
             float drawHeight = (((float) contents.amount) / ((float) tile.tank.getCapacity()) * 70.0f);
             int startY = (int) (78 - drawHeight);
-            RenderUtil.renderTiledFluid(guiLeft+131, guiTop+startY, 16, (int) Math.ceil(drawHeight), 1.0f, contents);
+            RenderUtil.renderTiledFluid(guiLeft + 131, guiTop + startY, 16, (int) Math.ceil(drawHeight), 1.0f, contents);
+            if (mouseX >= (guiLeft + 131) && mouseX <= (guiLeft + 131 + 16) && mouseY >= (guiTop + 8) && mouseY <= (guiTop + 78)) {
+
+                drawHoveringText(Lists.newArrayList("fluid"), mouseX, mouseY);
+
+            }
         }
     }
 }

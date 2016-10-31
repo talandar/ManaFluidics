@@ -66,9 +66,9 @@ public class CastingRecipeCategory implements IRecipeCategory {
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
-        recipeLayout.getFluidStacks().init(FLUID_SLOT, true, 9, 10, 16, 16, 4500, true, null);
-        recipeLayout.getItemStacks().init(MOLD_SLOT,true, 9, 28 );
-        recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 59, 9);
+        recipeLayout.getFluidStacks().init(FLUID_SLOT, true, 9, 4, 16, 16, 4500, true, null);
+        recipeLayout.getItemStacks().init(MOLD_SLOT,true, 8, 21 );
+        recipeLayout.getItemStacks().init(OUTPUT_SLOT, false, 58, 11);
 
         if (recipeWrapper instanceof CastingRecipeJEI)
         {
