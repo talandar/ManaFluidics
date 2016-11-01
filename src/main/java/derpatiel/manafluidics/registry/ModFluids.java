@@ -33,7 +33,7 @@ public class ModFluids {
         reactiveMana = new Fluid("reactivemana", new ResourceLocation(ManaFluidics.MODID, "blocks/reactivemana_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/reactivemana_flow"));
         reactiveMana.setLuminosity(15);
         reactiveMana.setDensity(1000000);
-        reactiveMana.setViscosity(600000);
+        reactiveMana.setViscosity(6000);
 
         moltenCrystal = new Fluid("moltencrystal", new ResourceLocation(ManaFluidics.MODID, "blocks/moltencrystal_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/moltencrystal_flow"));
         moltenCrystal.setLuminosity(15);

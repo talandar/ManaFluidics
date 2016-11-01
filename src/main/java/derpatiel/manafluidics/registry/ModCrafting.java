@@ -104,7 +104,7 @@ public class ModCrafting {
                 "S",
                 "S",
                 'C',ModItems.manaCrystal,
-                'S',Items.STICK
+                'S',Items.BLAZE_ROD
                 );
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaCrystal,9),
