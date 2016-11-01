@@ -12,6 +12,7 @@ item.unfired_ingot_mold.name=Unfired Ingot Mold
 item.unfired_block_mold.name=Unfired Block Mold
 item.ingot_mold.name=Ingot Mold
 item.block_mold.name=Block Mold
+item.mana_wand.name=Mana Wand
 
 item.wire.crystal.name=Crystalline Fiber
 item.wire.obsidian.name=Obsidian Wire

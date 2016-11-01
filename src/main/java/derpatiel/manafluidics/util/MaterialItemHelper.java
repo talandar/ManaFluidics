@@ -86,8 +86,12 @@ public class MaterialItemHelper {
         ingotMoldItems.put(new FluidStack(ModFluids.moltenGold,500), new ItemStack(Items.GOLD_INGOT));
         ingotMoldItems.put(new FluidStack(ModFluids.moltenIron,500), new ItemStack(Items.IRON_INGOT));
 
+        Map<FluidStack,ItemStack> gemMoldItems = new HashMap<>();
+        gemMoldItems.put(new FluidStack(ModFluids.moltenCrystal,500), new ItemStack(ModItems.manaCrystal));
+
         castingProducts.put((MFMoldItem)ModItems.block_mold,blockMoldItems);
         castingProducts.put((MFMoldItem)ModItems.ingot_mold,ingotMoldItems);
+        castingProducts.put((MFMoldItem)ModItems.gem_mold,gemMoldItems);
 
 
     }

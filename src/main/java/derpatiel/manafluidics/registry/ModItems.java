@@ -6,6 +6,7 @@ import derpatiel.manafluidics.item.MFHammer;
 import derpatiel.manafluidics.item.MFItem;
 import derpatiel.manafluidics.item.MFMaterialItem;
 import derpatiel.manafluidics.item.MFMoldItem;
+import derpatiel.manafluidics.item.spell.ManaWand;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -25,6 +26,9 @@ public class ModItems {
     public static MFItem unfired_ingot_mold;
     public static MFItem block_mold;
     public static MFItem unfired_block_mold;
+    public static MFItem gem_mold;
+    public static MFItem unfired_gem_mold;
+    public static MFItem mana_wand;
 
     public static void registerItems() {
 
@@ -39,7 +43,10 @@ public class ModItems {
         ingot_mold = register(new MFMoldItem("ingot_mold").setCreativeTab(tabFluidics));
         unfired_ingot_mold = register(new MFItem("unfired_ingot_mold").setCreativeTab(tabFluidics));
         block_mold = register(new MFMoldItem("block_mold").setCreativeTab(tabFluidics));
+        unfired_gem_mold = register(new MFItem("unfired_gem_mold").setCreativeTab(tabFluidics));
+        gem_mold = register(new MFMoldItem("gem_mold").setCreativeTab(tabFluidics));
         unfired_block_mold = register(new MFItem("unfired_block_mold").setCreativeTab(tabFluidics));
+        mana_wand = register(new ManaWand("mana_wand").setCreativeTab(tabFluidics));
 
     }
 

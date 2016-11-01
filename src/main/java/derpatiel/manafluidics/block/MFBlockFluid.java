@@ -5,10 +5,12 @@ import derpatiel.manafluidics.registry.ModDamageSources;
 import derpatiel.manafluidics.registry.ModFluids;
 import derpatiel.manafluidics.registry.ModItems;
 import derpatiel.manafluidics.util.LOG;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemBlock;
@@ -16,6 +18,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
@@ -54,4 +57,40 @@ public class MFBlockFluid extends BlockFluidClassic {
             }
         }
     }
+
+    @Override
+    public boolean canDisplace(IBlockAccess world, BlockPos pos) {
+        return super.canDisplace(world, pos);
+    }
+
+    /**
+     * Attempt to displace the block at (pos), return true if it was displaced.
+     */
+    @Override
+    public boolean displaceIfPossible(World world, BlockPos pos) {
+        /*
+        if (this.getFluid() == ModFluids.reactiveMana) {
+            if (world.isAirBlock(pos)) {
+                return true;
+            }
+
+            IBlockState state = world.getBlockState(pos);
+            Block block = state.getBlock();
+            if (block == this) {
+                return false;
+            }
+
+            Material material = state.getMaterial();
+            if (block == Blocks.OBSIDIAN || material == Material.PORTAL) {
+                return false;
+            }
+
+            return true;
+
+        } else {
+        */
+        return super.displaceIfPossible(world, pos);
+    }
+
+
 }

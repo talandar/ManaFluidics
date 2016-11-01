@@ -1,5 +1,7 @@
 package derpatiel.manafluidics.registry;
 
+import com.google.common.collect.Lists;
+import derpatiel.manafluidics.UnfiredMoldRecipe;
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.init.Blocks;
@@ -90,6 +92,21 @@ public class ModCrafting {
                 'C', ModItems.manaCrystal
                 );
 
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.castingChamber),
+                "S S",
+                "S X",
+                "SSS",
+                'X',ModItems.heat_exchanger,
+                'S',Blocks.STONE);
+
+        GameRegistry.addShapedRecipe(new ItemStack(ModItems.mana_wand),
+                "C",
+                "S",
+                "S",
+                'C',ModItems.manaCrystal,
+                'S',Items.STICK
+                );
+
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaCrystal,9),
                 new ItemStack(ModBlocks.crystalBlock));
 
@@ -130,28 +147,27 @@ public class ModCrafting {
                 MaterialItemHelper.getSheet(MaterialType.IRON),
                 Blocks.CHEST);
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.unfired_block_mold),
-                Blocks.CLAY,
-                Blocks.IRON_BLOCK
-                );
+        GameRegistry.addRecipe(new UnfiredMoldRecipe(new ItemStack(ModItems.unfired_block_mold),
+                Lists.newArrayList(new ItemStack(Blocks.CLAY), new ItemStack(Blocks.IRON_BLOCK))));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.unfired_block_mold),
-                Blocks.CLAY,
-                Blocks.GOLD_BLOCK
-        );
+        GameRegistry.addRecipe(new UnfiredMoldRecipe(new ItemStack(ModItems.unfired_block_mold),
+                Lists.newArrayList(new ItemStack(Blocks.CLAY),new ItemStack(Blocks.GOLD_BLOCK))));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.unfired_ingot_mold),
-                Items.CLAY_BALL,
-                Items.IRON_INGOT
-        );
+        GameRegistry.addRecipe(new UnfiredMoldRecipe(new ItemStack(ModItems.unfired_ingot_mold),
+                Lists.newArrayList(new ItemStack(Items.CLAY_BALL),new ItemStack(Items.IRON_INGOT))));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.unfired_ingot_mold),
-                Items.CLAY_BALL,
-                Items.GOLD_INGOT
-        );
+        GameRegistry.addRecipe(new UnfiredMoldRecipe(new ItemStack(ModItems.unfired_ingot_mold),
+                Lists.newArrayList(new ItemStack(Items.CLAY_BALL),new ItemStack(Items.GOLD_INGOT))));
+
+        GameRegistry.addRecipe(new UnfiredMoldRecipe(new ItemStack(ModItems.unfired_gem_mold),
+                Lists.newArrayList(new ItemStack(Items.CLAY_BALL),new ItemStack(Items.DIAMOND))));
+
+        GameRegistry.addRecipe(new UnfiredMoldRecipe(new ItemStack(ModItems.unfired_gem_mold),
+                Lists.newArrayList(new ItemStack(Items.CLAY_BALL),new ItemStack(ModItems.manaCrystal))));
 
         GameRegistry.addSmelting(ModItems.unfired_block_mold,new ItemStack(ModItems.block_mold),0.5f);
         GameRegistry.addSmelting(ModItems.unfired_ingot_mold,new ItemStack(ModItems.ingot_mold),0.5f);
+        GameRegistry.addSmelting(ModItems.unfired_gem_mold, new ItemStack(ModItems.gem_mold),0.5f);
 
         ItemStack filledCrystalBucket = new ItemStack(ForgeModContainer.getInstance().universalBucket);
         ((UniversalBucket) filledCrystalBucket.getItem()).fill(filledCrystalBucket, FluidRegistry.getFluidStack(ModFluids.moltenCrystal.getName().toLowerCase(), Fluid.BUCKET_VOLUME), true);
