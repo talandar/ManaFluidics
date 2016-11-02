@@ -22,6 +22,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         Log.info("preInit COMMON");
         CapabilityHeat.register();
+        SpellRegistry.init();
         ModItems.registerItems();
         ModBlocks.registerBlocks();
         ModFluids.registerFluids();

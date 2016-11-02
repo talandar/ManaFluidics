@@ -1,13 +1,11 @@
 package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.item.MFHammer;
 import derpatiel.manafluidics.item.MFItem;
 import derpatiel.manafluidics.item.MFMaterialItem;
 import derpatiel.manafluidics.item.MFMoldItem;
-import derpatiel.manafluidics.item.spell.ManaWand;
-import net.minecraft.client.renderer.block.model.ModelBakery;
+import derpatiel.manafluidics.item.spell.SpellWand;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -46,7 +44,7 @@ public class ModItems {
         unfired_gem_mold = register(new MFItem("unfired_gem_mold").setCreativeTab(tabFluidics));
         gem_mold = register(new MFMoldItem("gem_mold").setCreativeTab(tabFluidics));
         unfired_block_mold = register(new MFItem("unfired_block_mold").setCreativeTab(tabFluidics));
-        mana_wand = register(new ManaWand("mana_wand").setCreativeTab(tabFluidics));
+        mana_wand = register(new SpellWand("mana_wand",SpellRegistry.createMana).setCreativeTab(tabFluidics));
 
     }
 

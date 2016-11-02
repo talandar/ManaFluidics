@@ -3,17 +3,22 @@ package derpatiel.manafluidics.event;
 import derpatiel.manafluidics.block.ITankPart;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.multiblock.MultiblockHandler;
+import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.io.File;
 import java.util.List;
 
 public class EventHandler {
@@ -46,5 +51,15 @@ public class EventHandler {
         if(!loadEvent.getWorld().isRemote){//run on server only
             MultiblockHandler.initWorld(loadEvent.getWorld());
         }
+    }
+
+    @SubscribeEvent
+    public void onPlayerEnter(PlayerEvent.LoadFromFile loadFromFile){
+        PlayerKnowledgeHandler.onPlayerLoad(loadFromFile.getEntityPlayer());
+    }
+
+    @SubscribeEvent
+    public void onPlayerLeave(PlayerEvent.SaveToFile saveToFile){
+        PlayerKnowledgeHandler.onPlayerSave(saveToFile.getEntityPlayer());
     }
 }
