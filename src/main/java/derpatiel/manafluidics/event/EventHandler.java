@@ -2,6 +2,7 @@ package derpatiel.manafluidics.event;
 
 import derpatiel.manafluidics.block.ITankPart;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
+import derpatiel.manafluidics.command.MFCommand;
 import derpatiel.manafluidics.multiblock.MultiblockHandler;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
@@ -21,6 +22,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
@@ -76,7 +79,6 @@ public class EventHandler {
                 MFPlayerKnowledge knowledge = PlayerKnowledgeHandler.getPlayerKnowledge(event.player);
                 if(!knowledge.hasCraftedAltar()){
                     ChatUtil.sendNoSpam(event.player, TextHelper.localize("altar.craftAltar.message"));
-
                 }
                 PlayerKnowledgeHandler.getPlayerKnowledge(event.player).craftAltar();
             }

@@ -1,5 +1,6 @@
 package derpatiel.manafluidics;
 
+import derpatiel.manafluidics.command.MFCommand;
 import derpatiel.manafluidics.proxy.CommonProxy;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid =  ManaFluidics.MODID, version =  ManaFluidics.VERSION,  name = ManaFluidics.NAME, acceptedMinecraftVersions = "[1.10.2]")
 public class ManaFluidics
@@ -41,5 +43,10 @@ public class ManaFluidics
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event){
         proxy.postInit(event);
+    }
+
+    @Mod.EventHandler
+    public void onServerLoad(FMLServerStartingEvent event){
+        event.registerServerCommand(new MFCommand());
     }
 }
