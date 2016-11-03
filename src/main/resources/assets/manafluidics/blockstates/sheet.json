@@ -52,7 +52,7 @@
             },
             "obsidian": {
                 "textures": {
-            		"all": "blocks/obsidian" 
+            		"all": "manafluidics:blocks/obsidian"
             	}
             },
             "iron": {

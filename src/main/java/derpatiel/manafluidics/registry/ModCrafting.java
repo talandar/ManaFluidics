@@ -107,6 +107,14 @@ public class ModCrafting {
                 'S',Items.BLAZE_ROD
                 );
 
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.knowledgeAltar),
+                " B ",
+                "GOG",
+                "OOO",
+                'B', Items.BOOK,
+                'G', ModItems.manaCrystal,
+                'O', Blocks.OBSIDIAN);
+
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaCrystal,9),
                 new ItemStack(ModBlocks.crystalBlock));
 

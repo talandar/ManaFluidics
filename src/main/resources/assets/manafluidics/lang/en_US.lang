@@ -55,6 +55,7 @@ tile.tank_item_valve.name=Item Valve
 tile.tank_heat_valve.name=Heat Connection
 tile.castingchamber.name=Casting Chamber
 tile.crystalblock.name=Crystal Block
+tile.knowledgealtar.name=Altar of Knowledge
 
 
 
@@ -62,3 +63,10 @@ jei.manafluidics.recipe.drawnozzle=Drawing Nozzle
 jei.manafluidics.recipe.floattable=Floating Table
 jei.manafluidics.recipe.melting=Foundry Melting
 jei.manafluidics.recipe.castingchamber=Casting Chamber
+
+
+
+
+<messages>
+altar.noKnowledge.message=The construction of this altar is alien to you.  Perhaps making one of your own would be an interesting experience...
+altar.craftAltar.message=Crafting the Altar of Knowledge seems to have broadened your understanding of the world.

@@ -3,18 +3,23 @@ package derpatiel.manafluidics.event;
 import derpatiel.manafluidics.block.ITankPart;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.multiblock.MultiblockHandler;
+import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.LOG;
+import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -61,5 +66,20 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerLeave(PlayerEvent.SaveToFile saveToFile){
         PlayerKnowledgeHandler.onPlayerSave(saveToFile.getEntityPlayer());
+    }
+
+    @SubscribeEvent
+    public void onPlayerCraft(net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent event){
+        if(!event.player.worldObj.isRemote) {
+            LOG.info("craft:" + event.crafting.getItem().getUnlocalizedName());
+            if(event.crafting.getItem() instanceof ItemBlock && ((ItemBlock)event.crafting.getItem()).getBlock()==ModBlocks.knowledgeAltar){
+                MFPlayerKnowledge knowledge = PlayerKnowledgeHandler.getPlayerKnowledge(event.player);
+                if(!knowledge.hasCraftedAltar()){
+                    ChatUtil.sendNoSpam(event.player, TextHelper.localize("altar.craftAltar.message"));
+
+                }
+                PlayerKnowledgeHandler.getPlayerKnowledge(event.player).craftAltar();
+            }
+        }
     }
 }

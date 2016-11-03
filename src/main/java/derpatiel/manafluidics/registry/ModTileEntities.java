@@ -1,6 +1,8 @@
 package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.block.altar.KnowledgeAltarRenderer;
+import derpatiel.manafluidics.block.altar.KnowledgeAltarTileEntity;
 import derpatiel.manafluidics.block.castingchamber.CastingChamberTileEntity;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleRenderer;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
@@ -38,6 +40,7 @@ public class ModTileEntities {
         registerTileEntity(HeatConnectionTileEntity.class);
         registerTileEntity(ItemConnectionTileEntity.class);
         registerTileEntity(CastingChamberTileEntity.class);
+        registerTileEntity(KnowledgeAltarTileEntity.class);
     }
 
     public static void registerRenderers()
@@ -48,6 +51,7 @@ public class ModTileEntities {
         ClientRegistry.bindTileEntitySpecialRenderer(FluidTankTileEntity.class, new FluidTankRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(FluidSpoutTileEntity.class, new FluidSpoutRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(SmeltingTankTileEntity.class, new SmeltingTankRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(KnowledgeAltarTileEntity.class, new KnowledgeAltarRenderer());
     }
 
 
