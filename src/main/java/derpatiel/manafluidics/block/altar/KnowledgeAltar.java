@@ -3,6 +3,7 @@ package derpatiel.manafluidics.block.altar;
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.block.castingchamber.CastingChamberTileEntity;
+import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.registry.ModGUIs;
@@ -39,11 +40,13 @@ public class KnowledgeAltar extends MFTileBlock {
         this.setLightOpacity(0);
     }
 
+    @SuppressWarnings("deprecation")
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return AABB;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isFullCube(IBlockState state)
     {
         return false;
@@ -79,6 +82,7 @@ public class KnowledgeAltar extends MFTileBlock {
     /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
      */
+    @SuppressWarnings("deprecation")
     public boolean isOpaqueCube(IBlockState state)
     {
         return false;
@@ -107,24 +111,13 @@ public class KnowledgeAltar extends MFTileBlock {
         else
         {
             MFPlayerKnowledge playerKnowledge = PlayerKnowledgeHandler.getPlayerKnowledge(playerIn);
-            if(playerKnowledge.hasCraftedAltar()) {
-
-                //TODO: remove this debug code
-                if(heldItem!=null && heldItem.getItem()== Items.STICK){
-                    playerKnowledge.clearKnowledge();
-                    ChatUtil.sendNoSpam(playerIn,"DEBUG: resetting knowledge...");
-                }
+            if(playerKnowledge.hasKnowledge(KnowledgeCategory.ALTAR_CRAFTED)) {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
                 if (tileentity instanceof KnowledgeAltarTileEntity) {
                     ChatUtil.sendNoSpam(playerIn,TextHelper.localize("DEBUG: You understand the purpose of the altar..."));
                 }
             }else{
                 ChatUtil.sendNoSpam(playerIn, TextHelper.localize("altar.noKnowledge.message"));
-
-                //TODO: remove debug code
-                if(heldItem!=null && heldItem.getItem()== Items.STICK){
-                    playerKnowledge.craftAltar();
-                }
             }
 
             return true;

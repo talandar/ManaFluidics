@@ -70,3 +70,9 @@ jei.manafluidics.recipe.castingchamber=Casting Chamber
 <messages>
 altar.noKnowledge.message=The construction of this altar is alien to you.  Perhaps making one of your own would be an interesting experience...
 altar.craftAltar.message=Crafting the Altar of Knowledge seems to have broadened your understanding of the world.
+
+
+
+<spells>
+spell.createmana.name=Create Mana
+spell.createwater.name=Create Water

@@ -6,13 +6,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class CreateMana extends BlockTargetedSpell {
     public CreateMana() {
-        super("Create Mana",0, 5);
+        super("createmana",0, 5);
     }
 
     @Override
@@ -21,6 +24,8 @@ public class CreateMana extends BlockTargetedSpell {
         IBlockState state = world.getBlockState(adjBlockPos);
         if (state.getMaterial() == Material.AIR) {
             world.setBlockState(adjBlockPos, ModFluids.reactiveManaBlockFluid.getDefaultState(), 3);
+            world.playSound((double)adjBlockPos.getX() + 0.5D, (double)adjBlockPos.getY() + 0.5D, (double)adjBlockPos.getZ() + 0.5D, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+            world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, (double)adjBlockPos.getX() + 0.5D, (double)adjBlockPos.getY()+1, (double)adjBlockPos.getZ() + 0.5D, 0.0D, 0.05D, 0.0D, new int[0]);
             return true;
         }
         return false;

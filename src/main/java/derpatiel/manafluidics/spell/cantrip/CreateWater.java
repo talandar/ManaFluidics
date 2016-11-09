@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class CreateWater extends BlockTargetedSpell {
     public CreateWater() {
-        super("Create Water", 0, 1);
+        super("createwater", 0, 1);
     }
 
     @Override

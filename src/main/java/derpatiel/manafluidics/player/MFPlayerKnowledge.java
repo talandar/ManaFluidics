@@ -1,29 +1,32 @@
 package derpatiel.manafluidics.player;
 
+import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.spell.SpellBase;
-import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.LOG;
-import derpatiel.manafluidics.util.TextHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.Map;
 
 public class MFPlayerKnowledge {
 
-    private boolean craftedAltar=false;
+    private Map<KnowledgeCategory,Boolean> knowledgeMap;
     int spellXP=0;
 
 
     private MFPlayerKnowledge(){
+        knowledgeMap = KnowledgeCategory.getDefaultKnowledgeMap();
     }
 
     public void clearKnowledge(){
-        craftedAltar=false;
+        knowledgeMap = KnowledgeCategory.getDefaultKnowledgeMap();
         spellXP=0;
     }
 
     public static MFPlayerKnowledge fromNbt(NBTTagCompound tag){
         MFPlayerKnowledge knowledge = new MFPlayerKnowledge();
-        knowledge.craftedAltar=tag.getBoolean("craftedAltar");
+        for(KnowledgeCategory cat : KnowledgeCategory.VALUES){
+            knowledge.setKnowledge(cat,tag.getBoolean(cat.name()));
+        }
         knowledge.spellXP = tag.getInteger("spellXP");
 
         return knowledge;
@@ -31,7 +34,9 @@ public class MFPlayerKnowledge {
 
     public static NBTTagCompound toNbt(MFPlayerKnowledge knowledge){
         NBTTagCompound tag = new NBTTagCompound();
-        tag.setBoolean("craftedAltar",knowledge.craftedAltar);
+        for(KnowledgeCategory cat : KnowledgeCategory.VALUES){
+            tag.setBoolean(cat.name(),knowledge.hasKnowledge(cat));
+        }
         tag.setInteger("spellXP",knowledge.spellXP);
         return tag;
     }
@@ -50,11 +55,20 @@ public class MFPlayerKnowledge {
         LOG.info("cast "+spellBase.getName());
     }
 
-    public void craftAltar() {
-        craftedAltar=true;
+    public void setKnowledge(KnowledgeCategory cat, Boolean bool){
+        this.knowledgeMap.put(cat,bool);
     }
 
-    public boolean hasCraftedAltar() {
-        return craftedAltar;
+    public void addKnowledge(KnowledgeCategory cat){
+        this.setKnowledge(cat,true);
+    }
+
+    public void removeKnowledge(KnowledgeCategory cat){
+        this.setKnowledge(cat,false);
+    }
+
+
+    public boolean hasKnowledge(KnowledgeCategory cat){
+        return knowledgeMap.getOrDefault(cat,false);
     }
 }

@@ -3,6 +3,7 @@ package derpatiel.manafluidics.event;
 import derpatiel.manafluidics.block.ITankPart;
 import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.command.MFCommand;
+import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.multiblock.MultiblockHandler;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
@@ -77,10 +78,10 @@ public class EventHandler {
             LOG.info("craft:" + event.crafting.getItem().getUnlocalizedName());
             if(event.crafting.getItem() instanceof ItemBlock && ((ItemBlock)event.crafting.getItem()).getBlock()==ModBlocks.knowledgeAltar){
                 MFPlayerKnowledge knowledge = PlayerKnowledgeHandler.getPlayerKnowledge(event.player);
-                if(!knowledge.hasCraftedAltar()){
+                if(!knowledge.hasKnowledge(KnowledgeCategory.ALTAR_CRAFTED)){
                     ChatUtil.sendNoSpam(event.player, TextHelper.localize("altar.craftAltar.message"));
                 }
-                PlayerKnowledgeHandler.getPlayerKnowledge(event.player).craftAltar();
+                PlayerKnowledgeHandler.getPlayerKnowledge(event.player).addKnowledge(KnowledgeCategory.ALTAR_CRAFTED);
             }
         }
     }
