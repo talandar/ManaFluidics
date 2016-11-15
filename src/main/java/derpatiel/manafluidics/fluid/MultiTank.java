@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.fluid;
 
+import derpatiel.manafluidics.block.multiTank.TankPartTileEntity;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,11 +23,11 @@ import java.util.ListIterator;
  */
 public class MultiTank implements IFluidTank, IFluidHandler, INBTSerializable<NBTTagCompound> {
 
-    protected final SmeltingTankTileEntity parent;
+    protected final TankPartTileEntity parent;
     protected List<FluidStack> liquids; // currently contained liquids in the smeltery
     protected int maxCapacity;
 
-    public MultiTank(SmeltingTankTileEntity parent) {
+    public MultiTank(TankPartTileEntity parent) {
         liquids = new ArrayList<>();
         maxCapacity = 0;
         this.parent = parent;

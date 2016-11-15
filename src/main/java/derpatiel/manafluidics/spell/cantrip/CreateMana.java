@@ -2,6 +2,7 @@ package derpatiel.manafluidics.spell.cantrip;
 
 import derpatiel.manafluidics.registry.ModFluids;
 import derpatiel.manafluidics.spell.BlockTargetedSpell;
+import derpatiel.manafluidics.spell.SpellAttribute;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,11 +16,11 @@ import net.minecraft.world.World;
 
 public class CreateMana extends BlockTargetedSpell {
     public CreateMana() {
-        super("createmana",0, 5);
+        super("createmana",0, 5, SpellAttribute.CONJURATION);
     }
 
     @Override
-    public boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player) {
+    public boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player, boolean boosted) {
         BlockPos adjBlockPos = hitBlock.offset(hitFace);
         IBlockState state = world.getBlockState(adjBlockPos);
         if (state.getMaterial() == Material.AIR) {

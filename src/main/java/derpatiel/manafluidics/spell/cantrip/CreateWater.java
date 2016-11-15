@@ -2,6 +2,7 @@ package derpatiel.manafluidics.spell.cantrip;
 
 import derpatiel.manafluidics.registry.ModFluids;
 import derpatiel.manafluidics.spell.BlockTargetedSpell;
+import derpatiel.manafluidics.spell.SpellAttribute;
 import derpatiel.manafluidics.spell.SpellBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,11 +15,11 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class CreateWater extends BlockTargetedSpell {
     public CreateWater() {
-        super("createwater", 0, 1);
+        super("createwater", 0, 1, SpellAttribute.CONJURATION,SpellAttribute.NATURE);
     }
 
     @Override
-    public boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player) {
+    public boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player, boolean boosted) {
         BlockPos adjBlockPos = hitBlock.offset(hitFace);
         IBlockState state = world.getBlockState(adjBlockPos);
         if (state.getMaterial() == Material.AIR) {

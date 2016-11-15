@@ -1,4 +1,4 @@
-package derpatiel.manafluidics.block.multiTank.smeltingTank;
+package derpatiel.manafluidics.block.multiTank.alloyTank;
 
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.network.MFPacketHandler;
@@ -10,6 +10,7 @@ import derpatiel.manafluidics.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
@@ -20,18 +21,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SmeltingTankGui  extends GuiContainer {
+public class AlloyTankGui extends GuiContainer {
 
 
-    public static final int WIDTH = 256;
-    public static final int HEIGHT = 256;
+    public static final int WIDTH = 176;
+    public static final int HEIGHT = 166;
 
-    private static final ResourceLocation background = new ResourceLocation(ManaFluidics.MODID, ModGUIs.SMELTING_TANK_LOC);
+    private static final ResourceLocation background = new ResourceLocation(ManaFluidics.MODID, ModGUIs.ALLOY_TANK_LOC);
 
-    private SmeltingTankTileEntity tile;
+    private AlloyTankTileEntity tile;
+    private EntityPlayer accessingPlayer;
 
-    public SmeltingTankGui(SmeltingTankTileEntity tileEntity, SmeltingTankContainer container) {
+    private  GuiButton formAlloyButton;
+
+    public AlloyTankGui(EntityPlayer accessingPlayer, AlloyTankTileEntity tileEntity, AlloyTankContainer container) {
         super(container);
+        this.accessingPlayer=accessingPlayer;
         tile = tileEntity;
         xSize = WIDTH;
         ySize = HEIGHT;
@@ -59,6 +64,12 @@ public class SmeltingTankGui  extends GuiContainer {
     }
 
     @Override
+    public void initGui() {
+        super.initGui();
+        formAlloyButton = new GuiButton(-1,guiLeft+8,guiTop+59,120,20,"Form Alloys");
+    }
+
+    @Override
     public void updateScreen() {
         super.updateScreen();
     }
@@ -68,38 +79,12 @@ public class SmeltingTankGui  extends GuiContainer {
         mc.getTextureManager().bindTexture(background);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-        //draw some stuff around the slots
-        int x = 11;
-        int y = 6;
-
-        // Add our own slots
-        int slotIndex = 0;
-        for (int i = 0; i < SmeltingTankTileEntity.MAX_SLOTS; i++) {
-            if (i < tile.itemHandler.getSlots()) {//draw the progress behind the item
-                SmeltingItemHandler.MeltProgress progress = tile.itemHandler.getMeltProgressInSlot(slotIndex);
-                if(progress!=null) {
-                    float heatFrac = progress.meltPercent();
-                    int drawHeight = (int) (16.0f * heatFrac);
-                    drawGradientRect(x + 1 + guiLeft, y + guiTop + 1 + (16 - drawHeight), x + guiLeft + 1 + 16, y + guiTop + 1 + 16, 0xFFFF0000, 0xFFFFFF00);
-                }
-
-            } else {//otherwise, blank out the fake slots
-                drawTexturedModalRect(x + guiLeft, y + guiTop, 210, 192, 18, 18);
-            }
-            x += 18;
-            if (x > 172) {
-                x = 11;
-                y += 18;
-            }
-            slotIndex++;
-        }
-
         IFluidTankProperties[] fluids = tile.tank.getTankProperties();
-        int fluidBottom = 167 + guiTop;
-        int fluidXStart = guiLeft+174;
-        int fluidWidth = 70;
+        int fluidBottom = 78 + guiTop;
+        int fluidXStart = guiLeft+131;
+        int fluidWidth = 37;
 
-        int totalHeight = 160;
+        int totalHeight = 69;
         int tankCapacity = tile.tank.getCapacity();
         this.buttonList.clear();
         int fluidIndex=0;
@@ -116,12 +101,19 @@ public class SmeltingTankGui  extends GuiContainer {
                 fluidIndex++;
             }
         }
+        buttonList.add(formAlloyButton);
         //still behind the slots when drawing here
+
+        //TODO: display which alloys are available to the player
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        MFPacketHandler.INSTANCE.sendToServer(new PacketFluidClick(tile.getPos(),button.id));
+        if(button.id>=0) {
+            MFPacketHandler.INSTANCE.sendToServer(new PacketFluidClick(tile.getPos(), button.id));
+        }else{
+            LOG.info("clicked alloy button!");
+        }
     }
 
     private class FluidButton extends GuiButton{

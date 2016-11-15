@@ -1,20 +1,14 @@
 package derpatiel.manafluidics.block.altar;
 
-import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.MFTileBlock;
-import derpatiel.manafluidics.block.castingchamber.CastingChamberTileEntity;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
-import derpatiel.manafluidics.registry.ModGUIs;
 import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.TextHelper;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;

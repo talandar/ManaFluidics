@@ -3,6 +3,7 @@ package derpatiel.manafluidics.player;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.spell.SpellBase;
 import derpatiel.manafluidics.util.LOG;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Map;
@@ -70,5 +71,10 @@ public class MFPlayerKnowledge {
 
     public boolean hasKnowledge(KnowledgeCategory cat){
         return knowledgeMap.getOrDefault(cat,false);
+    }
+
+    private long getSeed() {
+        //TODO: add randomness to this, or otherwise all players on a server will have identical altars
+        return Minecraft.getMinecraft().theWorld.getSeed();
     }
 }

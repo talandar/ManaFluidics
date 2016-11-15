@@ -6,27 +6,31 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public abstract class SpellBase {
 
     private final int level;
     private final int castingCost;
     private final String name;
+    private final SpellAttribute[] spellAttributes;
 
-    public SpellBase(String name, int level, int castingCost){
+    public SpellBase(String name, int level, int castingCost, SpellAttribute... attributes){
         this.name=name;
         this.level=level;
         this.castingCost=castingCost;
+        this.spellAttributes=attributes;
     }
 
     public boolean cast(World worldIn, EntityPlayer castingPlayer){
-        if(doCast(worldIn,castingPlayer)){
+        if(doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.isSpellBoosted(castingPlayer, spellAttributes))){
             PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).spellCast(this);
             return true;
         }
         return false;
     }
 
-    public abstract boolean doCast(World worldIn, EntityPlayer castingPlayer);
+    public abstract boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted);
 
 
     public String getName() {

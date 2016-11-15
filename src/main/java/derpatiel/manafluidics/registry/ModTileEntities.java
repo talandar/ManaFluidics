@@ -11,6 +11,8 @@ import derpatiel.manafluidics.block.floatTable.FloatTableTileEntity;
 import derpatiel.manafluidics.block.fluidSpout.FluidSpoutRenderer;
 import derpatiel.manafluidics.block.fluidSpout.FluidSpoutTileEntity;
 import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeaterTileEntity;
+import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankRenderer;
+import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankTileEntity;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankRenderer;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import derpatiel.manafluidics.block.multiTank.general.fluid.FluidConnectionTileEntity;
@@ -41,6 +43,7 @@ public class ModTileEntities {
         registerTileEntity(ItemConnectionTileEntity.class);
         registerTileEntity(CastingChamberTileEntity.class);
         registerTileEntity(KnowledgeAltarTileEntity.class);
+        registerTileEntity(AlloyTankTileEntity.class);
     }
 
     public static void registerRenderers()
@@ -52,6 +55,7 @@ public class ModTileEntities {
         ClientRegistry.bindTileEntitySpecialRenderer(FluidSpoutTileEntity.class, new FluidSpoutRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(SmeltingTankTileEntity.class, new SmeltingTankRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(KnowledgeAltarTileEntity.class, new KnowledgeAltarRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(AlloyTankTileEntity.class, new AlloyTankRenderer());
     }
 
 

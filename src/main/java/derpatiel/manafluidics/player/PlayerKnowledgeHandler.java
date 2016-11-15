@@ -1,10 +1,12 @@
 package derpatiel.manafluidics.player;
 
+import derpatiel.manafluidics.spell.SpellAttribute;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,6 +22,10 @@ public class PlayerKnowledgeHandler {
             playerMap.put(player, knowledge);
             return knowledge;
         }
+    }
+
+    public static boolean isSpellBoosted(EntityPlayer caster, SpellAttribute[] attributes){
+        return false;
     }
 
     public static void onPlayerLoad(EntityPlayer entityPlayer) {

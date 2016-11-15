@@ -6,6 +6,9 @@ import derpatiel.manafluidics.block.castingchamber.CastingChamberTileEntity;
 import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeaterContainer;
 import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeaterGui;
 import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeaterTileEntity;
+import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankContainer;
+import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankGui;
+import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankTileEntity;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankContainer;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankGui;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
@@ -26,6 +29,9 @@ public class ModGUIs implements IGuiHandler {
     public static final int CASTING_CHAMBER_ID = 3;
     public static final String CASTING_CHAMBER_LOC = "textures/gui/castingchamber.png";
 
+    public static final int ALLOY_TANK_ID = 4;
+    public static final String ALLOY_TANK_LOC = "textures/gui/alloytank.png";
+
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         BlockPos pos = new BlockPos(x, y, z);
@@ -38,6 +44,9 @@ public class ModGUIs implements IGuiHandler {
         }else if(te instanceof CastingChamberTileEntity){
             CastingChamberTileEntity containerTileEntity = (CastingChamberTileEntity)te;
             return new CastingChamberContainer(player.inventory,containerTileEntity);
+        }else if(te instanceof AlloyTankTileEntity){
+            AlloyTankTileEntity containerTileEntity = (AlloyTankTileEntity)te;
+            return new AlloyTankContainer(player.inventory,containerTileEntity);
         }
         return null;
     }
@@ -55,6 +64,9 @@ public class ModGUIs implements IGuiHandler {
         }else if(te instanceof CastingChamberTileEntity){
             CastingChamberTileEntity containerTileEntity = (CastingChamberTileEntity)te;
             return new CastingChamberGui(containerTileEntity, new CastingChamberContainer(player.inventory,containerTileEntity));
+        }else if(te instanceof AlloyTankTileEntity){
+            AlloyTankTileEntity containerTileEntity = (AlloyTankTileEntity)te;
+            return new AlloyTankGui(player,containerTileEntity, new AlloyTankContainer(player.inventory,containerTileEntity));
         }
         return null;
     }

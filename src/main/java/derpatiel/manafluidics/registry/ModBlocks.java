@@ -7,6 +7,7 @@ import derpatiel.manafluidics.block.drawNozzle.DrawNozzle;
 import derpatiel.manafluidics.block.floatTable.FloatTable;
 import derpatiel.manafluidics.block.fluidSpout.FluidSpout;
 import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeater;
+import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankController;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankController;
 import derpatiel.manafluidics.block.multiTank.general.fluid.TankFluidConnection;
 import derpatiel.manafluidics.block.multiTank.general.heat.TankHeatConnection;
@@ -41,6 +42,7 @@ public class ModBlocks {
     public static MFBlock smeltingTankController;
     public static MFBlock castingChamber;
     public static MFBlock knowledgeAltar;
+    public static MFBlock alloyTankController;
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
@@ -60,6 +62,7 @@ public class ModBlocks {
         furnaceHeater = register(new FurnaceHeater("furnaceheater",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         castingChamber = register(new CastingChamber("castingchamber",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         knowledgeAltar = register(new KnowledgeAltar("knowledgealtar",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        alloyTankController = register(new AlloyTankController("alloy_tank_controller",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

@@ -12,22 +12,22 @@ public abstract class BlockTargetedSpell extends SpellBase {
 
     public int spellRange = 5;
 
-    public BlockTargetedSpell(String name, int level, int castingCost) {
-        super(name, level, castingCost);
+    public BlockTargetedSpell(String name, int level, int castingCost, SpellAttribute... attributes) {
+        super(name, level, castingCost,attributes);
     }
 
-    public boolean doCast(World worldIn, EntityPlayer castingPlayer){
+    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted){
         boolean flag = false;
         if(!worldIn.isRemote) {
             RayTraceResult result = castingPlayer.rayTrace(spellRange, 1.0f);
             if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
                 BlockPos hitBlockPos = result.getBlockPos();
                 EnumFacing hitFace = result.sideHit;
-                flag = doCastOnHit(hitBlockPos,hitFace,worldIn,castingPlayer);
+                flag = doCastOnHit(hitBlockPos,hitFace,worldIn,castingPlayer,boosted);
             }
         }
         return flag;
     }
 
-    public abstract boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player);
+    public abstract boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player, boolean boosted);
 }

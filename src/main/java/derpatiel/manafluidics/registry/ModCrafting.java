@@ -58,6 +58,13 @@ public class ModCrafting {
                 'O', MaterialItemHelper.getSheet(MaterialType.IRON,1),
                 'C', MaterialItemHelper.getCircuit(MaterialType.GOLD,1));
 
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.alloyTankController),
+                " O ",
+                "OCO",
+                " O ",
+                'O', MaterialItemHelper.getSheet(MaterialType.IRON,1),
+                'C', MaterialItemHelper.getCircuit(MaterialType.CRYSTAL,1));
+
         GameRegistry.addRecipe(new ItemStack(ModBlocks.smeltingTankController),
                 " O ",
                 "OCO",
