@@ -2,6 +2,7 @@ package derpatiel.manafluidics.block.multiTank.alloyTank;
 
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.network.MFPacketHandler;
+import derpatiel.manafluidics.network.PacketFluidAlloy;
 import derpatiel.manafluidics.network.PacketFluidClick;
 import derpatiel.manafluidics.registry.ModGUIs;
 import derpatiel.manafluidics.util.LOG;
@@ -112,7 +113,7 @@ public class AlloyTankGui extends GuiContainer {
         if(button.id>=0) {
             MFPacketHandler.INSTANCE.sendToServer(new PacketFluidClick(tile.getPos(), button.id));
         }else{
-            LOG.info("clicked alloy button!");
+            MFPacketHandler.INSTANCE.sendToServer(new PacketFluidAlloy(tile.getPos(), accessingPlayer.getUniqueID()));
         }
     }
 

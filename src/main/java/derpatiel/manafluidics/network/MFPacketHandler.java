@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.network;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
 import derpatiel.manafluidics.util.ChatUtil;
@@ -14,6 +15,7 @@ public class MFPacketHandler {
         INSTANCE.registerMessage(ChatUtil.PacketNoSpamChat.Handler.class, ChatUtil.PacketNoSpamChat.class, 0, Side.CLIENT);
         INSTANCE.registerMessage(PacketFluidClick.Handler.class,PacketFluidClick.class,1,Side.SERVER);
         INSTANCE.registerMessage(FluidChangedPacket.PortableTankFluidPacketMessageHandler.class,FluidChangedPacket.class,2,Side.CLIENT);
+        INSTANCE.registerMessage(PacketFluidAlloy.Handler.class, PacketFluidAlloy.class,3,Side.SERVER);
 
     }
 
