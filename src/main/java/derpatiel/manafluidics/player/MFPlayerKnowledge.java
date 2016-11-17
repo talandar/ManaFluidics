@@ -84,7 +84,7 @@ public class MFPlayerKnowledge {
 
     public List<MaterialItemHelper.AlloyFormingRule> getAllowedAlloyRules(){
 
-        List<MaterialItemHelper.AlloyFormingRule> rules = MaterialItemHelper.alloyRules.subList(0,calcPlayerLevel()+1);
+        List<MaterialItemHelper.AlloyFormingRule> rules = MaterialItemHelper.alloyRules.subList(0,Math.min(MaterialItemHelper.alloyRules.size(),calcPlayerLevel()+1));
         return rules;
     }
 
