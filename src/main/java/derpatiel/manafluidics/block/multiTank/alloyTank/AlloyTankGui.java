@@ -65,6 +65,23 @@ public class AlloyTankGui extends GuiContainer {
                     }
                     drawHoveringText(descriptions, x, y, fontRendererObj);
                 }
+            }else if(button.id<-1){
+                if(button.isMouseOver()) {
+                    //these are alloy selection buttons
+                    int alloynum = (button.id * -1) - 2;
+                    MaterialItemHelper.AlloyFormingRule rule = MaterialItemHelper.alloyRules.get(alloynum);
+                    List<String> descriptions = new ArrayList<>();
+                    String addLine = "";
+                    String add = "";
+                    for (FluidStack input : rule.inputs) {
+                        addLine = addLine + add + input.amount + "mb " + input.getLocalizedName();
+                        add = " + ";
+                    }
+                    descriptions.add(addLine);
+                    descriptions.add(TextHelper.localize("alloytank.combines.message"));
+                    descriptions.add(rule.output.amount + "mb " + rule.output.getLocalizedName());
+                    drawHoveringText(descriptions, x, y, fontRendererObj);
+                }
             }
         }
     }

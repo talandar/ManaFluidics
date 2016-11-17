@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class WorldGen implements IWorldGenerator{
 	
-	public static final int CLUSTER_CHANCES_TO_SPAWN = 2;
+	public static final int CLUSTER_CHANCES_TO_SPAWN = 3;
 	public static final int CLUSTER_MIN_HEIGHT=0;
 	public static final int CLUSTER_MAX_HEIGHT=25;
 

@@ -65,7 +65,12 @@ public class MFPlayerKnowledge {
     }
 
     public void addKnowledge(KnowledgeCategory cat){
+        int oldLevel = calcPlayerLevel();
         this.setKnowledge(cat,true);
+        if(oldLevel!=calcPlayerLevel()){
+            //TODO: trigger levelup!
+            LOG.info("PLAYER LEVELED UP!");
+        }
     }
 
     public void removeKnowledge(KnowledgeCategory cat){
