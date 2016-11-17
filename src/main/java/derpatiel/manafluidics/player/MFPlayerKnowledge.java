@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.player;
 
+import com.google.common.collect.Lists;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.spell.SpellBase;
 import derpatiel.manafluidics.util.LOG;
@@ -7,6 +8,7 @@ import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -81,6 +83,16 @@ public class MFPlayerKnowledge {
     }
 
     public List<MaterialItemHelper.AlloyFormingRule> getAllowedAlloyRules(){
-        return MaterialItemHelper.alloyRules;
+
+        List<MaterialItemHelper.AlloyFormingRule> rules = MaterialItemHelper.alloyRules.subList(0,calcPlayerLevel()+1);
+        return rules;
+    }
+
+    public int calcPlayerLevel(){
+        int level = 0;
+        if(hasKnowledge(KnowledgeCategory.ALTAR_CRAFTED))
+            level++;
+
+        return level;
     }
 }

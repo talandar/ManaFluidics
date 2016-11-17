@@ -9,6 +9,7 @@ import derpatiel.manafluidics.registry.ModGUIs;
 import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import derpatiel.manafluidics.util.RenderUtil;
+import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -71,12 +72,13 @@ public class AlloyTankGui extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
-        formAlloyButton = new GuiButton(-1,guiLeft+8,guiTop+59,120,20,"Form Alloys");
-        int buttonTop = 8;
+        formAlloyButton = new GuiButton(-1,guiLeft+8,guiTop+140,120,20,"Form Alloys");
+        int buttonTop = 7;
+        int buttonLeft = 8;
         alloyButtons = new ArrayList<>();
         int id=-2;
         for(MaterialItemHelper.AlloyFormingRule rule : PlayerKnowledgeHandler.getPlayerKnowledge(accessingPlayer).getAllowedAlloyRules()){
-            GuiButton btn = new GuiButton(id,guiLeft+8,guiTop+buttonTop,120,20,"Alloy:"+rule.output.getFluid().getLocalizedName(rule.output));
+            GuiButton btn = new GuiButton(id,guiLeft+buttonLeft,guiTop+buttonTop,120,20, TextHelper.localize(rule.ruleName));
             alloyButtons.add(btn);
             buttonTop+=25;
             id--;
@@ -96,11 +98,11 @@ public class AlloyTankGui extends GuiContainer {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
         IFluidTankProperties[] fluids = tile.tank.getTankProperties();
-        int fluidBottom = 78 + guiTop;
+        int fluidBottom = 159 + guiTop;
         int fluidXStart = guiLeft+131;
         int fluidWidth = 37;
 
-        int totalHeight = 69;
+        int totalHeight = 150;
         int tankCapacity = tile.tank.getCapacity();
         this.buttonList.clear();
         int fluidIndex=0;

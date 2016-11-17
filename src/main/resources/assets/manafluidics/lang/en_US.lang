@@ -83,3 +83,8 @@ altar.craftAltar.message=Crafting the Altar of Knowledge seems to have broadened
 <spells>
 spell.createmana.name=Create Mana
 spell.createwater.name=Create Water
+
+<alloying rules>
+alloy.rule.crystaliron=Crystal Steel
+alloy.rule.energizedmana=Energized Mana
+alloy.rule.testrule=TEXTLENGTH
