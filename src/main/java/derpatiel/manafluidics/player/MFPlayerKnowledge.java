@@ -92,7 +92,12 @@ public class MFPlayerKnowledge {
         int level = 0;
         if(hasKnowledge(KnowledgeCategory.ALTAR_CRAFTED))
             level++;
-
+        if(hasKnowledge(KnowledgeCategory.DRAGON_KILLED))
+            level++;
+        if(hasKnowledge(KnowledgeCategory.WITHER_KILLED))
+            level++;
+        if(hasKnowledge(KnowledgeCategory.MFBOSS_KILLED))
+            level++;
         return level;
     }
 }

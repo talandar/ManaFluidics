@@ -1,6 +1,6 @@
 # ManaFluidics
 
-ManaFluidics is a storage and logistics mod for Minecraft 1.10.
+ManaFluidics is a magic/tech mod for Minecraft 1.10.
 
 A note to those viewing this repo:
 

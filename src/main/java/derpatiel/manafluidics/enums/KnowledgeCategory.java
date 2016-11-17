@@ -9,7 +9,14 @@ import java.util.function.BooleanSupplier;
  */
 public enum KnowledgeCategory {
     ALTAR_CRAFTED,
-    WAND_CRAFTED;
+    CREEPER_KILLED,
+    PEARL_TELEPORT,
+    WITHER_KILLED,
+    NETHER_VISITED,
+    END_VISITED,
+    DRAGON_KILLED,
+    MFBOSS_KILLED;
+    ;
 
     public static final KnowledgeCategory[] VALUES;
 
