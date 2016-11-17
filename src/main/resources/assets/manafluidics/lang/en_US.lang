@@ -10,9 +10,12 @@ item.crystalhammer.name=Crystal Hammer
 item.heat_exchanger.name=Heat Exchanger
 item.unfired_ingot_mold.name=Unfired Ingot Mold
 item.unfired_block_mold.name=Unfired Block Mold
+item.unfired_gem_mold.name=Unfired Gem Mold
 item.ingot_mold.name=Ingot Mold
 item.block_mold.name=Block Mold
+item.gem_mold.name=Gem Mold
 item.mana_wand.name=Mana Wand
+item.crystal_iron_ingot.name=Crystalline Steel Ingot
 
 item.wire.crystal.name=Crystalline Fiber
 item.wire.obsidian.name=Obsidian Wire
@@ -34,12 +37,14 @@ fluid.moltencrystal=Molten Crystal
 fluid.molteniron=Molten Iron
 fluid.moltengold=Molten Gold
 fluid.energizedmana=Energized Mana
+fluid.crystaliron=Crystalline Steel
 
 tile.reactivemana.name=Reactive Mana
 tile.moltencrystal.name=Molten Crystal
 tile.molteniron.name=Molten Iron
 tile.moltengold.name=Molten Gold
 tile.energizedmana.name=Energized Mana
+tile.crystaliron.name=Crystalline Steel
 
 
 tile.crystalore.name=Mana Infused Crystal Ore
@@ -55,6 +60,8 @@ tile.tank_item_valve.name=Item Valve
 tile.tank_heat_valve.name=Heat Connection
 tile.castingchamber.name=Casting Chamber
 tile.crystalblock.name=Crystal Block
+tile.crystalline_iron_block.name=Crystalline Steel Block
+tile.alloy_tank_controller.name=Alloying Tank Controller
 tile.knowledgealtar.name=Altar of Knowledge
 
 

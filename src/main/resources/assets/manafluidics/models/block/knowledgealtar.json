@@ -1,7 +1,7 @@
 {   "parent": "block/block",
     "textures": {
         "particle": "manafluidics:blocks/obsidian",
-        "bottom": "manafluidics:blocks/obsidian",
+        "bottom": "manafluidics:blocks/crystalline_iron_block",
         "top": "manafluidics:blocks/altar_knowledge_top",
         "side": "manafluidics:blocks/altar_knowledge_side"
     },

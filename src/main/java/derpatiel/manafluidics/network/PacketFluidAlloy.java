@@ -3,6 +3,7 @@ package derpatiel.manafluidics.network;
 import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankTileEntity;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
 import derpatiel.manafluidics.util.LOG;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -18,12 +19,14 @@ public class PacketFluidAlloy implements IMessage
 {
     private BlockPos tileToUpdate;
     private UUID playerUUID;
+    private int selectedAlloyId;
 
     public PacketFluidAlloy(){};
 
-    public PacketFluidAlloy(BlockPos tile, UUID playerUUID){
+    public PacketFluidAlloy(BlockPos tile, UUID playerUUID, int selectedAlloy){
         this.tileToUpdate=tile;
         this.playerUUID = playerUUID;
+        this.selectedAlloyId=selectedAlloy;
     }
 
     @Override
@@ -31,6 +34,7 @@ public class PacketFluidAlloy implements IMessage
     {
         buf.writeLong(tileToUpdate.toLong());
         ByteBufUtils.writeUTF8String(buf,playerUUID.toString());
+        buf.writeInt(selectedAlloyId);
     }
 
     @Override
@@ -38,6 +42,7 @@ public class PacketFluidAlloy implements IMessage
     {
         this.tileToUpdate = BlockPos.fromLong(buf.readLong());
         this.playerUUID = UUID.fromString(ByteBufUtils.readUTF8String(buf));
+        this.selectedAlloyId=buf.readInt();
     }
 
     public static class Handler implements IMessageHandler<PacketFluidAlloy, IMessage> {
@@ -51,7 +56,9 @@ public class PacketFluidAlloy implements IMessage
             }
             EntityPlayer player = ctx.getServerHandler().playerEntity.getServerWorld().getPlayerEntityByUUID(message.playerUUID);
 
-            LOG.info("player clicked alloy form button: "+player.getName());
+            MaterialItemHelper.AlloyFormingRule rule = MaterialItemHelper.alloyRules.get(message.selectedAlloyId);
+
+            ((AlloyTankTileEntity)tile).doAlloy(player,rule);
 
             return null;
         }

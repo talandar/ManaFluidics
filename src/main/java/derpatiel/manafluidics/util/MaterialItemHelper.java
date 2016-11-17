@@ -35,6 +35,8 @@ public class MaterialItemHelper {
 
     public static final Map<MFMoldItem,Map<FluidStack,ItemStack>> castingProducts = new HashMap<>();
 
+    public static final List<AlloyFormingRule> alloyRules;
+
     static{
 
 
@@ -67,10 +69,12 @@ public class MaterialItemHelper {
         meltableBlocks.put(Blocks.GOLD_BLOCK, new MeltingInformation(new FluidStack(ModFluids.moltenGold,4500)));
         meltableBlocks.put(Blocks.GOLD_ORE, new MeltingInformation(new FluidStack(ModFluids.moltenGold,1000)));
         meltableBlocks.put(Blocks.OBSIDIAN, new MeltingInformation(new FluidStack(FluidRegistry.LAVA,1000)));
+        meltableBlocks.put(ModBlocks.crystallineIronBlock, new MeltingInformation(new FluidStack(ModFluids.crystalIron,4500)));
 
         meltableItems.put(ModItems.manaCrystal, new MeltingInformation(new FluidStack(ModFluids.moltenCrystal,500)));
         meltableItems.put(ModItems.material_wire,new MetaMeltingInformation(125));
         meltableItems.put(ModItems.control_circuit,new MetaMeltingInformation(500));
+        meltableItems.put(ModItems.crystal_iron_ingot,new MeltingInformation(new FluidStack(ModFluids.crystalIron,500)));
 
         //TODO: lots of vanilla items, blocks where applicable
         meltableItems.put(Items.IRON_INGOT,new MeltingInformation(new FluidStack(ModFluids.moltenIron,500)));
@@ -82,10 +86,12 @@ public class MaterialItemHelper {
         blockMoldItems.put(new FluidStack(ModFluids.moltenGold,4500), new ItemStack(Blocks.GOLD_BLOCK));
         blockMoldItems.put(new FluidStack(ModFluids.moltenIron,4500), new ItemStack(Blocks.IRON_BLOCK));
         blockMoldItems.put(new FluidStack(ModFluids.moltenCrystal,4500), new ItemStack(ModBlocks.crystalBlock));
+        blockMoldItems.put(new FluidStack(ModFluids.crystalIron,4500), new ItemStack(ModBlocks.crystallineIronBlock));
 
         Map<FluidStack,ItemStack> ingotMoldItems = new HashMap<>();
         ingotMoldItems.put(new FluidStack(ModFluids.moltenGold,500), new ItemStack(Items.GOLD_INGOT));
         ingotMoldItems.put(new FluidStack(ModFluids.moltenIron,500), new ItemStack(Items.IRON_INGOT));
+        ingotMoldItems.put(new FluidStack(ModFluids.crystalIron,500), new ItemStack(ModItems.crystal_iron_ingot));
 
         Map<FluidStack,ItemStack> gemMoldItems = new HashMap<>();
         gemMoldItems.put(new FluidStack(ModFluids.moltenCrystal,500), new ItemStack(ModItems.manaCrystal));
@@ -94,6 +100,18 @@ public class MaterialItemHelper {
         castingProducts.put((MFMoldItem)ModItems.ingot_mold,ingotMoldItems);
         castingProducts.put((MFMoldItem)ModItems.gem_mold,gemMoldItems);
 
+
+        alloyRules = new ArrayList<>();
+
+        AlloyFormingRule crystalIronRule = new AlloyFormingRule();
+        crystalIronRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenCrystal,500),new FluidStack(ModFluids.moltenIron,500)};
+        crystalIronRule.output=new FluidStack(ModFluids.crystalIron,1000);
+        alloyRules.add(crystalIronRule);
+
+        AlloyFormingRule energizedManaRule = new AlloyFormingRule();
+        energizedManaRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenCrystal,500),new FluidStack(ModFluids.reactiveMana,500)};
+        energizedManaRule.output=new FluidStack(ModFluids.energizedMana,1000);
+        alloyRules.add(energizedManaRule);
 
     }
 
@@ -236,5 +254,9 @@ public class MaterialItemHelper {
             super(20*materialFluidResult,null);
             this.materialFluidResult=materialFluidResult;
         }
+    }
+    public static class AlloyFormingRule{
+        public FluidStack[] inputs;
+        public FluidStack output;
     }
 }

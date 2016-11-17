@@ -99,6 +99,13 @@ public class ModCrafting {
                 'C', ModItems.manaCrystal
                 );
 
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.crystallineIronBlock),
+                "CCC",
+                "CCC",
+                "CCC",
+                'C', ModItems.crystal_iron_ingot
+        );
+
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.castingChamber),
                 "S S",
                 "S X",
@@ -120,10 +127,13 @@ public class ModCrafting {
                 "OOO",
                 'B', Items.BOOK,
                 'G', ModItems.manaCrystal,
-                'O', Blocks.OBSIDIAN);
+                'O', ModItems.crystal_iron_ingot);
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaCrystal,9),
                 new ItemStack(ModBlocks.crystalBlock));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.crystal_iron_ingot,9),
+                new ItemStack(ModBlocks.crystallineIronBlock));
 
 
 

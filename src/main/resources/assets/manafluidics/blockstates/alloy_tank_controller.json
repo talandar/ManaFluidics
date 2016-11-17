@@ -4,7 +4,8 @@
         "uvlock": false,
 		"model": "manafluidics:controller",
 		"textures": {
-			"0": "manafluidics:blocks/controller_alloy_front"
+			"0": "manafluidics:blocks/controller_alloy_front",
+            "1": "blocks/iron_block"
 		}
     },
     "variants": {

@@ -6,6 +6,7 @@ import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlloyTankTileEntity extends TankFormingTileEntity {
@@ -33,6 +35,28 @@ public class AlloyTankTileEntity extends TankFormingTileEntity {
 
     @Override
     public void doUpdate() {
+
+    }
+
+    public void doAlloy(EntityPlayer player, MaterialItemHelper.AlloyFormingRule selectedRule){
+
+        LOG.info("player clicked alloy form button: "+player.getName());
+        LOG.info("tried to make alloy of "+ selectedRule.output.getLocalizedName());
+
+        boolean succeeded = true;
+        while(succeeded){
+            for(FluidStack ingredient : selectedRule.inputs) {
+                FluidStack input = tank.drain(ingredient,false);
+                if(input==null || input.amount!=ingredient.amount)
+                    succeeded=false;
+            }
+            if(succeeded){
+                for(FluidStack ingredient : selectedRule.inputs) {
+                    tank.drain(ingredient,true);
+                }
+                tank.fill(selectedRule.output.copy(),true);
+            }
+        }
 
     }
 

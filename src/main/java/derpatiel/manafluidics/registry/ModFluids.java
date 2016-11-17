@@ -20,12 +20,15 @@ public class ModFluids {
     public static Fluid moltenIron;
     public static Fluid moltenGold;
     public static Fluid energizedMana;
+    public static Fluid crystalIron;
 
     public static MFBlockFluid reactiveManaBlockFluid;
     public static MFBlockFluid moltenCrystalBlockFluid;
     public static MFBlockFluid moltenIronBlockFluid;
     public static MFBlockFluid moltenGoldBlockFluid;
     public static MFBlockFluid energizedManaBlockFluid;
+    public static MFBlockFluid crystalIronBlockFluid;
+
 
 
     public static void registerFluids() {
@@ -45,6 +48,11 @@ public class ModFluids {
         moltenIron.setDensity(1000);
         moltenIron.setViscosity(4000);
 
+        crystalIron = new Fluid("crystaliron", new ResourceLocation(ManaFluidics.MODID, "blocks/crystaliron_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/crystaliron_flow"));
+        crystalIron.setLuminosity(15);
+        crystalIron.setDensity(1000);
+        crystalIron.setViscosity(4000);
+
         moltenGold = new Fluid("moltengold", new ResourceLocation(ManaFluidics.MODID, "blocks/moltengold_still"), new ResourceLocation(ManaFluidics.MODID, "blocks/moltengold_flow"));
         moltenGold.setLuminosity(15);
         moltenGold.setDensity(1000);
@@ -61,6 +69,7 @@ public class ModFluids {
         FluidRegistry.registerFluid(moltenIron);
         FluidRegistry.registerFluid(moltenGold);
         FluidRegistry.registerFluid(energizedMana);
+        FluidRegistry.registerFluid(crystalIron);
 
         reactiveManaBlockFluid = new MFBlockFluid(reactiveMana, new MaterialLiquid(MapColor.LAPIS), "reactivemana", 2);
 
@@ -72,11 +81,14 @@ public class ModFluids {
 
         energizedManaBlockFluid = new MFBlockFluid(energizedMana, new MaterialLiquid(MapColor.CYAN), "energizedmana", 7);
 
+        crystalIronBlockFluid = new MFBlockFluid(crystalIron, new MaterialLiquid(MapColor.RED),"crystaliron",4);
+
         GameRegistry.register(reactiveManaBlockFluid);
         GameRegistry.register(moltenCrystalBlockFluid);
         GameRegistry.register(moltenIronBlockFluid);
         GameRegistry.register(moltenGoldBlockFluid);
         GameRegistry.register(energizedManaBlockFluid);
+        GameRegistry.register(crystalIronBlockFluid);
 
         StateMap.Builder bldr = new StateMap.Builder();
         bldr.ignore(BlockFluidBase.LEVEL);
@@ -87,13 +99,14 @@ public class ModFluids {
         ModelLoader.setCustomStateMapper(moltenIronBlockFluid, bldr.build());
         ModelLoader.setCustomStateMapper(moltenGoldBlockFluid, bldr.build());
         ModelLoader.setCustomStateMapper(energizedManaBlockFluid, bldr.build());
+        ModelLoader.setCustomStateMapper(crystalIronBlockFluid,bldr.build());
 
         registerFluidRenderer(reactiveManaBlockFluid);
         registerFluidRenderer(moltenCrystalBlockFluid);
         registerFluidRenderer(moltenIronBlockFluid);
         registerFluidRenderer(moltenGoldBlockFluid);
         registerFluidRenderer(energizedManaBlockFluid);
-
+        registerFluidRenderer(crystalIronBlockFluid);
     }
 
     public static void registerFluidRenderer(MFBlockFluid fluidBlock) {
@@ -110,6 +123,7 @@ public class ModFluids {
         FluidRegistry.addBucketForFluid(moltenIron);
         FluidRegistry.addBucketForFluid(moltenGold);
         FluidRegistry.addBucketForFluid(energizedMana);
+        FluidRegistry.addBucketForFluid(crystalIron);
     }
 
 }

@@ -3,9 +3,11 @@ package derpatiel.manafluidics.player;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.spell.SpellBase;
 import derpatiel.manafluidics.util.LOG;
+import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.List;
 import java.util.Map;
 
 public class MFPlayerKnowledge {
@@ -76,5 +78,9 @@ public class MFPlayerKnowledge {
     private long getSeed() {
         //TODO: add randomness to this, or otherwise all players on a server will have identical altars
         return Minecraft.getMinecraft().theWorld.getSeed();
+    }
+
+    public List<MaterialItemHelper.AlloyFormingRule> getAllowedAlloyRules(){
+        return MaterialItemHelper.alloyRules;
     }
 }

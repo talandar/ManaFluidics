@@ -4,6 +4,7 @@ import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.network.MFPacketHandler;
 import derpatiel.manafluidics.network.PacketFluidAlloy;
 import derpatiel.manafluidics.network.PacketFluidClick;
+import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.registry.ModGUIs;
 import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
@@ -28,12 +29,15 @@ public class AlloyTankGui extends GuiContainer {
     public static final int WIDTH = 176;
     public static final int HEIGHT = 166;
 
+    private int selectedAlloyNumber=0;
+
     private static final ResourceLocation background = new ResourceLocation(ManaFluidics.MODID, ModGUIs.ALLOY_TANK_LOC);
 
     private AlloyTankTileEntity tile;
     private EntityPlayer accessingPlayer;
 
     private  GuiButton formAlloyButton;
+    private List<GuiButton> alloyButtons;
 
     public AlloyTankGui(EntityPlayer accessingPlayer, AlloyTankTileEntity tileEntity, AlloyTankContainer container) {
         super(container);
@@ -68,6 +72,17 @@ public class AlloyTankGui extends GuiContainer {
     public void initGui() {
         super.initGui();
         formAlloyButton = new GuiButton(-1,guiLeft+8,guiTop+59,120,20,"Form Alloys");
+        int buttonTop = 8;
+        alloyButtons = new ArrayList<>();
+        int id=-2;
+        for(MaterialItemHelper.AlloyFormingRule rule : PlayerKnowledgeHandler.getPlayerKnowledge(accessingPlayer).getAllowedAlloyRules()){
+            GuiButton btn = new GuiButton(id,guiLeft+8,guiTop+buttonTop,120,20,"Alloy:"+rule.output.getFluid().getLocalizedName(rule.output));
+            alloyButtons.add(btn);
+            buttonTop+=25;
+            id--;
+        }
+        selectedAlloyNumber=0;
+        alloyButtons.get(0).enabled=false;
     }
 
     @Override
@@ -103,6 +118,7 @@ public class AlloyTankGui extends GuiContainer {
             }
         }
         buttonList.add(formAlloyButton);
+        buttonList.addAll(alloyButtons);
         //still behind the slots when drawing here
 
         //TODO: display which alloys are available to the player
@@ -112,8 +128,14 @@ public class AlloyTankGui extends GuiContainer {
     protected void actionPerformed(GuiButton button) throws IOException {
         if(button.id>=0) {
             MFPacketHandler.INSTANCE.sendToServer(new PacketFluidClick(tile.getPos(), button.id));
-        }else{
-            MFPacketHandler.INSTANCE.sendToServer(new PacketFluidAlloy(tile.getPos(), accessingPlayer.getUniqueID()));
+        }else if(button.id==-1){
+            MFPacketHandler.INSTANCE.sendToServer(new PacketFluidAlloy(tile.getPos(), accessingPlayer.getUniqueID(),selectedAlloyNumber));
+        }else if(button.id<-1){
+            for(GuiButton btn : alloyButtons){
+                btn.enabled=true;
+            }
+            selectedAlloyNumber = (button.id*-1)-2;
+            button.enabled=false;
         }
     }
 
