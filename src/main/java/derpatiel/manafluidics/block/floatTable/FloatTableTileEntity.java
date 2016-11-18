@@ -204,11 +204,11 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         super.writeToNBT(compound);
         compound.setBoolean("main", main);
         compound.setInteger("facing", facing.getID());
-        compound.setIntArray("NEPos", NBTHelper.BlockPosToIntArray(NE));
-        compound.setIntArray("NWPos", NBTHelper.BlockPosToIntArray(NW));
-        compound.setIntArray("SEPos", NBTHelper.BlockPosToIntArray(SE));
-        compound.setIntArray("SWPos", NBTHelper.BlockPosToIntArray(SW));
-        compound.setIntArray("parent",NBTHelper.BlockPosToIntArray(parent));
+        compound.setLong("NEPos", NE.toLong());
+        compound.setLong("NWPos", NW.toLong());
+        compound.setLong("SEPos", SE.toLong());
+        compound.setLong("SWPos", SW.toLong());
+        compound.setLong("parent",parent.toLong());
         compound.setTag("manaTank", manaTank.writeToNBT(new NBTTagCompound()));
         compound.setTag("reactantTank", reactantTank.writeToNBT(new NBTTagCompound()));
         if(itemHandler.sheets!=null){
@@ -223,11 +223,11 @@ public class FloatTableTileEntity extends TileEntity implements ITickable {
         super.readFromNBT(compound);
         this.main=compound.getBoolean("main");
         this.facing= CornerFacing.getById(compound.getInteger("facing"));
-        this.NE=NBTHelper.IntArrayToBlockPos(compound.getIntArray("NEPos"));
-        this.NW= NBTHelper.IntArrayToBlockPos(compound.getIntArray("NWPos"));
-        this.SE=NBTHelper.IntArrayToBlockPos(compound.getIntArray("SEPos"));
-        this.SW=NBTHelper.IntArrayToBlockPos(compound.getIntArray("SWPos"));
-        this.parent=NBTHelper.IntArrayToBlockPos(compound.getIntArray("parent"));
+        this.NE=BlockPos.fromLong(compound.getLong("NEPos"));
+        this.NW=BlockPos.fromLong(compound.getLong("NWPos"));
+        this.SE=BlockPos.fromLong(compound.getLong("SEPos"));
+        this.SW=BlockPos.fromLong(compound.getLong("SWPos"));
+        this.parent=BlockPos.fromLong(compound.getLong("parent"));
         this.manaTank.readFromNBT(compound.getCompoundTag("manaTank"));
         this.reactantTank.readFromNBT(compound.getCompoundTag("reactantTank"));
         if(compound.hasKey("sheets")) {

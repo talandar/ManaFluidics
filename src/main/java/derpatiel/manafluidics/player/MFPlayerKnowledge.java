@@ -1,21 +1,25 @@
 package derpatiel.manafluidics.player;
 
-import com.google.common.collect.Lists;
+import derpatiel.manafluidics.enums.AltarType;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
+import derpatiel.manafluidics.spell.SpellAttribute;
 import derpatiel.manafluidics.spell.SpellBase;
 import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class MFPlayerKnowledge {
 
+    private static final int[] maxManaByLevel = new int[]{0,10,20,30,40};
+
     private Map<KnowledgeCategory,Boolean> knowledgeMap;
-    int spellXP=0;
+    private AltarType lastUsedAltar;
+    private int playerLevel=0;
+    private int currentMana;
+    private int maxMana;
 
 
     private MFPlayerKnowledge(){
@@ -24,15 +28,23 @@ public class MFPlayerKnowledge {
 
     public void clearKnowledge(){
         knowledgeMap = KnowledgeCategory.getDefaultKnowledgeMap();
-        spellXP=0;
+        lastUsedAltar=null;
+        playerLevel=0;
+        levelChanged();
     }
 
-    public static MFPlayerKnowledge fromNbt(NBTTagCompound tag){
+    public static MFPlayerKnowledge fromNbt(NBTTagCompound tag) {
         MFPlayerKnowledge knowledge = new MFPlayerKnowledge();
-        for(KnowledgeCategory cat : KnowledgeCategory.VALUES){
-            knowledge.setKnowledge(cat,tag.getBoolean(cat.name()));
+        for (KnowledgeCategory cat : KnowledgeCategory.VALUES) {
+            knowledge.setKnowledge(cat, tag.getBoolean(cat.name()));
         }
-        knowledge.spellXP = tag.getInteger("spellXP");
+        if (tag.hasKey("altar")){
+            knowledge.lastUsedAltar = AltarType.VALUES[tag.getInteger("altar")];
+        }else{
+            knowledge.lastUsedAltar=null;
+        }
+        knowledge.playerLevel = knowledge.calcPlayerLevel();
+        knowledge.levelChanged();
 
         return knowledge;
     }
@@ -42,7 +54,9 @@ public class MFPlayerKnowledge {
         for(KnowledgeCategory cat : KnowledgeCategory.VALUES){
             tag.setBoolean(cat.name(),knowledge.hasKnowledge(cat));
         }
-        tag.setInteger("spellXP",knowledge.spellXP);
+        if(knowledge.lastUsedAltar!=null) {
+            tag.setInteger("altar", knowledge.lastUsedAltar.ordinal());
+        }
         return tag;
     }
 
@@ -52,25 +66,43 @@ public class MFPlayerKnowledge {
 
     @Override
     public String toString(){
-        return "spell XP: "+spellXP;
+        return "player level "+playerLevel;
+    }
+
+    private void levelChanged(){
+        float mult = 1.0f;
+        if(lastUsedAltar==AltarType.ZIGGURAT)
+            mult = 1.25f;
+        maxMana = (int)(maxManaByLevel[playerLevel]*mult);
+        currentMana=maxMana;
+    }
+
+    public boolean isSpellBoosted(SpellAttribute... attributes){
+        if(lastUsedAltar!=null) {
+            for (SpellAttribute attribute : attributes) {
+                if (lastUsedAltar.boosts(attribute))
+                    return true;
+            }
+        }
+        return false;
     }
 
     public void spellCast(SpellBase spellBase) {
-        spellXP++;
         LOG.info("cast "+spellBase.getName());
     }
 
     public void setKnowledge(KnowledgeCategory cat, Boolean bool){
+        int oldLevel = calcPlayerLevel();
         this.knowledgeMap.put(cat,bool);
+        int newLevel = calcPlayerLevel();
+        if(oldLevel!=newLevel){
+            this.playerLevel=calcPlayerLevel();
+            levelChanged();
+        }
     }
 
     public void addKnowledge(KnowledgeCategory cat){
-        int oldLevel = calcPlayerLevel();
         this.setKnowledge(cat,true);
-        if(oldLevel!=calcPlayerLevel()){
-            //TODO: trigger levelup!
-            LOG.info("PLAYER LEVELED UP!");
-        }
     }
 
     public void removeKnowledge(KnowledgeCategory cat){
@@ -80,11 +112,6 @@ public class MFPlayerKnowledge {
 
     public boolean hasKnowledge(KnowledgeCategory cat){
         return knowledgeMap.getOrDefault(cat,false);
-    }
-
-    private long getSeed() {
-        //TODO: add randomness to this, or otherwise all players on a server will have identical altars
-        return Minecraft.getMinecraft().theWorld.getSeed();
     }
 
     public List<MaterialItemHelper.AlloyFormingRule> getAllowedAlloyRules(){

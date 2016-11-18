@@ -8,15 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NBTHelper {
-    //TODO: clear these out, use Longs for pos storage
-    public static int[] BlockPosToIntArray(BlockPos pos){
-        return new int[]{pos.getX(),pos.getY(),pos.getZ()};
-    }
-
-    public static BlockPos IntArrayToBlockPos(int[] pos){
-        return new BlockPos(pos[0],pos[1],pos[2]);
-    }
-
     public static NBTTagList BlockPosArrayToTagList(List<BlockPos> positions){
         NBTTagList list = new NBTTagList();
         for(BlockPos pos : positions){

@@ -81,11 +81,6 @@ public class AlloyTankTileEntity extends TankFormingTileEntity {
     }
 
     @Override
-    public boolean needsIEMInterface() {
-        return false;
-    }
-
-    @Override
     public boolean needsItemInterface() {
         return true;
     }

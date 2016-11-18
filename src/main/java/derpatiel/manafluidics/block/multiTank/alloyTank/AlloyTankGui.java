@@ -139,8 +139,6 @@ public class AlloyTankGui extends GuiContainer {
         buttonList.add(formAlloyButton);
         buttonList.addAll(alloyButtons);
         //still behind the slots when drawing here
-
-        //TODO: display which alloys are available to the player
     }
 
     @Override

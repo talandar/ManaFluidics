@@ -24,10 +24,6 @@ public class PlayerKnowledgeHandler {
         }
     }
 
-    public static boolean isSpellBoosted(EntityPlayer caster, SpellAttribute[] attributes){
-        return false;
-    }
-
     public static void onPlayerLoad(EntityPlayer entityPlayer) {
         NBTTagCompound tag = entityPlayer.getEntityData().getCompoundTag("ManaFluidics");
         MFPlayerKnowledge knowledge = MFPlayerKnowledge.fromNbt(tag);

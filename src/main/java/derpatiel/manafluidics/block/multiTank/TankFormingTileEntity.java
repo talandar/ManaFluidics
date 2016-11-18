@@ -146,11 +146,6 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
     public abstract boolean needsHeatInterface();
 
     /**
-     * returns true if we need/allow InfusedEnergizedMana interfaces (item storage tank)
-     */
-    public abstract boolean needsIEMInterface();
-
-    /**
      * returns true if we need to accept items (melting/refinery tank)
      * @return
      */
@@ -503,7 +498,6 @@ public abstract class TankFormingTileEntity extends TankPartTileEntity implement
                 unformedReason = "tank does not allow heat handler";
             }
         }
-        //TODO: check IEM capability
         return valid;
     }
 }

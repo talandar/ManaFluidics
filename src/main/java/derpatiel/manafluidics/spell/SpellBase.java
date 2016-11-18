@@ -23,7 +23,7 @@ public abstract class SpellBase {
     }
 
     public boolean cast(World worldIn, EntityPlayer castingPlayer){
-        if(doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.isSpellBoosted(castingPlayer, spellAttributes))){
+        if(doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).isSpellBoosted(spellAttributes))){
             PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).spellCast(this);
             return true;
         }

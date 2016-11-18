@@ -75,8 +75,6 @@ public class MaterialItemHelper {
         meltableItems.put(ModItems.material_wire,new MetaMeltingInformation(125));
         meltableItems.put(ModItems.control_circuit,new MetaMeltingInformation(500));
         meltableItems.put(ModItems.crystal_iron_ingot,new MeltingInformation(new FluidStack(ModFluids.crystalIron,500)));
-
-        //TODO: lots of vanilla items, blocks where applicable
         meltableItems.put(Items.IRON_INGOT,new MeltingInformation(new FluidStack(ModFluids.moltenIron,500)));
         meltableItems.put(Items.GOLD_INGOT,new MeltingInformation(new FluidStack(ModFluids.moltenGold,500)));
 
@@ -115,7 +113,6 @@ public class MaterialItemHelper {
         energizedManaRule.ruleName="alloy.rule.energizedmana";
         alloyRules.add(energizedManaRule);
 
-        //TODO: more alloys
         AlloyFormingRule testRule = new AlloyFormingRule();
         testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
         testRule.output = new FluidStack(FluidRegistry.LAVA,1000);

@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.block.altar;
 
+import derpatiel.manafluidics.enums.AltarType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,6 +11,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.lwjgl.openal.AL;
 
 public class KnowledgeAltarTileEntity extends TileEntity implements ITickable {
 
@@ -24,7 +26,8 @@ public class KnowledgeAltarTileEntity extends TileEntity implements ITickable {
     public float bookRotationPrev;
     public float tRot;
 
-/*
+    public AltarType type;
+
     @Override
     public NBTTagCompound getUpdateTag() {
         return writeToNBT(new NBTTagCompound());
@@ -41,10 +44,33 @@ public class KnowledgeAltarTileEntity extends TileEntity implements ITickable {
         final IBlockState state = getWorld().getBlockState(getPos());
         getWorld().notifyBlockUpdate(getPos(), state, state, 3);
     }
-*/
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        if(compound.hasKey("type")){
+            type = AltarType.VALUES[compound.getInteger("type")];
+        }else{
+            type=null;
+        }
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        if(type!=null){
+            compound.setInteger("type",type.ordinal());
+        }
+        return compound;
+    }
+
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
         return oldState.getBlock() != newSate.getBlock();
+    }
+
+    public void setType(AltarType type){
+        this.type=type;
     }
 
     @Override
