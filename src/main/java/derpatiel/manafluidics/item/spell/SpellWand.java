@@ -22,7 +22,7 @@ public class SpellWand extends MFItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
         if(!worldIn.isRemote) {
-            boolean successfulCast = spell.cast(worldIn,player);
+            boolean successfulCast = spell.cast(worldIn,player,true);
             if(successfulCast){
                 if(itemStackIn.attemptDamageItem(1, worldIn.rand)) {
                     itemStackIn.stackSize=0;

@@ -87,8 +87,10 @@ public class MFPlayerKnowledge {
         return false;
     }
 
-    public void spellCast(SpellBase spellBase) {
+    public void spellCast(SpellBase spellBase,boolean fromItem) {
         LOG.info("cast "+spellBase.getName());
+        //reduce mana if not cast from item
+        //if cast from item, other upkeep might be needed
     }
 
     public void setKnowledge(KnowledgeCategory cat, Boolean bool){
@@ -131,5 +133,10 @@ public class MFPlayerKnowledge {
         if(hasKnowledge(KnowledgeCategory.MFBOSS_KILLED))
             level++;
         return level;
+    }
+
+    public boolean canCast(SpellBase spellBase) {
+        //check mana levels, if prepared, etc
+        return true;
     }
 }

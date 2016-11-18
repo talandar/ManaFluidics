@@ -22,9 +22,10 @@ public abstract class SpellBase {
         this.spellAttributes=attributes;
     }
 
-    public boolean cast(World worldIn, EntityPlayer castingPlayer){
-        if(doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).isSpellBoosted(spellAttributes))){
-            PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).spellCast(this);
+    public boolean cast(World worldIn, EntityPlayer castingPlayer, boolean fromItem){
+        MFPlayerKnowledge playerData = PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer);
+        if((fromItem || playerData.canCast(this)) && doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).isSpellBoosted(spellAttributes))){
+            playerData.spellCast(this,fromItem);
             return true;
         }
         return false;
