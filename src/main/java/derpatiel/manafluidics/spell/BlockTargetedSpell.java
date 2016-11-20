@@ -18,14 +18,12 @@ public abstract class BlockTargetedSpell extends SpellBase {
 
     public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted){
         boolean flag = false;
-        if(!worldIn.isRemote) {
             RayTraceResult result = castingPlayer.rayTrace(spellRange, 1.0f);
             if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
                 BlockPos hitBlockPos = result.getBlockPos();
                 EnumFacing hitFace = result.sideHit;
                 flag = doCastOnHit(hitBlockPos,hitFace,worldIn,castingPlayer,boosted);
             }
-        }
         return flag;
     }
 

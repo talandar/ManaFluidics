@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class MFPlayerKnowledge {
 
-    private static final int[] maxManaByLevel = new int[]{0,10,20,30,40};
+    private static final int[] maxManaByLevel = new int[]{0,100,200,300,400};
 
     private Map<KnowledgeCategory,Boolean> knowledgeMap;
     private AltarType lastUsedAltar;
@@ -93,6 +93,12 @@ public class MFPlayerKnowledge {
         //if cast from item, other upkeep might be needed
     }
 
+
+    public boolean canCast(SpellBase spellBase) {
+        //check mana levels, if prepared, etc
+        return true;
+    }
+
     public void setKnowledge(KnowledgeCategory cat, Boolean bool){
         int oldLevel = calcPlayerLevel();
         this.knowledgeMap.put(cat,bool);
@@ -133,10 +139,5 @@ public class MFPlayerKnowledge {
         if(hasKnowledge(KnowledgeCategory.MFBOSS_KILLED))
             level++;
         return level;
-    }
-
-    public boolean canCast(SpellBase spellBase) {
-        //check mana levels, if prepared, etc
-        return true;
     }
 }

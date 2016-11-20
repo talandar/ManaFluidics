@@ -24,7 +24,7 @@ public abstract class SpellBase {
 
     public boolean cast(World worldIn, EntityPlayer castingPlayer, boolean fromItem){
         MFPlayerKnowledge playerData = PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer);
-        if((fromItem || playerData.canCast(this)) && doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).isSpellBoosted(spellAttributes))){
+        if(!worldIn.isRemote && ((fromItem || playerData.canCast(this)) && doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).isSpellBoosted(spellAttributes)))){
             playerData.spellCast(this,fromItem);
             return true;
         }
