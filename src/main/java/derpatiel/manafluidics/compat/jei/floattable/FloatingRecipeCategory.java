@@ -74,14 +74,14 @@ public class FloatingRecipeCategory implements IRecipeCategory {
         }
     }
 
-    public static List<FloatingRecipeJEI> getRecipies() {
-        ArrayList<FloatingRecipeJEI> recipies = new ArrayList<>();
+    public static List<FloatingRecipeJEI> getRecipes() {
+        ArrayList<FloatingRecipeJEI> recipes = new ArrayList<>();
 
         for(MaterialType type : MaterialType.VALUES){
             FloatingRecipeJEI recipe = new FloatingRecipeJEI(new FluidStack(MaterialItemHelper.productFluidMap.get(type),1000),MaterialItemHelper.getSheet(type,4));
-            recipies.add(recipe);
+            recipes.add(recipe);
         }
 
-        return recipies;
+        return recipes;
     }
 }

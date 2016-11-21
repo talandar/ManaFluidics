@@ -114,6 +114,7 @@ public class CastingChamberTileEntity extends TileEntity implements ITickable {
         if(slot==inventory.MOLD_SLOT){
             moldChanged();
         }
+        markDirty();
     }
 
     @Override

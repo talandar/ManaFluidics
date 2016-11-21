@@ -79,18 +79,18 @@ public class CastingRecipeCategory implements IRecipeCategory {
         }
     }
 
-    public static List<CastingRecipeJEI> getRecipies() {
-        ArrayList<CastingRecipeJEI> recipies = new ArrayList<>();
+    public static List<CastingRecipeJEI> getRecipes() {
+        ArrayList<CastingRecipeJEI> recipes = new ArrayList<>();
 
         for(MFMoldItem mold : MaterialItemHelper.castingProducts.keySet()){
             ItemStack moldStack = new ItemStack(mold);
-            Map<FluidStack,ItemStack> moldRecipies = MaterialItemHelper.castingProducts.get(mold);
-            for(FluidStack fluidStack : moldRecipies.keySet()){
-                ItemStack output = moldRecipies.get(fluidStack);
+            Map<FluidStack,ItemStack> moldRecipes = MaterialItemHelper.castingProducts.get(mold);
+            for(FluidStack fluidStack : moldRecipes.keySet()){
+                ItemStack output = moldRecipes.get(fluidStack);
                 CastingRecipeJEI recipe = new CastingRecipeJEI(fluidStack,moldStack,output);
-                recipies.add(recipe);
+                recipes.add(recipe);
             }
         }
-        return recipies;
+        return recipes;
     }
 }

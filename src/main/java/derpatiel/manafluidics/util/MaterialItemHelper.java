@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -30,8 +31,9 @@ public class MaterialItemHelper {
     public static final Map<Fluid,MaterialType> fluidProductMap = new HashMap<>();
     public static final Map<MaterialType,Fluid> productFluidMap = new HashMap<>();
 
-    public static final Map<Block,MeltingInformation> meltableBlocks = new HashMap<>();
-    public static final Map<Item,MeltingInformation> meltableItems = new HashMap<>();
+    //public static final Map<Block,MeltingInformation> meltableBlocks = new HashMap<>();
+    //public static final Map<Item,MeltingInformation> meltableItems = new HashMap<>();
+    public static final Map<ItemStack,MeltingInformation> meltables = new HashMap<>();
 
     public static final Map<MFMoldItem,Map<FluidStack,ItemStack>> castingProducts = new HashMap<>();
 
@@ -62,22 +64,26 @@ public class MaterialItemHelper {
         ->20heat/mb
          */
 
-        meltableBlocks.put(ModBlocks.sheet, new MetaMeltingInformation(250));
-        meltableBlocks.put(ModBlocks.tankBottom, new MeltingInformation(new FluidStack(FluidRegistry.LAVA,500)));
-        meltableBlocks.put(Blocks.IRON_ORE, new MeltingInformation(new FluidStack(ModFluids.moltenIron,1000)));
-        meltableBlocks.put(Blocks.IRON_BLOCK, new MeltingInformation(new FluidStack(ModFluids.moltenIron,4500)));
-        meltableBlocks.put(Blocks.GOLD_BLOCK, new MeltingInformation(new FluidStack(ModFluids.moltenGold,4500)));
-        meltableBlocks.put(Blocks.GOLD_ORE, new MeltingInformation(new FluidStack(ModFluids.moltenGold,1000)));
-        meltableBlocks.put(Blocks.OBSIDIAN, new MeltingInformation(new FluidStack(FluidRegistry.LAVA,1000)));
-        meltableBlocks.put(ModBlocks.crystallineIronBlock, new MeltingInformation(new FluidStack(ModFluids.crystalIron,4500)));
+        meltables.put(new ItemStack(ModBlocks.tankBottom), new MeltingInformation(new FluidStack(FluidRegistry.LAVA,500)));
+        meltables.put(new ItemStack(Blocks.IRON_ORE), new MeltingInformation(new FluidStack(ModFluids.moltenIron,1000)));
+        meltables.put(new ItemStack(Blocks.IRON_BLOCK), new MeltingInformation(new FluidStack(ModFluids.moltenIron,4500)));
+        meltables.put(new ItemStack(Blocks.GOLD_BLOCK), new MeltingInformation(new FluidStack(ModFluids.moltenGold,4500)));
+        meltables.put(new ItemStack(Blocks.GOLD_ORE), new MeltingInformation(new FluidStack(ModFluids.moltenGold,1000)));
+        meltables.put(new ItemStack(Blocks.OBSIDIAN), new MeltingInformation(new FluidStack(FluidRegistry.LAVA,1000)));
+        meltables.put(new ItemStack(ModBlocks.crystallineIronBlock), new MeltingInformation(new FluidStack(ModFluids.crystalIron,4500)));
+        meltables.put(new ItemStack(ModBlocks.crystalBlock), new MeltingInformation(new FluidStack(ModFluids.moltenCrystal,4500)));
 
-        meltableItems.put(ModItems.manaCrystal, new MeltingInformation(new FluidStack(ModFluids.moltenCrystal,500)));
-        meltableItems.put(ModItems.material_wire,new MetaMeltingInformation(125));
-        meltableItems.put(ModItems.control_circuit,new MetaMeltingInformation(500));
-        meltableItems.put(ModItems.crystal_iron_ingot,new MeltingInformation(new FluidStack(ModFluids.crystalIron,500)));
-        meltableItems.put(Items.IRON_INGOT,new MeltingInformation(new FluidStack(ModFluids.moltenIron,500)));
-        meltableItems.put(Items.GOLD_INGOT,new MeltingInformation(new FluidStack(ModFluids.moltenGold,500)));
+        meltables.put(new ItemStack(ModItems.manaCrystal), new MeltingInformation(new FluidStack(ModFluids.moltenCrystal,500)));
+        meltables.put(new ItemStack(ModItems.crystal_iron_ingot),new MeltingInformation(new FluidStack(ModFluids.crystalIron,500)));
 
+        meltables.put(new ItemStack(Items.IRON_INGOT),new MeltingInformation(new FluidStack(ModFluids.moltenIron,500)));
+        meltables.put(new ItemStack(Items.GOLD_INGOT),new MeltingInformation(new FluidStack(ModFluids.moltenGold,500)));
+
+        for(MaterialType type : MaterialType.VALUES) {
+            meltables.put(getSheet(type),new MeltingInformation(new FluidStack(productFluidMap.get(type),250)));
+            meltables.put(getWire(type),new MeltingInformation(new FluidStack(productFluidMap.get(type),125)));
+            meltables.put(getCircuit(type),new MeltingInformation(new FluidStack(productFluidMap.get(type),500)));
+        }
 
         Map<FluidStack,ItemStack> blockMoldItems = new HashMap<>();
         blockMoldItems.put(new FluidStack(FluidRegistry.LAVA,1000), new ItemStack(Blocks.OBSIDIAN));
@@ -161,51 +167,34 @@ public class MaterialItemHelper {
     public static boolean isMeltable(ItemStack stack){
         if(stack==null || stack.stackSize==0)
             return false;
-        Item item = stack.getItem();
-        if(item instanceof ItemBlock){
-            Block block = ((ItemBlock)item).getBlock();
-            return meltableBlocks.keySet().contains(block);
-        }else{//not an ItemBlock, just an Item
-            return meltableItems.keySet().contains(item);
+        for(ItemStack checkStack : meltables.keySet()){
+            if(ItemStack.areItemsEqual(stack,checkStack)){
+                return true;
+            }
         }
+        return false;
     }
 
     public static int getMeltHeat(ItemStack stack){
         if(stack==null || stack.stackSize==0 || !isMeltable(stack))
             return -1;
-        Item item = stack.getItem();
-        if(item instanceof ItemBlock){
-            Block block = ((ItemBlock)item).getBlock();
-            return meltableBlocks.get(block).requiredHeat;
-
-        }else{//not an ItemBlock, just an Item
-            return meltableItems.get(item).requiredHeat;
+        for(ItemStack checkStack : meltables.keySet()){
+            if(ItemStack.areItemsEqual(stack,checkStack)){
+                return meltables.get(checkStack).requiredHeat;
+            }
         }
+        return -1;
     }
 
     public static FluidStack getMeltOutput(ItemStack stack){
         if(stack==null || stack.stackSize==0 || !isMeltable(stack))
             return null;
-        Item item = stack.getItem();
-        MeltingInformation info=null;
-        if(item instanceof ItemBlock){
-            Block block = ((ItemBlock)item).getBlock();
-            info = meltableBlocks.get(block);
-
-        }else{//not an ItemBlock, just an Item
-            info = meltableItems.get(item);
+        for(ItemStack checkStack : meltables.keySet()){
+            if(ItemStack.areItemsEqual(stack,checkStack)){
+                return meltables.get(checkStack).result;
+            }
         }
-        if(info==null) {
-            return null;
-        }
-        if(info instanceof MetaMeltingInformation){
-            MetaMeltingInformation metaInfo = (MetaMeltingInformation)info;
-            MaterialType type = MaterialType.getById(stack.getMetadata());
-            return new FluidStack(productFluidMap.get(type),metaInfo.materialFluidResult);
-
-        }else{
-            return info.result;
-        }
+        return null;
     }
 
     public static String getIngotsString(FluidStack fluid) {
@@ -260,19 +249,7 @@ public class MaterialItemHelper {
             this.result=result;
         }
     }
-    public static class MetaMeltingInformation extends MeltingInformation{
-        public final int materialFluidResult;
 
-        public MetaMeltingInformation(int requiredHeat, int materialFluidResult){
-            super(requiredHeat,null);
-            this.materialFluidResult = materialFluidResult;
-        }
-
-        public MetaMeltingInformation(int materialFluidResult){
-            super(20*materialFluidResult,null);
-            this.materialFluidResult=materialFluidResult;
-        }
-    }
     public static class AlloyFormingRule{
         public FluidStack[] inputs;
         public FluidStack output;

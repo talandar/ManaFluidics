@@ -42,9 +42,9 @@ public class ManaFluidicsPlugin extends BlankModPlugin{
         registry.addRecipeHandlers(new DrawingRecipeHandler(), new FloatingRecipeHandler(), new MeltingRecipeHandler(), new CastingRecipeHandler());
 
         registry.addRecipes(DrawingRecipeCategory.getRecipies());
-        registry.addRecipes(FloatingRecipeCategory.getRecipies());
-        registry.addRecipes(MeltingRecipeCategory.getRecipies());
-        registry.addRecipes(CastingRecipeCategory.getRecipies());
+        registry.addRecipes(FloatingRecipeCategory.getRecipes());
+        registry.addRecipes(MeltingRecipeCategory.getRecipes());
+        registry.addRecipes(CastingRecipeCategory.getRecipes());
 
 
         registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.drawNozzle),DRAW_RECIPE_CATEGORY_ID);

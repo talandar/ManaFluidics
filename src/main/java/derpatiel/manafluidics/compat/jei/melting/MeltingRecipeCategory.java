@@ -77,38 +77,16 @@ public class MeltingRecipeCategory implements IRecipeCategory {
         }
     }
 
-    public static List<MeltingRecipeJEI> getRecipies() {
-        ArrayList<MeltingRecipeJEI> recipies = new ArrayList<>();
+    public static List<MeltingRecipeJEI> getRecipes() {
+        ArrayList<MeltingRecipeJEI> recipes = new ArrayList<>();
 
-        for(Block block : MaterialItemHelper.meltableBlocks.keySet()){
-            MaterialItemHelper.MeltingInformation meltInfo = MaterialItemHelper.meltableBlocks.get(block);
-            if(meltInfo instanceof MaterialItemHelper.MetaMeltingInformation){
-                MaterialItemHelper.MetaMeltingInformation metaInfo = (MaterialItemHelper.MetaMeltingInformation)meltInfo;
-                for(MaterialType type : MaterialType.VALUES){
-                    MeltingRecipeJEI recipe = new MeltingRecipeJEI(new ItemStack(block,1,type.getID()),metaInfo.requiredHeat,new FluidStack(MaterialItemHelper.productFluidMap.get(type),metaInfo.materialFluidResult));
-                    recipies.add(recipe);
-                }
-            }else{
-                MeltingRecipeJEI recipe = new MeltingRecipeJEI(new ItemStack(block),meltInfo.requiredHeat,meltInfo.result);
-                recipies.add(recipe);
-            }
-        }
-
-        for(Item item : MaterialItemHelper.meltableItems.keySet()){
-            MaterialItemHelper.MeltingInformation meltInfo = MaterialItemHelper.meltableItems.get(item);
-            if(meltInfo instanceof MaterialItemHelper.MetaMeltingInformation){
-                MaterialItemHelper.MetaMeltingInformation metaInfo = (MaterialItemHelper.MetaMeltingInformation)meltInfo;
-                for(MaterialType type : MaterialType.VALUES){
-                    MeltingRecipeJEI recipe = new MeltingRecipeJEI(new ItemStack(item,1,type.getID()),metaInfo.requiredHeat,new FluidStack(MaterialItemHelper.productFluidMap.get(type),metaInfo.materialFluidResult));
-                    recipies.add(recipe);
-                }
-            }else{
-                MeltingRecipeJEI recipe = new MeltingRecipeJEI(new ItemStack(item),meltInfo.requiredHeat,meltInfo.result);
-                recipies.add(recipe);
-            }
+        for(ItemStack stack : MaterialItemHelper.meltables.keySet()){
+            MaterialItemHelper.MeltingInformation meltInfo = MaterialItemHelper.meltables.get(stack);
+            MeltingRecipeJEI recipe = new MeltingRecipeJEI(stack,meltInfo.requiredHeat,meltInfo.result);
+            recipes.add(recipe);
         }
 
 
-        return recipies;
+        return recipes;
     }
 }
