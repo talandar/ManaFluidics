@@ -55,6 +55,16 @@ public class MagicMissile extends EntityCreatingSpell implements ParameterSpell,
         }
 
         @Override
+        public void onUpdate() {
+            super.onUpdate();
+        }
+
+        @Override
+        protected boolean isFireballFiery() {
+            return false;
+        }
+
+        @Override
         protected void onImpact(RayTraceResult result) {
             if(result.typeOfHit== RayTraceResult.Type.BLOCK) {
                 this.setDead();
