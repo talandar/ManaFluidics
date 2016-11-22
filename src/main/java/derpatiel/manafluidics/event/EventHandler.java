@@ -15,12 +15,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.EntityEvent;
@@ -33,8 +35,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class EventHandler {
 
@@ -81,7 +85,6 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerCraft(net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent event){
         if(!event.player.worldObj.isRemote) {
-            LOG.info("craft:" + event.crafting.getItem().getUnlocalizedName());
             if(event.crafting.getItem() instanceof ItemBlock && ((ItemBlock)event.crafting.getItem()).getBlock()==ModBlocks.knowledgeAltar){
                 MFPlayerKnowledge knowledge = PlayerKnowledgeHandler.getPlayerKnowledge(event.player);
                 if(!knowledge.hasKnowledge(KnowledgeCategory.ALTAR_CRAFTED)){
@@ -104,10 +107,12 @@ public class EventHandler {
                 if(dyingEntity instanceof EntityCreeper){
                     playerKnowledge.addKnowledge(KnowledgeCategory.CREEPER_KILLED);
                 }else if(dyingEntity instanceof EntityWither){
-                    LOG.info("player killed a wither");
                     playerKnowledge.addKnowledge(KnowledgeCategory.WITHER_KILLED);
+                }else if(dyingEntity instanceof EntityDragon){
+                    dyingEntity.getEntityWorld().getPlayers(EntityPlayer.class,
+                            input -> input.dimension==1 && input.getPositionVector().distanceTo(dyingEntity.getPositionVector())<100)
+                            .forEach(p-> PlayerKnowledgeHandler.getPlayerKnowledge(p).addKnowledge(KnowledgeCategory.DRAGON_KILLED));
                 }
-                LOG.info("player killed an entity: " + ((EntityPlayer) sourceEntity).getName());
             }
         }
 
