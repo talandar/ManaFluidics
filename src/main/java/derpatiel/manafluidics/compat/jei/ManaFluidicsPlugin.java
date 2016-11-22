@@ -37,6 +37,8 @@ public class ManaFluidicsPlugin extends BlankModPlugin{
 
         jeiHelper.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.floatTable));
 
+
+
         registry.addRecipeCategories(new DrawingRecipeCategory(),new FloatingRecipeCategory(), new MeltingRecipeCategory(), new CastingRecipeCategory());
 
         registry.addRecipeHandlers(new DrawingRecipeHandler(), new FloatingRecipeHandler(), new MeltingRecipeHandler(), new CastingRecipeHandler());

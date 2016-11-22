@@ -37,7 +37,7 @@ public class CommonProxy {
         RecipeSorter.register(ManaFluidics.MODID+":UnfiredMoldRecipe", UnfiredMoldRecipe.class, RecipeSorter.Category.SHAPELESS,"after:forge:shapedore");
         ModCrafting.registerCrafting();
         NetworkRegistry.INSTANCE.registerGuiHandler(ManaFluidics.instance, new ModGUIs());
-        GameRegistry.registerWorldGenerator(new WorldGen(),100);
+        GameRegistry.registerWorldGenerator(new WorldGen(),1);
         GenericModCompatHandler.init(event);
     }
 

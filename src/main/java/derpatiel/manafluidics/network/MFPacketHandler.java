@@ -1,8 +1,6 @@
 package derpatiel.manafluidics.network;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
 import derpatiel.manafluidics.util.ChatUtil;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;

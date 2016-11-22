@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,13 @@ public class CastingRecipeCategory implements IRecipeCategory {
     public void drawExtras(Minecraft minecraft) {
 
     }
+
+    @Nullable
+    @Override
+    public IDrawable getIcon() {
+        return null;
+    }
+
 
     @Override
     public void drawAnimations(Minecraft minecraft) {

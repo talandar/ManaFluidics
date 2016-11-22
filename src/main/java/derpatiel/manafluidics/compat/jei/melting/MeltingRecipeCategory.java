@@ -5,7 +5,9 @@ import derpatiel.manafluidics.compat.jei.ManaFluidicsPlugin;
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import derpatiel.manafluidics.util.TextHelper;
+import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
@@ -18,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +49,12 @@ public class MeltingRecipeCategory implements IRecipeCategory {
     @Override
     public IDrawable getBackground() {
         return background;
+    }
+
+    @Nullable
+    @Override
+    public IDrawable getIcon() {
+        return null;
     }
 
     @Override

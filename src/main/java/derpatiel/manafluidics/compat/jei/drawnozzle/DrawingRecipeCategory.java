@@ -53,6 +53,13 @@ public class DrawingRecipeCategory implements IRecipeCategory {
 
     }
 
+    @Nullable
+    @Override
+    public IDrawable getIcon() {
+        return null;
+    }
+
+
     @Override
     public void drawAnimations(Minecraft minecraft) {
 

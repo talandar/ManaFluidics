@@ -33,7 +33,7 @@ group = package_group
 archivesBaseName = mod_name
 
 minecraft {
-    version = "1.10.2-12.18.1.2095"
+    version = "1.10.2-12.18.2.2124"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.

@@ -39,12 +39,26 @@ fluid.moltengold=Molten Gold
 fluid.energizedmana=Energized Mana
 fluid.crystaliron=Crystalline Steel
 
+fluid.moltensilver=Molten Silver
+fluid.moltenaluminum=Molten Aluminum
+fluid.moltencopper=Molten Copper
+fluid.moltennickel=Molten Nickel
+fluid.moltenlead=Molten Lead
+fluid.moltentin=Molten Tin
+
 tile.reactivemana.name=Reactive Mana
 tile.moltencrystal.name=Molten Crystal
 tile.molteniron.name=Molten Iron
 tile.moltengold.name=Molten Gold
 tile.energizedmana.name=Energized Mana
 tile.crystaliron.name=Crystalline Steel
+
+tile.moltensilver.name=Molten Silver
+tile.moltenaluminum.name=Molten Aluminum
+tile.moltencopper.name=Molten Copper
+tile.moltennickel.name=Molten Nickel
+tile.moltenlead.name=Molten Lead
+tile.moltentin.name=Molten Tin
 
 
 tile.crystalore.name=Mana Infused Crystal Ore

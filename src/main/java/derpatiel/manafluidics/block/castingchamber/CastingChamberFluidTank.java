@@ -15,5 +15,6 @@ public class CastingChamberFluidTank extends FluidTank {
     @Override
     protected void onContentsChanged() {
         MFPacketHandler.INSTANCE.sendToAll(new FluidChangedPacket(tile.getPos(),tile.tank.getFluid()));
+        tile.markDirty();
     }
 }
