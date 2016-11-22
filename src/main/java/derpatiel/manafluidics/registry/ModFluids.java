@@ -4,6 +4,7 @@ import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.MFBlockFluid;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
@@ -19,12 +20,6 @@ import java.util.List;
 public class ModFluids {
 
     public static final List<Fluid> allModFluids = new ArrayList<>();
-
-    public static StateMap.Builder bldr;
-    static{
-        bldr = new StateMap.Builder();
-        bldr.ignore(BlockFluidBase.LEVEL);
-    }
 
     public static Fluid reactiveMana;
     public static Fluid moltenCrystal;
@@ -106,10 +101,9 @@ public class ModFluids {
         return fluid;
     }
 
-    private static MFBlockFluid registerBlockFluid(Fluid fluid, MapColor color, int quanta){
+    private static MFBlockFluid registerBlockFluid(Fluid fluid, MapColor color, int quanta) {
         MFBlockFluid blockFluid = new MFBlockFluid(fluid, new MaterialLiquid(color), fluid.getName(), quanta);
         GameRegistry.register(blockFluid);
-        ModelLoader.setCustomStateMapper(blockFluid, bldr.build());
         registerFluidRenderer(blockFluid);
         return blockFluid;
     }
@@ -119,6 +113,7 @@ public class ModFluids {
         itemBlock.setRegistryName(fluidBlock.getRegistryName());
         itemBlock.setCreativeTab(ModItems.tabFluidics);
         GameRegistry.register(itemBlock);
+        ManaFluidics.proxy.registerFluidStateMapper(fluidBlock);
         ManaFluidics.proxy.registerItemRenderer(itemBlock, 0, fluidBlock.getBareUnlocalizedName());
     }
 

@@ -14,11 +14,17 @@ import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.NoteBlockEvent;
@@ -84,5 +90,26 @@ public class EventHandler {
                 PlayerKnowledgeHandler.getPlayerKnowledge(event.player).addKnowledge(KnowledgeCategory.ALTAR_CRAFTED);
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onEntityDie(LivingDeathEvent event){
+        if(!event.getEntityLiving().getEntityWorld().isRemote){
+            Entity dyingEntity = event.getEntityLiving();
+            DamageSource source = event.getSource();
+            Entity sourceEntity = source.getSourceOfDamage();
+            if(sourceEntity!=null && sourceEntity instanceof EntityPlayer) {
+                EntityPlayer killingPlayer = (EntityPlayer)sourceEntity;
+                MFPlayerKnowledge playerKnowledge = PlayerKnowledgeHandler.getPlayerKnowledge(killingPlayer);
+                if(dyingEntity instanceof EntityCreeper){
+                    playerKnowledge.addKnowledge(KnowledgeCategory.CREEPER_KILLED);
+                }else if(dyingEntity instanceof EntityWither){
+                    LOG.info("player killed a wither");
+                    playerKnowledge.addKnowledge(KnowledgeCategory.WITHER_KILLED);
+                }
+                LOG.info("player killed an entity: " + ((EntityPlayer) sourceEntity).getName());
+            }
+        }
+
     }
 }

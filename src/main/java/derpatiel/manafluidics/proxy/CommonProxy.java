@@ -2,6 +2,7 @@ package derpatiel.manafluidics.proxy;
 
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.UnfiredMoldRecipe;
+import derpatiel.manafluidics.block.MFBlockFluid;
 import derpatiel.manafluidics.capability.heat.CapabilityHeat;
 import derpatiel.manafluidics.compat.GenericModCompatHandler;
 import derpatiel.manafluidics.event.EventHandler;
@@ -46,6 +47,10 @@ public class CommonProxy {
     }
 
     public void registerItemRenderer(Item item, int meta, String name){
+        //NO-OP
+    }
+
+    public void registerFluidStateMapper(MFBlockFluid fluidBlock) {
         //NO-OP
     }
 }

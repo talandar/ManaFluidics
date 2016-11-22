@@ -25,6 +25,8 @@ import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModTileEntities {
 
@@ -46,6 +48,7 @@ public class ModTileEntities {
         registerTileEntity(AlloyTankTileEntity.class);
     }
 
+    @SideOnly(Side.CLIENT)
     public static void registerRenderers()
     {
         ClientRegistry.bindTileEntitySpecialRenderer(DrawNozzleTileEntity.class, new DrawNozzleRenderer());
