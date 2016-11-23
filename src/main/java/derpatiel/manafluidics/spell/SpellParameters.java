@@ -25,7 +25,7 @@ public class SpellParameters {
             @Override
             public boolean apply(Entity entityLivingBase) {
                 if(option.equals("spell.entitytarget.all")){
-                    return entityLivingBase instanceof EntityLivingBase;
+                    return entityLivingBase instanceof EntityLivingBase && !entityLivingBase.equals(caster);
                 }else if(option.equals("spell.entitytarget.mob")){
                     return entityLivingBase instanceof EntityGhast || entityLivingBase instanceof EntityMob;
                 }else if(option.equals("spell.entitytarget.neutral")){
