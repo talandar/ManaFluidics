@@ -28,6 +28,7 @@ public class ModItems {
     public static MFItem unfired_gem_mold;
     public static MFItem mana_wand;
     public static MFItem crystal_iron_ingot;
+    public static MFItem mm_wand;
 
     public static void registerItems() {
 
@@ -46,6 +47,7 @@ public class ModItems {
         gem_mold = register(new MFMoldItem("gem_mold").setCreativeTab(tabFluidics));
         unfired_block_mold = register(new MFItem("unfired_block_mold").setCreativeTab(tabFluidics));
         mana_wand = register(new SpellWand("mana_wand",SpellRegistry.createMana).setCreativeTab(tabFluidics));
+        mm_wand = register(new SpellWand("magicmissle_wand",SpellRegistry.magicMissile).setCreativeTab(tabFluidics));
         crystal_iron_ingot = register(new MFItem("crystal_iron_ingot").setCreativeTab(tabFluidics));
 
     }

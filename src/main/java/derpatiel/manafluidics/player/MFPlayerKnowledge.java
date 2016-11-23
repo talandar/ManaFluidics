@@ -107,6 +107,7 @@ public class MFPlayerKnowledge {
             this.playerLevel=calcPlayerLevel();
             levelChanged();
         }
+        LOG.info("set player knowledge: "+cat.name()+" to "+bool);
     }
 
     public void addKnowledge(KnowledgeCategory cat){

@@ -1,7 +1,10 @@
 package derpatiel.manafluidics.item.spell;
 
+import com.google.common.collect.Lists;
 import derpatiel.manafluidics.item.MFItem;
 import derpatiel.manafluidics.spell.SpellBase;
+import derpatiel.manafluidics.spell.SpellParameterChoices;
+import derpatiel.manafluidics.spell.SpellParameters;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -22,7 +25,7 @@ public class SpellWand extends MFItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
         if(!worldIn.isRemote) {
-            boolean successfulCast = spell.cast(worldIn,player,true);
+            boolean successfulCast = spell.cast(worldIn,player,true, Lists.newArrayList(new SpellParameterChoices(SpellParameters.entitytargeting,"spell.entitytarget.mob")));
             if(successfulCast){
                 if(itemStackIn.attemptDamageItem(1, worldIn.rand)) {
                     itemStackIn.stackSize=0;

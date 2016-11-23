@@ -44,10 +44,25 @@ public class FluidChangedPacket implements IMessage {
         }
     }
 
-    public static class PortableTankFluidPacketMessageHandler implements IMessageHandler<FluidChangedPacket, IMessage> {
+    public static class FluidChangedPacketMessageHandler implements IMessageHandler<FluidChangedPacket, IMessage> {
 
         @Override
         public IMessage onMessage(FluidChangedPacket message, MessageContext ctx) {
+            Minecraft.getMinecraft().addScheduledTask(new MessageRunnable(message));
+            return null;
+        }
+    }
+
+    private static class MessageRunnable implements Runnable {
+
+        FluidChangedPacket message;
+
+        public MessageRunnable(FluidChangedPacket message){
+            this.message=message;
+        }
+
+        @Override
+        public void run() {
             TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(message.pos);
             if(te instanceof PortableTankTileEntity) {
                 PortableTankTileEntity tile = (PortableTankTileEntity) te;
@@ -56,7 +71,6 @@ public class FluidChangedPacket implements IMessage {
                 CastingChamberTileEntity tile = (CastingChamberTileEntity)te;
                 tile.tank.setFluid(message.fluid);
             }
-            return null;
         }
     }
 }

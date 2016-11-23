@@ -2,8 +2,9 @@ package derpatiel.manafluidics.spell;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public abstract class EntityCreatingSpell extends SpellBase {
 
@@ -12,8 +13,8 @@ public abstract class EntityCreatingSpell extends SpellBase {
     }
 
     @Override
-    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted) {
-        Entity createdEntity = getCreatedEntity(worldIn,castingPlayer,boosted);
+    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, List<SpellParameterChoices> parameters) {
+        Entity createdEntity = getCreatedEntity(worldIn,castingPlayer,boosted,parameters);
         if(createdEntity!=null){
             worldIn.spawnEntityInWorld(createdEntity);
             return true;
@@ -21,5 +22,5 @@ public abstract class EntityCreatingSpell extends SpellBase {
         return false;
     }
 
-    protected abstract Entity getCreatedEntity(World world, EntityPlayer caster, boolean boosted);
+    protected abstract Entity getCreatedEntity(World world, EntityPlayer caster, boolean boosted,List<SpellParameterChoices> parameters);
 }
