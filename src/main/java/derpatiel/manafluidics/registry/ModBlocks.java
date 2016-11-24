@@ -5,6 +5,7 @@ import derpatiel.manafluidics.block.altar.KnowledgeAltar;
 import derpatiel.manafluidics.block.castingchamber.CastingChamber;
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzle;
 import derpatiel.manafluidics.block.floatTable.FloatTable;
+import derpatiel.manafluidics.block.fluidPump.FluidPump;
 import derpatiel.manafluidics.block.fluidSpout.FluidSpout;
 import derpatiel.manafluidics.block.furnaceHeater.FurnaceHeater;
 import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankController;
@@ -22,6 +23,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.functions.ModIdFunction;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModBlocks {
@@ -44,6 +46,7 @@ public class ModBlocks {
     public static MFBlock knowledgeAltar;
     public static MFBlock alloyTankController;
     public static MFBlock crystallineIronBlock;
+    public static MFBlock fluidPump;
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
@@ -65,6 +68,7 @@ public class ModBlocks {
         knowledgeAltar = register(new KnowledgeAltar("knowledgealtar",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         alloyTankController = register(new AlloyTankController("alloy_tank_controller",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         crystallineIronBlock=register( new MFBlock("crystalline_iron_block",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        fluidPump = register(new FluidPump("fluidpump",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

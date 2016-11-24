@@ -8,7 +8,8 @@ public enum RedstoneActivation implements IStringSerializable{
     FALLING(1,"falling",true,false,"falling edge"),
     HIGH(2,"high",false,true,"signal high"),
     LOW(3,"low",false,true,"signal low"),
-    IGNORED(4,"ignore",true,true,"ignored");
+    IGNORED(4,"ignore",true,true,"ignored (always on)"),
+    DISABLED(5,"disable",true,true,"disabled (always off)");
 
     private int id;
     private String name;

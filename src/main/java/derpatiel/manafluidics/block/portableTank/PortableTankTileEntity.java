@@ -88,7 +88,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing)
     {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing!=EnumFacing.DOWN)
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             return (T) fluidTank;
         return super.getCapability(capability, facing);
     }
@@ -130,6 +130,7 @@ public class PortableTankTileEntity extends TileEntity implements ITickable{
 
         @Override
         public void onContentsChanged(){
+            markDirty();
             MFPacketHandler.INSTANCE.sendToAll(new FluidChangedPacket(pos,getFluid()));
         }
     }
