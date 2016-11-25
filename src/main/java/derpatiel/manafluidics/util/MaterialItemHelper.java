@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.util;
 
 import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.block.MFBlock;
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.item.MFMoldItem;
 import derpatiel.manafluidics.registry.ModBlocks;
@@ -232,6 +233,15 @@ public class MaterialItemHelper {
             ret+=sep+mbFluid+"mb";
         }
         return ret;
+    }
+
+    public static MFBlock getAlloyBlockForLevel(int level){
+        switch (level){
+            case 1:
+                return ModBlocks.crystallineIronBlock;
+            default:
+                return null;
+        }
     }
 
     public static class MeltingInformation{

@@ -3,6 +3,7 @@ package derpatiel.manafluidics.proxy;
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.UnfiredMoldRecipe;
 import derpatiel.manafluidics.block.MFBlockFluid;
+import derpatiel.manafluidics.block.altar.construction.AltarConstructionData;
 import derpatiel.manafluidics.capability.heat.CapabilityHeat;
 import derpatiel.manafluidics.compat.GenericModCompatHandler;
 import derpatiel.manafluidics.event.EventHandler;
@@ -40,6 +41,7 @@ public class CommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(ManaFluidics.instance, new ModGUIs());
         GameRegistry.registerWorldGenerator(new WorldGen(),1);
         GenericModCompatHandler.init(event);
+        AltarConstructionData.initAltarData();
     }
 
     public void postInit(FMLPostInitializationEvent event) {

@@ -60,20 +60,19 @@ public class AltarCreatingWand extends MFItem {
             ChatUtil.sendChat(playerIn,"found "+normalBlocks.size()+" normal blocks, "+magicblocks.size()+" magic blocks");
             StringBuilder builder = new StringBuilder("Altar Data");
             String nl = "\r\n";
-            builder.append(nl);
-            builder.append("structureBlocks = new ArrayList<>();");
-            builder.append(nl);
-            builder.append("magicBlocks = new ArrayList<>();");
+            builder.append("#magic#");
             builder.append(nl);
             for(BlockPos offset : magicblocks){
-                builder.append("magicBlocks.add(new BlockPos("+offset.getX()+","+offset.getY()+","+offset.getZ()+"));");
+                builder.append(offset.getX()).append(",").append(offset.getY()).append(",").append(offset.getZ());
                 builder.append(nl);
             }
+            builder.append("#structure#");
+            builder.append(nl);
             for(BlockPos offset : normalBlocks){
-                builder.append("structureBlocks.add(new BlockPos("+offset.getX()+","+offset.getY()+","+offset.getZ()+"));");
+                builder.append(offset.getX()).append(",").append(offset.getY()).append(",").append(offset.getZ());
                 builder.append(nl);
             }
-            builder.append("levelData = new AltarLevelData(structureBlocks,magicBlocks);");
+
 
 
             LOG.info(builder.toString());
