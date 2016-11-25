@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.enums;
 
 import com.google.common.collect.Lists;
+import derpatiel.manafluidics.block.altar.construction.AltarConstructionData;
 import derpatiel.manafluidics.spell.SpellAttribute;
 
 import java.util.ArrayList;

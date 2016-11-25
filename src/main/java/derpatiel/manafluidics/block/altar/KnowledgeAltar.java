@@ -4,6 +4,7 @@ import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
+import derpatiel.manafluidics.registry.ModItems;
 import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.block.material.Material;
@@ -98,6 +99,8 @@ public class KnowledgeAltar extends MFTileBlock {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
     {
+        if(heldItem!=null && heldItem.getItem()== ModItems.admin_altar_wand)
+            return false;
         if (worldIn.isRemote)
         {
             return true;

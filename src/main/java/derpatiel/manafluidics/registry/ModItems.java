@@ -1,10 +1,7 @@
 package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.item.MFHammer;
-import derpatiel.manafluidics.item.MFItem;
-import derpatiel.manafluidics.item.MFMaterialItem;
-import derpatiel.manafluidics.item.MFMoldItem;
+import derpatiel.manafluidics.item.*;
 import derpatiel.manafluidics.item.spell.SpellWand;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -29,6 +26,7 @@ public class ModItems {
     public static MFItem mana_wand;
     public static MFItem crystal_iron_ingot;
     public static MFItem mm_wand;
+    public static MFItem admin_altar_wand;
 
     public static void registerItems() {
 
@@ -49,6 +47,7 @@ public class ModItems {
         mana_wand = register(new SpellWand("mana_wand",SpellRegistry.createMana).setCreativeTab(tabFluidics));
         mm_wand = register(new SpellWand("magicmissle_wand",SpellRegistry.magicMissile).setCreativeTab(tabFluidics));
         crystal_iron_ingot = register(new MFItem("crystal_iron_ingot").setCreativeTab(tabFluidics));
+        admin_altar_wand = register(new AltarCreatingWand("admin_altar_wand").setCreativeTab(tabFluidics));
 
     }
 
