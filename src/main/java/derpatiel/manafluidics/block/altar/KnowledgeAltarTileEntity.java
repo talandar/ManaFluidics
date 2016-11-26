@@ -147,7 +147,7 @@ public class KnowledgeAltarTileEntity extends TileEntity implements ITickable {
             int validLevels=0;
             boolean lastLevelValid=true;
             for(AltarConstructionData.AltarLevelData level : data.levels){
-                if(lastLevelValid && isValid(level,validLevels+1)) {
+                if(isValid(level,validLevels+1)) {
                     validLevels++;
                 }
             }

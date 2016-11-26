@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.block.altar;
 
 import derpatiel.manafluidics.block.MFTileBlock;
+import derpatiel.manafluidics.enums.AltarType;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
@@ -101,6 +102,22 @@ public class KnowledgeAltar extends MFTileBlock {
     {
         if(heldItem!=null && heldItem.getItem()== ModItems.admin_altar_wand)
             return false;
+        if(heldItem!=null && heldItem.getItem()==ModItems.crystal_hammer){
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+            if (tileentity instanceof KnowledgeAltarTileEntity) {
+                KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity)tileentity);
+                AltarType type = te.type;
+                if(type==null){
+                    te.type = AltarType.VALUES[0];
+                }else if(type.ordinal()+1==AltarType.VALUES.length){
+                    te.type = null;
+                }else{
+                    te.type = AltarType.VALUES[type.ordinal()+1];
+                }
+                te.markDirty();
+            }
+        }
+
         if (worldIn.isRemote)
         {
             return true;
@@ -112,6 +129,18 @@ public class KnowledgeAltar extends MFTileBlock {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
                 if (tileentity instanceof KnowledgeAltarTileEntity) {
                     ChatUtil.sendNoSpam(playerIn,TextHelper.localize("DEBUG: You understand the purpose of the altar..."));
+                    KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity)tileentity);
+                    if(te==null){
+                        ChatUtil.sendNoSpam(playerIn,"No altar type set");
+                    }else{
+                        int level = te.getAltarValidLevel(worldIn);
+                        AltarType type = te.type;
+                        if(type!=null) {
+                            ChatUtil.sendNoSpam(playerIn, "Altar of type " + type.name() + ", valid at level " + level);
+                        }else{
+                            ChatUtil.sendNoSpam(playerIn, "Null altar type");
+                        }
+                    }
                 }
             }else{
                 ChatUtil.sendNoSpam(playerIn, TextHelper.localize("altar.noKnowledge.message"));
