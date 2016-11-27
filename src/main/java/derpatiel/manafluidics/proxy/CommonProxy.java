@@ -30,6 +30,7 @@ public class CommonProxy {
         ModFluids.registerFluids();
         ModFluids.registerBuckets();
         ModTileEntities.registerTileEntities();
+        ModEntities.init();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -42,6 +43,7 @@ public class CommonProxy {
         GameRegistry.registerWorldGenerator(new WorldGen(),1);
         GenericModCompatHandler.init(event);
         AltarConstructionData.initAltarData();
+
     }
 
     public void postInit(FMLPostInitializationEvent event) {

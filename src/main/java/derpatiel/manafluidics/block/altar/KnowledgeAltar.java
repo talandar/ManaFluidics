@@ -100,53 +100,54 @@ public class KnowledgeAltar extends MFTileBlock {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-        if(heldItem!=null && heldItem.getItem()== ModItems.admin_altar_wand)
-            return false;
-        if(heldItem!=null && heldItem.getItem()==ModItems.crystal_hammer){
-            TileEntity tileentity = worldIn.getTileEntity(pos);
-            if (tileentity instanceof KnowledgeAltarTileEntity) {
-                KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity)tileentity);
-                AltarType type = te.type;
-                if(type==null){
-                    te.type = AltarType.VALUES[0];
-                }else if(type.ordinal()+1==AltarType.VALUES.length){
-                    te.type = null;
-                }else{
-                    te.type = AltarType.VALUES[type.ordinal()+1];
-                }
-                te.markDirty();
-            }
-        }
-
-        if (worldIn.isRemote)
-        {
-            return true;
-        }
-        else
-        {
-            MFPlayerKnowledge playerKnowledge = PlayerKnowledgeHandler.getPlayerKnowledge(playerIn);
-            if(playerKnowledge.hasKnowledge(KnowledgeCategory.ALTAR_CRAFTED)) {
+        if(hand==EnumHand.MAIN_HAND) {
+            if (heldItem != null && heldItem.getItem() == ModItems.admin_altar_wand)
+                return false;
+            if (heldItem != null && heldItem.getItem() == ModItems.crystal_hammer) {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
                 if (tileentity instanceof KnowledgeAltarTileEntity) {
-                    ChatUtil.sendNoSpam(playerIn,TextHelper.localize("DEBUG: You understand the purpose of the altar..."));
-                    KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity)tileentity);
-                    if(te==null){
-                        ChatUtil.sendNoSpam(playerIn,"No altar type set");
-                    }else{
-                        int level = te.getAltarValidLevel(worldIn);
-                        AltarType type = te.type;
-                        if(type!=null) {
-                            ChatUtil.sendNoSpam(playerIn, "Altar of type " + type.name() + ", valid at level " + level);
-                        }else{
-                            ChatUtil.sendNoSpam(playerIn, "Null altar type");
-                        }
+                    KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity) tileentity);
+                    AltarType type = te.type;
+                    if (type == null) {
+                        te.type = AltarType.VALUES[0];
+                    } else if (type.ordinal() + 1 == AltarType.VALUES.length) {
+                        te.type = null;
+                    } else {
+                        te.type = AltarType.VALUES[type.ordinal() + 1];
                     }
+                    te.markDirty();
                 }
-            }else{
-                ChatUtil.sendNoSpam(playerIn, TextHelper.localize("altar.noKnowledge.message"));
             }
 
-            return true;
+            if (worldIn.isRemote) {
+                return true;
+            } else {
+                MFPlayerKnowledge playerKnowledge = PlayerKnowledgeHandler.getPlayerKnowledge(playerIn);
+                if (playerKnowledge.hasKnowledge(KnowledgeCategory.ALTAR_CRAFTED)) {
+                    TileEntity tileentity = worldIn.getTileEntity(pos);
+                    if (tileentity instanceof KnowledgeAltarTileEntity) {
+                        ChatUtil.sendNoSpam(playerIn, TextHelper.localize("DEBUG: You understand the purpose of the altar..."));
+                        KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity) tileentity);
+                        if (te == null) {
+                            ChatUtil.sendNoSpam(playerIn, "No altar type set");
+                        } else {
+                            int level = te.getAltarValidLevel(worldIn);
+                            AltarType type = te.type;
+                            if (type != null) {
+                                ChatUtil.sendNoSpam(playerIn, "Altar of type " + type.name() + ", valid at level " + level);
+                            } else {
+                                ChatUtil.sendNoSpam(playerIn, "Null altar type");
+                            }
+                        }
+                    }
+                } else {
+                    ChatUtil.sendNoSpam(playerIn, TextHelper.localize("altar.noKnowledge.message"));
+                }
+
+                return true;
+            }
+        }else{
+            return false;
         }
     }
 

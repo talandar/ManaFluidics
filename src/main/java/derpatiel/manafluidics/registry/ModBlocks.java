@@ -14,6 +14,7 @@ import derpatiel.manafluidics.block.multiTank.general.fluid.TankFluidConnection;
 import derpatiel.manafluidics.block.multiTank.general.heat.TankHeatConnection;
 import derpatiel.manafluidics.block.multiTank.general.item.TankItemConnection;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankController;
+import derpatiel.manafluidics.block.pipe.PipeBlock;
 import derpatiel.manafluidics.block.portableTank.PortableTank;
 import derpatiel.manafluidics.block.portableTank.PortableTankItemBlock;
 import derpatiel.manafluidics.enums.MaterialType;
@@ -22,9 +23,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemMultiTexture;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.functions.ModIdFunction;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.nio.channels.Pipe;
 
 public class ModBlocks {
 
@@ -47,6 +48,7 @@ public class ModBlocks {
     public static MFBlock alloyTankController;
     public static MFBlock crystallineIronBlock;
     public static MFBlock fluidPump;
+    public static MFBlock fluidPipe;
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
@@ -69,6 +71,7 @@ public class ModBlocks {
         alloyTankController = register(new AlloyTankController("alloy_tank_controller",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         crystallineIronBlock=register( new MFBlock("crystalline_iron_block",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidPump = register(new FluidPump("fluidpump",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        fluidPipe = registerPipe((PipeBlock)new PipeBlock("fluidpipe", Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {
@@ -87,6 +90,12 @@ public class ModBlocks {
         ItemBlock itemBlock = new ItemMultiTexture(sheet,sheet, MaterialType.getNames());
         itemBlock.setRegistryName(sheet.getRegistryName());
         return register(sheet,itemBlock);
+    }
+
+    private static PipeBlock registerPipe(PipeBlock pipe){
+        ItemBlock itemBlock = new ItemMultiTexture(pipe,pipe, MaterialType.getNames());
+        itemBlock.setRegistryName(pipe.getRegistryName());
+        return register(pipe,itemBlock);
     }
 
     private static PortableTank register(PortableTank tank){
