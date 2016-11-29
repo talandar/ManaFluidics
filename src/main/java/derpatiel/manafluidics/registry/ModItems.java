@@ -45,7 +45,7 @@ public class ModItems {
         gem_mold = register(new MFMoldItem("gem_mold").setCreativeTab(tabFluidics));
         unfired_block_mold = register(new MFItem("unfired_block_mold").setCreativeTab(tabFluidics));
         mana_wand = register(new SpellWand("mana_wand",SpellRegistry.createMana).setCreativeTab(tabFluidics));
-        mm_wand = register(new SpellWand("magicmissle_wand",SpellRegistry.magicMissile).setCreativeTab(tabFluidics));
+        mm_wand = register(new SpellWand("magicmissle_wand",SpellRegistry.summonLight).setCreativeTab(tabFluidics));
         crystal_iron_ingot = register(new MFItem("crystal_iron_ingot").setCreativeTab(tabFluidics));
         admin_altar_wand = register(new AltarCreatingWand("admin_altar_wand").setCreativeTab(tabFluidics));
 

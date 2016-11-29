@@ -121,12 +121,12 @@ public class PipeBlock extends MFTileBlock implements IDismantleable {
     @SuppressWarnings("deprecation")
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos){
-        boolean north = isSameTypePipe(state.getValue(TYPE),pos.north(),worldIn) || canAccessFluidHandler(worldIn,pos.north(),EnumFacing.SOUTH);
-        boolean south = isSameTypePipe(state.getValue(TYPE),pos.south(),worldIn) || canAccessFluidHandler(worldIn,pos.south(),EnumFacing.NORTH);
-        boolean east = isSameTypePipe(state.getValue(TYPE),pos.east(),worldIn) || canAccessFluidHandler(worldIn,pos.east(),EnumFacing.WEST);
-        boolean west = isSameTypePipe(state.getValue(TYPE),pos.west(),worldIn) || canAccessFluidHandler(worldIn,pos.west(),EnumFacing.EAST);
-        boolean up = isSameTypePipe(state.getValue(TYPE),pos.up(),worldIn) || canAccessFluidHandler(worldIn,pos.up(),EnumFacing.DOWN);
-        boolean down = isSameTypePipe(state.getValue(TYPE),pos.down(),worldIn) || canAccessFluidHandler(worldIn,pos.down(),EnumFacing.UP);
+        boolean north = isSameTypePipe(state.getValue(TYPE),pos.north(),worldIn) || canAccessNonPipeFluidHandler(worldIn,pos.north(),EnumFacing.SOUTH);
+        boolean south = isSameTypePipe(state.getValue(TYPE),pos.south(),worldIn) || canAccessNonPipeFluidHandler(worldIn,pos.south(),EnumFacing.NORTH);
+        boolean east = isSameTypePipe(state.getValue(TYPE),pos.east(),worldIn) || canAccessNonPipeFluidHandler(worldIn,pos.east(),EnumFacing.WEST);
+        boolean west = isSameTypePipe(state.getValue(TYPE),pos.west(),worldIn) || canAccessNonPipeFluidHandler(worldIn,pos.west(),EnumFacing.EAST);
+        boolean up = isSameTypePipe(state.getValue(TYPE),pos.up(),worldIn) || canAccessNonPipeFluidHandler(worldIn,pos.up(),EnumFacing.DOWN);
+        boolean down = isSameTypePipe(state.getValue(TYPE),pos.down(),worldIn) || canAccessNonPipeFluidHandler(worldIn,pos.down(),EnumFacing.UP);
 
         return state.withProperty(NORTH, north).withProperty(SOUTH, south).withProperty(EAST, east).withProperty(WEST, west).withProperty(UP,up).withProperty(DOWN,down);
     }
@@ -136,10 +136,10 @@ public class PipeBlock extends MFTileBlock implements IDismantleable {
         return state.getBlock() instanceof PipeBlock && state.getValue(TYPE)==type;
     }
 
-    private boolean canAccessFluidHandler(IBlockAccess world, BlockPos pos, EnumFacing tankFacing){
+    private boolean canAccessNonPipeFluidHandler(IBlockAccess world, BlockPos pos, EnumFacing tankFacing){
         TileEntity tile = world.getTileEntity(pos);
         if(tile!=null){
-            return tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,tankFacing);
+            return !(tile instanceof PipeTileEntity) && tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,tankFacing);
         }
         return false;
     }

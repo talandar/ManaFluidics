@@ -15,6 +15,7 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.realms.Tezzelator;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumParticleTypes;
@@ -32,6 +33,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class MagicMissile extends EntityCreatingSpell {
+
+    private static final int MM_TTL = 6*20;
+
     public MagicMissile() {
         super("magicmissile", 1, 20, SpellAttribute.EVOCATION);
     }
@@ -43,10 +47,12 @@ public class MagicMissile extends EntityCreatingSpell {
         EntityMagicMissile missile = new EntityMagicMissile(world);
         missile.setup(caster,boosted);
         missile.setTargetingSelector(SpellParameters.getEntityTargetingPredicate(caster,parameters.get(0).selectedOption));
-        missile.findTarget();
         missile.posX = caster.getPositionEyes(1.0f).xCoord + casterLook.xCoord * 4.0D;
         missile.posY = caster.getPositionEyes(1.0f).yCoord - 0.3f;
         missile.posZ = caster.getPositionEyes(1.0f).zCoord + casterLook.zCoord * 4.0D;
+        missile.findTarget();
+        if(missile.target==null)
+            missile=null;
         return missile;
     }
 
@@ -57,7 +63,7 @@ public class MagicMissile extends EntityCreatingSpell {
         return list;
     }
 
-    public class EntityMagicMissile extends EntityArrow {
+    public static class EntityMagicMissile extends EntityArrow {
 
         private boolean damageBoosted;
         private EntityLivingBase shooter;
@@ -72,9 +78,28 @@ public class MagicMissile extends EntityCreatingSpell {
             this.motionX = 0.0D;
             this.motionY = 0.0D;
             this.motionZ = 0.0D;
+            this.pickupStatus=PickupStatus.DISALLOWED;
         }
 
-        public void setup(EntityLivingBase shooter,boolean damageBoosted) {
+        @Override
+        public void onUpdate() {
+            super.onUpdate();
+            if(inGround || inWater || this.ticksExisted>MM_TTL) {
+                this.setDead();
+            }
+            if(target!=null && target.isDead){
+                this.setDead();
+            }
+            Vec3d myPos = this.getPositionVector();
+            if(target!=null) {
+                Vec3d targetPos = target.getPositionEyes(1.0f);
+                Vec3d ray = targetPos.subtract(myPos);
+                ray = ray.normalize();
+                this.setThrowableHeading(ray.xCoord, ray.yCoord, ray.zCoord, 1.0f, 0.1f);
+            }
+        }
+
+        public void setup(EntityLivingBase shooter, boolean damageBoosted) {
             this.damageBoosted=damageBoosted;
             this.shooter=shooter;
             this.setLocationAndAngles(shooter.posX, shooter.posY, shooter.posZ, shooter.rotationYaw, shooter.rotationPitch);
@@ -95,6 +120,8 @@ public class MagicMissile extends EntityCreatingSpell {
                     target=possibleTarget;
                 }
             }
+            if(target==null)
+                this.setDead();
         }
 
         @Override
@@ -144,6 +171,7 @@ public class MagicMissile extends EntityCreatingSpell {
 
         @Override
         protected ResourceLocation getEntityTexture(EntityMagicMissile entity) {
+
             return RenderSpectralArrow.RES_SPECTRAL_ARROW;
         }
 
