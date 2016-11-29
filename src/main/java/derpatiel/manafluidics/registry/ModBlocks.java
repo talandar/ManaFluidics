@@ -73,7 +73,7 @@ public class ModBlocks {
         crystallineIronBlock=register( new MFBlock("crystalline_iron_block",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidPump = register(new FluidPump("fluidpump",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidPipe = registerPipe((PipeBlock)new PipeBlock("fluidpipe", Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
-        summonedLight = register(new SummonedLight("summonedlight",Material.AIR,0.0001f,0.0001f).setCreativeTab(ModItems.tabFluidics));
+        summonedLight = register(new SummonedLight("summonedlight",Material.CIRCUITS,0.0f,0.0f));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

@@ -1,0 +1,13 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "uvlock": false,
+        "textures":{
+        }
+    },
+    "variants": {
+        "normal":{
+          "model": "manafluidics:none"
+        }
+    }
+}

@@ -36,6 +36,7 @@ public class ManaFluidicsPlugin extends BlankModPlugin{
         jeiHelper = registry.getJeiHelpers();
 
         jeiHelper.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.floatTable));
+        jeiHelper.getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.summonedLight));
 
 
 
