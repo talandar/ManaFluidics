@@ -56,7 +56,7 @@ public class ModCrafting {
 
         GameRegistry.addRecipe(new ItemStack(ModBlocks.fluidPump),
                 "CCC",
-                "VBV",
+                "CBV",
                 "CRC",
                 'C',Blocks.COBBLESTONE,
                 'B',Items.BUCKET,

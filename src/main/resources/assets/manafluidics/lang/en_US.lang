@@ -104,8 +104,3 @@ alloytank.combines.message=becomes
 spell.createmana.name=Create Mana
 spell.createwater.name=Create Water
 spell.createlight.name=Light
-
-<alloying rules>
-alloy.rule.crystaliron=Crystal Steel
-alloy.rule.energizedmana=Energized Mana
-alloy.rule.testrule=TEXTLENGTH

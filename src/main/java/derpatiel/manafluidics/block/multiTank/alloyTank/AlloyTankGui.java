@@ -95,7 +95,7 @@ public class AlloyTankGui extends GuiContainer {
         alloyButtons = new ArrayList<>();
         int id=-2;
         for(MaterialItemHelper.AlloyFormingRule rule : PlayerKnowledgeHandler.getPlayerKnowledge(accessingPlayer).getAllowedAlloyRules()){
-            GuiButton btn = new GuiButton(id,guiLeft+buttonLeft,guiTop+buttonTop,120,20, TextHelper.localize(rule.ruleName));
+            GuiButton btn = new GuiButton(id,guiLeft+buttonLeft,guiTop+buttonTop,120,20, rule.output.getLocalizedName());
             alloyButtons.add(btn);
             buttonTop+=25;
             id--;

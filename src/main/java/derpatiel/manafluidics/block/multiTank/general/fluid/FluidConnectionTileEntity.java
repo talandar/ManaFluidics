@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.block.multiTank.general.fluid;
 
 import derpatiel.manafluidics.block.multiTank.TankPartTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -11,8 +12,13 @@ public class FluidConnectionTileEntity extends TankPartTileEntity {
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         if(parentLoc!=null) {
             if (isValidConnectionDirection(facing)) {
-                if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-                    return getParentTile().hasCapability(capability, null);
+                if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+                    TileEntity parent = getParentTile();
+                    if(parent!=null){
+                        return parent.hasCapability(capability, null);
+                    }
+                }
+
             }
         }
         return super.hasCapability(capability, facing);

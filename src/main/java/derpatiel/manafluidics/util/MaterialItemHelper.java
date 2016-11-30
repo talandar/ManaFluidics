@@ -111,31 +111,26 @@ public class MaterialItemHelper {
         AlloyFormingRule crystalIronRule = new AlloyFormingRule();
         crystalIronRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenCrystal,500),new FluidStack(ModFluids.moltenIron,500)};
         crystalIronRule.output=new FluidStack(ModFluids.crystalIron,1000);
-        crystalIronRule.ruleName="alloy.rule.crystaliron";
         alloyRules.add(crystalIronRule);
 
         AlloyFormingRule energizedManaRule = new AlloyFormingRule();
         energizedManaRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenCrystal,500),new FluidStack(ModFluids.reactiveMana,500)};
         energizedManaRule.output=new FluidStack(ModFluids.energizedMana,1000);
-        energizedManaRule.ruleName="alloy.rule.energizedmana";
         alloyRules.add(energizedManaRule);
 
         AlloyFormingRule testRule = new AlloyFormingRule();
         testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
         testRule.output = new FluidStack(FluidRegistry.LAVA,1000);
-        testRule.ruleName="alloy.rule.testrule";
         //alloyRules.add(testRule);
 
         testRule = new AlloyFormingRule();
         testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
         testRule.output = new FluidStack(FluidRegistry.LAVA,1000);
-        testRule.ruleName="alloy.rule.testrule";
         //alloyRules.add(testRule);
 
         testRule = new AlloyFormingRule();
         testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
         testRule.output = new FluidStack(FluidRegistry.LAVA,1000);
-        testRule.ruleName="alloy.rule.testrule";
         //alloyRules.add(testRule);
 
     }
@@ -271,6 +266,5 @@ public class MaterialItemHelper {
     public static class AlloyFormingRule{
         public FluidStack[] inputs;
         public FluidStack output;
-        public String ruleName;
     }
 }
