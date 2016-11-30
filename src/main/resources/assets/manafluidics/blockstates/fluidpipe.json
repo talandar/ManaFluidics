@@ -1,0 +1,76 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "all": "blocks/obsidian"
+        },
+        "model": "manafluidics:pipe_none",
+        "uvlock": true
+    },
+    "variants": {
+        "north": {
+            "true": {
+            	"submodel": "manafluidics:pipe_north"
+            },
+            "false": {
+            }
+        },
+        "south": {
+            "true": {
+            	"submodel": "manafluidics:pipe_south"
+            },
+            "false": {
+            }
+        },
+        "east": {
+            "true": {
+            	"submodel": "manafluidics:pipe_east"
+            },
+            "false": {
+            }
+        },
+        "west": {
+            "true": {
+            	"submodel": "manafluidics:pipe_west"
+            },
+            "false": {
+            }
+        },
+        "up":{
+          "true": {
+            "submodel": "manafluidics:pipe_up"
+          },
+          "false": {
+          }
+        },
+        "down":{
+          "true": {
+            "submodel": "manafluidics:pipe_down"
+          },
+          "false": {
+          }
+        },
+        "type": {
+            "crystal": {
+            	"textures": {
+            		"all": "manafluidics:blocks/pipe_crystal"
+            	}
+            },
+            "obsidian": {
+                "textures": {
+            		"all": "manafluidics:blocks/pipe_obsidian"
+            	}
+            },
+            "iron": {
+             	"textures": {
+            		"all": "manafluidics:blocks/pipe_iron"
+            	}
+            },
+            "gold": {
+            	"textures": {
+                  "all": "manafluidics:blocks/pipe_gold"
+            	}
+            }
+        }
+    }
+}

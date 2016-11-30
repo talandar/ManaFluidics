@@ -21,6 +21,7 @@ import derpatiel.manafluidics.block.multiTank.general.heat.HeatConnectionTileEnt
 import derpatiel.manafluidics.block.multiTank.general.item.ItemConnectionTileEntity;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankRenderer;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
+import derpatiel.manafluidics.block.pipe.PipeTileEntity;
 import derpatiel.manafluidics.block.portableTank.PortableTankRenderer;
 import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -48,6 +49,7 @@ public class ModTileEntities {
         registerTileEntity(KnowledgeAltarTileEntity.class);
         registerTileEntity(AlloyTankTileEntity.class);
         registerTileEntity(FluidPumpTileEntity.class);
+        registerTileEntity(PipeTileEntity.class);
     }
 
     @SideOnly(Side.CLIENT)

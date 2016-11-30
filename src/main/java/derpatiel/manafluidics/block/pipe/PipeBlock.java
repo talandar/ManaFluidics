@@ -85,7 +85,7 @@ public class PipeBlock extends MFTileBlock implements IDismantleable {
 
     @Override
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     @SuppressWarnings("deprecation")
@@ -153,8 +153,7 @@ public class PipeBlock extends MFTileBlock implements IDismantleable {
     @Override
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         BlockPos other = pos.offset(side);
-        Block otherBlock = blockAccess.getBlockState(other).getBlock();
-        return !(otherBlock instanceof ITankPart);
+        return !(isSameTypePipe(blockState.getValue(TYPE),other,blockAccess) || canAccessNonPipeFluidHandler(blockAccess,other,side.getOpposite()));
     }
 
     @Override
