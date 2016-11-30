@@ -1,0 +1,6 @@
+{
+    "parent":"manafluidics:block/pipe_none",
+    "textures":{
+		"all":"manafluidics:blocks/pipe_crystal"
+	}
+}

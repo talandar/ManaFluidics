@@ -27,6 +27,11 @@ item.controlcircuit.obsidian.name=Obsidian Control Circuit
 item.controlcircuit.gold.name=Gold Control Circuit
 item.controlcircuit.iron.name=Iron Control Circuit
 
+tile.fluidpipe.crystal.name=Crystal Pipe
+tile.fluidpipe.obsidian.name=Obsidian Pipe
+tile.fluidpipe.gold.name=Gold Pipe
+tile.fluidpipe.iron.name=Iron Pipe
+
 tile.sheet.crystal.name=Crystal Sheet
 tile.sheet.obsidian.name=Obsidian Sheet
 tile.sheet.iron.name=Iron Sheet
@@ -77,6 +82,7 @@ tile.crystalblock.name=Crystal Block
 tile.crystalline_iron_block.name=Crystalline Steel Block
 tile.alloy_tank_controller.name=Alloying Tank Controller
 tile.knowledgealtar.name=Altar of Knowledge
+tile.fluidpump.name=Fluid Pump
 
 
 

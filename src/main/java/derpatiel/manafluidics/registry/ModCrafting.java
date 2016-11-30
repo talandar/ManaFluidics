@@ -40,6 +40,10 @@ public class ModCrafting {
                 'C', MaterialItemHelper.getSheet(MaterialType.CRYSTAL));
 
         for(MaterialType type : MaterialType.VALUES) {
+            GameRegistry.addRecipe(MaterialItemHelper.getPipe(type,1),
+                    "MGM",
+                    'M',MaterialItemHelper.getSheet(type,1),
+                    'G', Blocks.GLASS);
             GameRegistry.addRecipe(MaterialItemHelper.getCircuit(type,1),
                     "RWR",
                     "WDW",
@@ -49,6 +53,15 @@ public class ModCrafting {
                     'D', Items.DIAMOND
             );
         }
+
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.fluidPump),
+                "CCC",
+                "VBV",
+                "CRC",
+                'C',Blocks.COBBLESTONE,
+                'B',Items.BUCKET,
+                'V',ModBlocks.fluidSpout,
+                'R',Items.REDSTONE);
 
 
         GameRegistry.addRecipe(new ItemStack(ModBlocks.fluidTankController),

@@ -165,6 +165,14 @@ public class MaterialItemHelper {
         return new ItemStack(ModBlocks.sheet,quantity,type.getID());
     }
 
+
+    public static ItemStack getPipe(MaterialType type) {
+        return getPipe(type, 1);
+    }
+    public static ItemStack getPipe(MaterialType type, int quantity){
+        return new ItemStack(ModBlocks.fluidPipe,quantity,type.getID());
+    }
+
     public static boolean isMeltable(ItemStack stack){
         if(stack==null || stack.stackSize==0)
             return false;
