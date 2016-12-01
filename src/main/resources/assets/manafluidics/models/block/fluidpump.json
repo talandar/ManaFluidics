@@ -1,85 +1,71 @@
 {
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "manafluidics:blocks/basic_valve"
-    },
-    "display": {
-        "gui": {
-            "rotation": [ 30, 225, 0 ],
-            "translation": [ 0, 0, 0],
-            "scale":[ 0.625, 0.625, 0.625 ]
-        },
-        "ground": {
-            "rotation": [ 0, 0, 0 ],
-            "translation": [ 0, 3, 0],
-            "scale":[ 0.25, 0.25, 0.25 ]
-        },
-        "fixed": {
-            "rotation": [ 0, 0, 0 ],
-            "translation": [ 0, 0, 0],
-            "scale":[ 0.5, 0.5, 0.5 ]
-        },
-        "thirdperson_righthand": {
-            "rotation": [ 75, 45, 0 ],
-            "translation": [ 0, 2.5, 0],
-            "scale": [ 0.375, 0.375, 0.375 ]
-        },
-        "firstperson_righthand": {
-            "rotation": [ 0, 45, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 0.40, 0.40, 0.40 ]
-        },
-        "firstperson_lefthand": {
-            "rotation": [ 0, 225, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 0.40, 0.40, 0.40 ]
-        }
+        "0": "manafluidics:blocks/basic_valve",
+        "1": "manafluidics:blocks/basic_valve",
+        "2": "manafluidics:blocks/pump_side",
+        "3": "manafluidics:blocks/pump_top"
     },
     "elements": [
         {
-            "name": "output",
-            "from": [ 5.0, 5.0, 15.0 ],
-            "to": [ 11.0, 11.0, 16.0 ],
+            "name": "input",
+            "from": [ 5.0, 5.0, 0.0 ], 
+            "to": [ 11.0, 11.0, 1.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 5.0, 5.0, 11.0, 11.0 ] },
-                "east": { "texture": "#0", "uv": [ 2.0, 8.0, 3.0, 14.0 ] },
+                "north": { "texture": "#0", "uv": [ 5.0, 4.0, 11.0, 10.0 ] },
+                "east": { "texture": "#0", "uv": [ 1.0, 1.0, 2.0, 7.0 ] },
                 "south": { "texture": "#0", "uv": [ 5.0, 5.0, 11.0, 11.0 ] },
-                "west": { "texture": "#0", "uv": [ 13.0, 8.0, 14.0, 14.0 ] },
-                "up": { "texture": "#0", "uv": [ 5.0, 2.0, 11.0, 3.0 ] },
-                "down": { "texture": "#0", "uv": [ 5.0, 13.0, 11.0, 14.0 ] }
+                "west": { "texture": "#0", "uv": [ 1.0, 7.0, 2.0, 13.0 ] },
+                "up": { "texture": "#0", "uv": [ 5.0, 1.0, 11.0, 2.0 ] },
+                "down": { "texture": "#0", "uv": [ 7.0, 14.0, 13.0, 15.0 ] }
             }
         },
         {
-            "name": "bottom",
-            "from": [ 5.0, 5.0, 7.0 ],
-            "to": [ 11.0, 6.0, 15.0 ],
+            "name": "inPipe",
+            "from": [ 6.0, 6.0, 1.0 ], 
+            "to": [ 10.0, 10.0, 4.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 5.0, 14.0, 11.0, 15.0 ] },
-                "east": { "texture": "#0", "uv": [ 3.0, 13.0, 11.0, 14.0 ] },
-                "west": { "texture": "#0", "uv": [ 5.0, 13.0, 13.0, 14.0 ] },
-                "up": { "texture": "#0", "uv": [ 5.0, 4.0, 11.0, 12.0 ] },
-                "down": { "texture": "#0", "uv": [ 5.0, 4.0, 11.0, 12.0 ] }
+                "east": { "texture": "#0", "uv": [ 4.0, 4.0, 7.0, 8.0 ] },
+                "west": { "texture": "#0", "uv": [ 9.0, 4.0, 12.0, 8.0 ] },
+                "up": { "texture": "#0", "uv": [ 4.0, 9.0, 8.0, 12.0 ] },
+                "down": { "texture": "#0", "uv": [ 8.0, 9.0, 12.0, 12.0 ] }
             }
         },
         {
-            "name": "w_wall",
-            "from": [ 5.0, 6.0, 7.0 ],
-            "to": [ 6.0, 11.0, 15.0 ],
+            "name": "outPipe",
+            "from": [ 6.0, 6.0, 12.0 ], 
+            "to": [ 10.0, 10.0, 15.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 1.0, 10.0, 2.0, 15.0 ] },
-                "east": { "texture": "#0", "uv": [ 4.0, 4.0, 12.0, 9.0 ] },
-                "west": { "texture": "#0", "uv": [ 4.0, 4.0, 12.0, 9.0 ] },
-                "up": { "texture": "#0", "uv": [ 4.0, 4.0, 5.0, 12.0 ] }
+                "east": { "texture": "#0", "uv": [ 4.0, 4.0, 7.0, 8.0 ] },
+                "west": { "texture": "#0", "uv": [ 9.0, 4.0, 12.0, 8.0 ] },
+                "up": { "texture": "#0", "uv": [ 4.0, 9.0, 8.0, 12.0 ] },
+                "down": { "texture": "#0", "uv": [ 8.0, 9.0, 12.0, 12.0 ] }
             }
         },
         {
-            "name": "e_wall",
-            "from": [ 10.0, 6.0, 7.0 ],
-            "to": [ 11.0, 11.0, 15.0 ],
+            "name": "Pump",
+            "from": [ 3.0, 3.0, 4.0 ], 
+            "to": [ 13.0, 13.0, 12.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 1.0, 10.0, 2.0, 15.0 ] },
-                "east": { "texture": "#0", "uv": [ 4.0, 7.0, 12.0, 12.0 ] },
-                "west": { "texture": "#0", "uv": [ 4.0, 7.0, 12.0, 12.0 ] },
-                "up": { "texture": "#0", "uv": [ 4.0, 4.0, 5.0, 12.0 ] }
+                "north": { "texture": "#1", "uv": [ 3.0, 3.0, 13.0, 13.0 ] },
+                "east": { "texture": "#2", "uv": [ 0.0, 0.0, 8.0, 10.0 ] },
+                "south": { "texture": "#0", "uv": [ 3.0, 3.0, 13.0, 13.0 ] },
+                "west": { "texture": "#2", "uv": [ 8.0, 0.0, 0.0, 10.0 ] },
+                "up": { "texture": "#3", "uv": [ 0.0, 8.0, 10.0, 0.0 ] },
+                "down": { "texture": "#3", "uv": [ 0.0, 0.0, 10.0, 8.0 ] }
+            }
+        },
+        {
+            "name": "output",
+            "from": [ 5.0, 5.0, 15.0 ], 
+            "to": [ 11.0, 11.0, 16.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 5.0, 4.0, 11.0, 10.0 ] },
+                "east": { "texture": "#0", "uv": [ 1.0, 1.0, 2.0, 7.0 ] },
+                "south": { "texture": "#0", "uv": [ 5.0, 5.0, 11.0, 11.0 ] },
+                "west": { "texture": "#0", "uv": [ 1.0, 7.0, 2.0, 13.0 ] },
+                "up": { "texture": "#0", "uv": [ 5.0, 1.0, 11.0, 2.0 ] },
+                "down": { "texture": "#0", "uv": [ 7.0, 14.0, 13.0, 15.0 ] }
             }
         }
     ]
