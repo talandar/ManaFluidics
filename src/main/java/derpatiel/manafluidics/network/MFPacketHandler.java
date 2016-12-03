@@ -10,10 +10,12 @@ public class MFPacketHandler {
     public static final SimpleNetworkWrapper INSTANCE = new SimpleNetworkWrapper(ManaFluidics.MODID);
 
     public static void init(){
-        INSTANCE.registerMessage(ChatUtil.PacketNoSpamChat.Handler.class, ChatUtil.PacketNoSpamChat.class, 0, Side.CLIENT);
-        INSTANCE.registerMessage(PacketFluidClick.Handler.class,PacketFluidClick.class,1,Side.SERVER);
-        INSTANCE.registerMessage(FluidChangedPacket.FluidChangedPacketMessageHandler.class,FluidChangedPacket.class,2,Side.CLIENT);
-        INSTANCE.registerMessage(PacketFluidAlloy.Handler.class, PacketFluidAlloy.class,3,Side.SERVER);
+        int ID=0;
+        INSTANCE.registerMessage(ChatUtil.PacketNoSpamChat.Handler.class, ChatUtil.PacketNoSpamChat.class, ID++, Side.CLIENT);
+        INSTANCE.registerMessage(PacketFluidClick.Handler.class,PacketFluidClick.class,ID++,Side.SERVER);
+        INSTANCE.registerMessage(FluidChangedPacket.FluidChangedPacketMessageHandler.class,FluidChangedPacket.class,ID++,Side.CLIENT);
+        INSTANCE.registerMessage(PacketFluidAlloy.Handler.class, PacketFluidAlloy.class,ID++,Side.SERVER);
+        INSTANCE.registerMessage(DrawNozzleUpdatePacket.DrawNozzleUpdatePacketHandler.class,DrawNozzleUpdatePacket.class,ID++,Side.CLIENT);
 
     }
 

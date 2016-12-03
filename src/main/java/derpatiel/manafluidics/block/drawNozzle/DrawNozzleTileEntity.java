@@ -1,5 +1,7 @@
 package derpatiel.manafluidics.block.drawNozzle;
 
+import derpatiel.manafluidics.network.DrawNozzleUpdatePacket;
+import derpatiel.manafluidics.network.MFPacketHandler;
 import derpatiel.manafluidics.registry.ModItems;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.block.material.Material;
@@ -27,7 +29,7 @@ public class DrawNozzleTileEntity extends TileEntity implements ITickable{
     public static final int EXTRUSION_SIZE = Fluid.BUCKET_VOLUME / 8;
     public static final int EXTRUDE_PER_TICK = 5;
 
-    final FluidTank fluidTank;
+    public final FluidTank fluidTank;
 
     public int extrudedQuantity;
     private String lastFluidName;
@@ -96,7 +98,7 @@ public class DrawNozzleTileEntity extends TileEntity implements ITickable{
 
     @Override
     public void update() {
-        if(fluidTank.getFluid()!=null){
+        if(!worldObj.isRemote && fluidTank.getFluid()!=null){
             Fluid fluid = fluidTank.getFluid().getFluid();
             if(MaterialItemHelper.fluidProductMap.containsKey(fluid)
                     && getWorld().getBlockState(getPos().down()).getMaterial()== Material.AIR){//only extrude if we have liquid, and the block below is air-like
@@ -104,26 +106,30 @@ public class DrawNozzleTileEntity extends TileEntity implements ITickable{
                     lastFluidName=FluidRegistry.getFluidName(fluid);
                     extrudedQuantity=0;
                 }
+                boolean needPacket=false;
                 if(extrudedQuantity<EXTRUSION_SIZE){
                     //need to extrude
                     int maxExtrude = EXTRUSION_SIZE-extrudedQuantity;
                     maxExtrude = Math.min(maxExtrude, EXTRUDE_PER_TICK);
                     FluidStack drained = fluidTank.drain(maxExtrude, true);
                     extrudedQuantity+=drained.amount;
+                    needPacket=true;
                 }
                 //now that we've done some work, check again.
-                if(extrudedQuantity==EXTRUSION_SIZE){
-                    extrudedQuantity=0;
-                    if(!getWorld().isRemote){
-                        ItemStack spawned = new ItemStack(ModItems.material_wire,1, MaterialItemHelper.fluidProductMap.get(fluid).getID());
-                        BlockPos spawnLoc = getPos().down();
-                        EntityItem entityitem = new EntityItem(getWorld(), spawnLoc.getX()+0.5f, spawnLoc.getY()+0.5f, spawnLoc.getZ()+0.5f, spawned);
-                        entityitem.motionX=0;
-                        entityitem.motionY=0;
-                        entityitem.motionZ=0;
-                        getWorld().spawnEntityInWorld(entityitem);
-                        markDirty();
-                    }
+                if(extrudedQuantity==EXTRUSION_SIZE) {
+                    extrudedQuantity = 0;
+                    ItemStack spawned = new ItemStack(ModItems.material_wire, 1, MaterialItemHelper.fluidProductMap.get(fluid).getID());
+                    BlockPos spawnLoc = getPos().down();
+                    EntityItem entityitem = new EntityItem(getWorld(), spawnLoc.getX() + 0.5f, spawnLoc.getY() + 0.5f, spawnLoc.getZ() + 0.5f, spawned);
+                    entityitem.motionX = 0;
+                    entityitem.motionY = 0;
+                    entityitem.motionZ = 0;
+                    getWorld().spawnEntityInWorld(entityitem);
+                    needPacket = true;
+
+                }
+                if(needPacket){
+                    MFPacketHandler.INSTANCE.sendToAll(new DrawNozzleUpdatePacket(pos,fluidTank.getFluid(),extrudedQuantity));
                 }
             }//else nothing, not valid.
         }

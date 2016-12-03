@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.network;
 
 import derpatiel.manafluidics.block.castingchamber.CastingChamberTileEntity;
+import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
 import derpatiel.manafluidics.block.multiTank.fluidTank.FluidTankTileEntity;
 import derpatiel.manafluidics.block.pipe.PipeTileEntity;
 import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
@@ -15,21 +16,24 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class FluidChangedPacket implements IMessage {
+public class DrawNozzleUpdatePacket implements IMessage {
 
     public FluidStack fluid;
     public BlockPos pos;
+    public int drawProgress;
 
-    public FluidChangedPacket(){}
+    public DrawNozzleUpdatePacket(){}
 
-    public FluidChangedPacket(BlockPos pos, FluidStack contents){
+    public DrawNozzleUpdatePacket(BlockPos pos, FluidStack contents, int drawProgress){
         this.fluid=contents;
+        this.drawProgress=drawProgress;
         this.pos=pos;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         long longPos = buf.readLong();
+        drawProgress = buf.readInt();
         pos = BlockPos.fromLong(longPos);
         try {
             fluid = FluidStack.loadFluidStackFromNBT(ByteBufUtils.readTag(buf));
@@ -41,15 +45,16 @@ public class FluidChangedPacket implements IMessage {
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeLong(pos.toLong());
+        buf.writeInt(drawProgress);
         if(fluid!=null) {
             ByteBufUtils.writeTag(buf, fluid.writeToNBT(new NBTTagCompound()));
         }
     }
 
-    public static class FluidChangedPacketMessageHandler implements IMessageHandler<FluidChangedPacket, IMessage> {
+    public static class DrawNozzleUpdatePacketHandler implements IMessageHandler<DrawNozzleUpdatePacket, IMessage> {
 
         @Override
-        public IMessage onMessage(FluidChangedPacket message, MessageContext ctx) {
+        public IMessage onMessage(DrawNozzleUpdatePacket message, MessageContext ctx) {
             Minecraft.getMinecraft().addScheduledTask(new MessageRunnable(message));
             return null;
         }
@@ -57,27 +62,19 @@ public class FluidChangedPacket implements IMessage {
 
     private static class MessageRunnable implements Runnable {
 
-        FluidChangedPacket message;
+        DrawNozzleUpdatePacket message;
 
-        public MessageRunnable(FluidChangedPacket message){
+        public MessageRunnable(DrawNozzleUpdatePacket message){
             this.message=message;
         }
 
         @Override
         public void run() {
             TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(message.pos);
-            if(te instanceof PortableTankTileEntity) {
-                PortableTankTileEntity tile = (PortableTankTileEntity) te;
+            if(te instanceof DrawNozzleTileEntity) {
+                DrawNozzleTileEntity tile = (DrawNozzleTileEntity) te;
+                tile.extrudedQuantity=message.drawProgress;
                 tile.fluidTank.setFluid(message.fluid);
-            }else if(te instanceof CastingChamberTileEntity){
-                CastingChamberTileEntity tile = (CastingChamberTileEntity)te;
-                tile.tank.setFluid(message.fluid);
-            }else if(te instanceof PipeTileEntity){
-                PipeTileEntity tile = (PipeTileEntity)te;
-                tile.fluidTank.setFluid(message.fluid);
-            }else if(te instanceof FluidTankTileEntity){
-                FluidTankTileEntity tile = (FluidTankTileEntity)te;
-                tile.tank.setFluid(message.fluid);
             }
         }
     }

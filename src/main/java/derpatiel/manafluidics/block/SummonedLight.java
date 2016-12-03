@@ -66,8 +66,8 @@ public class SummonedLight extends MFBlock {
     {
         if (rand.nextInt(3) != 0)
         {
-            world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, pos.getX() + 0.5D + rand.nextGaussian() / 8, pos.getY() + 0.5D, pos.getZ() + 0.5D + rand.nextGaussian() / 8, 0, 0, 0, 0);
-            world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, pos.getX() + 0.5D + rand.nextGaussian() / 8, pos.getY() + 0.5D, pos.getZ() + 0.5D + rand.nextGaussian() / 8, 0, 0, 0, 0);
+            world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, pos.getX() + 0.5D + rand.nextGaussian() / 4, pos.getY() + 0.75D, pos.getZ() + 0.5D + rand.nextGaussian() / 4, 0, 0, 0, 0);
+            world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, pos.getX() + 0.5D + rand.nextGaussian() / 4, pos.getY() + 0.75D, pos.getZ() + 0.5D + rand.nextGaussian() / 4, 0, 0, 0, 0);
         }
     }
 

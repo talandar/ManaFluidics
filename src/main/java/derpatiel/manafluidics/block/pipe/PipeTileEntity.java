@@ -1,5 +1,7 @@
 package derpatiel.manafluidics.block.pipe;
 
+import derpatiel.manafluidics.network.FluidChangedPacket;
+import derpatiel.manafluidics.network.MFPacketHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -13,9 +15,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +29,9 @@ import java.util.List;
  */
 public class PipeTileEntity extends TileEntity implements ITickable {
 
-    final FluidTank fluidTank;
+    public final float TICK_FLUID_OUT_PER_CONNECTION=20f;
+
+    public final FluidTank fluidTank;
 
     public PipeTileEntity(){
         fluidTank = new FluidTank(Fluid.BUCKET_VOLUME);
@@ -88,52 +94,43 @@ public class PipeTileEntity extends TileEntity implements ITickable {
 
     @Override
     public void update() {
-        if((!this.getWorld().isRemote) && this.fluidTank.getFluidAmount()>0){
+        if ((!this.getWorld().isRemote) && this.fluidTank.getFluidAmount() > 0) {
             FluidStack myFluid = fluidTank.getFluid();
-            int maxFlow = Math.max(1,myFluid.amount/2);
-            if(maxFlow>0){
-                List<PipeTileEntity> adjacentSameTypePipes = new ArrayList<>();
-                List<IFluidHandler> adjacentNonPipeHandlers = new ArrayList<>();
+            List<PipeTileEntity> adjacentSameTypePipes = new ArrayList<>();
+            List<IFluidHandler> adjacentNonPipeHandlers = new ArrayList<>();
 
-                for(EnumFacing facing : EnumFacing.VALUES){
-                    if(PipeBlock.isSameTypePipe(worldObj.getBlockState(this.pos).getValue(PipeBlock.TYPE),this.pos.offset(facing),getWorld())) {
-                        adjacentSameTypePipes.add((PipeTileEntity) worldObj.getTileEntity(this.pos.offset(facing)));
-                    }
-                    if(PipeBlock.canAccessNonPipeFluidHandler(getWorld(),pos.offset(facing),facing)){
-                        IFluidHandler fluidHandler = this.getWorld().getTileEntity(pos.offset(facing)).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,facing.getOpposite());
-                        adjacentNonPipeHandlers.add(fluidHandler);
-                    }
+            for (EnumFacing facing : EnumFacing.VALUES) {
+                if (PipeBlock.isSameTypePipe(worldObj.getBlockState(this.pos).getValue(PipeBlock.TYPE), this.pos.offset(facing), getWorld())) {
+                    adjacentSameTypePipes.add((PipeTileEntity) worldObj.getTileEntity(this.pos.offset(facing)));
                 }
-
-                List<IFluidHandler> pumpToHandlers = new ArrayList<>();
-                for(IFluidHandler handler : adjacentNonPipeHandlers){
-                    for(IFluidTankProperties properties : handler.getTankProperties()){
-                        if(properties.getContents()==null || properties.getContents().getFluid().equals(myFluid.getFluid())) {
-                            pumpToHandlers.add(handler);
-                        }
-                    }
+                if (PipeBlock.canAccessNonPipeFluidHandler(getWorld(), pos.offset(facing), facing.getOpposite())) {
+                    IFluidHandler fluidHandler = this.getWorld().getTileEntity(pos.offset(facing)).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite());
+                    adjacentNonPipeHandlers.add(fluidHandler);
                 }
+            }
 
-                //always pump to non-pipes first.  only pump into other pipes if no room.
-                int pumpedFluid = 0;
-                for (IFluidHandler handler : pumpToHandlers){
-                    int amount = handler.fill(new FluidStack(myFluid.getFluid(),maxFlow/pumpToHandlers.size()),false);
-                    if(amount>0){
-                        amount = handler.fill(new FluidStack(myFluid.getFluid(),maxFlow/pumpToHandlers.size()),true);
-                        this.fluidTank.drain(amount,true);
-                        pumpedFluid+=amount;
-                    }
+            //always pump to non-pipes first.  only pump into other pipes if no room.
+            int numoutputs = adjacentNonPipeHandlers.size()+adjacentSameTypePipes.size();
+            boolean transferedSome = false;
+            if(numoutputs>0) {
+                int perOutputRate = Math.max(1,(int)Math.min(TICK_FLUID_OUT_PER_CONNECTION,Math.ceil(0.75f * (float)fluidTank.getFluidAmount()))/numoutputs);
+                for (IFluidHandler handler : adjacentNonPipeHandlers) {
+                    transferedSome |= (FluidUtil.tryFluidTransfer(handler, fluidTank, perOutputRate, true) != null);
                 }
-                if(pumpedFluid<maxFlow){
-                    maxFlow=maxFlow-pumpedFluid;
-                    int perPipePush = maxFlow/adjacentSameTypePipes.size();
-                    if(perPipePush>0){
-                        for(PipeTileEntity otherPipe : adjacentSameTypePipes){
-
-                        }
+                for (PipeTileEntity pipe : adjacentSameTypePipes) {
+                    if (pipe.fluidTank.getFluidAmount() < this.fluidTank.getFluidAmount()) {
+                        transferedSome |= (FluidUtil.tryFluidTransfer(pipe.fluidTank, fluidTank, perOutputRate, true) != null);
                     }
                 }
             }
+            if(transferedSome){
+                markDirty();
+                MFPacketHandler.INSTANCE.sendToAll(new FluidChangedPacket(this.pos,this.fluidTank.getFluid()));
+            }
         }
+    }
+
+    public float getFluidFillPercent(){
+        return ((float)fluidTank.getFluidAmount())/((float)fluidTank.getCapacity());
     }
 }

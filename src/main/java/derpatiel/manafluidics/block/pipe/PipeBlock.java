@@ -5,6 +5,7 @@ import derpatiel.manafluidics.block.IDismantleable;
 import derpatiel.manafluidics.block.ITankPart;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.enums.MaterialType;
+import derpatiel.manafluidics.registry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -132,7 +133,9 @@ public class PipeBlock extends MFTileBlock implements IDismantleable {
     }
 
     public static boolean shouldConnect(IBlockState state,BlockPos pos,IBlockAccess worldIn,EnumFacing direction){
-        return isSameTypePipe(state.getValue(TYPE),pos.offset(direction),worldIn) || canAccessNonPipeFluidHandler(worldIn,pos.offset(direction),direction.getOpposite());
+        return isSameTypePipe(state.getValue(TYPE),pos.offset(direction),worldIn)
+                || canAccessNonPipeFluidHandler(worldIn,pos.offset(direction),direction.getOpposite())
+                || worldIn.getBlockState(pos.offset(direction)).getBlock()== ModBlocks.fluidPump;
     }
 
     public static boolean isSameTypePipe(MaterialType type, BlockPos pos, IBlockAccess worldIn){
@@ -156,8 +159,7 @@ public class PipeBlock extends MFTileBlock implements IDismantleable {
     @SuppressWarnings("deprecation")
     @Override
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-        BlockPos other = pos.offset(side);
-        return !(shouldConnect(blockState,other,blockAccess,side));
+        return !(shouldConnect(blockState,pos,blockAccess,side));
     }
 
     @Override

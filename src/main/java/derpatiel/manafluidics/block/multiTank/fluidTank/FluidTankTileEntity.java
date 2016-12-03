@@ -1,6 +1,8 @@
 package derpatiel.manafluidics.block.multiTank.fluidTank;
 
 import derpatiel.manafluidics.block.multiTank.TankFormingTileEntity;
+import derpatiel.manafluidics.network.FluidChangedPacket;
+import derpatiel.manafluidics.network.MFPacketHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -11,7 +13,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class FluidTankTileEntity extends TankFormingTileEntity {
 
-    public final FluidTank tank = new FluidTank(0);
+    public final FluidTank tank = new MultiblockUpdatingFluidTank(0);
 
     @Override
     public void newHeight() {
@@ -20,7 +22,6 @@ public class FluidTankTileEntity extends TankFormingTileEntity {
 
     @Override
     public void doUpdate() {
-
     }
 
     @Override
@@ -73,5 +74,18 @@ public class FluidTankTileEntity extends TankFormingTileEntity {
         if((isValidConnectionDirection(facing) || facing==null) && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             return (T)tank;
         return super.getCapability(capability, facing);
+    }
+
+    private class MultiblockUpdatingFluidTank extends FluidTank{
+
+        public MultiblockUpdatingFluidTank(int capacity) {
+            super(capacity);
+        }
+
+        @Override
+        protected void onContentsChanged() {
+            super.onContentsChanged();
+            MFPacketHandler.INSTANCE.sendToAll(new FluidChangedPacket(pos,tank.getFluid()));
+        }
     }
 }
