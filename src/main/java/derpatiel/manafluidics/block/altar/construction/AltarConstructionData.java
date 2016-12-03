@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.block.altar.construction;
 
+import com.google.common.collect.Lists;
 import derpatiel.manafluidics.enums.AltarType;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.util.math.BlockPos;
@@ -31,6 +32,16 @@ public class AltarConstructionData {
         public AltarLevelData(List<BlockPos> structureBlocks, List<BlockPos> activeBlocks){
             this.structureBlocks = structureBlocks;
             this.activeBlocks = activeBlocks;
+        }
+    }
+
+    public AltarLevelData getDataForAltarLevel(int level){
+        if(level==0){
+            return new AltarLevelData(Lists.newArrayList(),Lists.newArrayList());
+        }else if(level-1>=levels.size()) {
+            return null;
+        }else{
+            return levels.get(level-1);
         }
     }
 

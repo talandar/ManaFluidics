@@ -101,7 +101,7 @@ public class KnowledgeAltar extends MFTileBlock {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if(hand==EnumHand.MAIN_HAND) {
-            if (heldItem != null && heldItem.getItem() == ModItems.admin_altar_wand)
+            if (heldItem != null && heldItem.getItem() == ModItems.debug_wand || heldItem.getItem()==ModItems.admin_altar_wand)
                 return false;
             if (heldItem != null && heldItem.getItem() == ModItems.crystal_hammer) {
                 TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -129,7 +129,7 @@ public class KnowledgeAltar extends MFTileBlock {
                         ChatUtil.sendNoSpam(playerIn, TextHelper.localize("DEBUG: You understand the purpose of the altar..."));
                         KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity) tileentity);
                         if (te == null) {
-                            ChatUtil.sendNoSpam(playerIn, "No altar type set");
+                            ChatUtil.sendNoSpam(playerIn, "altar tile not right type?");
                         } else {
                             int level = te.getAltarValidLevel(worldIn);
                             AltarType type = te.type;
