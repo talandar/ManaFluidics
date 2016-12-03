@@ -4,6 +4,7 @@ import derpatiel.manafluidics.spell.SpellBase;
 import derpatiel.manafluidics.spell.cantrip.CreateLight;
 import derpatiel.manafluidics.spell.cantrip.CreateMana;
 import derpatiel.manafluidics.spell.cantrip.CreateWater;
+import derpatiel.manafluidics.spell.cantrip.SetFlame;
 import derpatiel.manafluidics.spell.lvl1.MagicMissile;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public class SpellRegistry {
     public static SpellBase createWater;
     public static SpellBase createMana;
     public static SpellBase summonLight;
+    public static SpellBase setFlame;
+
+
     public static SpellBase magicMissile;
 
     private static Map<String,SpellBase> spellRegistryMap = new HashMap<>();
@@ -24,8 +28,10 @@ public class SpellRegistry {
     public static void init(){
         createWater = register(new CreateWater());
         createMana = register(new CreateMana());
-        magicMissile = register(new MagicMissile());
         summonLight = register(new CreateLight());
+        setFlame = register(new SetFlame());
+
+        magicMissile = register(new MagicMissile());
     }
 
     public static SpellBase register(SpellBase spell){
