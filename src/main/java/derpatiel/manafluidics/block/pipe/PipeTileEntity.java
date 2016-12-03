@@ -34,7 +34,7 @@ public class PipeTileEntity extends TileEntity implements ITickable {
     public final FluidTank fluidTank;
 
     public PipeTileEntity(){
-        fluidTank = new FluidTank(Fluid.BUCKET_VOLUME);
+        fluidTank = new PipeTETank(Fluid.BUCKET_VOLUME);
     }
 
     public void readFromNBT(NBTTagCompound compound)
@@ -125,12 +125,25 @@ public class PipeTileEntity extends TileEntity implements ITickable {
             }
             if(transferedSome){
                 markDirty();
-                MFPacketHandler.INSTANCE.sendToAll(new FluidChangedPacket(this.pos,this.fluidTank.getFluid()));
             }
         }
     }
 
     public float getFluidFillPercent(){
         return ((float)fluidTank.getFluidAmount())/((float)fluidTank.getCapacity());
+    }
+
+    private class PipeTETank extends FluidTank{
+
+        public PipeTETank(int capacity) {
+            super(capacity);
+        }
+
+        @Override
+        protected void onContentsChanged() {
+            super.onContentsChanged();
+            MFPacketHandler.INSTANCE.sendToAll(new FluidChangedPacket(pos,this.getFluid()));
+            markDirty();
+        }
     }
 }

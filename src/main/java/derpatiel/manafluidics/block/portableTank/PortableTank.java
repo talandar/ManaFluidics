@@ -126,7 +126,7 @@ public class PortableTank extends MFTileBlock<PortableTankTileEntity> implements
             }
         }
 
-        if(heldItem.getItem()== ModItems.crystal_hammer){
+        if(heldItem!=null && heldItem.getItem()== ModItems.crystal_hammer){
             getTileEntity(worldIn,pos).switchExport();
             return true;
         }
