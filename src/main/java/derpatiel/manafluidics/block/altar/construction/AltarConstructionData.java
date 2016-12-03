@@ -65,12 +65,57 @@ public class AltarConstructionData {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(AltarConstructionData.class.getClassLoader().getResourceAsStream(path)))){
             List<AltarLevelData> levelList = readLevels(reader);
             data.levels=levelList;
+            if(!data.isRotationallySymmetrical()){
+                data=null;
+                LOG.error("Altar type "+type.name()+" was not symmetrical.  This is not allowed.");
+            }
+            LOG.info("Read altar type "+type.name()+".  Type has "+data.levels.size()+" levels.");
         }catch(IOException ioe){
             LOG.error("Couldn't load data for type "+type.name()+".  This Altar will not work!.  "+ioe.getMessage());
+            data=null;
         }catch(NullPointerException npe){
             LOG.error("No file found for altar type "+type.name());
+            data=null;
         }
         return data;
+    }
+
+    private boolean isRotationallySymmetrical() {
+        boolean valid=true;
+        for(AltarLevelData level : this.levels){
+            if(valid){
+                for(BlockPos testBlock : level.activeBlocks){
+                    if(!hasMirrors(level.activeBlocks,testBlock)){
+                        valid=false;
+                    }
+                }
+                for(BlockPos testBlock : level.structureBlocks){
+                    if(!hasMirrors(level.structureBlocks,testBlock)){
+                        valid=false;
+                    }
+                }
+            }
+        }
+        return valid;
+    }
+
+    private boolean hasMirrors(List<BlockPos> positions, BlockPos block){
+        //assume input pos in list, that's where we should have gotten it
+        BlockPos testPos = block;
+        for(int i=0;i<3;i++){
+            testPos = rotate90(testPos);
+            boolean found=false;
+            for(BlockPos listPos : positions){
+                found |= listPos.equals(testPos);
+            }
+            if(!found)
+                return false;
+        }
+        return true;
+    }
+
+    private BlockPos rotate90(BlockPos pos){
+        return new BlockPos(pos.getZ()*-1,pos.getY(),pos.getX());
     }
 
     private static List<AltarLevelData> readLevels(BufferedReader reader) throws IOException{
@@ -147,7 +192,7 @@ public class AltarConstructionData {
         return readPos;
     }
 
-    private static enum AltarReadingState{
+    private enum AltarReadingState{
         NEED_LEVEL_NUM,
         NEED_MAGIC_MARKER,
         READING_MAGIC,
