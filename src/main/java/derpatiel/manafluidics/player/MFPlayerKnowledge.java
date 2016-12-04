@@ -13,12 +13,14 @@ import java.util.Map;
 
 public class MFPlayerKnowledge {
 
+    private static final float[] manaRegenByLevel = new float[]{0.0f,0.05f, 0.1f, 0.15f, 0.2f};
     private static final int[] maxManaByLevel = new int[]{0,100,200,300,400};
 
     private Map<KnowledgeCategory,Boolean> knowledgeMap;
+
     private AltarType lastUsedAltar;
     private int playerLevel=0;
-    private int currentMana;
+    private float currentMana;
     private int maxMana;
 
 
@@ -140,5 +142,9 @@ public class MFPlayerKnowledge {
         if(hasKnowledge(KnowledgeCategory.MFBOSS_KILLED))
             level++;
         return level;
+    }
+
+    public void tick(){
+      currentMana=Math.min(currentMana+manaRegenByLevel[playerLevel],maxMana);
     }
 }
