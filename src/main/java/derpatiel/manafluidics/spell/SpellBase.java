@@ -3,6 +3,8 @@ package derpatiel.manafluidics.spell;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -34,11 +36,48 @@ public abstract class SpellBase {
                 return false;
         }
         MFPlayerKnowledge playerData = PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer);
-        if(!worldIn.isRemote && ((fromItem || playerData.canCast(this)) && doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).isSpellBoosted(spellAttributes),parameters))){
-            playerData.spellCast(this,fromItem);
+        if(!worldIn.isRemote
+                && (fromItem || playerData.canCast(this))
+                && playerHasRequiredMaterials(castingPlayer)){
+            boolean casted = doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).isSpellBoosted(spellAttributes),parameters);
+            if(casted) {
+                playerData.spellCast(this, fromItem);
+                if(!castingPlayer.isCreative()) {
+                    consumeRequiredMaterials(castingPlayer);
+                }
+            }
             return true;
         }
         return false;
+    }
+
+    public ItemStack getConsumedComponent(){
+        return null;
+    }
+
+    private boolean playerHasRequiredMaterials(EntityPlayer castingPlayer){
+        ItemStack component = getConsumedComponent();
+        if(component==null || castingPlayer.isCreative())
+            return true;
+        for(int slot=0;slot<castingPlayer.inventory.getSizeInventory();slot++) {
+            ItemStack stack = castingPlayer.inventory.getStackInSlot(slot);
+            if(stack!=null && stack.isItemEqual(component))
+                return true;
+        }
+        return false;
+    }
+
+    private void consumeRequiredMaterials(EntityPlayer castingPlayer) {
+        ItemStack component = getConsumedComponent();
+        if (component == null)
+            return;
+        for (int slot = 0; slot < castingPlayer.inventory.getSizeInventory(); slot++) {
+            ItemStack stack = castingPlayer.inventory.getStackInSlot(slot);
+            if (stack != null && stack.isItemEqual(component)) {
+                castingPlayer.inventory.decrStackSize(slot, 1);
+                return;
+            }
+        }
     }
 
     public abstract boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted,List<SpellParameterChoices> parameters);

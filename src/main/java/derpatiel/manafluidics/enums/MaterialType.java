@@ -6,7 +6,11 @@ public enum MaterialType implements IStringSerializable {
     CRYSTAL(0, "crystal"),
     OBSIDIAN(1, "obsidian"),
     IRON(2,"iron"),
-    GOLD(3,"gold");
+    GOLD(3,"gold"),
+    REDSTONE(4,"redstone"),
+    DIAMOND(5,"diamond"),
+    LAPIS(6,"lapis")
+    ;
 
     private final int ID;
     private final String name;

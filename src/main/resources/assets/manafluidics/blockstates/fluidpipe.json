@@ -70,6 +70,21 @@
             	"textures": {
                   "all": "manafluidics:blocks/pipe_gold"
             	}
+            },
+            "diamond": {
+                "textures": {
+                    "all": "manafluidics:blocks/pipe_diamond"
+                }
+            },
+            "redstone": {
+                "textures": {
+                    "all": "manafluidics:blocks/pipe_redstone"
+                }
+            },
+            "lapis": {
+                "textures": {
+                    "all": "manafluidics:blocks/pipe_lapis"
+                }
             }
         }
     }

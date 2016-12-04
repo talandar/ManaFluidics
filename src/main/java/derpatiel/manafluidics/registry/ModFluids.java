@@ -27,6 +27,9 @@ public class ModFluids {
     public static Fluid moltenGold;
     public static Fluid energizedMana;
     public static Fluid crystalIron;
+    public static Fluid moltenDiamond;
+    public static Fluid moltenLapis;
+    public static Fluid moltenRedstone;
 
     public static MFBlockFluid reactiveManaBlockFluid;
     public static MFBlockFluid moltenCrystalBlockFluid;
@@ -34,6 +37,9 @@ public class ModFluids {
     public static MFBlockFluid moltenGoldBlockFluid;
     public static MFBlockFluid energizedManaBlockFluid;
     public static MFBlockFluid crystalIronBlockFluid;
+    public static MFBlockFluid moltenDiamondBlockFluid;
+    public static MFBlockFluid moltenLapisBlockFluid;
+    public static MFBlockFluid moltenRedstoneBlockFluid;
 
 
 
@@ -63,6 +69,9 @@ public class ModFluids {
         crystalIron = registerFluid("crystaliron",15,1000,4000);
         moltenGold = registerFluid("moltengold",15,1000,4000);
         energizedMana = registerFluid("energizedmana",15,1000,4000);
+        moltenDiamond = registerFluid("moltendiamond",15,1000,4000);
+        moltenRedstone = registerFluid("moltenredstone",15,1000,4000);
+        moltenLapis = registerFluid("moltenlapis",15,1000,4000);
 
 
         reactiveManaBlockFluid = registerBlockFluid(reactiveMana, MapColor.LAPIS, 2);
@@ -71,6 +80,9 @@ public class ModFluids {
         moltenGoldBlockFluid = registerBlockFluid(moltenGold, MapColor.GOLD, 2);
         energizedManaBlockFluid = registerBlockFluid(energizedMana, MapColor.CYAN, 7);
         crystalIronBlockFluid = registerBlockFluid(crystalIron, MapColor.RED, 4);
+        moltenDiamondBlockFluid = registerBlockFluid(moltenDiamond, MapColor.DIAMOND, 6);
+        moltenRedstoneBlockFluid = registerBlockFluid(moltenRedstone, MapColor.RED, 7);
+        moltenLeadBlockFluid = registerBlockFluid(moltenLapis, MapColor.BLUE, 3);
 
         moltenCopper= registerCompatFluid("moltencopper");
         moltenTin= registerCompatFluid("moltentin");

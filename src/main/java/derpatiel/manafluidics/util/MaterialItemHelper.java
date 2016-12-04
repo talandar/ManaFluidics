@@ -12,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.network.internal.HandshakeCompletionHandler;
+import org.omg.DynamicAny.DynEnum;
 
 import java.util.*;
 
@@ -47,16 +49,25 @@ public class MaterialItemHelper {
         registerMaterialFluid(FluidRegistry.LAVA, MaterialType.OBSIDIAN);
         registerMaterialFluid(ModFluids.moltenIron, MaterialType.IRON);
         registerMaterialFluid(ModFluids.moltenGold, MaterialType.GOLD);
+        registerMaterialFluid(ModFluids.moltenRedstone, MaterialType.REDSTONE);
+        registerMaterialFluid(ModFluids.moltenDiamond, MaterialType.DIAMOND);
+        registerMaterialFluid(ModFluids.moltenLapis,MaterialType.LAPIS);
 
         sheetResourceLocation.put(MaterialType.CRYSTAL, "blocks/sheet_crystal");
         sheetResourceLocation.put(MaterialType.GOLD, "blocks/gold_block");
         sheetResourceLocation.put(MaterialType.IRON, "blocks/iron_block");
         sheetResourceLocation.put(MaterialType.OBSIDIAN, "blocks/obsidian");
+        sheetResourceLocation.put(MaterialType.DIAMOND, "blocks/diamond_block");
+        sheetResourceLocation.put(MaterialType.LAPIS, "blocks/lapis_block");
+        sheetResourceLocation.put(MaterialType.REDSTONE, "blocks/redstone_block");
 
         sheetResourceDomain.put(MaterialType.CRYSTAL, ManaFluidics.MODID);
         sheetResourceDomain.put(MaterialType.GOLD, "minecraft");
         sheetResourceDomain.put(MaterialType.IRON, "minecraft");
-        sheetResourceDomain.put(MaterialType.OBSIDIAN, "minecraft");
+        sheetResourceDomain.put(MaterialType.OBSIDIAN, ManaFluidics.MODID);
+        sheetResourceDomain.put(MaterialType.DIAMOND, "minecraft");
+        sheetResourceDomain.put(MaterialType.LAPIS, "minecraft");
+        sheetResourceDomain.put(MaterialType.REDSTONE, "minecraft");
 
         /*
         200ticks/smelt for ores.  smelt time proportional to output quantity (100ticks/ingot)
@@ -79,6 +90,12 @@ public class MaterialItemHelper {
 
         meltables.put(new ItemStack(Items.IRON_INGOT),new MeltingInformation(new FluidStack(ModFluids.moltenIron,500)));
         meltables.put(new ItemStack(Items.GOLD_INGOT),new MeltingInformation(new FluidStack(ModFluids.moltenGold,500)));
+        meltables.put(new ItemStack(Blocks.REDSTONE_BLOCK), new MeltingInformation(new FluidStack(ModFluids.moltenRedstone,4500)));
+        meltables.put(new ItemStack(Items.REDSTONE), new MeltingInformation(new FluidStack(ModFluids.moltenRedstone,500)));
+        meltables.put(new ItemStack(Blocks.DIAMOND_BLOCK), new MeltingInformation(new FluidStack(ModFluids.moltenDiamond,4500)));
+        meltables.put(new ItemStack(Items.DIAMOND), new MeltingInformation(new FluidStack(ModFluids.moltenDiamond,500)));
+        meltables.put(new ItemStack(Blocks.LAPIS_BLOCK), new MeltingInformation(new FluidStack(ModFluids.moltenLapis,4500)));
+        meltables.put(new ItemStack(Items.DYE,1, EnumDyeColor.BLUE.getDyeDamage()), new MeltingInformation(new FluidStack(ModFluids.moltenLapis,500)));
 
         for(MaterialType type : MaterialType.VALUES) {
             meltables.put(getSheet(type),new MeltingInformation(new FluidStack(productFluidMap.get(type),250)));
@@ -92,6 +109,9 @@ public class MaterialItemHelper {
         blockMoldItems.put(new FluidStack(ModFluids.moltenIron,4500), new ItemStack(Blocks.IRON_BLOCK));
         blockMoldItems.put(new FluidStack(ModFluids.moltenCrystal,4500), new ItemStack(ModBlocks.crystalBlock));
         blockMoldItems.put(new FluidStack(ModFluids.crystalIron,4500), new ItemStack(ModBlocks.crystallineIronBlock));
+        blockMoldItems.put(new FluidStack(ModFluids.moltenRedstone,4500), new ItemStack(Blocks.REDSTONE_BLOCK));
+        blockMoldItems.put(new FluidStack(ModFluids.moltenDiamond,4500), new ItemStack(Blocks.DIAMOND_BLOCK));
+        blockMoldItems.put(new FluidStack(ModFluids.moltenLapis,4500), new ItemStack(Blocks.LAPIS_BLOCK));
 
         Map<FluidStack,ItemStack> ingotMoldItems = new HashMap<>();
         ingotMoldItems.put(new FluidStack(ModFluids.moltenGold,500), new ItemStack(Items.GOLD_INGOT));
@@ -100,6 +120,8 @@ public class MaterialItemHelper {
 
         Map<FluidStack,ItemStack> gemMoldItems = new HashMap<>();
         gemMoldItems.put(new FluidStack(ModFluids.moltenCrystal,500), new ItemStack(ModItems.manaCrystal));
+        gemMoldItems.put(new FluidStack(ModFluids.moltenDiamond,500), new ItemStack(Items.DIAMOND));
+        gemMoldItems.put(new FluidStack(ModFluids.moltenLapis,500), new ItemStack(Items.DYE,1, EnumDyeColor.BLUE.getDyeDamage()));
 
         castingProducts.put((MFMoldItem)ModItems.block_mold,blockMoldItems);
         castingProducts.put((MFMoldItem)ModItems.ingot_mold,ingotMoldItems);

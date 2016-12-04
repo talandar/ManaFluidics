@@ -1,0 +1,6 @@
+{
+    "parent":"manafluidics:block/panes_inventory",
+    "textures":{
+		"all":"blocks/diamond_block"
+	}
+}

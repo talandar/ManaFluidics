@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.spell.cantrip;
 
 import derpatiel.manafluidics.registry.ModFluids;
+import derpatiel.manafluidics.registry.ModItems;
 import derpatiel.manafluidics.spell.BlockTargetedSpell;
 import derpatiel.manafluidics.spell.SpellAttribute;
 import derpatiel.manafluidics.spell.SpellParameterChoices;
@@ -9,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
@@ -20,6 +22,11 @@ import java.util.List;
 public class CreateMana extends BlockTargetedSpell {
     public CreateMana() {
         super("createmana",0, 5, SpellAttribute.CONJURATION);
+    }
+
+    @Override
+    public ItemStack getConsumedComponent() {
+        return new ItemStack(ModItems.manaCrystal,1);
     }
 
     @Override

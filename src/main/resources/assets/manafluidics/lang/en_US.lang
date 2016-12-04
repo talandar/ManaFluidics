@@ -21,21 +21,34 @@ item.wire.crystal.name=Crystalline Fiber
 item.wire.obsidian.name=Obsidian Wire
 item.wire.gold.name=Gold Wire
 item.wire.iron.name=Iron Wire
+item.wire.diamond.name=Diamond Filament
+item.wire.lapis.name=Lapis Fiber
+item.wire.redstone.name=Redstone Fiber
+
 
 item.controlcircuit.crystal.name=Crystalline Control Circuit
 item.controlcircuit.obsidian.name=Obsidian Control Circuit
 item.controlcircuit.gold.name=Gold Control Circuit
 item.controlcircuit.iron.name=Iron Control Circuit
+item.controlcircuit.diamond.name=Diamond Control Circuit
+item.controlcircuit.redstone.name=Redstone Control Circuit
+item.controlcircuit.lapis.name=Lapis Control Circuit
 
 tile.fluidpipe.crystal.name=Crystal Pipe
 tile.fluidpipe.obsidian.name=Obsidian Pipe
 tile.fluidpipe.gold.name=Gold Pipe
 tile.fluidpipe.iron.name=Iron Pipe
+tile.fluidpipe.redstone.name=Redstone Pipe
+tile.fluidpipe.diamond.name=Diamond Pipe
+tile.fluidpipe.lapis.name=Lapis Pipe
 
 tile.sheet.crystal.name=Crystal Sheet
 tile.sheet.obsidian.name=Obsidian Sheet
 tile.sheet.iron.name=Iron Sheet
 tile.sheet.gold.name=Gold Sheet
+tile.sheet.diamond.name=Diamond Sheet
+tile.sheet.lapis.name=Lapis Lazuli Sheet
+tile.sheet.redstone.name=Redstone Sheet
 
 fluid.reactivemana=Reactive Mana
 fluid.moltencrystal=Molten Crystal
@@ -43,6 +56,9 @@ fluid.molteniron=Molten Iron
 fluid.moltengold=Molten Gold
 fluid.energizedmana=Energized Mana
 fluid.crystaliron=Crystalline Steel
+fluid.moltendiamond=Molten Diamond
+fluid.moltenredstone=Fluidic Redstone
+fluid.moltenlapis=Molten Lapis Lazuli
 
 fluid.moltensilver=Molten Silver
 fluid.moltenaluminum=Molten Aluminum
@@ -57,6 +73,9 @@ tile.molteniron.name=Molten Iron
 tile.moltengold.name=Molten Gold
 tile.energizedmana.name=Energized Mana
 tile.crystaliron.name=Crystalline Steel
+tile.moltendiamond.name=Molten Diamond
+tile.moltenredstone.name=Fluidic Redstone
+tile.moltenlapis.name=Molten Lapis Lazuli
 
 tile.moltensilver.name=Molten Silver
 tile.moltenaluminum.name=Molten Aluminum
