@@ -34,6 +34,7 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -43,6 +44,11 @@ import java.util.function.Predicate;
 public class EventHandler {
 
     public static final EventHandler eventHandler = new EventHandler();
+
+    @SubscribeEvent
+    public void onWorldTick(TickEvent.PlayerTickEvent event){
+        PlayerKnowledgeHandler.getPlayerKnowledge(event.player).tick();
+    }
 
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event){
