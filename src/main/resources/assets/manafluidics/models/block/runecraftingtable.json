@@ -1,0 +1,11 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "up": "manafluidics:blocks/runecrafting_top",
+        "down": "minecraft:blocks/planks_oak",
+        "north": "manafluidics:blocks/runecrafting_side",
+        "south": "manafluidics:blocks/runecrafting_side",
+        "east": "manafluidics:blocks/runecrafting_front",
+        "west": "manafluidics:blocks/runecrafting_front"
+    }
+}
