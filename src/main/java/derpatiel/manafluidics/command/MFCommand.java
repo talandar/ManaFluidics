@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.command;
 
 import derpatiel.manafluidics.enums.KnowledgeCategory;
+import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.LOG;
@@ -25,6 +26,7 @@ public class MFCommand extends CommandBase{
                 "Commands:",
                 "manafluidics <playerName> clear",
                 "    Clears all player knowledge",
+                "manafluidics <playerName> attributes",
                 "manafluidics attributes",
                 "    list attributes that can be added or removed",
                 "manafluidics <playername> <give|remove> <attribute>",
@@ -79,6 +81,11 @@ public class MFCommand extends CommandBase{
         }else if(args.length==1){
             if(args[0].equalsIgnoreCase("clear")){
                 PlayerKnowledgeHandler.getPlayerKnowledge(player).clearKnowledge();
+            }else if(args[0].equalsIgnoreCase("attributes")){
+                MFPlayerKnowledge knowledge = PlayerKnowledgeHandler.getPlayerKnowledge(player);
+                for(KnowledgeCategory cat : KnowledgeCategory.VALUES){
+                    ChatUtil.sendChat(sender,"player "+player.getName()+" "+(knowledge.hasKnowledge(cat) ? "has" : "does not have")+" knowledge "+cat.name());
+                }
             }//other no-extra-arg stuff
         }else if(args.length==2){
             if(args[0].equalsIgnoreCase("give")){
@@ -129,6 +136,25 @@ public class MFCommand extends CommandBase{
 
     @Override
     public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+        for(int i=0;i<args.length;i++){
+            LOG.info(i+": "+args[i]);
+        }
+        if(args.length==1){
+            String[] users = server.getAllUsernames();
+            String[] validCompletions = new String[users.length+2];
+            for(int i=0;i<users.length;i++){
+                validCompletions[i]=users[i];
+            }
+            validCompletions[validCompletions.length-2]="help";
+            validCompletions[validCompletions.length-1]="attributes";
+            return CommandBase.getListOfStringsMatchingLastWord(args,validCompletions);
+        }
+        if(args.length==2){
+            return CommandBase.getListOfStringsMatchingLastWord(args,"clear","give","remove","attributes");
+        }if(args.length==3 && !args[1].equals("clear") && !args[1].equals("attributes")){
+            return CommandBase.getListOfStringsMatchingLastWord(args,buildAttributeArray());
+        }
+
         return super.getTabCompletionOptions(server, sender, args, pos);
     }
 
@@ -136,4 +162,13 @@ public class MFCommand extends CommandBase{
     public boolean isUsernameIndex(String[] args, int index) {
         return index==0;
     }
+
+    private String[] buildAttributeArray(){
+        String[] attributes = new String[KnowledgeCategory.VALUES.length];
+        for(KnowledgeCategory cat : KnowledgeCategory.VALUES){
+            attributes[cat.ordinal()]=cat.name();
+        }
+        return attributes;
+    }
+
 }
