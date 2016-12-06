@@ -17,6 +17,7 @@ import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankControlle
 import derpatiel.manafluidics.block.pipe.PipeBlock;
 import derpatiel.manafluidics.block.portableTank.PortableTank;
 import derpatiel.manafluidics.block.portableTank.PortableTankItemBlock;
+import derpatiel.manafluidics.block.runecraftingtable.RunecraftingTable;
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.util.LOG;
 import net.minecraft.block.Block;
@@ -50,6 +51,7 @@ public class ModBlocks {
     public static MFBlock fluidPump;
     public static MFBlock fluidPipe;
     public static MFBlock summonedLight;
+    public static MFBlock runecraftingTable;
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
@@ -74,6 +76,7 @@ public class ModBlocks {
         fluidPump = register(new FluidPump("fluidpump",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         fluidPipe = registerPipe((PipeBlock)new PipeBlock("fluidpipe", Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         summonedLight = register(new SummonedLight("summonedlight",Material.CIRCUITS,0.0f,0.0f));
+        runecraftingTable = register(new RunecraftingTable("runecraftingtable",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

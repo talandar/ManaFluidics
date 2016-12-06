@@ -25,6 +25,7 @@ import derpatiel.manafluidics.block.pipe.PipeRenderer;
 import derpatiel.manafluidics.block.pipe.PipeTileEntity;
 import derpatiel.manafluidics.block.portableTank.PortableTankRenderer;
 import derpatiel.manafluidics.block.portableTank.PortableTankTileEntity;
+import derpatiel.manafluidics.block.runecraftingtable.RunecraftingTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -51,6 +52,7 @@ public class ModTileEntities {
         registerTileEntity(AlloyTankTileEntity.class);
         registerTileEntity(FluidPumpTileEntity.class);
         registerTileEntity(PipeTileEntity.class);
+        registerTileEntity(RunecraftingTileEntity.class);
     }
 
     @SideOnly(Side.CLIENT)
