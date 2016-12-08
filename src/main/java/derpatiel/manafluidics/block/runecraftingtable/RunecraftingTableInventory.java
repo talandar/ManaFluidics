@@ -9,8 +9,8 @@ public class RunecraftingTableInventory extends ItemStackHandler {
         super(11);
     }
 
-    private static final int BASE_SLOT=9;
-    private static final int OUTPUT_SLOT=10;
+    public static final int BASE_SLOT=9;
+    public static final int OUTPUT_SLOT=10;
 
     @Override
     protected int getStackLimit(int slot, ItemStack stack) {

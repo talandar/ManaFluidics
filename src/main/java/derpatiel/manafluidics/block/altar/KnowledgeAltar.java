@@ -1,10 +1,12 @@
 package derpatiel.manafluidics.block.altar;
 
+import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.enums.AltarType;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
+import derpatiel.manafluidics.registry.ModGUIs;
 import derpatiel.manafluidics.registry.ModItems;
 import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.TextHelper;
@@ -126,6 +128,7 @@ public class KnowledgeAltar extends MFTileBlock {
                 if (playerKnowledge.hasKnowledge(KnowledgeCategory.ALTAR_CRAFTED)) {
                     TileEntity tileentity = worldIn.getTileEntity(pos);
                     if (tileentity instanceof KnowledgeAltarTileEntity) {
+                        playerIn.openGui(ManaFluidics.instance, ModGUIs.KNOWLEDGE_ALTAR_ID,worldIn,pos.getX(),pos.getY(), pos.getZ());
                         ChatUtil.sendNoSpam(playerIn, TextHelper.localize("DEBUG: You understand the purpose of the altar..."));
                         KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity) tileentity);
                         if (te == null) {

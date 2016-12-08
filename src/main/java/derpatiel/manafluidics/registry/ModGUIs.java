@@ -1,5 +1,8 @@
 package derpatiel.manafluidics.registry;
 
+import derpatiel.manafluidics.block.altar.KAltarContainer;
+import derpatiel.manafluidics.block.altar.KAltarGui;
+import derpatiel.manafluidics.block.altar.KnowledgeAltarTileEntity;
 import derpatiel.manafluidics.block.castingchamber.CastingChamberContainer;
 import derpatiel.manafluidics.block.castingchamber.CastingChamberGui;
 import derpatiel.manafluidics.block.castingchamber.CastingChamberTileEntity;
@@ -12,6 +15,9 @@ import derpatiel.manafluidics.block.multiTank.alloyTank.AlloyTankTileEntity;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankContainer;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankGui;
 import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntity;
+import derpatiel.manafluidics.block.runecraftingtable.RunecraftingTableContainer;
+import derpatiel.manafluidics.block.runecraftingtable.RunecraftingTableGui;
+import derpatiel.manafluidics.block.runecraftingtable.RunecraftingTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -32,6 +38,12 @@ public class ModGUIs implements IGuiHandler {
     public static final int ALLOY_TANK_ID = 4;
     public static final String ALLOY_TANK_LOC = "textures/gui/alloytank.png";
 
+    public static final int KNOWLEDGE_ALTAR_ID = 4;
+    public static final String KNOWLEDGE_ALTAR_LOC = "textures/gui/knowledgealtar.png";
+
+    public static final int RUNECRAFTING_TABLE_ID = 5;
+    public static final String RUNECRAFTING_TABLE_LOC = "textures/gui/runecraftingtable.png";
+
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         BlockPos pos = new BlockPos(x, y, z);
@@ -47,6 +59,12 @@ public class ModGUIs implements IGuiHandler {
         }else if(te instanceof AlloyTankTileEntity){
             AlloyTankTileEntity containerTileEntity = (AlloyTankTileEntity)te;
             return new AlloyTankContainer(player.inventory,containerTileEntity);
+        }else if(te instanceof KnowledgeAltarTileEntity){
+            KnowledgeAltarTileEntity containerTileEntity = (KnowledgeAltarTileEntity)te;
+            return new KAltarContainer(containerTileEntity);
+        }else if(te instanceof RunecraftingTileEntity){
+            RunecraftingTileEntity containerTileEntity = (RunecraftingTileEntity)te;
+            return new RunecraftingTableContainer(player.inventory,containerTileEntity);
         }
         return null;
     }
@@ -67,6 +85,12 @@ public class ModGUIs implements IGuiHandler {
         }else if(te instanceof AlloyTankTileEntity){
             AlloyTankTileEntity containerTileEntity = (AlloyTankTileEntity)te;
             return new AlloyTankGui(player,containerTileEntity, new AlloyTankContainer(player.inventory,containerTileEntity));
+        }else if(te instanceof KnowledgeAltarTileEntity) {
+            KnowledgeAltarTileEntity containerTileEntity = (KnowledgeAltarTileEntity) te;
+            return new KAltarGui(containerTileEntity, new KAltarContainer((containerTileEntity)));
+        }else if(te instanceof RunecraftingTileEntity) {
+            RunecraftingTileEntity containerTileEntity = (RunecraftingTileEntity) te;
+            return new RunecraftingTableGui(containerTileEntity, new RunecraftingTableContainer(player.inventory,containerTileEntity));
         }
         return null;
     }

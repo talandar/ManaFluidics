@@ -40,7 +40,7 @@ public class ModCrafting {
                 'C', MaterialItemHelper.getSheet(MaterialType.CRYSTAL));
 
         for(MaterialType type : MaterialType.VALUES) {
-            GameRegistry.addRecipe(MaterialItemHelper.getPipe(type,1),
+            GameRegistry.addRecipe(MaterialItemHelper.getPipe(type,4),
                     "MGM",
                     'M',MaterialItemHelper.getSheet(type,1),
                     'G', Blocks.GLASS);

@@ -26,6 +26,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
@@ -99,5 +100,21 @@ public class RunecraftingTileEntity extends TileEntity implements ITickable {
             }
             hadPistonHead = isPistonAboveExtendedHead;
         }
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+            return true;
+        }
+        return super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+       if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+           return (T)craftingInventory;
+        }
+        return super.getCapability(capability, facing);
     }
 }

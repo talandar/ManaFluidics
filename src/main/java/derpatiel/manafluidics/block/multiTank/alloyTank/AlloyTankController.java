@@ -42,7 +42,7 @@ public class AlloyTankController extends MFTankControllerBlock {
             if (tileentity instanceof AlloyTankTileEntity)
             {
                 if(((AlloyTankTileEntity)tileentity).isFormed()) {
-                    playerIn.openGui(ManaFluidics.instance, ModGUIs.SMELTING_TANK_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                    playerIn.openGui(ManaFluidics.instance, ModGUIs.ALLOY_TANK_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
                 }
             }
 
