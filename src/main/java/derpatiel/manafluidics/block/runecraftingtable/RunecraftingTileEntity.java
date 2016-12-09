@@ -2,6 +2,8 @@ package derpatiel.manafluidics.block.runecraftingtable;
 
 import derpatiel.manafluidics.block.pipe.PipeBlock;
 import derpatiel.manafluidics.capability.item.SideWrappingItemHandler;
+import derpatiel.manafluidics.craft.RuneCraftingHandler;
+import derpatiel.manafluidics.craft.RunecraftingRecipe;
 import derpatiel.manafluidics.network.FluidChangedPacket;
 import derpatiel.manafluidics.network.MFPacketHandler;
 import derpatiel.manafluidics.util.LOG;
@@ -86,7 +88,13 @@ public class RunecraftingTileEntity extends TileEntity implements ITickable {
     }
 
     public void craftOperation(){
-        LOG.info("CRAFT");
+        RunecraftingRecipe recipe = RuneCraftingHandler.getMatchingRecipe(this.craftingInventory);
+                LOG.info("CRAFT");
+        if(recipe!=null){
+            LOG.info(recipe.toString());
+        }else{
+            LOG.info("no recipe");
+        }
     }
 
     @Override

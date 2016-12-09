@@ -2,6 +2,8 @@ package derpatiel.manafluidics.registry;
 
 import com.google.common.collect.Lists;
 import derpatiel.manafluidics.UnfiredMoldRecipe;
+import derpatiel.manafluidics.craft.RuneCraftingHandler;
+import derpatiel.manafluidics.craft.RunecraftingRecipe;
 import derpatiel.manafluidics.enums.MaterialType;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.init.Blocks;
@@ -44,6 +46,19 @@ public class ModCrafting {
                     "MGM",
                     'M',MaterialItemHelper.getSheet(type,1),
                     'G', Blocks.GLASS);
+
+            RuneCraftingHandler.registerRecipe(RunecraftingRecipe.createRecipe(MaterialItemHelper.getCircuit(type,1),MaterialItemHelper.getSheet(MaterialType.IRON),
+                    new ItemStack[]{
+                        new ItemStack(Items.REDSTONE),MaterialItemHelper.getWire(type),new ItemStack(Items.REDSTONE),
+                        MaterialItemHelper.getWire(type),new ItemStack(Items.DIAMOND),MaterialItemHelper.getWire(type),
+                        new ItemStack(Items.REDSTONE),MaterialItemHelper.getWire(type),new ItemStack(Items.REDSTONE),
+                    }));
+            RuneCraftingHandler.registerRecipe(RunecraftingRecipe.createRecipe(MaterialItemHelper.getCircuit(type,1),MaterialItemHelper.getSheet(MaterialType.IRON),
+                    new ItemStack[]{
+                            new ItemStack(Items.REDSTONE),   null, new ItemStack(Items.REDSTONE),
+                            MaterialItemHelper.getWire(type),null, MaterialItemHelper.getWire(type),
+                            new ItemStack(Items.REDSTONE),   null, new ItemStack(Items.REDSTONE),
+                    }));
             GameRegistry.addRecipe(MaterialItemHelper.getCircuit(type,1),
                     "RWR",
                     "WDW",

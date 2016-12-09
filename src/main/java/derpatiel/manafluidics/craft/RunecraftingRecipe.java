@@ -29,7 +29,7 @@ public class RunecraftingRecipe {
         recipe.runeBase = runeBase.copy();
         ItemStack[] inputs = new ItemStack[9];
         for(int i=0;i<inputs.length;i++){
-            inputs[i]=grid[i].copy();
+            inputs[i]=grid[i]!=null ? grid[i].copy() : null;
         }
         recipe.gridInputs = inputs;
         return recipe;
@@ -42,16 +42,28 @@ public class RunecraftingRecipe {
     public ItemStack[] getInputGrid(){
         ItemStack[] inputs = new ItemStack[9];
         for(int i=0;i<inputs.length;i++){
-            inputs[i]=gridInputs[i].copy();
+            inputs[i]=gridInputs[i]!=null ? gridInputs[i].copy() : null;
         }
         return inputs;
     }
 
-    public ItemStack getBaseSheet(){
-        return runeBase.copy();
-    }
-
     public MaterialType getSheetType(){
         return MaterialType.VALUES[runeBase.getMetadata()];
+    }
+
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("Craft ").append(output.toString()).append(" with \r\n");
+        int slot = 0;
+        for(int i=0;i<3;i++){
+            String sep = "";
+            for(int j=0;j<3;j++){
+                builder.append(sep).append(getInputGrid()[slot]);
+                sep = ", ";
+                slot++;
+            }
+            builder.append("\r\n");
+        }
+        return builder.toString();
     }
 }

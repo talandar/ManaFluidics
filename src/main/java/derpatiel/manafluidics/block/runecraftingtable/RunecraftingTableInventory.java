@@ -1,5 +1,9 @@
 package derpatiel.manafluidics.block.runecraftingtable;
 
+import derpatiel.manafluidics.block.SheetBlock;
+import derpatiel.manafluidics.enums.MaterialType;
+import derpatiel.manafluidics.registry.ModBlocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -24,5 +28,15 @@ public class RunecraftingTableInventory extends ItemStackHandler {
     protected void onContentsChanged(int slot) {
         super.onContentsChanged(slot);
         tile.markDirty();
+    }
+
+    public MaterialType getBaseType(){
+        ItemStack stack = getStackInSlot(BASE_SLOT);
+        if(stack!=null
+                && stack.getItem() instanceof ItemBlock
+                && ((ItemBlock)stack.getItem()).getBlock() instanceof SheetBlock){
+            return MaterialType.VALUES[stack.getMetadata()];
+        }
+        return null;
     }
 }

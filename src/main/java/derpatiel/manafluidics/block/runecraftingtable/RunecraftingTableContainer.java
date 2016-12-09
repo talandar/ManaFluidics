@@ -77,7 +77,7 @@ public class RunecraftingTableContainer extends Container {
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-                if (index < 2) {
+                if (index < 10) {
                     if (!this.mergeItemStack(itemstack1, 1, this.inventorySlots.size(), true)) {
                         return null;
                     }
