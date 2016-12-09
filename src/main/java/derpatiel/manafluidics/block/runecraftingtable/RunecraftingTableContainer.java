@@ -61,7 +61,7 @@ public class RunecraftingTableContainer extends Container {
             }
         }
         //add base slot
-        addSlotToContainer(new SlotItemHandler(inventory, slotIndex,48,75));
+        addSlotToContainer(new SheetOnlyItemSlot(inventory, slotIndex,48,75));
         slotIndex++;
         //add output slot
         addSlotToContainer(new PullOnlySlot(inventory, slotIndex, 124,45));

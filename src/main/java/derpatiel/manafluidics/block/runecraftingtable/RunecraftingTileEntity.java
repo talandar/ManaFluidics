@@ -38,22 +38,25 @@ import java.util.List;
 public class RunecraftingTileEntity extends TileEntity implements ITickable {
 
     private boolean hadPistonHead;
-    private IItemHandler craftingInventory = new RunecraftingTableInventory();
+    private RunecraftingTableInventory craftingInventory;
 
     public RunecraftingTileEntity(){
         hadPistonHead=false;
+         craftingInventory = new RunecraftingTableInventory(this);
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
         hadPistonHead = compound.getBoolean("pistonAbove");
+        craftingInventory.deserializeNBT(compound.getCompoundTag("inventory"));
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
         compound.setBoolean("pistonAbove",hadPistonHead);
+        compound.setTag("inventory",craftingInventory.serializeNBT());
         return compound;
     }
 

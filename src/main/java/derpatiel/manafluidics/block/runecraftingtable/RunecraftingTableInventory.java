@@ -5,8 +5,11 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class RunecraftingTableInventory extends ItemStackHandler {
 
-    public RunecraftingTableInventory(){
+    RunecraftingTileEntity tile;
+
+    public RunecraftingTableInventory(RunecraftingTileEntity te){
         super(11);
+        this.tile = te;
     }
 
     public static final int BASE_SLOT=9;
@@ -17,4 +20,9 @@ public class RunecraftingTableInventory extends ItemStackHandler {
         return 1;
     }
 
+    @Override
+    protected void onContentsChanged(int slot) {
+        super.onContentsChanged(slot);
+        tile.markDirty();
+    }
 }
