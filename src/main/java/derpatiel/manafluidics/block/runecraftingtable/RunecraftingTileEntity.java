@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.block.runecraftingtable;
 
 import derpatiel.manafluidics.block.pipe.PipeBlock;
+import derpatiel.manafluidics.capability.item.SideWrappingItemHandler;
 import derpatiel.manafluidics.network.FluidChangedPacket;
 import derpatiel.manafluidics.network.MFPacketHandler;
 import derpatiel.manafluidics.util.LOG;
