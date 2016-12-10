@@ -70,39 +70,41 @@ public class FluidPumpTileEntity extends TileEntity implements ITickable {
 
     @Override
     public void update() {
-        boolean hasRedstone = worldObj.isBlockPowered(getPos());
-        EnumFacing sourceDir = getWorld().getBlockState(getPos()).getValue(FluidPump.DIRECTION);
-        EnumFacing destDir = sourceDir.getOpposite();
-        IFluidHandler sourceHandler = null;
-        IFluidHandler destHandler = null;
-        switch (activationType) {
-            case DISABLED:
-                //NO OP
-                break;
-            case HIGH:
-                if (hasRedstone) {
+        if(!getWorld().isRemote) {
+            boolean hasRedstone = worldObj.isBlockPowered(getPos());
+            EnumFacing sourceDir = getWorld().getBlockState(getPos()).getValue(FluidPump.DIRECTION);
+            EnumFacing destDir = sourceDir.getOpposite();
+            IFluidHandler sourceHandler = null;
+            IFluidHandler destHandler = null;
+            switch (activationType) {
+                case DISABLED:
+                    //NO OP
+                    break;
+                case HIGH:
+                    if (hasRedstone) {
+                        sourceHandler = findHandler(sourceDir);
+                        destHandler = findHandler(destDir);
+                    }
+                    break;
+                case LOW:
+                    if (!hasRedstone) {
+                        sourceHandler = findHandler(sourceDir);
+                        destHandler = findHandler(destDir);
+                    }
+                    break;
+                case IGNORED:
+                    //always do
                     sourceHandler = findHandler(sourceDir);
                     destHandler = findHandler(destDir);
+                    break;
+            }
+            if (sourceHandler != null && destHandler != null) {
+                FluidStack drained = sourceHandler.drain(FLUID_MOVED_PER_TICK, false);
+                int actuallyDrained = destHandler.fill(drained, false);
+                if (actuallyDrained > 0) {
+                    destHandler.fill(drained, true);
+                    sourceHandler.drain(actuallyDrained, true);
                 }
-                break;
-            case LOW:
-                if (!hasRedstone) {
-                    sourceHandler = findHandler(sourceDir);
-                    destHandler = findHandler(destDir);
-                }
-                break;
-            case IGNORED:
-                //always do
-                sourceHandler = findHandler(sourceDir);
-                destHandler = findHandler(destDir);
-                break;
-        }
-        if (sourceHandler != null && destHandler != null) {
-            FluidStack drained = sourceHandler.drain(FLUID_MOVED_PER_TICK, false);
-            int actuallyDrained = destHandler.fill(drained, false);
-            if (actuallyDrained > 0) {
-                destHandler.fill(drained, true);
-                sourceHandler.drain(actuallyDrained, true);
             }
         }
     }

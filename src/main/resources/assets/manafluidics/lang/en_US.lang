@@ -16,6 +16,7 @@ item.block_mold.name=Block Mold
 item.gem_mold.name=Gem Mold
 item.mana_wand.name=Mana Wand
 item.crystal_iron_ingot.name=Crystalline Steel Ingot
+item.redcrystal_gem.name=Redcrystal Gem
 
 item.wire.crystal.name=Crystalline Fiber
 item.wire.obsidian.name=Obsidian Wire
@@ -59,6 +60,7 @@ fluid.crystaliron=Crystalline Steel
 fluid.moltendiamond=Molten Diamond
 fluid.moltenredstone=Fluidic Redstone
 fluid.moltenlapis=Molten Lapis Lazuli
+fluid.redcrystal=Fluidic Redcrystal
 
 fluid.moltensilver=Molten Silver
 fluid.moltenaluminum=Molten Aluminum
@@ -76,6 +78,7 @@ tile.crystaliron.name=Crystalline Steel
 tile.moltendiamond.name=Molten Diamond
 tile.moltenredstone.name=Fluidic Redstone
 tile.moltenlapis.name=Molten Lapis Lazuli
+tile.redcrystal.name=Fluidic Redcrystal
 
 tile.moltensilver.name=Molten Silver
 tile.moltenaluminum.name=Molten Aluminum
@@ -98,6 +101,7 @@ tile.tank_item_valve.name=Item Valve
 tile.tank_heat_valve.name=Heat Connection
 tile.castingchamber.name=Casting Chamber
 tile.crystalblock.name=Crystal Block
+tile.redcrystalblock.name=Redcrystal Block
 tile.crystalline_iron_block.name=Crystalline Steel Block
 tile.alloy_tank_controller.name=Alloying Tank Controller
 tile.knowledgealtar.name=Altar of Knowledge
@@ -110,6 +114,7 @@ jei.manafluidics.recipe.drawnozzle=Drawing Nozzle
 jei.manafluidics.recipe.floattable=Floating Table
 jei.manafluidics.recipe.melting=Foundry Melting
 jei.manafluidics.recipe.castingchamber=Casting Chamber
+jei.manafluidics.recipe.runecrafting=Runecrafting
 
 
 

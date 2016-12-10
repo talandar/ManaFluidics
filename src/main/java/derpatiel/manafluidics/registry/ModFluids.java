@@ -26,21 +26,30 @@ public class ModFluids {
     public static Fluid moltenIron;
     public static Fluid moltenGold;
     public static Fluid energizedMana;
-    public static Fluid crystalIron;
     public static Fluid moltenDiamond;
     public static Fluid moltenLapis;
     public static Fluid moltenRedstone;
+
+    //alloys
+    public static Fluid crystalIron;
+    public static Fluid redCrystal;
 
     public static MFBlockFluid reactiveManaBlockFluid;
     public static MFBlockFluid moltenCrystalBlockFluid;
     public static MFBlockFluid moltenIronBlockFluid;
     public static MFBlockFluid moltenGoldBlockFluid;
     public static MFBlockFluid energizedManaBlockFluid;
-    public static MFBlockFluid crystalIronBlockFluid;
     public static MFBlockFluid moltenDiamondBlockFluid;
     public static MFBlockFluid moltenLapisBlockFluid;
     public static MFBlockFluid moltenRedstoneBlockFluid;
 
+    //alloys
+    public static MFBlockFluid crystalIronBlockFluid;
+    public static MFBlockFluid redCrystaBlockFluid;
+
+    //note to self, uppermost metal ideas:
+    //unobtanium
+    //octiron
 
 
     //compat fluids
@@ -59,19 +68,19 @@ public class ModFluids {
     public static MFBlockFluid moltenSilverBlockFluid;
     public static MFBlockFluid moltenNickelBlockFluid;
 
-
-
     public static void registerFluids() {
 
         reactiveMana = registerFluid("reactivemana",15,10000,6000);
         moltenCrystal = registerFluid("moltencrystal",15,1000,4000);
         moltenIron = registerFluid("molteniron", 15,1000,4000);
-        crystalIron = registerFluid("crystaliron",15,1000,4000);
         moltenGold = registerFluid("moltengold",15,1000,4000);
         energizedMana = registerFluid("energizedmana",15,1000,4000);
         moltenDiamond = registerFluid("moltendiamond",15,1000,4000);
         moltenRedstone = registerFluid("moltenredstone",15,1000,4000);
         moltenLapis = registerFluid("moltenlapis",15,1000,4000);
+
+        crystalIron = registerFluid("crystaliron",15,1000,4000);
+        redCrystal = registerFluid("redcrystal",15,1000,4000);
 
 
         reactiveManaBlockFluid = registerBlockFluid(reactiveMana, MapColor.LAPIS, 2);
@@ -79,10 +88,13 @@ public class ModFluids {
         moltenIronBlockFluid = registerBlockFluid(moltenIron, MapColor.IRON,4);
         moltenGoldBlockFluid = registerBlockFluid(moltenGold, MapColor.GOLD, 2);
         energizedManaBlockFluid = registerBlockFluid(energizedMana, MapColor.CYAN, 7);
-        crystalIronBlockFluid = registerBlockFluid(crystalIron, MapColor.RED, 4);
         moltenDiamondBlockFluid = registerBlockFluid(moltenDiamond, MapColor.DIAMOND, 6);
         moltenRedstoneBlockFluid = registerBlockFluid(moltenRedstone, MapColor.RED, 7);
-        moltenLeadBlockFluid = registerBlockFluid(moltenLapis, MapColor.BLUE, 3);
+        moltenLapisBlockFluid = registerBlockFluid(moltenLapis, MapColor.BLUE, 3);
+
+        crystalIronBlockFluid = registerBlockFluid(crystalIron, MapColor.RED, 4);
+        redCrystaBlockFluid = registerBlockFluid(redCrystal, MapColor.PINK, 5);
+
 
         moltenCopper= registerCompatFluid("moltencopper");
         moltenTin= registerCompatFluid("moltentin");

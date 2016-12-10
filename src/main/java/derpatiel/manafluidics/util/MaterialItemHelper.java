@@ -84,8 +84,10 @@ public class MaterialItemHelper {
         meltables.put(new ItemStack(Blocks.OBSIDIAN), new MeltingInformation(new FluidStack(FluidRegistry.LAVA,1000)));
         meltables.put(new ItemStack(ModBlocks.crystallineIronBlock), new MeltingInformation(new FluidStack(ModFluids.crystalIron,4500)));
         meltables.put(new ItemStack(ModBlocks.crystalBlock), new MeltingInformation(new FluidStack(ModFluids.moltenCrystal,4500)));
+        meltables.put(new ItemStack(ModBlocks.redCrystalBlock), new MeltingInformation(new FluidStack(ModFluids.redCrystal,4500)));
 
         meltables.put(new ItemStack(ModItems.manaCrystal), new MeltingInformation(new FluidStack(ModFluids.moltenCrystal,500)));
+        meltables.put(new ItemStack(ModItems.redcrystal_gem), new MeltingInformation(new FluidStack(ModFluids.redCrystal,500)));
         meltables.put(new ItemStack(ModItems.crystal_iron_ingot),new MeltingInformation(new FluidStack(ModFluids.crystalIron,500)));
 
         meltables.put(new ItemStack(Items.IRON_INGOT),new MeltingInformation(new FluidStack(ModFluids.moltenIron,500)));
@@ -109,6 +111,7 @@ public class MaterialItemHelper {
         blockMoldItems.put(new FluidStack(ModFluids.moltenIron,4500), new ItemStack(Blocks.IRON_BLOCK));
         blockMoldItems.put(new FluidStack(ModFluids.moltenCrystal,4500), new ItemStack(ModBlocks.crystalBlock));
         blockMoldItems.put(new FluidStack(ModFluids.crystalIron,4500), new ItemStack(ModBlocks.crystallineIronBlock));
+        blockMoldItems.put(new FluidStack(ModFluids.redCrystal,4500), new ItemStack(ModBlocks.redCrystalBlock));
         blockMoldItems.put(new FluidStack(ModFluids.moltenRedstone,4500), new ItemStack(Blocks.REDSTONE_BLOCK));
         blockMoldItems.put(new FluidStack(ModFluids.moltenDiamond,4500), new ItemStack(Blocks.DIAMOND_BLOCK));
         blockMoldItems.put(new FluidStack(ModFluids.moltenLapis,4500), new ItemStack(Blocks.LAPIS_BLOCK));
@@ -120,6 +123,7 @@ public class MaterialItemHelper {
 
         Map<FluidStack,ItemStack> gemMoldItems = new HashMap<>();
         gemMoldItems.put(new FluidStack(ModFluids.moltenCrystal,500), new ItemStack(ModItems.manaCrystal));
+        gemMoldItems.put(new FluidStack(ModFluids.redCrystal,500), new ItemStack(ModItems.redcrystal_gem));
         gemMoldItems.put(new FluidStack(ModFluids.moltenDiamond,500), new ItemStack(Items.DIAMOND));
         gemMoldItems.put(new FluidStack(ModFluids.moltenLapis,500), new ItemStack(Items.DYE,1, EnumDyeColor.BLUE.getDyeDamage()));
 
@@ -140,19 +144,19 @@ public class MaterialItemHelper {
         energizedManaRule.output=new FluidStack(ModFluids.energizedMana,1000);
         alloyRules.add(energizedManaRule);
 
-        AlloyFormingRule testRule = new AlloyFormingRule();
-        testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
-        testRule.output = new FluidStack(FluidRegistry.LAVA,1000);
+        AlloyFormingRule redCrystalRule = new AlloyFormingRule();
+        redCrystalRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenRedstone,500),new FluidStack(ModFluids.moltenCrystal,500)};
+        redCrystalRule.output = new FluidStack(ModFluids.redCrystal,1000);
+        alloyRules.add(redCrystalRule);
+
+        //testRule = new AlloyFormingRule();
+        //testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
+        //testRule.output = new FluidStack(FluidRegistry.LAVA,1000);
         //alloyRules.add(testRule);
 
-        testRule = new AlloyFormingRule();
-        testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
-        testRule.output = new FluidStack(FluidRegistry.LAVA,1000);
-        //alloyRules.add(testRule);
-
-        testRule = new AlloyFormingRule();
-        testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
-        testRule.output = new FluidStack(FluidRegistry.LAVA,1000);
+        //testRule = new AlloyFormingRule();
+        //testRule.inputs = new FluidStack[]{new FluidStack(ModFluids.moltenIron,500),new FluidStack(ModFluids.moltenGold,500)};
+        //testRule.output = new FluidStack(FluidRegistry.LAVA,1000);
         //alloyRules.add(testRule);
 
     }

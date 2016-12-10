@@ -47,11 +47,13 @@ public class ModBlocks {
     public static MFBlock castingChamber;
     public static MFBlock knowledgeAltar;
     public static MFBlock alloyTankController;
-    public static MFBlock crystallineIronBlock;
     public static MFBlock fluidPump;
     public static MFBlock fluidPipe;
     public static MFBlock summonedLight;
     public static MFBlock runecraftingTable;
+
+    public static MFBlock crystallineIronBlock;
+    public static MFBlock redCrystalBlock;
 
     public static void registerBlocks(){
         LOG.info("registering blocks");
@@ -77,6 +79,7 @@ public class ModBlocks {
         fluidPipe = registerPipe((PipeBlock)new PipeBlock("fluidpipe", Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
         summonedLight = register(new SummonedLight("summonedlight",Material.CIRCUITS,0.0f,0.0f));
         runecraftingTable = register(new RunecraftingTable("runecraftingtable",Material.IRON,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
+        redCrystalBlock = register(new MFTransparentBlock("redcrystalblock",Material.GLASS,1.0f,1.0f).setCreativeTab(ModItems.tabFluidics));
     }
 
     private static <T extends Block> T register(T block, ItemBlock itemBlock) {

@@ -106,18 +106,25 @@ public class ModCrafting {
                 "   ",
                 'S', Blocks.STONE);
 
+
         GameRegistry.addRecipe(new ItemStack(ModBlocks.crystalBlock),
                 "CCC",
                 "CCC",
                 "CCC",
                 'C', ModItems.manaCrystal
-                );
-
+        );
         GameRegistry.addRecipe(new ItemStack(ModBlocks.crystallineIronBlock),
                 "CCC",
                 "CCC",
                 "CCC",
                 'C', ModItems.crystal_iron_ingot
+        );
+
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.redCrystalBlock),
+                "CCC",
+                "CCC",
+                "CCC",
+                'C', ModItems.redcrystal_gem
         );
 
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.castingChamber),
@@ -145,6 +152,9 @@ public class ModCrafting {
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.manaCrystal,9),
                 new ItemStack(ModBlocks.crystalBlock));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.redcrystal_gem,9),
+                new ItemStack(ModBlocks.redCrystalBlock));
 
         GameRegistry.addShapelessRecipe(new ItemStack(ModItems.crystal_iron_ingot,9),
                 new ItemStack(ModBlocks.crystallineIronBlock));
