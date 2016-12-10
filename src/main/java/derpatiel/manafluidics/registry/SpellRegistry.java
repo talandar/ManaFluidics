@@ -24,6 +24,7 @@ public class SpellRegistry {
 
     private static Map<String,SpellBase> spellRegistryMap = new HashMap<>();
     private static Map<Integer,List<SpellBase>> spellsByLevel = new HashMap<>();
+    private static List<SpellBase> allSpells = new ArrayList<>();
 
     public static void init(){
         createWater = register(new CreateWater());
@@ -42,7 +43,13 @@ public class SpellRegistry {
         }
         spellsByLevel.get(spell.getLevel()).add(spell);
 
+        allSpells.add(spell);
+
         return spell;
+    }
+
+    public static List<SpellBase> spells(){
+        return allSpells;
     }
 
 }

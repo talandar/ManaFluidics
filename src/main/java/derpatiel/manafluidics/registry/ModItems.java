@@ -3,9 +3,13 @@ package derpatiel.manafluidics.registry;
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.item.*;
 import derpatiel.manafluidics.item.spell.SpellWand;
+import derpatiel.manafluidics.spell.SpellBase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModItems {
 
@@ -25,9 +29,10 @@ public class ModItems {
     public static MFItem unfired_gem_mold;
     public static MFItem mana_wand;
     public static MFItem crystal_iron_ingot;
-    public static MFItem mm_wand;
     public static MFItem admin_altar_wand;
     public static MFItem debug_wand;
+
+    public static List<MFItem> spellWands = new ArrayList<>();
 
     public static void registerItems() {
 
@@ -46,10 +51,13 @@ public class ModItems {
         gem_mold = register(new MFMoldItem("gem_mold").setCreativeTab(tabFluidics));
         unfired_block_mold = register(new MFItem("unfired_block_mold").setCreativeTab(tabFluidics));
         mana_wand = register(new SpellWand("mana_wand",SpellRegistry.createMana).setCreativeTab(tabFluidics));
-        mm_wand = register(new SpellWand("magicmissle_wand",SpellRegistry.summonLight).setCreativeTab(tabFluidics));
         crystal_iron_ingot = register(new MFItem("crystal_iron_ingot").setCreativeTab(tabFluidics));
         admin_altar_wand = register(new AltarCreatingWand("admin_altar_wand").setCreativeTab(tabFluidics));
         debug_wand = register(new AltarStructureLoggingWand("debug_wand").setCreativeTab(tabFluidics));
+
+        for(SpellBase base : SpellRegistry.spells()){
+            spellWands.add(register(new SpellWand(base.getName()+"_wand",base).setCreativeTab(tabFluidics)));
+        }
 
     }
 

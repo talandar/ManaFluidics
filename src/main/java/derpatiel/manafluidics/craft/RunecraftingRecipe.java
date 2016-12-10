@@ -47,6 +47,10 @@ public class RunecraftingRecipe {
         return inputs;
     }
 
+    public ItemStack getRuneBase(){
+        return runeBase.copy();
+    }
+
     public MaterialType getSheetType(){
         return MaterialType.VALUES[runeBase.getMetadata()];
     }

@@ -90,7 +90,6 @@ public class RunecraftingTileEntity extends TileEntity implements ITickable {
 
     public void craftOperation(){
         RunecraftingRecipe recipe = RuneCraftingHandler.getMatchingRecipe(this.craftingInventory);
-                LOG.info("CRAFT");
         if(recipe!=null){
             LOG.info(recipe.toString());
             boolean simSuccessful=true;
@@ -104,16 +103,15 @@ public class RunecraftingTileEntity extends TileEntity implements ITickable {
                 simSuccessful = false;
             }
             if(simSuccessful) {
-                LOG.info("SUCCESSFUL SIM");
                 for(int i=0;i<10;i++) {
                     craftingInventory.extractItem(i,1,false);
                 }
                 craftingInventory.insertItem(craftingInventory.OUTPUT_SLOT,recipe.getOutput(),false);
             }else{
-                LOG.info("UNSUCCESSFUL SIM");
+                //unsuccessful - why?
             }
         }else{
-            LOG.info("no recipe");
+            //LOG.info("no recipe");
         }
     }
 

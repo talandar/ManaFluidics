@@ -53,20 +53,6 @@ public class ModCrafting {
                         MaterialItemHelper.getWire(type),new ItemStack(Items.DIAMOND),MaterialItemHelper.getWire(type),
                         new ItemStack(Items.REDSTONE),MaterialItemHelper.getWire(type),new ItemStack(Items.REDSTONE),
                     }));
-            RuneCraftingHandler.registerRecipe(RunecraftingRecipe.createRecipe(MaterialItemHelper.getCircuit(type,1),MaterialItemHelper.getSheet(MaterialType.IRON),
-                    new ItemStack[]{
-                            new ItemStack(Items.REDSTONE),   null, new ItemStack(Items.REDSTONE),
-                            MaterialItemHelper.getWire(type),null, MaterialItemHelper.getWire(type),
-                            new ItemStack(Items.REDSTONE),   null, new ItemStack(Items.REDSTONE),
-                    }));
-            GameRegistry.addRecipe(MaterialItemHelper.getCircuit(type,1),
-                    "RWR",
-                    "WDW",
-                    "RWR",
-                    'R', Items.REDSTONE,
-                    'W', MaterialItemHelper.getWire(type),
-                    'D', Items.DIAMOND
-            );
         }
 
         GameRegistry.addRecipe(new ItemStack(ModBlocks.fluidPump),
