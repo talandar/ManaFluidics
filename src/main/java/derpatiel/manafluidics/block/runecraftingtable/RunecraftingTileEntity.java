@@ -14,6 +14,7 @@ import net.minecraft.block.state.BlockPistonStructureHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -92,6 +93,25 @@ public class RunecraftingTileEntity extends TileEntity implements ITickable {
                 LOG.info("CRAFT");
         if(recipe!=null){
             LOG.info(recipe.toString());
+            boolean simSuccessful=true;
+            for(int i=0;i<10;i++) {
+                ItemStack extracted = craftingInventory.extractItem(i,1,true);
+                if(extracted==null && recipe.getInputGrid()[i]!=null)
+                    simSuccessful=false;
+            }
+            ItemStack insertedStack = craftingInventory.insertItem(craftingInventory.OUTPUT_SLOT,recipe.getOutput(),true);
+            if(insertedStack!=null) {
+                simSuccessful = false;
+            }
+            if(simSuccessful) {
+                LOG.info("SUCCESSFUL SIM");
+                for(int i=0;i<10;i++) {
+                    craftingInventory.extractItem(i,1,false);
+                }
+                craftingInventory.insertItem(craftingInventory.OUTPUT_SLOT,recipe.getOutput(),false);
+            }else{
+                LOG.info("UNSUCCESSFUL SIM");
+            }
         }else{
             LOG.info("no recipe");
         }
