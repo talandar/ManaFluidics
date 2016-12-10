@@ -269,7 +269,7 @@ public class MaterialItemHelper {
             case 1:
                 return ModBlocks.crystallineIronBlock;
             default:
-                return ModBlocks.crystallineIronBlock;
+                return ModBlocks.redCrystalBlock;
         }
     }
 
