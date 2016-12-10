@@ -67,6 +67,10 @@ public class MFHammer extends MFItem {
             ((IRotateable) block).rotate(worldIn,worldIn.getBlockState(pos),pos);
         }
 
+        if(playerIn.isSneaking() && block == Blocks.CRAFTING_TABLE) {
+            worldIn.destroyBlock(pos, false);
+            worldIn.setBlockState(pos, ModBlocks.runecraftingTable.getDefaultState());
+        }
         if(!playerIn.isSneaking() && block == Blocks.CAULDRON) {
             //determine if this is the right shape for a floating table,
             //if it is, turn the cauldrons into the table

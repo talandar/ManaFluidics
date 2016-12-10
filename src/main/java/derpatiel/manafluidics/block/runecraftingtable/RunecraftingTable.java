@@ -1,8 +1,10 @@
 package derpatiel.manafluidics.block.runecraftingtable;
 
 import derpatiel.manafluidics.ManaFluidics;
+import derpatiel.manafluidics.block.IDismantleable;
 import derpatiel.manafluidics.block.MFTileBlock;
 import derpatiel.manafluidics.block.castingchamber.CastingChamberTileEntity;
+import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.registry.ModGUIs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -21,7 +23,7 @@ import javax.annotation.Nullable;
 /**
  * Created by Jim on 12/5/2016.
  */
-public class RunecraftingTable extends MFTileBlock {
+public class RunecraftingTable extends MFTileBlock implements IDismantleable {
     public RunecraftingTable(String unlocalizedName, Material material, float hardness, float resistance) {
         super(unlocalizedName, material, hardness, resistance);
     }
@@ -54,5 +56,10 @@ public class RunecraftingTable extends MFTileBlock {
 
             return true;
         }
+    }
+
+    @Override
+    public ItemStack getDismantledStack(World world, BlockPos pos, IBlockState state) {
+        return new ItemStack(ModBlocks.runecraftingTable);
     }
 }
