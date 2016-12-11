@@ -54,11 +54,11 @@ public class ModItems {
         mana_wand = register(new SpellWand("mana_wand",SpellRegistry.createMana).setCreativeTab(tabFluidics));
         crystal_iron_ingot = register(new MFItem("crystal_iron_ingot").setCreativeTab(tabFluidics));
         redcrystal_gem = register(new MFItem("redcrystal_gem").setCreativeTab(tabFluidics));
-        //admin_altar_wand = register(new AltarCreatingWand("admin_altar_wand").setCreativeTab(tabFluidics));
-        //debug_wand = register(new AltarStructureLoggingWand("debug_wand").setCreativeTab(tabFluidics));
+        admin_altar_wand = register(new AltarCreatingWand("admin_altar_wand").setCreativeTab(tabFluidics));
+        debug_wand = register(new AltarStructureLoggingWand("debug_wand").setCreativeTab(tabFluidics));
 
         for(SpellBase base : SpellRegistry.spells()){
-        //    spellWands.add(register(new SpellWand(base.getName()+"_wand",base).setCreativeTab(tabFluidics)));
+            spellWands.add(register(new SpellWand(base.getName()+"_wand",base).setCreativeTab(tabFluidics)));
         }
 
     }

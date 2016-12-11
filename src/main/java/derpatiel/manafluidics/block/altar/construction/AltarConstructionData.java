@@ -3,6 +3,7 @@ package derpatiel.manafluidics.block.altar.construction;
 import com.google.common.collect.Lists;
 import derpatiel.manafluidics.enums.AltarType;
 import derpatiel.manafluidics.util.LOG;
+import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 
 import java.io.BufferedReader;
@@ -75,6 +76,7 @@ public class AltarConstructionData {
         String path = "assets/manafluidics/altars/"+type.name();
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(AltarConstructionData.class.getClassLoader().getResourceAsStream(path)))){
             List<AltarLevelData> levelList = readLevels(reader);
+            cleanupActiveBlocks(levelList);
             data.levels=levelList;
             if(!data.isRotationallySymmetrical()){
                 data=null;
@@ -89,6 +91,19 @@ public class AltarConstructionData {
             data=null;
         }
         return data;
+    }
+
+    private static void cleanupActiveBlocks(List<AltarLevelData> levels){
+        List<BlockPos> earlierLevelActiveBlocks = new ArrayList<>();
+        for(AltarLevelData level : levels){
+            for(BlockPos pos : earlierLevelActiveBlocks){
+                level.activeBlocks.remove(pos);
+            }
+            for(BlockPos pos : level.activeBlocks){
+                earlierLevelActiveBlocks.add(pos);
+            }
+        }
+
     }
 
     private boolean isRotationallySymmetrical() {

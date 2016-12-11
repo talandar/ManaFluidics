@@ -268,8 +268,10 @@ public class MaterialItemHelper {
         switch (level){
             case 1:
                 return ModBlocks.crystallineIronBlock;
-            default:
+            case 2:
                 return ModBlocks.redCrystalBlock;
+            default:
+                return ModBlocks.crystallineIronBlock;
         }
     }
 
