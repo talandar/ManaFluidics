@@ -1,0 +1,25 @@
+package derpatiel.manafluidics.spell.lvl2;
+
+import derpatiel.manafluidics.spell.SelfPotionSpell;
+import derpatiel.manafluidics.spell.SpellAttribute;
+import derpatiel.manafluidics.spell.SpellParameterChoices;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
+
+import java.util.List;
+
+/**
+ * Created by Jim on 12/11/2016.
+ */
+public class Barkskin extends SelfPotionSpell {
+    public Barkskin() {
+        super("barkskin", 2, 20, SpellAttribute.AIR, SpellAttribute.PROTECTION);
+    }
+
+    @Override
+    public PotionEffect getPotionEffect(boolean boosted) {
+        return new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20);
+    }
+}
