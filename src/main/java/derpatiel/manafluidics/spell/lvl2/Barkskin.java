@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Barkskin extends SelfPotionSpell {
     public Barkskin() {
-        super("barkskin", 2, 20, SpellAttribute.AIR, SpellAttribute.PROTECTION);
+        super("barkskin", 2, 20, SpellAttribute.TRANSMUTATION, SpellAttribute.PROTECTION);
     }
 
     @Override
