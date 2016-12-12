@@ -1,4 +1,4 @@
-package derpatiel.manafluidics.spell.lvl2;
+package derpatiel.manafluidics.spell.lvl1;
 
 import derpatiel.manafluidics.spell.SelfPotionSpell;
 import derpatiel.manafluidics.spell.SpellAttribute;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Barkskin extends SelfPotionSpell {
     public Barkskin() {
-        super("barkskin", 2, 20, SpellAttribute.TRANSMUTATION, SpellAttribute.PROTECTION);
+        super("barkskin", 1, 20, SpellAttribute.TRANSMUTATION, SpellAttribute.PROTECTION);
     }
 
     @Override

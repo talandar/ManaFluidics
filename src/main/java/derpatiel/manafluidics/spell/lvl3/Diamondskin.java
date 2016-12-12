@@ -5,13 +5,13 @@ import derpatiel.manafluidics.spell.SpellAttribute;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 
-public class Ironskin extends SelfPotionSpell {
-    public Ironskin() {
-        super("ironskin", 3, 50, SpellAttribute.TRANSMUTATION, SpellAttribute.PROTECTION);
+public class Diamondskin extends SelfPotionSpell {
+    public Diamondskin() {
+        super("diamondskin", 3, 70, SpellAttribute.TRANSMUTATION, SpellAttribute.PROTECTION);
     }
 
     @Override
     public PotionEffect getPotionEffect(boolean boosted) {
-        return new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20, 1);
+        return new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20, 3);
     }
 }

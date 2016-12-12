@@ -9,6 +9,7 @@ public enum SpellAttribute {
     PROTECTION,
     ENCHANTMENT,
     CONJURATION,
+    HEALING,
 
     //attributes
     NATURE,

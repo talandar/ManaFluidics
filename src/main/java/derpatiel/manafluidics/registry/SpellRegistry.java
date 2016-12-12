@@ -6,8 +6,11 @@ import derpatiel.manafluidics.spell.cantrip.CreateMana;
 import derpatiel.manafluidics.spell.cantrip.CreateWater;
 import derpatiel.manafluidics.spell.cantrip.SetFlame;
 import derpatiel.manafluidics.spell.lvl1.MagicMissile;
-import derpatiel.manafluidics.spell.lvl2.Barkskin;
-import derpatiel.manafluidics.spell.lvl3.Ironskin;
+import derpatiel.manafluidics.spell.lvl1.Barkskin;
+import derpatiel.manafluidics.spell.lvl1.MinorHealing;
+import derpatiel.manafluidics.spell.lvl2.Ironskin;
+import derpatiel.manafluidics.spell.lvl3.Diamondskin;
+import derpatiel.manafluidics.spell.lvl4.Invulnerability;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,12 +27,17 @@ public class SpellRegistry {
 
     //lvl1
     public static SpellBase magicMissile;
+    public static SpellBase barkskin;
+    public static SpellBase minorHeal;
 
     //lvl2
-    public static SpellBase barkskin;
+    public static SpellBase ironskin;
 
     //lvl3
-    public static SpellBase ironskin;
+    public static SpellBase diamondskin;
+
+    //lvl4
+    public static SpellBase invulnerability;
 
     private static Map<String,SpellBase> spellRegistryMap = new HashMap<>();
     private static Map<Integer,List<SpellBase>> spellsByLevel = new HashMap<>();
@@ -44,12 +52,17 @@ public class SpellRegistry {
 
         //lvl1
         magicMissile = register(new MagicMissile());
+        barkskin = register(new Barkskin());
+        minorHeal = register(new MinorHealing());
 
         //lvl2
-        barkskin = register(new Barkskin());
+        ironskin = register(new Ironskin());
 
         //lvl3
-        ironskin = register(new Ironskin());
+        diamondskin = register(new Diamondskin());
+
+        //lvl4
+        invulnerability = register(new Invulnerability());
     }
 
     public static SpellBase register(SpellBase spell){
