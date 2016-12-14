@@ -117,15 +117,62 @@ jei.manafluidics.recipe.castingchamber=Casting Chamber
 jei.manafluidics.recipe.runecrafting=Runecrafting
 
 
+<spell attributes>
+attribute.evocation.name=Evocation
+attribute.transmutation.name=Transmutation
+attribute.protection.name=Protection
+attribute.enchantment.name=Enchantment
+attribute.conjuration.name=Conjuration
+attribute.healing.name=Healing
+attribute.nature.name=Nature
+attribute.air.name=Air
+attribute.fire.name=Fire
+attribute.teleportation.name=Teleportation
+
 
 
 <messages>
 altar.noKnowledge.message=The construction of this altar is alien to you.  Perhaps making one of your own would be an interesting experience...
 altar.craftAltar.message=Crafting the Altar of Knowledge seems to have broadened your understanding of the world.
 alloytank.combines.message=becomes
+spell.details.message=Level %d, Consumes &3%d Mana
+spell.component.message=Consumes 1x &4%s &fwhen cast
 
 
 <spells>
 spell.createmana.name=Create Mana
+spell.createmana.description=Summon a small pool of Mana at the targeted block.
+
 spell.createwater.name=Create Water
+spell.createwater.description=Summon a small pool of water at the targeted block.
+
 spell.createlight.name=Light
+spell.createlight.description=Summon a small, floating, arcane light.  This light provides bright illumination until broken.
+
+spell.homeportal.name=Home Portal
+spell.homeportal.description=The caster returns to their bed location if the caster is on the prime material.  If the caster's bed is missing, fails entirely.  In other dimensions, the effects vary.
+spell.homeportal.message.nobed=Bed Missing
+
+spell.magicmissile.name=Magic Missile
+spell.magicmissile.description=Summon an arcane bolt that moves unerringly towards the closest valid target.
+
+spell.setflame.name=Set Flame
+spell.setflame.description=Set a block on fire.
+
+spell.barkskin.name=Barkskin
+spell.barkskin.description=Provide a weak, but effective damage reduction on all incoming attacks.
+
+spell.ironskin.name=Ironskin
+spell.ironskin.description=Provide a reasonable damage reduction on all incoming attacks.
+
+spell.diamondskin.name=Diamondskin
+spell.diamondskin.description=Provide excellent damage reduction on all incoming attacks.
+
+spell.invlun.name=Invulnerability
+spell.invuln.description=Negate all damage for a time.
+
+spell.enderbag.name=Ender Bag
+spell.enderbag.description=Open a handheld portal that allows access to the contents of the user's Ender Chest
+
+spell.minorhealing.name=Minor Healing
+spell.minorhealing.description=The caster heals for a small amount.

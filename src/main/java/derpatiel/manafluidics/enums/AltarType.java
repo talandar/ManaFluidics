@@ -11,7 +11,7 @@ public enum AltarType {
     ZIGGURAT(),
     HENGE(SpellAttribute.NATURE,SpellAttribute.PROTECTION),
     HOURGLASS_FOCUS(),
-    TOWER(SpellAttribute.AIR,SpellAttribute.SCRYING),
+    TOWER(SpellAttribute.AIR),
     TEMPLE(),
     ;
 

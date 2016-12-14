@@ -5,9 +5,11 @@ import derpatiel.manafluidics.spell.cantrip.CreateLight;
 import derpatiel.manafluidics.spell.cantrip.CreateMana;
 import derpatiel.manafluidics.spell.cantrip.CreateWater;
 import derpatiel.manafluidics.spell.cantrip.SetFlame;
+import derpatiel.manafluidics.spell.lvl1.EnderBag;
 import derpatiel.manafluidics.spell.lvl1.MagicMissile;
 import derpatiel.manafluidics.spell.lvl1.Barkskin;
 import derpatiel.manafluidics.spell.lvl1.MinorHealing;
+import derpatiel.manafluidics.spell.lvl2.HomePortal;
 import derpatiel.manafluidics.spell.lvl2.Ironskin;
 import derpatiel.manafluidics.spell.lvl3.Diamondskin;
 import derpatiel.manafluidics.spell.lvl4.Invulnerability;
@@ -29,9 +31,11 @@ public class SpellRegistry {
     public static SpellBase magicMissile;
     public static SpellBase barkskin;
     public static SpellBase minorHeal;
+    public static SpellBase enderBag;
 
     //lvl2
     public static SpellBase ironskin;
+    public static SpellBase homePortal;
 
     //lvl3
     public static SpellBase diamondskin;
@@ -54,9 +58,11 @@ public class SpellRegistry {
         magicMissile = register(new MagicMissile());
         barkskin = register(new Barkskin());
         minorHeal = register(new MinorHealing());
+        enderBag = register(new EnderBag());
 
         //lvl2
         ironskin = register(new Ironskin());
+        homePortal = register(new HomePortal());
 
         //lvl3
         diamondskin = register(new Diamondskin());
@@ -67,7 +73,7 @@ public class SpellRegistry {
 
     public static SpellBase register(SpellBase spell){
 
-        spellRegistryMap.put(spell.getName(),spell);
+        spellRegistryMap.put(spell.getRegName(),spell);
         if(!spellsByLevel.containsKey(spell.getLevel())){
             spellsByLevel.put(spell.getLevel(),new ArrayList<>());
         }

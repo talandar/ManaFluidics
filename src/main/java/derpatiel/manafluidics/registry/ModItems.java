@@ -58,7 +58,7 @@ public class ModItems {
         debug_wand = register(new AltarStructureLoggingWand("debug_wand").setCreativeTab(tabFluidics));
 
         for(SpellBase base : SpellRegistry.spells()){
-            spellWands.add(register(new SpellWand(base.getName()+"_wand",base).setCreativeTab(tabFluidics)));
+            spellWands.add(register(new SpellWand(base.getRegName()+"_wand",base).setCreativeTab(tabFluidics)));
         }
 
     }

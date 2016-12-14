@@ -2,8 +2,8 @@ package derpatiel.manafluidics.spell;
 
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
+import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -14,11 +14,11 @@ public abstract class SpellBase {
 
     private final int level;
     private final int castingCost;
-    private final String name;
+    private final String regName;
     private final SpellAttribute[] spellAttributes;
 
     public SpellBase(String name, int level, int castingCost, SpellAttribute... attributes){
-        this.name=name;
+        this.regName =name;
         this.level=level;
         this.castingCost=castingCost;
         this.spellAttributes=attributes;
@@ -87,7 +87,11 @@ public abstract class SpellBase {
     }
 
     public String getName() {
-        return name;
+        return TextHelper.localize("spell."+regName+".name");
+    }
+
+    public String getRegName(){
+        return this.regName;
     }
 
     public int getLevel(){
@@ -96,5 +100,25 @@ public abstract class SpellBase {
 
     public int getCastingCost(){
         return castingCost;
+    }
+
+    public List<String> getDescriptionLines(){
+        List<String> descriptions = new ArrayList<>();
+        descriptions.add(getName());
+        descriptions.add(TextHelper.localizeEffect("spell.details.message",this.getLevel(),this.getCastingCost()));
+        String attributes = "";
+        String sep = "";
+        for(SpellAttribute attribute : this.spellAttributes){
+            attributes = attributes + sep + attribute.friendlyName();
+            sep = ", ";
+        }
+        descriptions.add(attributes);
+        ItemStack stack = getConsumedComponent();
+        if(stack!=null){
+            descriptions.add(TextHelper.localizeEffect("spell.component.message",stack.getDisplayName()));
+        }
+        descriptions.add(TextHelper.localize("spell."+regName+".description"));
+
+        return descriptions;
     }
 }
