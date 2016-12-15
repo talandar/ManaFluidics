@@ -2,9 +2,8 @@ package derpatiel.manafluidics.spell.lvl2;
 
 import derpatiel.manafluidics.spell.SpellAttribute;
 import derpatiel.manafluidics.spell.SpellBase;
-import derpatiel.manafluidics.spell.SpellParameterChoices;
+import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
 import derpatiel.manafluidics.util.ChatUtil;
-import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

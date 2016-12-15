@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.spell;
 
+import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

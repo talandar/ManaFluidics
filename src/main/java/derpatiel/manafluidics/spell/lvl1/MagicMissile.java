@@ -3,6 +3,8 @@ package derpatiel.manafluidics.spell.lvl1;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import derpatiel.manafluidics.spell.*;
+import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
+import derpatiel.manafluidics.spell.parameters.SpellParameter;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -11,18 +13,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityFireball;
-import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.realms.Tezzelator;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -46,7 +41,7 @@ public class MagicMissile extends EntityCreatingSpell {
         Vec3d casterLook = caster.getLookVec();
         EntityMagicMissile missile = new EntityMagicMissile(world);
         missile.setup(caster,boosted);
-        missile.setTargetingSelector(SpellParameters.getEntityTargetingPredicate(caster,parameters.get(0).selectedOption));
+        missile.setTargetingSelector(SpellParameter.getEntityTargetingPredicate(caster,parameters.get(0).selectedOption));
         missile.posX = caster.getPositionEyes(1.0f).xCoord + casterLook.xCoord * 4.0D;
         missile.posY = caster.getPositionEyes(1.0f).yCoord - 0.3f;
         missile.posZ = caster.getPositionEyes(1.0f).zCoord + casterLook.zCoord * 4.0D;
@@ -57,9 +52,9 @@ public class MagicMissile extends EntityCreatingSpell {
     }
 
     @Override
-    public List<SpellParameterOptions> getRequiredParameters() {
-        List<SpellParameterOptions> list = new ArrayList<>();
-        list.add(SpellParameters.entitytargeting);
+    public List<SpellParameter> getRequiredParameters() {
+        List<SpellParameter> list = new ArrayList<>();
+        list.add(SpellParameter.ENTITY_TARGETING);
         return list;
     }
 

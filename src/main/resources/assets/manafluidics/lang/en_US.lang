@@ -135,8 +135,10 @@ attribute.teleportation.name=Teleportation
 altar.noKnowledge.message=The construction of this altar is alien to you.  Perhaps making one of your own would be an interesting experience...
 altar.craftAltar.message=Crafting the Altar of Knowledge seems to have broadened your understanding of the world.
 alloytank.combines.message=becomes
+
 spell.details.message=Level %d, Consumes &3%d Mana
 spell.component.message=Consumes 1x &4%s &fwhen cast
+spell.missingparam.message=You must set spell parameters before casting this spell.
 
 
 <spells>

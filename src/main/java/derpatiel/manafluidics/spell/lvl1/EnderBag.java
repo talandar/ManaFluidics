@@ -2,7 +2,7 @@ package derpatiel.manafluidics.spell.lvl1;
 
 import derpatiel.manafluidics.spell.SpellAttribute;
 import derpatiel.manafluidics.spell.SpellBase;
-import derpatiel.manafluidics.spell.SpellParameterChoices;
+import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 

@@ -1,11 +1,11 @@
-package derpatiel.manafluidics.spell;
+package derpatiel.manafluidics.spell.parameters;
 
 public class SpellParameterChoices {
 
-    public final SpellParameterOptions options;
-    public final String selectedOption;
+    public final SpellParameter options;
+    public final int selectedOption;
 
-    public SpellParameterChoices(SpellParameterOptions options, String selectedOption){
+    public SpellParameterChoices(SpellParameter options, int selectedOption){
         this.options=options;
         this.selectedOption=selectedOption;
     }

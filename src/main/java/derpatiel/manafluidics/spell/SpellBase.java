@@ -1,7 +1,12 @@
 package derpatiel.manafluidics.spell;
 
+import com.google.common.collect.Lists;
+import derpatiel.manafluidics.item.spell.SingleSpellWand;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
+import derpatiel.manafluidics.spell.parameters.SpellParameter;
+import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
+import derpatiel.manafluidics.util.ChatUtil;
 import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,18 +29,32 @@ public abstract class SpellBase {
         this.spellAttributes=attributes;
     }
 
-    public boolean cast(World worldIn, EntityPlayer castingPlayer, boolean fromItem, List<SpellParameterChoices> parameters){
-        for(SpellParameterOptions reqParam : getRequiredParameters()){
+    public boolean cast(World worldIn, EntityPlayer castingPlayer, ItemStack castItem){
+        MFPlayerKnowledge playerData = PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer);
+        boolean fromItem;
+        List<SpellParameterChoices> parameters;
+        if(castItem.getItem() instanceof SingleSpellWand){
+            //use item parameters
+            //TODO: store parameters on wand when creating wand. this temp hack will work for now...
+            parameters = Lists.newArrayList(new SpellParameterChoices(SpellParameter.ENTITY_TARGETING,1));
+            fromItem=true;
+        }else{
+            //use player parameters
+            parameters = playerData.getSpellParameters(this.regName);
+            fromItem=false;
+        }
+        for(SpellParameter reqParam : getRequiredParameters()){
             boolean found=false;
             for(SpellParameterChoices choice : parameters){
                 if(choice.options.equals(reqParam)){
                     found=true;
                 }
             }
-            if(!found)
+            if(!found) {
+                ChatUtil.sendChat(castingPlayer,TextHelper.localize("spell.missingparam.message"));
                 return false;
+            }
         }
-        MFPlayerKnowledge playerData = PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer);
         if(!worldIn.isRemote
                 && (fromItem || playerData.canCast(this))
                 && playerHasRequiredMaterials(castingPlayer)){
@@ -82,7 +101,7 @@ public abstract class SpellBase {
 
     public abstract boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted,List<SpellParameterChoices> parameters);
 
-    public List<SpellParameterOptions> getRequiredParameters(){
+    public List<SpellParameter> getRequiredParameters(){
         return new ArrayList<>();
     }
 

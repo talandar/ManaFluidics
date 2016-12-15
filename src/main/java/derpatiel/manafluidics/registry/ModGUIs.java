@@ -39,10 +39,11 @@ public class ModGUIs implements IGuiHandler {
     public static final String ALLOY_TANK_LOC = "textures/gui/alloytank.png";
 
     public static final int KNOWLEDGE_ALTAR_ID = 4;
-    public static final String KNOWLEDGE_ALTAR_LOC = "textures/gui/knowledgealtar.png";
 
     public static final int RUNECRAFTING_TABLE_ID = 5;
     public static final String RUNECRAFTING_TABLE_LOC = "textures/gui/runecraftingtable.png";
+
+    public static final String PAGED_GUI_BG_LOC = "textures/gui/pagedbg.png";
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
