@@ -1,18 +1,15 @@
 package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.spell.SpellBase;
-import derpatiel.manafluidics.spell.cantrip.CreateLight;
-import derpatiel.manafluidics.spell.cantrip.CreateMana;
-import derpatiel.manafluidics.spell.cantrip.CreateWater;
-import derpatiel.manafluidics.spell.cantrip.SetFlame;
-import derpatiel.manafluidics.spell.lvl1.EnderBag;
-import derpatiel.manafluidics.spell.lvl1.MagicMissile;
-import derpatiel.manafluidics.spell.lvl1.Barkskin;
-import derpatiel.manafluidics.spell.lvl1.MinorHealing;
+import derpatiel.manafluidics.spell.cantrip.*;
+import derpatiel.manafluidics.spell.lvl1.*;
 import derpatiel.manafluidics.spell.lvl2.HomePortal;
 import derpatiel.manafluidics.spell.lvl2.Ironskin;
 import derpatiel.manafluidics.spell.lvl3.Diamondskin;
+import derpatiel.manafluidics.spell.lvl3.QuickStep;
+import derpatiel.manafluidics.spell.lvl4.BlindingSpeed;
 import derpatiel.manafluidics.spell.lvl4.Invulnerability;
+import derpatiel.manafluidics.spell.lvl4.MajorHealing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,12 +23,14 @@ public class SpellRegistry {
     public static SpellBase createMana;
     public static SpellBase summonLight;
     public static SpellBase setFlame;
+    public static SpellBase etherealCrafting;
 
     //lvl1
     public static SpellBase magicMissile;
     public static SpellBase barkskin;
     public static SpellBase minorHeal;
     public static SpellBase enderBag;
+    public static SpellBase lesserQuickStep;
 
     //lvl2
     public static SpellBase ironskin;
@@ -39,9 +38,12 @@ public class SpellRegistry {
 
     //lvl3
     public static SpellBase diamondskin;
+    public static SpellBase quickStep;
 
     //lvl4
     public static SpellBase invulnerability;
+    public static SpellBase blindingSpeed;
+    public static SpellBase majorHealing;
 
     private static Map<String,SpellBase> spellRegistryMap = new HashMap<>();
     private static Map<Integer,List<SpellBase>> spellsByLevel = new HashMap<>();
@@ -53,12 +55,14 @@ public class SpellRegistry {
         createMana = register(new CreateMana());
         summonLight = register(new CreateLight());
         setFlame = register(new SetFlame());
+        etherealCrafting = register(new EtherealCrafting());
 
         //lvl1
         magicMissile = register(new MagicMissile());
         barkskin = register(new Barkskin());
         minorHeal = register(new MinorHealing());
         enderBag = register(new EnderBag());
+        lesserQuickStep = register(new LesserQuickStep());
 
         //lvl2
         ironskin = register(new Ironskin());
@@ -66,9 +70,12 @@ public class SpellRegistry {
 
         //lvl3
         diamondskin = register(new Diamondskin());
+        quickStep = register(new QuickStep());
 
         //lvl4
         invulnerability = register(new Invulnerability());
+        blindingSpeed = register(new BlindingSpeed());
+        majorHealing = register(new MajorHealing());
     }
 
     public static SpellBase register(SpellBase spell){

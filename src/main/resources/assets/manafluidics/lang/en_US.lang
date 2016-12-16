@@ -178,3 +178,18 @@ spell.enderbag.description=Open a handheld portal that allows access to the cont
 
 spell.minorhealing.name=Minor Healing
 spell.minorhealing.description=The caster heals for a small amount.
+
+spell.majorhealing.name=Major Healing
+spell.majorhealing.description=The caster heals for a large amount.
+
+spell.etherealcrafting.name=Ethereal Crafting Table
+spell.etherealcrafting.name=Summon a temporary crafting table for the caster.
+
+spell.lesserquickstep.name=Lesser Quick Step
+spell.lesserquickstep.description=Gain increased speed for a time.
+
+spell.quickstep.name=Quick Step
+spell.quickstep.description=Gain significantly increased speed for a time.
+
+spell.blindingspeed.name=Blinding Speed
+spell.blindingspeed.description=Gain amazingly improved speed, but with significantly reduced visibility.
