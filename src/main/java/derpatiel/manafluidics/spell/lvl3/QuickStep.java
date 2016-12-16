@@ -5,13 +5,16 @@ import derpatiel.manafluidics.spell.SpellAttribute;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 
-public class Diamondskin extends SelfPotionSpell {
-    public Diamondskin() {
-        super("diamondskin", 3, 70, SpellAttribute.TRANSMUTATION, SpellAttribute.PROTECTION);
+/**
+ * Created by Jim on 12/15/2016.
+ */
+public class QuickStep extends SelfPotionSpell {
+    public QuickStep() {
+        super("quickstep", 3, 35, SpellAttribute.AIR, SpellAttribute.ENCHANTMENT);
     }
 
     @Override
     public PotionEffect[] getPotionEffect(boolean boosted) {
-        return new PotionEffect[]{ new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20, 3)};
+        return new PotionEffect[]{ new PotionEffect(MobEffects.SPEED,boosted ? 45 * 20 : 30 * 20,3)};
     }
 }
