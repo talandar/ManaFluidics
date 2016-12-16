@@ -197,4 +197,9 @@ public class MFPlayerKnowledge {
     public SpellBase getSelectedSpell() {
         return selectedSpell;
     }
+
+    public List<SpellBase> getPreparedSpells(int spellLevel) {
+        //TODO spell preparation, etc
+        return SpellRegistry.getSpellsForLevel(spellLevel);
+    }
 }

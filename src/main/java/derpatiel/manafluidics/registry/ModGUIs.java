@@ -88,7 +88,7 @@ public class ModGUIs implements IGuiHandler {
             return new AlloyTankGui(player,containerTileEntity, new AlloyTankContainer(player.inventory,containerTileEntity));
         }else if(te instanceof KnowledgeAltarTileEntity) {
             KnowledgeAltarTileEntity containerTileEntity = (KnowledgeAltarTileEntity) te;
-            return new KAltarGui(containerTileEntity, new KAltarContainer((containerTileEntity)));
+            return new KAltarGui(containerTileEntity, new KAltarContainer((containerTileEntity)),player);
         }else if(te instanceof RunecraftingTileEntity) {
             RunecraftingTileEntity containerTileEntity = (RunecraftingTileEntity) te;
             return new RunecraftingTableGui(containerTileEntity, new RunecraftingTableContainer(player.inventory,containerTileEntity));

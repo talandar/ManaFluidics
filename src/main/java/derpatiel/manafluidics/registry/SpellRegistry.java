@@ -88,4 +88,7 @@ public class SpellRegistry {
         return allSpells;
     }
 
+    public static List<SpellBase> getSpellsForLevel(int spellLevel) {
+        return spellsByLevel.get(spellLevel);
+    }
 }

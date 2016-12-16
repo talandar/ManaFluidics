@@ -1,11 +1,19 @@
 package derpatiel.manafluidics.gui;
 
+import net.minecraft.item.ItemStack;
+
 public abstract class PagedGuiPage {
 
-    private int guiLeft;
-    private int guiTop;
+    protected int guiLeft;
+    protected int guiTop;
 
-    public PagedGuiPage(){
+    protected PagedGui parent;
+
+    private final ItemStack iconStack;
+
+    public PagedGuiPage(ItemStack iconStack, PagedGui parent){
+        this.iconStack=iconStack;
+        this.parent=parent;
     }
 
     public void init(int guiLeft, int guiTop) {
