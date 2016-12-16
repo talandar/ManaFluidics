@@ -15,6 +15,6 @@ public class LesserQuickStep extends SelfPotionSpell {
 
     @Override
     public PotionEffect[] getPotionEffect(boolean boosted) {
-        return new PotionEffect[]{new PotionEffect(MobEffects.SPEED,boosted ? 45 * 20 : 30 * 20,0)};
+        return new PotionEffect[]{new PotionEffect(MobEffects.SPEED,boosted ? 45 * 20 : 30 * 20,0,false,false)};
     }
 }

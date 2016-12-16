@@ -12,6 +12,6 @@ public class Ironskin extends SelfPotionSpell {
 
     @Override
     public PotionEffect[] getPotionEffect(boolean boosted) {
-        return new PotionEffect[]{ new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20, 1)};
+        return new PotionEffect[]{ new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20, 1,false,false)};
     }
 }

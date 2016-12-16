@@ -16,8 +16,8 @@ public class BlindingSpeed extends SelfPotionSpell {
     @Override
     public PotionEffect[] getPotionEffect(boolean boosted) {
         return new PotionEffect[]{
-                new PotionEffect(MobEffects.SPEED,boosted ? 45 * 20 : 30 * 20,6),
-                new PotionEffect(MobEffects.BLINDNESS,boosted ? 45 * 20 : 30 * 20,0)
+                new PotionEffect(MobEffects.SPEED,boosted ? 45 * 20 : 30 * 20,30,false,false),
+                new PotionEffect(MobEffects.BLINDNESS,boosted ? 45 * 20 : 30 * 20,0,false,false)
         };
     }
 }

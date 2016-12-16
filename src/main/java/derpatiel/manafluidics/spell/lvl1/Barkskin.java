@@ -15,6 +15,6 @@ public class Barkskin extends SelfPotionSpell {
 
     @Override
     public PotionEffect[] getPotionEffect(boolean boosted) {
-        return new PotionEffect[]{ new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20)};
+        return new PotionEffect[]{ new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20,0,false,false)};
     }
 }

@@ -12,6 +12,6 @@ public class Diamondskin extends SelfPotionSpell {
 
     @Override
     public PotionEffect[] getPotionEffect(boolean boosted) {
-        return new PotionEffect[]{ new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20, 3)};
+        return new PotionEffect[]{ new PotionEffect(MobEffects.RESISTANCE,boosted ? 120 * 20 : 90 * 20, 3,false,false)};
     }
 }
