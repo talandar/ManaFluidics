@@ -3,6 +3,7 @@ package derpatiel.manafluidics.registry;
 import derpatiel.manafluidics.spell.SpellBase;
 import derpatiel.manafluidics.spell.cantrip.*;
 import derpatiel.manafluidics.spell.lvl1.*;
+import derpatiel.manafluidics.spell.lvl2.DangerousLeap;
 import derpatiel.manafluidics.spell.lvl2.HomePortal;
 import derpatiel.manafluidics.spell.lvl2.Ironskin;
 import derpatiel.manafluidics.spell.lvl3.Diamondskin;
@@ -35,7 +36,7 @@ public class SpellRegistry {
     //lvl2
     public static SpellBase ironskin;
     public static SpellBase homePortal;
-
+    public static SpellBase dangerousLeap;
     //lvl3
     public static SpellBase diamondskin;
     public static SpellBase quickStep;
@@ -67,6 +68,7 @@ public class SpellRegistry {
         //lvl2
         ironskin = register(new Ironskin());
         homePortal = register(new HomePortal());
+        dangerousLeap = register(new DangerousLeap());
 
         //lvl3
         diamondskin = register(new Diamondskin());

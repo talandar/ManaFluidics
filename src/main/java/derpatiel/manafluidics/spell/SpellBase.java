@@ -21,12 +21,14 @@ public abstract class SpellBase {
     private final int castingCost;
     private final String regName;
     private final SpellAttribute[] spellAttributes;
+    public boolean needsClientActivation;
 
     public SpellBase(String name, int level, int castingCost, SpellAttribute... attributes){
         this.regName =name;
         this.level=level;
         this.castingCost=castingCost;
         this.spellAttributes=attributes;
+        this.needsClientActivation=false;
     }
 
     public boolean cast(World worldIn, EntityPlayer castingPlayer, ItemStack castItem){
@@ -55,7 +57,7 @@ public abstract class SpellBase {
                 return false;
             }
         }
-        if(!worldIn.isRemote
+        if((!worldIn.isRemote || needsClientActivation)
                 && (fromItem || playerData.canCast(this))
                 && playerHasRequiredMaterials(castingPlayer)){
             boolean casted = doCast(worldIn,castingPlayer,PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer).isSpellBoosted(spellAttributes),parameters);

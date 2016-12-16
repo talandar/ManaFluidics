@@ -23,7 +23,7 @@ public class SingleSpellWand extends MFItem {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
-        if(!worldIn.isRemote) {
+        if(!worldIn.isRemote || spell.needsClientActivation) {
             boolean successfulCast = spell.cast(worldIn,player,itemStackIn);
             if(successfulCast){
                 if(itemStackIn.attemptDamageItem(1, worldIn.rand)) {
