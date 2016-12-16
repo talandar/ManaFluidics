@@ -1,7 +1,7 @@
 package derpatiel.manafluidics.proxy;
 
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.UnfiredMoldRecipe;
+import derpatiel.manafluidics.craft.UnfiredMoldRecipe;
 import derpatiel.manafluidics.block.MFBlockFluid;
 import derpatiel.manafluidics.block.altar.construction.AltarConstructionData;
 import derpatiel.manafluidics.capability.heat.CapabilityHeat;

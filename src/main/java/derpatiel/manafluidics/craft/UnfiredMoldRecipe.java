@@ -1,4 +1,4 @@
-package derpatiel.manafluidics;
+package derpatiel.manafluidics.craft;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

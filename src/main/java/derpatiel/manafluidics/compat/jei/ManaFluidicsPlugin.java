@@ -1,7 +1,6 @@
 package derpatiel.manafluidics.compat.jei;
 
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.UnfiredMoldRecipe;
 import derpatiel.manafluidics.compat.jei.castingchamber.CastingRecipeCategory;
 import derpatiel.manafluidics.compat.jei.castingchamber.CastingRecipeHandler;
 import derpatiel.manafluidics.compat.jei.drawnozzle.DrawingRecipeCategory;
@@ -18,7 +17,6 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.RecipeSorter;
 
 import javax.annotation.Nonnull;
 

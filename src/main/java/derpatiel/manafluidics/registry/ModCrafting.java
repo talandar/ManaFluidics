@@ -1,7 +1,7 @@
 package derpatiel.manafluidics.registry;
 
 import com.google.common.collect.Lists;
-import derpatiel.manafluidics.UnfiredMoldRecipe;
+import derpatiel.manafluidics.craft.UnfiredMoldRecipe;
 import derpatiel.manafluidics.craft.RuneCraftingHandler;
 import derpatiel.manafluidics.craft.RunecraftingRecipe;
 import derpatiel.manafluidics.enums.MaterialType;
