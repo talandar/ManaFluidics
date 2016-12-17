@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.block.pipe;
 
 import derpatiel.manafluidics.block.drawNozzle.DrawNozzleTileEntity;
+import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.util.RenderUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -18,6 +19,9 @@ public class PipeRenderer extends TileEntitySpecialRenderer<PipeTileEntity> {
         FluidStack liquid;
         if (tile != null) {
             IBlockState state = getWorld().getBlockState(tile.getPos()).getActualState(getWorld(),tile.getPos());
+            if(state.getBlock()!= ModBlocks.fluidPipe){
+                return;//this is a bad error case...
+            }
             float frac = tile.getFluidFillPercent();
 
             if (frac > 0) {

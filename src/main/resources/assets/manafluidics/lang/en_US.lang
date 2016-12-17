@@ -170,7 +170,7 @@ spell.ironskin.description=Provide a reasonable damage reduction on all incoming
 spell.diamondskin.name=Diamondskin
 spell.diamondskin.description=Provide excellent damage reduction on all incoming attacks.
 
-spell.invlun.name=Invulnerability
+spell.invuln.name=Invulnerability
 spell.invuln.description=Negate all damage for a time.
 
 spell.enderbag.name=Ender Bag
@@ -193,3 +193,9 @@ spell.quickstep.description=Gain significantly increased speed for a time.
 
 spell.blindingspeed.name=Blinding Speed
 spell.blindingspeed.description=Gain amazingly improved speed, but with significantly reduced visibility.
+
+spell.dangerousleap.name=Dangerous Leap
+spell.dangerousleap.description=Leap extremely high into the air.  Provides no fall protection.  Might be useful if one could glide.
+
+spell.breathofwind.name=Breath of Wind
+spell.breathofwind.description=A breeze pushes the caster and near by entities in the direction the caster is looking.

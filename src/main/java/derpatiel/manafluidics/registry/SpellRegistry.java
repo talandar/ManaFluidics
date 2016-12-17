@@ -32,6 +32,7 @@ public class SpellRegistry {
     public static SpellBase minorHeal;
     public static SpellBase enderBag;
     public static SpellBase lesserQuickStep;
+    public static SpellBase breathofwind;
 
     //lvl2
     public static SpellBase ironskin;
@@ -64,6 +65,7 @@ public class SpellRegistry {
         minorHeal = register(new MinorHealing());
         enderBag = register(new EnderBag());
         lesserQuickStep = register(new LesserQuickStep());
+        breathofwind = register(new BreathOfWind());
 
         //lvl2
         ironskin = register(new Ironskin());
