@@ -45,9 +45,7 @@ public abstract class PagedGui extends GuiContainer {
         buttonList.clear();
         addPages();
         //get buttons here
-        for(PagedGuiPage page : pages){
-            page.init(guiLeft,guiTop);
-        }
+        pages.get(selectedTab).init(guiLeft,guiTop);
     }
 
     protected abstract void addPages();
@@ -72,26 +70,47 @@ public abstract class PagedGui extends GuiContainer {
         for(PagedGuiPage page : pages){
             drawTexturedModalRect(guiLeft,guiTop+tabOffset+(tab*27),0,tabOffset,24,27);
             GlStateManager.enableDepth();
-            this.itemRender.renderItemAndEffectIntoGUI(this.mc.thePlayer,new ItemStack(ModItems.redcrystal_gem), guiLeft+itemTabOffsetX, guiTop+itemTabOffsetY+(27*tab));
+            this.itemRender.renderItemAndEffectIntoGUI(this.mc.thePlayer,page.getIconStack(), guiLeft+itemTabOffsetX, guiTop+itemTabOffsetY+(27*tab));
             //this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, page.getIconItemStack(), i, j, null);
             mc.getTextureManager().bindTexture(background);
             tab++;
         }
         drawTexturedModalRect(guiLeft+24,guiTop+15 + (27*selectedTab),253,0,3,27);
 
-        pages.get(selectedTab).draw(partialTicks,mouseX,mouseY);
+        pages.get(selectedTab).drawBG(partialTicks,mouseX,mouseY);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        pages.get(selectedTab).drawFG(mouseX-guiLeft,mouseY-guiTop);
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if(button instanceof PageButton){
             //button id is page id
-            selectedTab=button.id;
+            changeTab(button.id);
+        }else{
+            pages.get(selectedTab).actionPerformed(button);
         }
+    }
+
+    private void changeTab(int newTabId){
+        selectedTab=newTabId;
+        initGui();
     }
 
     public FontRenderer getFontRenderer(){
         return this.fontRendererObj;
+    }
+
+    public void addButton(GuiButton button){
+        buttonList.add(button);
+    }
+
+    public List<GuiButton> getButtonList() {
+        return buttonList;
     }
 
     private class PageButton extends GuiButton{
@@ -108,5 +127,9 @@ public abstract class PagedGui extends GuiContainer {
                 this.mouseDragged(mc, mouseX, mouseY);
             }
         }
+    }
+
+    public void drawHoveringText(List<String> textLines, int x, int y){
+        this.drawHoveringText(textLines,x,y,fontRendererObj);
     }
 }

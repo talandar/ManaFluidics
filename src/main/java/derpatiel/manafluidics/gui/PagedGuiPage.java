@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
 
 public abstract class PagedGuiPage {
@@ -22,5 +23,12 @@ public abstract class PagedGuiPage {
         //re-add buttons, etc;
     }
 
-    public abstract void draw(float partialTicks, int mouseX, int mouseY);
+    public ItemStack getIconStack(){
+        return iconStack;
+    }
+
+    public abstract void drawFG(int mouseX, int mouseY);
+    public abstract void drawBG(float partialTicks, int mouseX, int mouseY);
+
+    public abstract void actionPerformed(GuiButton button);
 }

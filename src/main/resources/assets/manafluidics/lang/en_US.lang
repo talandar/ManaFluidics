@@ -183,7 +183,7 @@ spell.majorhealing.name=Major Healing
 spell.majorhealing.description=The caster heals for a large amount.
 
 spell.etherealcrafting.name=Ethereal Crafting Table
-spell.etherealcrafting.name=Summon a temporary crafting table for the caster.
+spell.etherealcrafting.description=Summon a temporary crafting table for the caster.
 
 spell.lesserquickstep.name=Lesser Quick Step
 spell.lesserquickstep.description=Gain increased speed for a time.

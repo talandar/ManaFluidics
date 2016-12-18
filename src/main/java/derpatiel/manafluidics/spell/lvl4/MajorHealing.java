@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MajorHealing extends SpellBase {
     public MajorHealing() {
-        super("majorhealing", 1, 30, SpellAttribute.HEALING);
+        super("majorhealing", 4, 30, SpellAttribute.HEALING);
     }
 
     @Override
