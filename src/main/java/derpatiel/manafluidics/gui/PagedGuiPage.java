@@ -3,6 +3,8 @@ package derpatiel.manafluidics.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
 
+import java.util.List;
+
 public abstract class PagedGuiPage {
 
     protected int guiLeft;
@@ -31,4 +33,8 @@ public abstract class PagedGuiPage {
     public abstract void drawBG(float partialTicks, int mouseX, int mouseY);
 
     public abstract void actionPerformed(GuiButton button);
+
+    public abstract List<String> getHoverLabel();
+
+    public abstract void updateScreen();
 }

@@ -200,6 +200,13 @@ public class MFPlayerKnowledge {
 
     public List<SpellBase> getPreparedSpells(int spellLevel) {
         //TODO spell preparation, etc
+        List<SpellBase> available = new ArrayList<>(SpellRegistry.getSpellsForLevel(spellLevel));
+        available.remove(0);
+        available.remove(0);
+        return available;
+    }
+
+    public List<SpellBase> getAvailableSpells(int spellLevel){
         return SpellRegistry.getSpellsForLevel(spellLevel);
     }
 }

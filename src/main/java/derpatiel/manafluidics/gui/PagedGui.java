@@ -6,6 +6,7 @@ import derpatiel.manafluidics.network.PacketFluidAlloy;
 import derpatiel.manafluidics.network.PacketFluidClick;
 import derpatiel.manafluidics.registry.ModGUIs;
 import derpatiel.manafluidics.registry.ModItems;
+import derpatiel.manafluidics.spell.SpellPrepSelectionPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -71,7 +72,6 @@ public abstract class PagedGui extends GuiContainer {
             drawTexturedModalRect(guiLeft,guiTop+tabOffset+(tab*27),0,tabOffset,24,27);
             GlStateManager.enableDepth();
             this.itemRender.renderItemAndEffectIntoGUI(this.mc.thePlayer,page.getIconStack(), guiLeft+itemTabOffsetX, guiTop+itemTabOffsetY+(27*tab));
-            //this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, page.getIconItemStack(), i, j, null);
             mc.getTextureManager().bindTexture(background);
             tab++;
         }
@@ -84,6 +84,20 @@ public abstract class PagedGui extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         pages.get(selectedTab).drawFG(mouseX-guiLeft,mouseY-guiTop);
+        for(GuiButton button : buttonList) {
+            if (button instanceof PageButton) {
+                PageButton btn = (PageButton)button;
+                if (btn.isMouseOver()) {
+                    drawHoveringText(pages.get(btn.id).getHoverLabel(),mouseX-guiLeft,mouseY-guiTop);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void updateScreen() {
+        super.updateScreen();
+        pages.get(selectedTab).updateScreen();
     }
 
     @Override
@@ -116,7 +130,7 @@ public abstract class PagedGui extends GuiContainer {
     private class PageButton extends GuiButton{
 
         public PageButton(int buttonId) {
-            super(buttonId, guiLeft, 15+(27*buttonId), 24, 27, "");
+            super(buttonId, guiLeft, guiTop+15+(27*buttonId), 24, 27, "");
         }
 
         @Override

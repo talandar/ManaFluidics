@@ -1,22 +1,25 @@
 package derpatiel.manafluidics.spell;
 
+import com.google.common.collect.Lists;
 import derpatiel.manafluidics.gui.PagedGui;
 import derpatiel.manafluidics.gui.PagedGuiPage;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.util.LOG;
-import derpatiel.manafluidics.util.TextHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-public class SpellSelectionPage extends PagedGuiPage {
+public class SpellPrepSelectionPage extends PagedGuiPage {
 
     private EntityPlayer player;
     private int spellLevel;
 
-    public SpellSelectionPage(ItemStack iconStack, int level, EntityPlayer player, PagedGui parent){
+    public SpellPrepSelectionPage(ItemStack iconStack, int level, EntityPlayer player, PagedGui parent){
         super(iconStack,parent);
         this.player=player;
         this.spellLevel=level;
@@ -26,12 +29,12 @@ public class SpellSelectionPage extends PagedGuiPage {
         super.init(guiLeft,guiTop);
         //re-add buttons, etc;
 
-        List<SpellBase> spells = PlayerKnowledgeHandler.getPlayerKnowledge(player).getPreparedSpells(spellLevel);
-        int buttonid=0;
+        List<SpellBase> spells = PlayerKnowledgeHandler.getPlayerKnowledge(player).getAvailableSpells(spellLevel);
+        int buttonId=0;
         for(SpellBase spell : spells){
-            GuiButton button = new SpellGuiButton(buttonid,guiLeft+30,guiTop+10+(25*buttonid), 217,20,spell);
+            GuiButton button = new SpellGuiButton(buttonId,guiLeft+30,guiTop+10+(25*buttonId), 217,20,spell);
             parent.addButton(button);
-            buttonid++;
+            buttonId++;
         }
 
     }
@@ -65,6 +68,26 @@ public class SpellSelectionPage extends PagedGuiPage {
 
     }
 
+    @Override
+    public List<String> getHoverLabel() {
+        return Lists.newArrayList(spellLevel==0 ? "Cantrips" : "Level "+spellLevel+" Spells");
+    }
+
+    @Override
+    public void updateScreen() {
+        List<SpellBase> prepared = PlayerKnowledgeHandler.getPlayerKnowledge(player).getPreparedSpells(spellLevel);
+        for(GuiButton button : parent.getButtonList()){
+            if(button instanceof SpellGuiButton){
+                SpellGuiButton btn = (SpellGuiButton)button;
+                if(prepared.contains(btn.spell)){
+                    btn.enabled=false;
+                }else{
+                    btn.enabled=true;
+                }
+            }
+        }
+    }
+
     private class SpellGuiButton extends GuiButton{
 
         private SpellBase spell;
@@ -72,6 +95,12 @@ public class SpellSelectionPage extends PagedGuiPage {
         public SpellGuiButton(int buttonId, int x, int y, int width, int height, SpellBase spell){
             super(buttonId,x,y,width,height, spell.getName());
             this.spell=spell;
+        }
+
+        @Override
+        public boolean mousePressed(Minecraft mc, int mouseX, int mouseY)
+        {
+            return this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
         }
     }
 }
