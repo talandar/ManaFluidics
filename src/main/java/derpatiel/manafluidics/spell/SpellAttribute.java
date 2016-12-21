@@ -8,13 +8,14 @@ public enum SpellAttribute {
     EVOCATION("attribute.evocation.name","1"),
     TRANSMUTATION("attribute.transmutation.name","3"),
     PROTECTION("attribute.protection.name","8"),
-    ENCHANTMENT("attribute.enchantment.name","9"),
+    ENCHANTMENT("attribute.enchantment.name","5"),
     CONJURATION("attribute.conjuration.name","d"),
     HEALING("attribute.healing.name","6"),
     NATURE("attribute.nature.name","2"),
     AIR("attribute.air.name","f"),
     FIRE("attribute.fire.name","4"),
-    TELEPORTATION("attribute.teleportation.name","5"),;
+    TELEPORTATION("attribute.teleportation.name","5"),
+    WATER("attribute.water.name","9");
 
     private String regName;
     private String colorCode;

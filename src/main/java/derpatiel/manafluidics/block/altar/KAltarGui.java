@@ -3,7 +3,6 @@ package derpatiel.manafluidics.block.altar;
 import derpatiel.manafluidics.gui.PagedGui;
 import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.registry.ModItems;
-import derpatiel.manafluidics.spell.SpellPrepSelectionPage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

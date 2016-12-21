@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CreateWater extends BlockTargetedSpell {
     public CreateWater() {
-        super("createwater", 0, 1, SpellAttribute.CONJURATION,SpellAttribute.NATURE);
+        super("createwater", 0, 1, SpellAttribute.CONJURATION,SpellAttribute.WATER);
     }
 
     @Override

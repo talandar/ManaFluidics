@@ -1,19 +1,13 @@
 package derpatiel.manafluidics.gui;
 
 import derpatiel.manafluidics.ManaFluidics;
-import derpatiel.manafluidics.network.MFPacketHandler;
-import derpatiel.manafluidics.network.PacketFluidAlloy;
-import derpatiel.manafluidics.network.PacketFluidClick;
 import derpatiel.manafluidics.registry.ModGUIs;
-import derpatiel.manafluidics.registry.ModItems;
-import derpatiel.manafluidics.spell.SpellPrepSelectionPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;

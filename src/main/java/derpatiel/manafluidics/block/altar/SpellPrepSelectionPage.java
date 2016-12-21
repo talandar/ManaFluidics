@@ -1,10 +1,13 @@
-package derpatiel.manafluidics.spell;
+package derpatiel.manafluidics.block.altar;
 
 import com.google.common.collect.Lists;
 import derpatiel.manafluidics.gui.PagedGui;
 import derpatiel.manafluidics.gui.PagedGuiPage;
+import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
+import derpatiel.manafluidics.spell.SpellBase;
 import derpatiel.manafluidics.util.LOG;
+import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -63,6 +66,7 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
     @Override
     public void actionPerformed(GuiButton button) {
         if(button instanceof  SpellGuiButton){
+            PlayerKnowledgeHandler.getPlayerKnowledge(player).changePrep(((SpellGuiButton)button).spell);
             LOG.info("spell selected: "+((SpellGuiButton)button).spell.getName());
         }
 
@@ -70,7 +74,17 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
 
     @Override
     public List<String> getHoverLabel() {
-        return Lists.newArrayList(spellLevel==0 ? "Cantrips" : "Level "+spellLevel+" Spells");
+        List<String> hoverLabels = Lists.newArrayList();
+        hoverLabels.add(spellLevel==0 ? "Cantrips" : "Level "+spellLevel+" Spells");
+        MFPlayerKnowledge knowledge = PlayerKnowledgeHandler.getPlayerKnowledge(player);
+        int prepared = knowledge.getPreparedSpells(spellLevel).size();
+        int canPrepare = knowledge.getMaxPreparedSpells(spellLevel);
+        String prepend = "&7";
+        if(prepared>=canPrepare){
+            prepend="&4";
+        }
+        hoverLabels.add(TextHelper.getFormattedText(prepend)+TextHelper.localize("altar.preparedSpells.message",prepared,canPrepare));
+        return hoverLabels;
     }
 
     @Override

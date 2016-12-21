@@ -127,6 +127,7 @@ attribute.healing.name=Healing
 attribute.nature.name=Nature
 attribute.air.name=Air
 attribute.fire.name=Fire
+attribute.water.name=Water
 attribute.teleportation.name=Teleportation
 
 
@@ -134,6 +135,7 @@ attribute.teleportation.name=Teleportation
 <messages>
 altar.noKnowledge.message=The construction of this altar is alien to you.  Perhaps making one of your own would be an interesting experience...
 altar.craftAltar.message=Crafting the Altar of Knowledge seems to have broadened your understanding of the world.
+altar.preparedSpells.message=%d / %d Prepared
 alloytank.combines.message=becomes
 
 spell.details.message=Level %d, Consumes &3%d Mana
@@ -199,3 +201,6 @@ spell.dangerousleap.description=Leap extremely high into the air.  Provides no f
 
 spell.breathofwind.name=Breath of Wind
 spell.breathofwind.description=A breeze pushes the caster and near by entities in the direction the caster is looking.
+
+spell.aquaticadaptation.name=Aquatic Adaptation
+spell.aquaticadaptation.description=Gain the ability to breathe and act normally underwater.
