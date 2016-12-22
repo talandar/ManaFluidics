@@ -4,7 +4,6 @@ import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.util.ChatUtil;
-import derpatiel.manafluidics.util.LOG;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -48,7 +47,6 @@ public class MFCommand extends CommandBase{
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         EntityPlayer senderPlayer = (EntityPlayer)sender.getCommandSenderEntity();
-        LOG.info("Sender: "+senderPlayer.getName());
         if(args.length==0){
             sendHelp(senderPlayer);
         }else if(args.length==1){
@@ -136,9 +134,6 @@ public class MFCommand extends CommandBase{
 
     @Override
     public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
-        for(int i=0;i<args.length;i++){
-            LOG.info(i+": "+args[i]);
-        }
         if(args.length==1){
             String[] users = server.getAllUsernames();
             String[] validCompletions = new String[users.length+2];

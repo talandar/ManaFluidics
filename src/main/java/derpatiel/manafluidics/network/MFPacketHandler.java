@@ -2,6 +2,7 @@ package derpatiel.manafluidics.network;
 
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.util.ChatUtil;
+import net.minecraft.network.Packet;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -16,6 +17,7 @@ public class MFPacketHandler {
         INSTANCE.registerMessage(FluidChangedPacket.FluidChangedPacketMessageHandler.class,FluidChangedPacket.class,ID++,Side.CLIENT);
         INSTANCE.registerMessage(PacketFluidAlloy.Handler.class, PacketFluidAlloy.class,ID++,Side.SERVER);
         INSTANCE.registerMessage(DrawNozzleUpdatePacket.DrawNozzleUpdatePacketHandler.class,DrawNozzleUpdatePacket.class,ID++,Side.CLIENT);
+        INSTANCE.registerMessage(PacketKnowledgeSync.Handler.class, PacketKnowledgeSync.class, ID++, Side.CLIENT);
 
     }
 

@@ -9,7 +9,10 @@ import derpatiel.manafluidics.spell.parameters.SpellParameter;
 import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
 import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +33,7 @@ public class MFPlayerKnowledge {
     private float currentMana;
     private int maxMana;
     private SpellBase selectedSpell;
+    private boolean dirty=false;
 
 
     private MFPlayerKnowledge(){
@@ -42,6 +46,7 @@ public class MFPlayerKnowledge {
         lastUsedAltar=null;
         playerLevel=0;
         levelChanged();
+        dirty=true;
     }
 
     public static MFPlayerKnowledge fromNbt(NBTTagCompound tag) {
@@ -49,7 +54,7 @@ public class MFPlayerKnowledge {
         for (KnowledgeCategory cat : KnowledgeCategory.VALUES) {
             knowledge.setKnowledge(cat, tag.getBoolean(cat.name()));
         }
-        knowledge.readSpellParams(tag.getCompoundTag("params"));
+        readSpellParams(knowledge,tag.getCompoundTag("params"));
         if (tag.hasKey("altar")){
             knowledge.lastUsedAltar = AltarType.VALUES[tag.getInteger("altar")];
         }else{
@@ -57,7 +62,6 @@ public class MFPlayerKnowledge {
         }
         knowledge.playerLevel = knowledge.calcPlayerLevel();
         knowledge.levelChanged();
-
         return knowledge;
     }
 
@@ -66,14 +70,14 @@ public class MFPlayerKnowledge {
         for(KnowledgeCategory cat : KnowledgeCategory.VALUES){
             tag.setBoolean(cat.name(),knowledge.hasKnowledge(cat));
         }
-        tag.setTag("params",knowledge.writeSpellParams());
+        tag.setTag("params",writeSpellParams(knowledge));
         if(knowledge.lastUsedAltar!=null) {
             tag.setInteger("altar", knowledge.lastUsedAltar.ordinal());
         }
         return tag;
     }
 
-    private void readSpellParams(NBTTagCompound paramsTag){
+    private static void readSpellParams(MFPlayerKnowledge knowledge, NBTTagCompound paramsTag){
         for(SpellBase spell : SpellRegistry.spells()){
             String regName = spell.getRegName();
             if(paramsTag.hasKey(regName)){
@@ -84,15 +88,15 @@ public class MFPlayerKnowledge {
                     int paramChoice = selectedParams.getInteger(paramOrdinalStr);
                     choices.add(new SpellParameterChoices(SpellParameter.VALUES[paramOrdinal],paramChoice));
                 }
-                this.storedSpellParams.put(regName,choices);
+                knowledge.storedSpellParams.put(regName,choices);
             }
         }
     }
 
-    private NBTTagCompound writeSpellParams(){
+    private static NBTTagCompound writeSpellParams(MFPlayerKnowledge knowledge){
         NBTTagCompound paramsTag = new NBTTagCompound();
-        for(String spellReg : storedSpellParams.keySet()){
-            List<SpellParameterChoices> choices = storedSpellParams.get(spellReg);
+        for(String spellReg : knowledge.storedSpellParams.keySet()){
+            List<SpellParameterChoices> choices = knowledge.storedSpellParams.get(spellReg);
             NBTTagCompound spellChoicesTag = new NBTTagCompound();
             for(SpellParameterChoices choice : choices){
                 spellChoicesTag.setInteger(choice.options.ordinal()+"",choice.selectedOption);
@@ -135,6 +139,7 @@ public class MFPlayerKnowledge {
         LOG.info("cast "+spellBase.getName());
         //reduce mana if not cast from item
         //if cast from item, other upkeep might be needed
+        //mark dirty?
     }
 
 
@@ -151,15 +156,18 @@ public class MFPlayerKnowledge {
             this.playerLevel=calcPlayerLevel();
             levelChanged();
         }
+        dirty=true;
         LOG.info("set player knowledge: "+cat.name()+" to "+bool);
     }
 
     public void addKnowledge(KnowledgeCategory cat){
         this.setKnowledge(cat,true);
+        dirty=true;
     }
 
     public void removeKnowledge(KnowledgeCategory cat){
         this.setKnowledge(cat,false);
+        dirty=true;
     }
 
 
@@ -186,8 +194,21 @@ public class MFPlayerKnowledge {
         return level;
     }
 
-    public void tick(){
-      currentMana=Math.min(currentMana+manaRegenByLevel[playerLevel],maxMana);
+    /**
+     * tick the knowledge.  This handles mana updating, etc
+     * @return the dirty flag.  if true, this sync to the client this tick.
+     */
+    public boolean tick(){
+        currentMana=Math.min(currentMana+manaRegenByLevel[playerLevel],maxMana);
+        //other tick stuff
+
+
+
+        if(dirty){
+            dirty=false;
+            return true;
+        }
+        return false;
     }
 
     public List<SpellParameterChoices> getSpellParameters(String regName) {
@@ -208,5 +229,13 @@ public class MFPlayerKnowledge {
 
     public List<SpellBase> getAvailableSpells(int spellLevel){
         return SpellRegistry.getSpellsForLevel(spellLevel);
+    }
+
+    public int getMaxPreparedSpells(int spellLevel) {
+        return 5-spellLevel;
+    }
+
+    public void changePrep(SpellBase spell) {
+        //TODO
     }
 }

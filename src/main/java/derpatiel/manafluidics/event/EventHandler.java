@@ -47,7 +47,11 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onWorldTick(TickEvent.PlayerTickEvent event){
-        PlayerKnowledgeHandler.getPlayerKnowledge(event.player).tick();
+        //LOG.info("tick player");
+        boolean sendToClient = PlayerKnowledgeHandler.getPlayerKnowledge(event.player).tick();
+        if(!event.player.getEntityWorld().isRemote && sendToClient){
+            PlayerKnowledgeHandler.syncToClient(event.player);
+        }
     }
 
     @SubscribeEvent
