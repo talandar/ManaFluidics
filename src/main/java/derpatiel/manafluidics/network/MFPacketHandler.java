@@ -18,6 +18,7 @@ public class MFPacketHandler {
         INSTANCE.registerMessage(PacketFluidAlloy.Handler.class, PacketFluidAlloy.class,ID++,Side.SERVER);
         INSTANCE.registerMessage(DrawNozzleUpdatePacket.DrawNozzleUpdatePacketHandler.class,DrawNozzleUpdatePacket.class,ID++,Side.CLIENT);
         INSTANCE.registerMessage(PacketKnowledgeSync.Handler.class, PacketKnowledgeSync.class, ID++, Side.CLIENT);
+        INSTANCE.registerMessage(PacketChangePrep.Handler.class, PacketChangePrep.class, ID++, Side.SERVER);
 
     }
 

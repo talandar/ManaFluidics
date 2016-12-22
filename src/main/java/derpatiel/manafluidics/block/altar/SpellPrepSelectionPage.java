@@ -3,6 +3,8 @@ package derpatiel.manafluidics.block.altar;
 import com.google.common.collect.Lists;
 import derpatiel.manafluidics.gui.PagedGui;
 import derpatiel.manafluidics.gui.PagedGuiPage;
+import derpatiel.manafluidics.network.MFPacketHandler;
+import derpatiel.manafluidics.network.PacketChangePrep;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.spell.SpellBase;
@@ -16,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
+import java.util.Set;
 
 public class SpellPrepSelectionPage extends PagedGuiPage {
 
@@ -66,7 +69,7 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
     @Override
     public void actionPerformed(GuiButton button) {
         if(button instanceof  SpellGuiButton){
-            PlayerKnowledgeHandler.getPlayerKnowledge(player).changePrep(((SpellGuiButton)button).spell);
+            MFPacketHandler.INSTANCE.sendToServer(new PacketChangePrep(((SpellGuiButton) button).spell.getRegName(),player.getUniqueID()));
             LOG.info("spell selected: "+((SpellGuiButton)button).spell.getName());
         }
 
@@ -89,7 +92,7 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
 
     @Override
     public void updateScreen() {
-        List<SpellBase> prepared = PlayerKnowledgeHandler.getPlayerKnowledge(player).getPreparedSpells(spellLevel);
+        Set<SpellBase> prepared = PlayerKnowledgeHandler.getPlayerKnowledge(player).getPreparedSpells(spellLevel);
         for(GuiButton button : parent.getButtonList()){
             if(button instanceof SpellGuiButton){
                 SpellGuiButton btn = (SpellGuiButton)button;

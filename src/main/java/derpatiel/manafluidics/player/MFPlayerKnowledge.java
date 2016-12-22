@@ -14,10 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MFPlayerKnowledge {
 
@@ -35,6 +32,8 @@ public class MFPlayerKnowledge {
     private SpellBase selectedSpell;
     private boolean dirty=false;
 
+    private final Map<Integer,Set<SpellBase>> preppedSpells = new HashMap<>();
+
 
     private MFPlayerKnowledge(){
         knowledgeMap = KnowledgeCategory.getDefaultKnowledgeMap();
@@ -42,8 +41,9 @@ public class MFPlayerKnowledge {
 
     public void clearKnowledge(){
         knowledgeMap = KnowledgeCategory.getDefaultKnowledgeMap();
-        storedSpellParams.clear();;
+        storedSpellParams.clear();
         lastUsedAltar=null;
+        preppedSpells.clear();
         playerLevel=0;
         levelChanged();
         dirty=true;
@@ -60,6 +60,7 @@ public class MFPlayerKnowledge {
         }else{
             knowledge.lastUsedAltar=null;
         }
+        readPreppedSpells(knowledge,tag.getCompoundTag("prepared"));
         knowledge.playerLevel = knowledge.calcPlayerLevel();
         knowledge.levelChanged();
         return knowledge;
@@ -74,6 +75,7 @@ public class MFPlayerKnowledge {
         if(knowledge.lastUsedAltar!=null) {
             tag.setInteger("altar", knowledge.lastUsedAltar.ordinal());
         }
+        tag.setTag("prepared",writePreppedSpells(knowledge));
         return tag;
     }
 
@@ -106,6 +108,15 @@ public class MFPlayerKnowledge {
         }
 
         return paramsTag;
+    }
+
+    private static void readPreppedSpells(MFPlayerKnowledge knowledge, NBTTagCompound tag){
+        //TODO
+    }
+
+    private static NBTTagCompound writePreppedSpells(MFPlayerKnowledge knowledge){
+        //TODO
+        return null;
     }
 
     public static MFPlayerKnowledge newPlayerKnowledge() {
@@ -219,12 +230,8 @@ public class MFPlayerKnowledge {
         return selectedSpell;
     }
 
-    public List<SpellBase> getPreparedSpells(int spellLevel) {
-        //TODO spell preparation, etc
-        List<SpellBase> available = new ArrayList<>(SpellRegistry.getSpellsForLevel(spellLevel));
-        available.remove(0);
-        available.remove(0);
-        return available;
+    public Set<SpellBase> getPreparedSpells(int spellLevel) {
+        return preppedSpells.get(spellLevel);
     }
 
     public List<SpellBase> getAvailableSpells(int spellLevel){
@@ -236,6 +243,18 @@ public class MFPlayerKnowledge {
     }
 
     public void changePrep(SpellBase spell) {
-        //TODO
+        LOG.info("Server received change spell prep: "+spell.getRegName());
+        boolean didWork=false;
+        Set<SpellBase> spells = preppedSpells.get(spell.getLevel());
+        if(spells.contains(spell)){
+            spells.remove(spell);
+            didWork=true;
+        }else{
+            if(spells.size()<getMaxPreparedSpells(spell.getLevel())){
+                spells.add(spell);
+                didWork=true;
+            }
+        }
+        dirty=didWork;
     }
 }

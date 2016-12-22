@@ -142,4 +142,14 @@ public abstract class SpellBase {
 
         return descriptions;
     }
+
+    @Override
+    public int hashCode() {
+        return regName.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return regName.equals(obj);
+    }
 }

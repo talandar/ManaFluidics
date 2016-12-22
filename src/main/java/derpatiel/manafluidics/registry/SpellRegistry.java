@@ -106,4 +106,8 @@ public class SpellRegistry {
     public static List<SpellBase> getSpellsForLevel(int spellLevel) {
         return spellsByLevel.get(spellLevel);
     }
+
+    public static SpellBase getSpellByRegName(String spellReg) {
+        return spellRegistryMap.get(spellReg);
+    }
 }
