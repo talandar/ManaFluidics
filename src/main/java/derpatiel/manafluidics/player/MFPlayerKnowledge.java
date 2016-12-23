@@ -1,5 +1,6 @@
 package derpatiel.manafluidics.player;
 
+import com.google.common.collect.Sets;
 import derpatiel.manafluidics.enums.AltarType;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.registry.SpellRegistry;
@@ -11,6 +12,8 @@ import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -111,12 +114,30 @@ public class MFPlayerKnowledge {
     }
 
     private static void readPreppedSpells(MFPlayerKnowledge knowledge, NBTTagCompound tag){
-        //TODO
+        for(String strLevel : tag.getKeySet()){
+            Integer level = Integer.parseInt(strLevel);
+            Set<SpellBase> prepared = new HashSet<>();
+            NBTTagList list = tag.getTagList(strLevel,8);
+            for(int i=0;i<list.tagCount();i++){
+                prepared.add(SpellRegistry.getSpellByRegName(list.getStringTagAt(i)));
+                LOG.info("read prepared: "+strLevel+" had prepared "+list.getStringTagAt(i));
+            }
+            knowledge.preppedSpells.put(level,prepared);
+        }
     }
 
     private static NBTTagCompound writePreppedSpells(MFPlayerKnowledge knowledge){
-        //TODO
-        return null;
+        NBTTagCompound tag = new NBTTagCompound();
+        for(Integer level : knowledge.preppedSpells.keySet()){
+            Set<SpellBase> prepared = knowledge.preppedSpells.get(level);
+            NBTTagList spellNames = new NBTTagList();
+            for(SpellBase sp : prepared) {
+                LOG.info("write prepared: "+level+" has prepared "+sp.getRegName());
+                spellNames.appendTag(new NBTTagString(sp.getRegName()));
+            }
+            tag.setTag(level.toString(),spellNames);
+        }
+        return tag;
     }
 
     public static MFPlayerKnowledge newPlayerKnowledge() {
@@ -231,7 +252,12 @@ public class MFPlayerKnowledge {
     }
 
     public Set<SpellBase> getPreparedSpells(int spellLevel) {
-        return preppedSpells.get(spellLevel);
+        Set<SpellBase> prepared = preppedSpells.get(spellLevel);
+        if(prepared==null){
+            prepared = Sets.newHashSet();
+            preppedSpells.put(spellLevel,prepared);
+        }
+        return prepared;
     }
 
     public List<SpellBase> getAvailableSpells(int spellLevel){
@@ -245,7 +271,7 @@ public class MFPlayerKnowledge {
     public void changePrep(SpellBase spell) {
         LOG.info("Server received change spell prep: "+spell.getRegName());
         boolean didWork=false;
-        Set<SpellBase> spells = preppedSpells.get(spell.getLevel());
+        Set<SpellBase> spells = getPreparedSpells(spell.getLevel());
         if(spells.contains(spell)){
             spells.remove(spell);
             didWork=true;
