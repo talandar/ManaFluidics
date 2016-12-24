@@ -2,6 +2,8 @@ package derpatiel.manafluidics.block.altar;
 
 import derpatiel.manafluidics.block.altar.construction.AltarConstructionData;
 import derpatiel.manafluidics.enums.AltarType;
+import derpatiel.manafluidics.network.MFPacketHandler;
+import derpatiel.manafluidics.network.PacketAltarTypeChange;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -29,7 +31,7 @@ public class KnowledgeAltarTileEntity extends TileEntity implements ITickable {
     public float bookRotationPrev;
     public float tRot;
 
-    public AltarType type;
+    public AltarType type=AltarType.ZIGGURAT;
 
     @Override
     public NBTTagCompound getUpdateTag() {
@@ -74,6 +76,10 @@ public class KnowledgeAltarTileEntity extends TileEntity implements ITickable {
 
     public void setType(AltarType type){
         this.type=type;
+        markDirty();
+        if(!getWorld().isRemote) {
+            MFPacketHandler.INSTANCE.sendToAll(new PacketAltarTypeChange(this.type, this.getPos()));
+        }
     }
 
     @Override

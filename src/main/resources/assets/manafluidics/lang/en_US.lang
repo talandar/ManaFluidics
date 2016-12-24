@@ -130,17 +130,32 @@ attribute.fire.name=Fire
 attribute.water.name=Water
 attribute.teleportation.name=Teleportation
 
+<altar types>
+altar.type.ziggurat.name=Ziggurat
+altar.type.henge.name=Henge
+altar.type.hourglass_focus.name=Focused Pyramid
+altar.type.tower.name=Tower
+altar.type.temple.name=Temple
 
+altar.type.ziggurat.description=A stepped pyramid, with more layers at higher levels.
+altar.type.henge.description=Stonehenge like structure, with more standing stones at higher levels.
+altar.type.hourglass_focus.description=A pyramid from above and below that focuses power.  Larger at higher levels.
+altar.type.tower.description=A classic mage's tower.  Taller at higher levels.
+altar.type.temple.description=A classical temple.  Larger area at higher levels.
 
 <messages>
 altar.noKnowledge.message=The construction of this altar is alien to you.  Perhaps making one of your own would be an interesting experience...
 altar.craftAltar.message=Crafting the Altar of Knowledge seems to have broadened your understanding of the world.
 altar.preparedSpells.message=%d / %d Prepared
+altar.typeSelection.message=Altar Type Selection
+altar.boosts.message=Boosts
 alloytank.combines.message=becomes
 
 spell.details.message=Level %d, Consumes &3%d Mana
 spell.component.message=Consumes 1x &4%s &fwhen cast
 spell.missingparam.message=You must set spell parameters before casting this spell.
+spell.level0.name=Cantrip
+spell.leveldescription=Level %d Spells
 
 
 <spells>

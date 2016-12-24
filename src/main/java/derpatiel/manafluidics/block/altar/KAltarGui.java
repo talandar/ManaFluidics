@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class KAltarGui extends PagedGui {
 
-    private KnowledgeAltarTileEntity tile;
+    public KnowledgeAltarTileEntity tile;
     private Random rand;
     private EntityPlayer player;
 
@@ -31,7 +31,7 @@ public class KAltarGui extends PagedGui {
 
     @Override
     protected void addPages() {
-
+        addPage(new AltarTypeSelectionPage(this));
         for(int i=0;i<5;i++) {
             addPage(new SpellPrepSelectionPage(iconsByLevel[i], i, player,this));
         }

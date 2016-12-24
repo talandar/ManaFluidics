@@ -228,6 +228,7 @@ public class MaterialItemHelper {
     }
 
     public static String getIngotsString(FluidStack fluid) {
+        //TODO: has to be a better way...
         if(fluid.getFluid()==FluidRegistry.LAVA){
             int blocks = (fluid.amount)/1000;
             int mbLeft = fluid.amount-(blocks*1000);

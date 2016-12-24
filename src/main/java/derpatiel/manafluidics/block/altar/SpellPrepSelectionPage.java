@@ -70,7 +70,6 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
     public void actionPerformed(GuiButton button) {
         if(button instanceof  SpellGuiButton){
             MFPacketHandler.INSTANCE.sendToServer(new PacketChangePrep(((SpellGuiButton) button).spell.getRegName(),player.getUniqueID()));
-            LOG.info("spell selected: "+((SpellGuiButton)button).spell.getName());
         }
 
     }
@@ -78,7 +77,11 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
     @Override
     public List<String> getHoverLabel() {
         List<String> hoverLabels = Lists.newArrayList();
-        hoverLabels.add(spellLevel==0 ? "Cantrips" : "Level "+spellLevel+" Spells");
+        if(spellLevel==0){
+            hoverLabels.add(TextHelper.localize("spell.level0.name"));
+        }else{
+            hoverLabels.add(TextHelper.localizeEffect("spell.leveldescription",spellLevel));
+        }
         MFPlayerKnowledge knowledge = PlayerKnowledgeHandler.getPlayerKnowledge(player);
         int prepared = knowledge.getPreparedSpells(spellLevel).size();
         int canPrepare = knowledge.getMaxPreparedSpells(spellLevel);
