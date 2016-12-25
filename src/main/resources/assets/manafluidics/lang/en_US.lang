@@ -150,6 +150,11 @@ altar.preparedSpells.message=%d / %d Prepared
 altar.typeSelection.message=Altar Type Selection
 altar.boosts.message=Boosts
 alloytank.combines.message=becomes
+fluid.ingotcount.message=%d Ingot(s)
+fluid.blockcount.message=%d Block(s)
+fluid.gemcount.message=%d Gem(s)
+fluid.remainingmb.message=%d mb.
+
 
 spell.details.message=Level %d, Consumes &3%d Mana
 spell.component.message=Consumes 1x &4%s &fwhen cast

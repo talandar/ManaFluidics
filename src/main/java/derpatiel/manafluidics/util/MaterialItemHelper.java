@@ -228,41 +228,57 @@ public class MaterialItemHelper {
     }
 
     public static String getIngotsString(FluidStack fluid) {
-        //TODO: has to be a better way...
         if(fluid.getFluid()==FluidRegistry.LAVA){
             int blocks = (fluid.amount)/1000;
             int mbLeft = fluid.amount-(blocks*1000);
-            String ret = blocks+" block";
-            if(blocks>1)
-                ret+="s";
+            String ret = TextHelper.localize("fluid.blockcount.message",blocks);
             if(mbLeft>0)
-                ret+=", "+mbLeft+" mb.";
+                ret+=", "+TextHelper.localize("fluid.remainingmb.message",mbLeft);
+            return ret;
+        }
+        if(fluid.getFluid()==ModFluids.moltenRedstone){
+            int blocks = (fluid.amount)/4500;
+            int mbLeft = fluid.amount-(blocks*4500);
+            String ret = TextHelper.localize("fluid.blockcount.message",blocks);
+            if(mbLeft>0)
+                ret+=", "+TextHelper.localize("fluid.remainingmb.message",mbLeft);
             return ret;
         }
         //else not lava
         int mbFluid = fluid.amount;
         String ret="";
         String sep = "";
-        if(mbFluid>4500){
+        if(mbFluid>=4500){
             int blocks = mbFluid/4500;
             mbFluid-=(blocks*4500);
-            ret=blocks+" block";
-            if(blocks>1)
-                ret+="s";
+            ret=TextHelper.localize("fluid.blockcount.message",blocks);
+
             sep=", ";
         }
-        if(mbFluid>500){
+        if(mbFluid>=500){
             int ingots = mbFluid/500;
             mbFluid-=(ingots*500);
-            ret+=sep+ingots+" ingot";
-            if(ingots>1)
-                ret+="s";
+            if(isGemFluid(fluid.getFluid())){
+                ret+=sep+TextHelper.localize("fluid.gemcount.message",ingots);
+            }else{
+                ret+=sep+TextHelper.localize("fluid.ingotcount.message", ingots);
+            }
             sep=", ";
         }
         if(mbFluid>0){
-            ret+=sep+mbFluid+"mb";
+            ret+=sep+TextHelper.localize("fluid.remainingmb.message",mbFluid);
         }
         return ret;
+    }
+
+    public static boolean isGemFluid(Fluid fluid){
+        return
+                fluid!=null && (
+                        ModFluids.moltenCrystal==fluid
+                        || ModFluids.moltenDiamond==fluid
+                        || ModFluids.moltenLapis==fluid
+                        || ModFluids.redCrystal==fluid
+                );
     }
 
     public static MFBlock getAlloyBlockForLevel(int level){
