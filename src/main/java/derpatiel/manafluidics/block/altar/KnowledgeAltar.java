@@ -105,22 +105,6 @@ public class KnowledgeAltar extends MFTileBlock {
         if(hand==EnumHand.MAIN_HAND) {
             if (heldItem != null && heldItem.getItem() == ModItems.debug_wand || heldItem.getItem()==ModItems.admin_altar_wand)
                 return false;
-            if (heldItem != null && heldItem.getItem() == ModItems.crystal_hammer) {
-                TileEntity tileentity = worldIn.getTileEntity(pos);
-                if (tileentity instanceof KnowledgeAltarTileEntity) {
-                    KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity) tileentity);
-                    AltarType type = te.type;
-                    if (type == null) {
-                        te.type = AltarType.VALUES[0];
-                    } else if (type.ordinal() + 1 == AltarType.VALUES.length) {
-                        te.type = null;
-                    } else {
-                        te.type = AltarType.VALUES[type.ordinal() + 1];
-                    }
-                    te.markDirty();
-                }
-            }
-
             if (worldIn.isRemote) {
                 return true;
             } else {
@@ -129,7 +113,6 @@ public class KnowledgeAltar extends MFTileBlock {
                     TileEntity tileentity = worldIn.getTileEntity(pos);
                     if (tileentity instanceof KnowledgeAltarTileEntity) {
                         playerIn.openGui(ManaFluidics.instance, ModGUIs.KNOWLEDGE_ALTAR_ID,worldIn,pos.getX(),pos.getY(), pos.getZ());
-                        ChatUtil.sendNoSpam(playerIn, TextHelper.localize("DEBUG: You understand the purpose of the altar..."));
                         KnowledgeAltarTileEntity te = ((KnowledgeAltarTileEntity) tileentity);
                         if (te == null) {
                             ChatUtil.sendNoSpam(playerIn, "altar tile not right type?");

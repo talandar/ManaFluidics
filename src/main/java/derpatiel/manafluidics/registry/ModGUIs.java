@@ -18,6 +18,8 @@ import derpatiel.manafluidics.block.multiTank.smeltingTank.SmeltingTankTileEntit
 import derpatiel.manafluidics.block.runecraftingtable.RunecraftingTableContainer;
 import derpatiel.manafluidics.block.runecraftingtable.RunecraftingTableGui;
 import derpatiel.manafluidics.block.runecraftingtable.RunecraftingTileEntity;
+import derpatiel.manafluidics.item.cast.StaffContainer;
+import derpatiel.manafluidics.item.cast.StaffGui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -38,10 +40,12 @@ public class ModGUIs implements IGuiHandler {
     public static final int ALLOY_TANK_ID = 4;
     public static final String ALLOY_TANK_LOC = "textures/gui/alloytank.png";
 
-    public static final int KNOWLEDGE_ALTAR_ID = 4;
+    public static final int KNOWLEDGE_ALTAR_ID = 4;//paged
 
     public static final int RUNECRAFTING_TABLE_ID = 5;
     public static final String RUNECRAFTING_TABLE_LOC = "textures/gui/runecraftingtable.png";
+
+    public static final int STAFF_GUI_ID = 6;//paged
 
     public static final String PAGED_GUI_BG_LOC = "textures/gui/pagedbg.png";
 
@@ -66,6 +70,8 @@ public class ModGUIs implements IGuiHandler {
         }else if(te instanceof RunecraftingTileEntity){
             RunecraftingTileEntity containerTileEntity = (RunecraftingTileEntity)te;
             return new RunecraftingTableContainer(player.inventory,containerTileEntity);
+        }else if(ID==STAFF_GUI_ID){
+            return new StaffContainer();
         }
         return null;
     }
@@ -92,6 +98,8 @@ public class ModGUIs implements IGuiHandler {
         }else if(te instanceof RunecraftingTileEntity) {
             RunecraftingTileEntity containerTileEntity = (RunecraftingTileEntity) te;
             return new RunecraftingTableGui(containerTileEntity, new RunecraftingTableContainer(player.inventory,containerTileEntity));
+        }else if(ID==STAFF_GUI_ID){
+            return new StaffGui(new StaffContainer(),player);
         }
         return null;
     }

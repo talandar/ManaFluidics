@@ -8,12 +8,9 @@ import derpatiel.manafluidics.network.PacketChangePrep;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.spell.SpellBase;
-import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -31,6 +28,7 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
         this.spellLevel=level;
     }
 
+    @Override
     public void init(int guiLeft, int guiTop) {
         super.init(guiLeft,guiTop);
         //re-add buttons, etc;
@@ -38,7 +36,7 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
         List<SpellBase> spells = PlayerKnowledgeHandler.getPlayerKnowledge(player).getAvailableSpells(spellLevel);
         int buttonId=0;
         for(SpellBase spell : spells){
-            GuiButton button = new SpellGuiButton(buttonId,guiLeft+30,guiTop+10+(25*buttonId), 217,20,spell);
+            GuiButton button = new SpellPrepGuiButton(buttonId,guiLeft+30,guiTop+10+(25*buttonId), 217,20,spell);
             parent.addButton(button);
             buttonId++;
         }
@@ -57,8 +55,8 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
         //remember, can draw from
         //guiLeft+30, guiTop+10 to something close to 248,250
         for(GuiButton button : parent.getButtonList()) {
-            if (button instanceof SpellGuiButton) {
-                SpellGuiButton btn = (SpellGuiButton) button;
+            if (button instanceof SpellPrepGuiButton) {
+                SpellPrepGuiButton btn = (SpellPrepGuiButton) button;
                 if (btn.isMouseOver()) {
                     parent.drawHoveringText(btn.spell.getDescriptionLines(), mouseX, mouseY);
                 }
@@ -68,8 +66,8 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
 
     @Override
     public void actionPerformed(GuiButton button) {
-        if(button instanceof  SpellGuiButton){
-            MFPacketHandler.INSTANCE.sendToServer(new PacketChangePrep(((SpellGuiButton) button).spell.getRegName(),player.getUniqueID()));
+        if(button instanceof SpellPrepGuiButton){
+            MFPacketHandler.INSTANCE.sendToServer(new PacketChangePrep(((SpellPrepGuiButton) button).spell.getRegName(),player.getUniqueID()));
         }
 
     }
@@ -97,8 +95,8 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
     public void updateScreen() {
         Set<SpellBase> prepared = PlayerKnowledgeHandler.getPlayerKnowledge(player).getPreparedSpells(spellLevel);
         for(GuiButton button : parent.getButtonList()){
-            if(button instanceof SpellGuiButton){
-                SpellGuiButton btn = (SpellGuiButton)button;
+            if(button instanceof SpellPrepGuiButton){
+                SpellPrepGuiButton btn = (SpellPrepGuiButton)button;
                 if(prepared.contains(btn.spell)){
                     btn.enabled=false;
                 }else{
@@ -108,11 +106,11 @@ public class SpellPrepSelectionPage extends PagedGuiPage {
         }
     }
 
-    private class SpellGuiButton extends GuiButton{
+    private class SpellPrepGuiButton extends GuiButton{
 
         private SpellBase spell;
 
-        public SpellGuiButton(int buttonId, int x, int y, int width, int height, SpellBase spell){
+        public SpellPrepGuiButton(int buttonId, int x, int y, int width, int height, SpellBase spell){
             super(buttonId,x,y,width,height, spell.getName());
             this.spell=spell;
         }

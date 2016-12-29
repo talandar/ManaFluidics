@@ -2,7 +2,8 @@ package derpatiel.manafluidics.registry;
 
 import derpatiel.manafluidics.ManaFluidics;
 import derpatiel.manafluidics.item.*;
-import derpatiel.manafluidics.item.spell.SingleSpellWand;
+import derpatiel.manafluidics.item.cast.CastingStaff;
+import derpatiel.manafluidics.item.cast.SingleSpellWand;
 import derpatiel.manafluidics.spell.SpellBase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -32,6 +33,7 @@ public class ModItems {
     public static MFItem redcrystal_gem;
     public static MFItem admin_altar_wand;
     public static MFItem debug_wand;
+    public static MFItem casting_staff;
 
     public static List<MFItem> spellWands = new ArrayList<>();
 
@@ -56,6 +58,7 @@ public class ModItems {
         redcrystal_gem = register(new MFItem("redcrystal_gem").setCreativeTab(tabFluidics));
         admin_altar_wand = register(new AltarCreatingWand("admin_altar_wand").setCreativeTab(tabFluidics));
         debug_wand = register(new AltarStructureLoggingWand("debug_wand").setCreativeTab(tabFluidics));
+        casting_staff = register(new CastingStaff("casting_staff").setCreativeTab(tabFluidics));
 
         for(SpellBase base : SpellRegistry.spells()){
             spellWands.add(register(new SingleSpellWand(base.getRegName()+"_wand",base).setCreativeTab(tabFluidics)));

@@ -2,6 +2,7 @@ package derpatiel.manafluidics.spell.parameters;
 
 import com.google.common.base.Predicate;
 import derpatiel.manafluidics.enums.AltarType;
+import derpatiel.manafluidics.util.TextHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,6 +24,13 @@ public enum SpellParameter {
     SpellParameter(String name, String... options){
         this.name=name;
         this.options=options;
+    }
+
+    public String getLocalizedName(){
+        return TextHelper.localize(name);
+    }
+    public String getLocalizedChoiceName(int choice){
+        return TextHelper.localize(options[choice]);
     }
 
 

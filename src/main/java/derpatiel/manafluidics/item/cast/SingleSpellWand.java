@@ -1,4 +1,4 @@
-package derpatiel.manafluidics.item.spell;
+package derpatiel.manafluidics.item.cast;
 
 import derpatiel.manafluidics.item.MFItem;
 import derpatiel.manafluidics.spell.SpellBase;

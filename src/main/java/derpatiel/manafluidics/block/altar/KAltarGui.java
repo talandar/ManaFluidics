@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.block.altar;
 
 import derpatiel.manafluidics.gui.PagedGui;
+import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.registry.ModBlocks;
 import derpatiel.manafluidics.registry.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,14 +15,6 @@ public class KAltarGui extends PagedGui {
     private Random rand;
     private EntityPlayer player;
 
-    private ItemStack[] iconsByLevel = new ItemStack[]{
-            new ItemStack(ModItems.manaCrystal),
-            new ItemStack(ModItems.crystal_iron_ingot),
-            new ItemStack(ModItems.redcrystal_gem),
-            new ItemStack(ModBlocks.knowledgeAltar),
-            new ItemStack(ModBlocks.knowledgeAltar)
-    };
-
     public KAltarGui(KnowledgeAltarTileEntity tileEntity, KAltarContainer container, EntityPlayer player) {
         super(container);
         tile = tileEntity;
@@ -33,7 +26,7 @@ public class KAltarGui extends PagedGui {
     protected void addPages() {
         addPage(new AltarTypeSelectionPage(this));
         for(int i=0;i<5;i++) {
-            addPage(new SpellPrepSelectionPage(iconsByLevel[i], i, player,this));
+            addPage(new SpellPrepSelectionPage(MFPlayerKnowledge.iconsByLevel[i], i, player,this));
         }
     }
 }

@@ -3,6 +3,8 @@ package derpatiel.manafluidics.player;
 import com.google.common.collect.Sets;
 import derpatiel.manafluidics.enums.AltarType;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
+import derpatiel.manafluidics.registry.ModBlocks;
+import derpatiel.manafluidics.registry.ModItems;
 import derpatiel.manafluidics.registry.SpellRegistry;
 import derpatiel.manafluidics.spell.SpellAttribute;
 import derpatiel.manafluidics.spell.SpellBase;
@@ -11,6 +13,7 @@ import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
 import derpatiel.manafluidics.util.LOG;
 import derpatiel.manafluidics.util.MaterialItemHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
@@ -20,6 +23,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.*;
 
 public class MFPlayerKnowledge {
+
+    public static ItemStack[] iconsByLevel = new ItemStack[]{
+            new ItemStack(ModItems.manaCrystal),
+            new ItemStack(ModItems.crystal_iron_ingot),
+            new ItemStack(ModItems.redcrystal_gem),
+            new ItemStack(ModBlocks.knowledgeAltar),
+            new ItemStack(ModBlocks.knowledgeAltar)
+    };
 
     private static final float[] manaRegenByLevel = new float[]{0.0f,0.05f, 0.1f, 0.15f, 0.2f};
     private static final int[] maxManaByLevel = new int[]{0,100,200,300,400};
@@ -48,6 +59,7 @@ public class MFPlayerKnowledge {
         lastUsedAltar=null;
         preppedSpells.clear();
         playerLevel=0;
+        selectedSpell=null;
         levelChanged();
         dirty=true;
     }
@@ -63,6 +75,11 @@ public class MFPlayerKnowledge {
         }else{
             knowledge.lastUsedAltar=null;
         }
+        if(tag.hasKey("selected")) {
+            knowledge.selectedSpell = SpellRegistry.getSpellByRegName(tag.getString("selected"));
+        }else{
+            knowledge.selectedSpell = null;
+        }
         readPreppedSpells(knowledge,tag.getCompoundTag("prepared"));
         knowledge.playerLevel = knowledge.calcPlayerLevel();
         knowledge.levelChanged();
@@ -77,6 +94,9 @@ public class MFPlayerKnowledge {
         tag.setTag("params",writeSpellParams(knowledge));
         if(knowledge.lastUsedAltar!=null) {
             tag.setInteger("altar", knowledge.lastUsedAltar.ordinal());
+        }
+        if(knowledge.selectedSpell!=null) {
+            tag.setString("selected", knowledge.selectedSpell.getRegName());
         }
         tag.setTag("prepared",writePreppedSpells(knowledge));
         return tag;
@@ -249,6 +269,10 @@ public class MFPlayerKnowledge {
 
     public SpellBase getSelectedSpell() {
         return selectedSpell;
+    }
+
+    public void selectPreparedSpell(SpellBase spell){
+
     }
 
     public Set<SpellBase> getPreparedSpells(int spellLevel) {

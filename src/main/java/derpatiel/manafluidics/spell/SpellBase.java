@@ -1,7 +1,7 @@
 package derpatiel.manafluidics.spell;
 
 import com.google.common.collect.Lists;
-import derpatiel.manafluidics.item.spell.SingleSpellWand;
+import derpatiel.manafluidics.item.cast.SingleSpellWand;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.spell.parameters.SpellParameter;
