@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -36,12 +37,12 @@ public class MagicMissile extends EntityCreatingSpell {
     }
 
     @Override
-    protected Entity getCreatedEntity(World world, EntityPlayer caster, boolean boosted, List<SpellParameterChoices> parameters) {
+    protected Entity getCreatedEntity(World world, EntityPlayer caster, boolean boosted, Collection<SpellParameterChoices> parameters) {
 
         Vec3d casterLook = caster.getLookVec();
         EntityMagicMissile missile = new EntityMagicMissile(world);
         missile.setup(caster,boosted);
-        missile.setTargetingSelector(SpellParameter.getEntityTargetingPredicate(caster,parameters.get(0).selectedOption));
+        missile.setTargetingSelector(SpellParameter.getEntityTargetingPredicate(caster,parameters.iterator().next().selectedOption));
         missile.posX = caster.getPositionEyes(1.0f).xCoord + casterLook.xCoord * 4.0D;
         missile.posY = caster.getPositionEyes(1.0f).yCoord - 0.3f;
         missile.posZ = caster.getPositionEyes(1.0f).zCoord + casterLook.zCoord * 4.0D;

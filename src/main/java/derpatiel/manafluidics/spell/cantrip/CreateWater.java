@@ -11,7 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.Collection;
 
 public class CreateWater extends BlockTargetedSpell {
     public CreateWater() {
@@ -19,7 +19,7 @@ public class CreateWater extends BlockTargetedSpell {
     }
 
     @Override
-    public boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player, boolean boosted, List<SpellParameterChoices> parameters) {
+    public boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player, boolean boosted, Collection<SpellParameterChoices> parameters) {
         BlockPos adjBlockPos = hitBlock.offset(hitFace);
         IBlockState state = world.getBlockState(adjBlockPos);
         if (state.getMaterial() == Material.AIR) {

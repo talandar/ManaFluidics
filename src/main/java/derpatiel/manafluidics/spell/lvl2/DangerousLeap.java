@@ -6,7 +6,7 @@ import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.Collection;
 
 public class DangerousLeap extends SpellBase {
 
@@ -16,7 +16,7 @@ public class DangerousLeap extends SpellBase {
     }
 
     @Override
-    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, List<SpellParameterChoices> parameters) {
+    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, Collection<SpellParameterChoices> parameters) {
         castingPlayer.fallDistance=0;
         castingPlayer.motionY=4;
         return true;

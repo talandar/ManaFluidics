@@ -7,6 +7,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
@@ -19,6 +20,8 @@ public abstract class PagedGui extends GuiContainer {
 
     public static final int WIDTH = 253;
     public static final int HEIGHT = 256;
+
+    public static EntityPlayer accessingPlayer;
 
     private static final ResourceLocation background = new ResourceLocation(ManaFluidics.MODID, ModGUIs.PAGED_GUI_BG_LOC);
 

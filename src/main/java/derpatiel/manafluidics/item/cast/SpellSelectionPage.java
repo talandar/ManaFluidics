@@ -4,13 +4,16 @@ import com.google.common.collect.Lists;
 import derpatiel.manafluidics.block.altar.SpellPrepSelectionPage;
 import derpatiel.manafluidics.gui.PagedGui;
 import derpatiel.manafluidics.gui.PagedGuiPage;
+import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.spell.SpellBase;
 import derpatiel.manafluidics.spell.parameters.SpellParameter;
 import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
+import derpatiel.manafluidics.util.LOG;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.world.NoteBlockEvent;
 
 import java.util.List;
 import java.util.Set;
@@ -36,11 +39,18 @@ public class SpellSelectionPage extends PagedGuiPage {
 
         Set<SpellBase> spells = PlayerKnowledgeHandler.getPlayerKnowledge(player).getPreparedSpells(spellLevel);
         int buttonId=0;
-        int spellNum=0;
         for(SpellBase spell : spells){
             GuiButton button = new SpellSelectGuiButton(buttonId,guiLeft+30,guiTop+10+(25*buttonId), 217,20,spell);
             parent.addButton(button);
             buttonId++;
+            if(!spell.getRequiredParameters().isEmpty()){
+                //has parameters, more buttons!
+                for(SpellParameter reqParam : spell.getRequiredParameters()) {
+                    GuiButton paramButton = new SpellParamSelectGuiButton(buttonId, guiLeft + 40, guiTop + 10 + (25 * buttonId), 207, 20, spell,reqParam);
+                    parent.addButton(paramButton);
+                    buttonId++;
+                }
+            }
         }
 
     }
@@ -56,7 +66,18 @@ public class SpellSelectionPage extends PagedGuiPage {
 
     @Override
     public void actionPerformed(GuiButton button) {
-
+        if(button instanceof SpellSelectGuiButton){
+            LOG.info("click spell button");
+            //TODO
+        }else if(button instanceof SpellParamSelectGuiButton){
+            LOG.info("click param button");
+            SpellParamSelectGuiButton btn = (SpellParamSelectGuiButton)button;
+            SpellParameterChoices choice = PlayerKnowledgeHandler.getPlayerKnowledge(player).getSpellParameters(btn.spell.getRegName()).get(btn.param);
+            SpellParameterChoices replacementChoice = new SpellParameterChoices(choice.options,(choice.selectedOption+1)%choice.options.options.length);
+            PlayerKnowledgeHandler.getPlayerKnowledge(player).setSpellParameter(btn.spell.getRegName(),replacementChoice);
+            btn.choice=replacementChoice.selectedOption;
+            //TODO: send a packet, do this there.
+        }
     }
 
     @Override
@@ -66,6 +87,14 @@ public class SpellSelectionPage extends PagedGuiPage {
 
     @Override
     public void updateScreen() {
+        SpellBase preparedSpell = PlayerKnowledgeHandler.getPlayerKnowledge(player).getSelectedSpell();
+        for(GuiButton btn : parent.getButtonList()){
+            if(btn instanceof SpellSelectGuiButton){
+                btn.enabled = preparedSpell==null || ((SpellSelectGuiButton) btn).spell!=preparedSpell;
+            }else if(btn instanceof SpellParamSelectGuiButton){
+                btn.displayString=((SpellParamSelectGuiButton) btn).calcDisplayString();
+            }
+        }
 
     }
 
@@ -84,11 +113,21 @@ public class SpellSelectionPage extends PagedGuiPage {
         private SpellParameter param;
         private int choice;
 
-        public SpellParamSelectGuiButton(int buttonId, int x, int y, int width, int height, SpellBase spell, SpellParameter param, int choice) {
-            super(buttonId, x, y, width, height, param.getLocalizedChoiceName(choice));
+        public SpellParamSelectGuiButton(int buttonId, int x, int y, int width, int height, SpellBase spell, SpellParameter param) {
+            super(buttonId, x, y, width, height,"");
             this.spell = spell;
             this.param = param;
-            this.choice = choice;
+            MFPlayerKnowledge playerKnowledge = PlayerKnowledgeHandler.getPlayerKnowledge(player);
+            for(SpellParameterChoices paramChoice : playerKnowledge.getSpellParameters(spell.getRegName()).values()){
+                if(paramChoice.options==param){
+                    this.choice=paramChoice.selectedOption;
+                }
+            }
+            this.displayString = calcDisplayString();
+        }
+
+        public String calcDisplayString(){
+            return param.getLocalizedName()+": "+param.getLocalizedChoiceName(choice);
         }
     }
 }

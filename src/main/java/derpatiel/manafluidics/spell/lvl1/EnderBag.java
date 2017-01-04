@@ -6,7 +6,7 @@ import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.Collection;
 
 public class EnderBag extends SpellBase {
     public EnderBag() {
@@ -14,7 +14,7 @@ public class EnderBag extends SpellBase {
     }
 
     @Override
-    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, List<SpellParameterChoices> parameters) {
+    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, Collection<SpellParameterChoices> parameters) {
         castingPlayer.displayGUIChest(castingPlayer.getInventoryEnderChest());
         return true;
     }

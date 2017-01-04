@@ -10,6 +10,7 @@ import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAmbientCreature;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 
 public enum SpellParameter {
@@ -30,7 +31,7 @@ public enum SpellParameter {
         return TextHelper.localize(name);
     }
     public String getLocalizedChoiceName(int choice){
-        return TextHelper.localize(options[choice]);
+        return TextHelper.localize(options[choice%options.length]);
     }
 
 
@@ -45,7 +46,7 @@ public enum SpellParameter {
 
     public static Predicate<Entity> getEntityTargetingPredicate(EntityPlayer caster, int option){
         Predicate<Entity> predicate = entityLivingBase -> {
-            switch(option){
+            switch(option%ENTITY_TARGETING.options.length){
                 case 0:
                     return entityLivingBase instanceof EntityLivingBase && !entityLivingBase.equals(caster);
                 case 1:

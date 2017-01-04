@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class SpellBase {
@@ -34,7 +35,7 @@ public abstract class SpellBase {
     public boolean cast(World worldIn, EntityPlayer castingPlayer, ItemStack castItem){
         MFPlayerKnowledge playerData = PlayerKnowledgeHandler.getPlayerKnowledge(castingPlayer);
         boolean fromItem;
-        List<SpellParameterChoices> parameters;
+        Collection<SpellParameterChoices> parameters;
         if(castItem.getItem() instanceof SingleSpellWand){
             //use item parameters
             //TODO: store parameters on wand when creating wand. this temp hack will work for now...
@@ -42,7 +43,7 @@ public abstract class SpellBase {
             fromItem=true;
         }else{
             //use player parameters
-            parameters = playerData.getSpellParameters(this.regName);
+            parameters = playerData.getSpellParameters(this.regName).values();
             fromItem=false;
         }
         for(SpellParameter reqParam : getRequiredParameters()){
@@ -101,7 +102,7 @@ public abstract class SpellBase {
         }
     }
 
-    public abstract boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted,List<SpellParameterChoices> parameters);
+    public abstract boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, Collection<SpellParameterChoices> parameters);
 
     public List<SpellParameter> getRequiredParameters(){
         return new ArrayList<>();

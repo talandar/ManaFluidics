@@ -9,6 +9,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.Collection;
 import java.util.List;
 
 public class BreathOfWind extends SpellBase {
@@ -19,7 +20,7 @@ public class BreathOfWind extends SpellBase {
     }
 
     @Override
-    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, List<SpellParameterChoices> parameters) {
+    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, Collection<SpellParameterChoices> parameters) {
         AxisAlignedBB effectedBox = castingPlayer.getEntityBoundingBox().expand(5,5,5);
         List<Entity> effectedEntities = worldIn.getEntitiesWithinAABB(Entity.class,effectedBox);
         Vec3d forceDir = castingPlayer.getLook(0);

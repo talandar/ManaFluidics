@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.Collection;
 
 public class HomePortal extends SpellBase {
     public HomePortal() {
@@ -19,7 +19,7 @@ public class HomePortal extends SpellBase {
     }
 
     @Override
-    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, List<SpellParameterChoices> parameters) {
+    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, Collection<SpellParameterChoices> parameters) {
         BlockPos pos = castingPlayer.getBedLocation();
         if(pos!=null) {
             IBlockState bed = worldIn.getBlockState(pos);

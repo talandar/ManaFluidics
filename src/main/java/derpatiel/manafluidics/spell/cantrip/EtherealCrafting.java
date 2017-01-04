@@ -6,14 +6,13 @@ import derpatiel.manafluidics.spell.parameters.SpellParameterChoices;
 import net.minecraft.block.BlockWorkbench;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by Jim on 12/15/2016.
@@ -24,7 +23,7 @@ public class EtherealCrafting extends SpellBase {
     }
 
     @Override
-    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, List<SpellParameterChoices> parameters) {
+    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, Collection<SpellParameterChoices> parameters) {
         castingPlayer.displayGui(new InterfaceEtherealCraftingTable(worldIn));
         castingPlayer.addStat(StatList.CRAFTING_TABLE_INTERACTION);
         return true;

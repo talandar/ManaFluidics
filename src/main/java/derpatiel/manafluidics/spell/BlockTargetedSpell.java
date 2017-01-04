@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.Collection;
 
 public abstract class BlockTargetedSpell extends SpellBase {
 
@@ -18,7 +18,7 @@ public abstract class BlockTargetedSpell extends SpellBase {
     }
 
     @Override
-    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, List<SpellParameterChoices> parameters){
+    public boolean doCast(World worldIn, EntityPlayer castingPlayer, boolean boosted, Collection<SpellParameterChoices> parameters){
         boolean flag = false;
             RayTraceResult result = castingPlayer.rayTrace(spellRange, 1.0f);
             if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
@@ -29,5 +29,5 @@ public abstract class BlockTargetedSpell extends SpellBase {
         return flag;
     }
 
-    public abstract boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player, boolean boosted, List<SpellParameterChoices> parameters);
+    public abstract boolean doCastOnHit(BlockPos hitBlock, EnumFacing hitFace, World world, EntityPlayer player, boolean boosted, Collection<SpellParameterChoices> parameters);
 }

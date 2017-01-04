@@ -1,6 +1,7 @@
 package derpatiel.manafluidics.player;
 
 import com.google.common.collect.Sets;
+import com.sun.istack.internal.NotNull;
 import derpatiel.manafluidics.enums.AltarType;
 import derpatiel.manafluidics.enums.KnowledgeCategory;
 import derpatiel.manafluidics.registry.ModBlocks;
@@ -37,7 +38,7 @@ public class MFPlayerKnowledge {
 
     private Map<KnowledgeCategory,Boolean> knowledgeMap;
 
-    private final Map<String, List<SpellParameterChoices>> storedSpellParams = new HashMap<>();
+    private final Map<String, Map<SpellParameter,SpellParameterChoices>> storedSpellParams = new HashMap<>();
 
     private AltarType lastUsedAltar;
     private int playerLevel=0;
@@ -107,11 +108,11 @@ public class MFPlayerKnowledge {
             String regName = spell.getRegName();
             if(paramsTag.hasKey(regName)){
                 NBTTagCompound selectedParams = paramsTag.getCompoundTag(regName);
-                List<SpellParameterChoices> choices = new ArrayList<>();
+                Map<SpellParameter,SpellParameterChoices> choices = new HashMap<>();
                 for(String paramOrdinalStr : selectedParams.getKeySet()){
                     int paramOrdinal = Integer.parseInt(paramOrdinalStr);
                     int paramChoice = selectedParams.getInteger(paramOrdinalStr);
-                    choices.add(new SpellParameterChoices(SpellParameter.VALUES[paramOrdinal],paramChoice));
+                    choices.put(SpellParameter.VALUES[paramOrdinal],new SpellParameterChoices(SpellParameter.VALUES[paramOrdinal],paramChoice));
                 }
                 knowledge.storedSpellParams.put(regName,choices);
             }
@@ -121,10 +122,12 @@ public class MFPlayerKnowledge {
     private static NBTTagCompound writeSpellParams(MFPlayerKnowledge knowledge){
         NBTTagCompound paramsTag = new NBTTagCompound();
         for(String spellReg : knowledge.storedSpellParams.keySet()){
-            List<SpellParameterChoices> choices = knowledge.storedSpellParams.get(spellReg);
+            Map<SpellParameter,SpellParameterChoices> choices = knowledge.storedSpellParams.get(spellReg);
             NBTTagCompound spellChoicesTag = new NBTTagCompound();
-            for(SpellParameterChoices choice : choices){
-                spellChoicesTag.setInteger(choice.options.ordinal()+"",choice.selectedOption);
+            if(choices!=null) {
+                for (SpellParameter param : choices.keySet()) {
+                    spellChoicesTag.setInteger(param.ordinal() + "", choices.get(param).selectedOption);
+                }
             }
 
             paramsTag.setTag(spellReg,spellChoicesTag);
@@ -263,8 +266,27 @@ public class MFPlayerKnowledge {
         return false;
     }
 
-    public List<SpellParameterChoices> getSpellParameters(String regName) {
+    @NotNull
+    public Map<SpellParameter,SpellParameterChoices> getSpellParameters(String regName) {
+        Map<SpellParameter,SpellParameterChoices> choices = storedSpellParams.get(regName);
+        if(choices==null){
+            choices = new HashMap<>();
+            storedSpellParams.put(regName,choices);
+            SpellBase spell = SpellRegistry.getSpellByRegName(regName);
+            for(SpellParameter reqParam : spell.getRequiredParameters()){
+                choices.put(reqParam,new SpellParameterChoices(reqParam,0));
+            }
+        }
         return storedSpellParams.get(regName);
+    }
+
+    public SpellParameterChoices getParameterChoiceForSpell(String spellRegName,SpellParameter param){
+        return getSpellParameters(spellRegName).get(param);
+
+    }
+
+    public void setSpellParameter(String regName, SpellParameterChoices choice){
+        getSpellParameters(regName).put(choice.options,choice);
     }
 
     public SpellBase getSelectedSpell() {
@@ -272,7 +294,7 @@ public class MFPlayerKnowledge {
     }
 
     public void selectPreparedSpell(SpellBase spell){
-
+        selectedSpell=spell;
     }
 
     public Set<SpellBase> getPreparedSpells(int spellLevel) {
