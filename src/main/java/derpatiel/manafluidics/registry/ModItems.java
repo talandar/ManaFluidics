@@ -35,8 +35,6 @@ public class ModItems {
     public static MFItem debug_wand;
     public static MFItem casting_staff;
 
-    public static List<MFItem> spellWands = new ArrayList<>();
-
     public static void registerItems() {
 
         manaCrystal = register(new MFItem("manacrystal").setCreativeTab(tabFluidics));
@@ -59,11 +57,6 @@ public class ModItems {
         admin_altar_wand = register(new AltarCreatingWand("admin_altar_wand").setCreativeTab(tabFluidics));
         debug_wand = register(new AltarStructureLoggingWand("debug_wand").setCreativeTab(tabFluidics));
         casting_staff = register(new CastingStaff("casting_staff").setCreativeTab(tabFluidics));
-
-        for(SpellBase base : SpellRegistry.spells()){
-            spellWands.add(register(new SingleSpellWand(base.getRegName()+"_wand",base).setCreativeTab(tabFluidics)));
-        }
-
     }
 
     private static MFItem register(MFItem item){

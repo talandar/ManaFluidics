@@ -4,6 +4,9 @@ import com.google.common.collect.Lists;
 import derpatiel.manafluidics.block.altar.SpellPrepSelectionPage;
 import derpatiel.manafluidics.gui.PagedGui;
 import derpatiel.manafluidics.gui.PagedGuiPage;
+import derpatiel.manafluidics.network.MFPacketHandler;
+import derpatiel.manafluidics.network.PacketChangeParam;
+import derpatiel.manafluidics.network.PacketChangeSelection;
 import derpatiel.manafluidics.player.MFPlayerKnowledge;
 import derpatiel.manafluidics.player.PlayerKnowledgeHandler;
 import derpatiel.manafluidics.spell.SpellBase;
@@ -68,6 +71,9 @@ public class SpellSelectionPage extends PagedGuiPage {
     public void actionPerformed(GuiButton button) {
         if(button instanceof SpellSelectGuiButton){
             LOG.info("click spell button");
+            SpellSelectGuiButton btn = (SpellSelectGuiButton)button;
+            PlayerKnowledgeHandler.getPlayerKnowledge(player).selectPreparedSpell(btn.spell);
+            MFPacketHandler.INSTANCE.sendToServer(new PacketChangeSelection(btn.spell.getRegName(),player.getUniqueID()));
             //TODO
         }else if(button instanceof SpellParamSelectGuiButton){
             LOG.info("click param button");
@@ -76,7 +82,7 @@ public class SpellSelectionPage extends PagedGuiPage {
             SpellParameterChoices replacementChoice = new SpellParameterChoices(choice.options,(choice.selectedOption+1)%choice.options.options.length);
             PlayerKnowledgeHandler.getPlayerKnowledge(player).setSpellParameter(btn.spell.getRegName(),replacementChoice);
             btn.choice=replacementChoice.selectedOption;
-            //TODO: send a packet, do this there.
+            MFPacketHandler.INSTANCE.sendToServer(new PacketChangeParam(btn.spell.getRegName(),replacementChoice,player.getUniqueID()));
         }
     }
 

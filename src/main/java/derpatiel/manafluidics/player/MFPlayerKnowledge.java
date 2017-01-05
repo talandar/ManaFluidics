@@ -287,6 +287,7 @@ public class MFPlayerKnowledge {
 
     public void setSpellParameter(String regName, SpellParameterChoices choice){
         getSpellParameters(regName).put(choice.options,choice);
+        dirty=true;
     }
 
     public SpellBase getSelectedSpell() {
@@ -294,7 +295,13 @@ public class MFPlayerKnowledge {
     }
 
     public void selectPreparedSpell(SpellBase spell){
-        selectedSpell=spell;
+        selectedSpell=null;
+        for(Set<SpellBase> spells : preppedSpells.values()){
+            if(spells.contains(spell)){
+                selectedSpell=spell;
+            }
+        }
+        dirty=true;
     }
 
     public Set<SpellBase> getPreparedSpells(int spellLevel) {

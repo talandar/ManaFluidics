@@ -21,6 +21,8 @@ public class MFPacketHandler {
         INSTANCE.registerMessage(PacketChangePrep.Handler.class, PacketChangePrep.class, ID++, Side.SERVER);
         INSTANCE.registerMessage(PacketAltarTypeChange.ClientHandler.class, PacketAltarTypeChange.class, ID++, Side.CLIENT);
         INSTANCE.registerMessage(PacketAltarTypeChange.ServerHandler.class, PacketAltarTypeChange.class, ID++, Side.SERVER);
+        INSTANCE.registerMessage(PacketChangeSelection.Handler.class, PacketChangeSelection.class, ID++, Side.SERVER);
+        INSTANCE.registerMessage(PacketChangeParam.Handler.class, PacketChangeParam.class, ID++, Side.SERVER);
 
     }
 
